@@ -1,15 +1,24 @@
 package com.example.jerry.healemgood;
 
 public class Request {
-    public int getSenderId() {
+    public String getSenderId() {
         return senderId;
     }
 
-    public void setSenderId(int senderId) {
+    public void setSenderId(String senderId) {
         this.senderId = senderId;
     }
 
-    private int senderId;
+    private String senderId;
     private String msg;
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+
 
 }
