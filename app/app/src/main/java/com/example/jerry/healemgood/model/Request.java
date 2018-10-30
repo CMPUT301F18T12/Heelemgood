@@ -1,4 +1,4 @@
-package com.example.jerry.healemgood;
+package com.example.jerry.healemgood.model;
 
 public class Request {
     public String getSenderId() {

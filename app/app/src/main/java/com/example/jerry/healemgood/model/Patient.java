@@ -1,4 +1,4 @@
-package com.example.jerry.healemgood;
+package com.example.jerry.healemgood.model;
 
 import java.util.ArrayList;
 
