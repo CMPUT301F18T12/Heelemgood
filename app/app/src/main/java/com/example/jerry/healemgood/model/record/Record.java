@@ -43,8 +43,6 @@ public class Record {
         return description;
     }
 
-
-
     /* Add photos*/
     public void addPhoto(Photo photo){
         photos.add(photo);

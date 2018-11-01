@@ -1,24 +1,33 @@
 package com.example.jerry.healemgood.model.request;
 
+import com.example.jerry.healemgood.model.user.CareProvider;
+
 public class Request {
-    public String getSenderId() {
-        return senderId;
+    private CareProvider sender;
+    private String message;
+
+    public Request(CareProvider sender, String message) {
+        this.sender = sender;
+        this.message = message;
     }
 
-    public void setSenderId(String senderId) {
-        this.senderId = senderId;
+    /* Get the sender*/
+    public CareProvider getSender() {
+        return sender;
     }
 
-    private String senderId;
-    private String msg;
-    public String getMsg() {
-        return msg;
+    /* Set the sender*/
+    public void setSender(CareProvider sender) {
+        this.sender = sender;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    /* Get the message*/
+    public String getMessage() {
+        return message;
     }
 
-
-
+    /*Set the message*/
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
