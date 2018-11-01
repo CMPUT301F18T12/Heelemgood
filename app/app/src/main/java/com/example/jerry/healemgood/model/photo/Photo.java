@@ -1,4 +1,4 @@
-package com.example.jerry.healemgood.model;
+package com.example.jerry.healemgood.model.photo;
 
 public class Photo {
 
