@@ -73,4 +73,12 @@ public class Record {
     public boolean isPatientRecord() {
         return isPatientRecord;
     }
+
+    public int getrId() {
+        return rId;
+    }
+
+    public void setrId(int rId) {
+        this.rId = rId;
+    }
 }
