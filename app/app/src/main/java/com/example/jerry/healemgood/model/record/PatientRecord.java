@@ -2,6 +2,10 @@ package com.example.jerry.healemgood.model.record;
 
 import android.location.Location;
 
+/**
+ * This is the class for patient record
+ * It inherits from the base class Record
+ * */
 public class PatientRecord extends Record {
 
     private Location geoLocation;

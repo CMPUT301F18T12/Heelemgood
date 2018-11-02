@@ -6,6 +6,9 @@ import com.example.jerry.healemgood.model.problem.Problem;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * It is the class for patients
+ * It inherits from the base class User*/
 public class Patient extends User {
 
     private ArrayList<String> problemIds;
