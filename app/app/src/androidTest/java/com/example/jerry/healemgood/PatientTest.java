@@ -41,7 +41,7 @@ public class PatientTest {
         assertEquals(male_p.getGender(),'F');
     }
     @Test
-    public void patientAddRequest(){
+    public void patientAddRequestTest(){
         String userid = "userid";
         String password = "password";
         String name = "Joey Wong";
@@ -58,7 +58,8 @@ public class PatientTest {
         assertEquals(male_p.getRequestByIndex(0),r);
         assertEquals(male_p.getRequestByIndex(1),r);
     }
-    public void patientDeleteRequest(){
+    @Test
+    public void patientDeleteRequestTest(){
         String userid = "userid";
         String password = "password";
         String name = "Joey Wong";
@@ -77,7 +78,8 @@ public class PatientTest {
         male_p.deleteRequest(0);
         assertEquals(male_p.getRequests().size(),0);
     }
-    public  void patientGetRequest(){
+    @Test
+    public  void patientGetRequestTest(){
         String userid = "userid";
         String password = "password";
         String name = "Joey Wong";

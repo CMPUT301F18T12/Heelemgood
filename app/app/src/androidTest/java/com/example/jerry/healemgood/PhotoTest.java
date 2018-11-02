@@ -4,23 +4,38 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.example.jerry.healemgood.model.photo.Photo;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
- * Instrumented test, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Photo Test
+ * 1. photoConstructorTest: The class constructors and getters and setters.
+ * @author tw
+ * @version 1.0.0
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class PhotoTest {
     @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
+    public void photoConstructorTest() {
+        String path = "/local";
+        int width = 120;
+        int height = 240;
 
-        assertEquals("com.example.jerry.healemgood", appContext.getPackageName());
+        Photo photo = new Photo(path, width, height);
+        assertEquals(path,photo.getPath());
+        assertEquals(width, photo.getWidth());
+        assertEquals(height, photo.getHeight());
+
+        photo.setPath("/new");
+        photo.setHeight(64);
+        photo.setWidth(128);
+
+        assertEquals("/new",photo.getPath());
+        assertEquals(64, photo.getHeight());
+        assertEquals(128, photo.getWidth());
     }
 }

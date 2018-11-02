@@ -1,41 +1,70 @@
 package com.example.jerry.healemgood;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.example.jerry.healemgood.model.photo.Photo;
+import com.example.jerry.healemgood.model.problem.Problem;
+import com.example.jerry.healemgood.model.record.Record;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
- * Photo Test
- * 1. photoConstructorTest: The class constructors and getters and setters.
+ * Problem Test
+ * 1. problemConstructorTest: The class constructors and getters and setters
+ * 2. problemRecordTest: Tests related with records contained in a problem
  * @author tw
  * @version 1.0.0
  */
 @RunWith(AndroidJUnit4.class)
-public class PhotoTest {
+public class ProblemTest {
     @Test
-    public void photoConstructorTest() {
-        String path = "/local";
-        int width = 120;
-        int height = 240;
+    public void problemConstructorTest() {
+        int pid = 1;
+        String title = "Test";
+        Date date = new Date();
 
-        Photo photo = new Photo(path, width, height);
-        assertEquals(path,photo.getPath());
-        assertEquals(width, photo.getWidth());
-        assertEquals(height, photo.getHeight());
+        Problem problem = new Problem(pid, title, date);
+        assertEquals(pid,problem.getpId());
+        assertEquals(title,problem.getTitle());
+        assertEquals(date,problem.getCreatedDate());
 
-        photo.setPath("/new");
-        photo.setHeight(64);
-        photo.setWidth(128);
+        pid = 2;
+        title = "Test2";
+        date = new Date();
+        problem.setpId(pid);
+        problem.setTitle(title);
+        problem.setCreatedDate(date);
+        assertEquals(pid,problem.getpId());
+        assertEquals(title,problem.getTitle());
+        assertEquals(date,problem.getCreatedDate());
+    }
 
-        assertEquals("/new",photo.getPath());
-        assertEquals(64, photo.getHeight());
-        assertEquals(128, photo.getWidth());
+    @Test
+    public void problemRecordTest() {
+        int pid = 1;
+        String title = "Test";
+        Date date = new Date();
+        Problem problem = new Problem(pid, title, date);
+
+        Record record = new Record(pid,title,true);
+        Record record2 = new Record(pid+1,"Test2",false);
+        problem.addRecord(record);
+        problem.addRecord(record2);
+
+        ArrayList<Record> records = problem.getRecords();
+        assertTrue(records.contains(record));
+        assertTrue(records.contains(record2));
+
+        assertEquals(record2, problem.getRecordByIndex(1));
+
+        problem.deleteRecord(0);
+        assertEquals(record2, problem.getRecordByIndex(0));
     }
 }
