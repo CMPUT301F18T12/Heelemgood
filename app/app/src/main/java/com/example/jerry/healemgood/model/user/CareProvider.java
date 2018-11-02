@@ -11,6 +11,7 @@ public class CareProvider extends User {
 
     public CareProvider(String userId, String password, String fullName, String phoneNum, String email, Date birthday, char gender) {
         super(userId, password, fullName, phoneNum, email, birthday, gender);
+        this.patientUserIds = new ArrayList<String>();
 
     }
 
@@ -29,6 +30,5 @@ public class CareProvider extends User {
         return patientUserIds.get(index);
     }
 
-
-
+    public void removePatientUserId(String patientUserId){patientUserIds.remove(patientUserId);}
 }

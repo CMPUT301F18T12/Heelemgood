@@ -15,7 +15,8 @@ public class Problem {
     public Problem(int pId, String title, Date date) {
         this.pId = pId;
         this.title = title;
-        createdDate = date; // The createdDate of a problem should be the date of the first record
+        this.createdDate = date; // The createdDate of a problem should be the date of the first record
+        this.records = new ArrayList<Record>();
     }
 
     /*Get the problem id*/

@@ -8,33 +8,37 @@ import java.util.Date;
 
 public class Patient extends User {
 
-    private ArrayList<Problem> problems;
+    private ArrayList<String> problemIds;
     private ArrayList<String> careProviderUserIds; // The userId list of the care providers
     private ArrayList<Request> requests;
 
     public Patient(String userId, String password, String fullName, String phoneNum, String email, Date birthday, char gender) {
         super(userId, password, fullName, phoneNum, email, birthday, gender);
+        this.problemIds = new ArrayList<String>();
+        this.careProviderUserIds = new ArrayList<String>();
+        this.requests = new ArrayList<Request>();
+
     }
 
-    /* Get all the problems*/
-    public ArrayList<Problem> getProblems() {
-        return problems;
+    /* Get all the problems ids*/
+    public ArrayList<String> getProblemIds() {
+        return problemIds;
     }
 
-    /*Add new problem*/
-    public void addProblem(Problem problem) {
-        problems.add(problem);
+    /*Add new problem id*/
+    public void addProblemId(String problemId) {
+        problemIds.add(problemId);
     }
 
-    /* Get single problem by index */
-    public Problem getProblemByIndex(int index) {
-        return problems.get(index);
+    /* Get single problem id by index */
+    public String getProblemIdByIndex(int index) {
+        return problemIds.get(index);
     }
 
-    /* Remove one problem*/
-    public void deleteProblem(int index) {
-        if (index < problems.size()) {
-            problems.remove(index);
+    /* Remove one problem id*/
+    public void deleteProblemId(int index) {
+        if (index < problemIds.size()) {
+            problemIds.remove(index);
         }
     }
 

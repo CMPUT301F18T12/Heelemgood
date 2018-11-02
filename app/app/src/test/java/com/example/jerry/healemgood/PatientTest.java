@@ -1,6 +1,5 @@
 package com.example.jerry.healemgood;
 
-import android.support.test.runner.AndroidJUnit4;
 
 import com.example.jerry.healemgood.model.request.Request;
 import com.example.jerry.healemgood.model.user.CareProvider;
@@ -12,11 +11,8 @@ import org.junit.runner.RunWith;
 
 import java.util.Date;
 
-import javax.annotation.Nullable;
-
 import static org.junit.Assert.assertEquals;
 
-@RunWith(AndroidJUnit4.class)
 public class PatientTest {
     @Test
     public void patientConstructTest(){
@@ -38,7 +34,7 @@ public class PatientTest {
         assertEquals(male_p.getRequests().size(),0);
         gender='F';
         Patient female_p =new Patient(userid,password,name,phoneNum,email,birthday,gender);
-        assertEquals(male_p.getGender(),'F');
+        assertEquals(female_p.getGender(),'F');
     }
     @Test
     public void patientAddRequestTest(){

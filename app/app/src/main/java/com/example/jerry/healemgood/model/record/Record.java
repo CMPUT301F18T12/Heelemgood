@@ -21,6 +21,7 @@ public class Record {
         this.rId = rId;
         this.createdDate = new Date();
         this.isPatientRecord = isPatientRecord;
+        this.photos = new ArrayList<Photo>();
     }
 
     /* Set the title*/
