@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * User Test
@@ -20,6 +21,10 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 public class UserTest {
+    @Test
+    public void test() {
+        assertTrue(true);
+    }
     /*
     @Test
     public void userConstructorTest() {
