@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
  * Record Test
  * 1. recordConstructorTest: The class constructors and getters and setters.
  * @author tw
- * @version 1.0.0
+ * @version 1.0.1
  */
 @RunWith(AndroidJUnit4.class)
 public class RecordTest {
@@ -34,7 +34,7 @@ public class RecordTest {
         assertEquals(record.getTitle(), title);
         assertEquals(record.getrId(), rId);
 
-        String description = "abc";
+        String description = "This is a description";
         record.setDescription(description);
         assertEquals(record.getDescription(), description);
 

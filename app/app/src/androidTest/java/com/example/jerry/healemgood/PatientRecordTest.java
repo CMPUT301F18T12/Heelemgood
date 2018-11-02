@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
  * 1. patientRecordConstructorTest: The class constructors and getters and setters.
  * 2. locationTest: Tests related to the geo-location contained by a patientRecord
  * @author tw
- * @version 1.0.0
+ * @version 1.0.1
  */
 @RunWith(AndroidJUnit4.class)
 public class PatientRecordTest {
@@ -38,7 +38,7 @@ public class PatientRecordTest {
         assertEquals(record.getTitle(), title);
         assertEquals(record.getrId(), rId);
 
-        String description = "abc";
+        String description = "Test record";
         record.setDescription(description);
         assertEquals(record.getDescription(), description);
 

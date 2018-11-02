@@ -15,13 +15,13 @@ import static org.junit.Assert.assertEquals;
  * Photo Test
  * 1. photoConstructorTest: The class constructors and getters and setters.
  * @author tw
- * @version 1.0.0
+ * @version 1.0.1
  */
 @RunWith(AndroidJUnit4.class)
 public class PhotoTest {
     @Test
     public void photoConstructorTest() {
-        String path = "/local";
+        String path = "/local/example.png";
         int width = 120;
         int height = 240;
 
@@ -30,11 +30,11 @@ public class PhotoTest {
         assertEquals(width, photo.getWidth());
         assertEquals(height, photo.getHeight());
 
-        photo.setPath("/new");
+        photo.setPath("/new/example2/png");
         photo.setHeight(64);
         photo.setWidth(128);
 
-        assertEquals("/new",photo.getPath());
+        assertEquals("/new/example2.png",photo.getPath());
         assertEquals(64, photo.getHeight());
         assertEquals(128, photo.getWidth());
     }

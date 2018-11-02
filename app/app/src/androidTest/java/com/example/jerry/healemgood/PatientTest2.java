@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
  * 3. problemsTest: Tests related to the problems contained in a patient
  * 4. careProvidersTest: Tests related to the careProviders contained in a patient
  * @author tw
- * @version 1.0.0
+ * @version 1.0.1
  */
 @RunWith(AndroidJUnit4.class)
 public class PatientTest2 {
@@ -83,11 +83,11 @@ public class PatientTest2 {
         Patient user = new Patient(userId, password, fullName, phoneNum, email, birthday, gender);
 
         String id = "Blue Jack";
-        String msg = "abc";
+        String msg = "Hey, doctor here!";
         Request request = new Request(id, msg);
 
         id = "White Jack";
-        msg = "edg";
+        msg = "Hello? please accept me.";
         Request request2 = new Request(id, msg);
 
         user.addRequest(request);
@@ -114,27 +114,20 @@ public class PatientTest2 {
 
         Patient user = new Patient(userId, password, fullName, phoneNum, email, birthday, gender);
 
-        int pid = 1;
-        String title = "Test";
-        Date date = new Date();
-        Problem problem = new Problem(pid, title, date);
+        String prolemId1 = "Test";
+        String problemId2 = "Test2";
 
-        pid = 2;
-        title = "Test2";
-        date = new Date();
-        Problem problem2 = new Problem(pid, title, date);
+        user.addProblemId(prolemId1);
+        user.addProblemId(problemId2);
 
-        user.addProblem(problem);
-        user.addProblem(problem2);
+        ArrayList<String> problems = user.getProblemIds();
+        assertTrue(problems.contains(prolemId1));
+        assertTrue(problems.contains(problemId2));
+        assertEquals(problemId2, user.getCareProviderUserIdByIndex(1));
+        assertEquals(prolemId1, user.getCareProviderUserIdByIndex(0));
 
-        ArrayList<Problem> problems = user.getProblems();
-        assertTrue(problems.contains(problem));
-        assertTrue(problems.contains(problem2));
-        assertEquals(problem2, user.getProblemByIndex(1));
-        assertEquals(problem, user.getProblemByIndex(0));
-
-        user.deleteProblem(0);
-        assertEquals(problem2,user.getProblemByIndex(0));
+        user.deleteProblemId(0);
+        assertEquals(problemId2,user.getCareProviderUserIdByIndex(0));
     }
 
     public void careProvidersTest() {
