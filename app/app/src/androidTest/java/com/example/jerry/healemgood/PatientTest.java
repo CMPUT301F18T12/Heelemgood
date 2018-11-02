@@ -51,7 +51,7 @@ public class PatientTest {
         char gender = 'M';
         Patient male_p =new Patient(userid,password,name,phoneNum,email,birthday,gender);
         assertEquals(male_p.getRequests().size(),0);
-        String cp =2;
+        String cp ="2";
         Request r = new Request(cp,":(");
         Request r2 = new Request(cp, ":)");
         male_p.addRequest(r2);
