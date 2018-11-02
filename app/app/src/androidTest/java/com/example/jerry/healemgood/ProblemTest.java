@@ -2,7 +2,6 @@ package com.example.jerry.healemgood;
 
 import android.support.test.runner.AndroidJUnit4;
 
-import com.example.jerry.healemgood.model.photo.Photo;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
 
@@ -20,7 +19,7 @@ import static org.junit.Assert.assertTrue;
  * 1. problemConstructorTest: The class constructors and getters and setters
  * 2. problemRecordTest: Tests related with records contained in a problem
  * @author tw
- * @version 1.0.0
+ * @version 1.0.1
  */
 @RunWith(AndroidJUnit4.class)
 public class ProblemTest {
@@ -35,15 +34,15 @@ public class ProblemTest {
         assertEquals(title,problem.getTitle());
         assertEquals(date,problem.getCreatedDate());
 
-        pid = 2;
-        title = "Test2";
-        date = new Date();
-        problem.setpId(pid);
-        problem.setTitle(title);
-        problem.setCreatedDate(date);
-        assertEquals(pid,problem.getpId());
-        assertEquals(title,problem.getTitle());
-        assertEquals(date,problem.getCreatedDate());
+        int pid2 = 2;
+        String title2 = "Test2";
+        Date date2 = new Date();
+        problem.setpId(pid2);
+        problem.setTitle(title2);
+        problem.setCreatedDate(date2);
+        assertEquals(pid2,problem.getpId());
+        assertEquals(title2,problem.getTitle());
+        assertEquals(date2,problem.getCreatedDate());
     }
 
     @Test

@@ -1,14 +1,10 @@
 package com.example.jerry.healemgood;
 
 import android.location.Location;
-import android.location.LocationProvider;
-import android.os.Parcel;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.example.jerry.healemgood.model.photo.Photo;
 import com.example.jerry.healemgood.model.record.PatientRecord;
-import com.example.jerry.healemgood.model.record.Record;
-import com.example.jerry.healemgood.model.user.CareProvider;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +20,7 @@ import static org.junit.Assert.assertTrue;
  * 1. patientRecordConstructorTest: The class constructors and getters and setters.
  * 2. locationTest: Tests related to the geo-location contained by a patientRecord
  * @author tw
- * @version 1.0.1
+ * @version 1.0.2
  */
 @RunWith(AndroidJUnit4.class)
 public class PatientRecordTest {
@@ -37,6 +33,13 @@ public class PatientRecordTest {
 
         assertEquals(record.getTitle(), title);
         assertEquals(record.getrId(), rId);
+
+        int rId2 = 2;
+        String title2 = "Test2";
+        record.setrId(rId2);
+        record.setTitle(title2);
+        assertEquals(record.getTitle(), title2);
+        assertEquals(record.getrId(), rId2);
 
         String description = "Test record";
         record.setDescription(description);

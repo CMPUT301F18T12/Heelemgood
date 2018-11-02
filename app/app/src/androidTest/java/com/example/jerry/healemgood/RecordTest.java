@@ -4,7 +4,6 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.example.jerry.healemgood.model.photo.Photo;
 import com.example.jerry.healemgood.model.record.Record;
-import com.example.jerry.healemgood.model.user.User;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +18,7 @@ import static org.junit.Assert.assertTrue;
  * Record Test
  * 1. recordConstructorTest: The class constructors and getters and setters.
  * @author tw
- * @version 1.0.1
+ * @version 1.0.2
  */
 @RunWith(AndroidJUnit4.class)
 public class RecordTest {
@@ -33,6 +32,13 @@ public class RecordTest {
 
         assertEquals(record.getTitle(), title);
         assertEquals(record.getrId(), rId);
+
+        int rId2 = 2;
+        String title2 = "Test2";
+        record.setrId(rId2);
+        record.setTitle(title2);
+        assertEquals(record.getTitle(), title2);
+        assertEquals(record.getrId(), rId2);
 
         String description = "This is a description";
         record.setDescription(description);

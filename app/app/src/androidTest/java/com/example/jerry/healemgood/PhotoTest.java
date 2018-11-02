@@ -1,7 +1,5 @@
 package com.example.jerry.healemgood;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.example.jerry.healemgood.model.photo.Photo;
@@ -15,7 +13,7 @@ import static org.junit.Assert.assertEquals;
  * Photo Test
  * 1. photoConstructorTest: The class constructors and getters and setters.
  * @author tw
- * @version 1.0.1
+ * @version 1.0.2
  */
 @RunWith(AndroidJUnit4.class)
 public class PhotoTest {
@@ -30,7 +28,7 @@ public class PhotoTest {
         assertEquals(width, photo.getWidth());
         assertEquals(height, photo.getHeight());
 
-        photo.setPath("/new/example2/png");
+        photo.setPath("/new/example2.png");
         photo.setHeight(64);
         photo.setWidth(128);
 

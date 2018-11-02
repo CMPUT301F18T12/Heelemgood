@@ -2,9 +2,7 @@ package com.example.jerry.healemgood;
 
 import android.support.test.runner.AndroidJUnit4;
 
-import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.request.Request;
-import com.example.jerry.healemgood.model.user.CareProvider;
 import com.example.jerry.healemgood.model.user.Patient;
 
 import org.junit.Test;
@@ -23,7 +21,7 @@ import static org.junit.Assert.assertTrue;
  * 3. problemsTest: Tests related to the problems contained in a patient
  * 4. careProvidersTest: Tests related to the careProviders contained in a patient
  * @author tw
- * @version 1.0.1
+ * @version 1.0.2
  */
 @RunWith(AndroidJUnit4.class)
 public class PatientTest2 {
@@ -46,29 +44,29 @@ public class PatientTest2 {
         assertEquals(user.getBirthday(), birthday);
         assertEquals(user.getGender(), gender);
 
-        userId = "jackb1";
-        password = "12345677";
-        fullName = "White Jack";
-        phoneNum = "7806425672";
-        email = "jack2@realmail.com";
-        birthday = new Date();
-        gender = 'F';
+        String userId2 = "jackb1";
+        String password2 = "12345677";
+        String fullName2 = "White Jack";
+        String phoneNum2 = "7806425672";
+        String email2 = "jack2@realmail.com";
+        Date birthday2 = new Date();
+        char gender2 = 'F';
 
-        user.setUserId(userId);
-        user.setPassword(password);
-        user.setFullName(fullName);
-        user.setPhoneNum(phoneNum);
-        user.setEmail(email);
-        user.setBirthday(birthday);
-        user.setGender(gender);
+        user.setUserId(userId2);
+        user.setPassword(password2);
+        user.setFullName(fullName2);
+        user.setPhoneNum(phoneNum2);
+        user.setEmail(email2);
+        user.setBirthday(birthday2);
+        user.setGender(gender2);
 
-        assertEquals(user.getUserId(), userId);
-        assertEquals(user.getPassword(), password);
-        assertEquals(user.getFullName(), fullName);
-        assertEquals(user.getPhoneNum(), phoneNum);
-        assertEquals(user.getEmail(), email);
-        assertEquals(user.getBirthday(), birthday);
-        assertEquals(user.getGender(), gender);
+        assertEquals(user.getUserId(), userId2);
+        assertEquals(user.getPassword(), password2);
+        assertEquals(user.getFullName(), fullName2);
+        assertEquals(user.getPhoneNum(), phoneNum2);
+        assertEquals(user.getEmail(), email2);
+        assertEquals(user.getBirthday(), birthday2);
+        assertEquals(user.getGender(), gender2);
     }
 
     public void requestsTest() {
