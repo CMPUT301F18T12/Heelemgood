@@ -9,7 +9,7 @@ import java.util.Date;
 public class Patient extends User {
 
     private ArrayList<Problem> problems;
-    private ArrayList<CareProvider> careProviders;
+    private ArrayList<String> careProviderUserIds; // The userId list of the care providers
     private ArrayList<Request> requests;
 
     public Patient(String userId, String password, String fullName, String phoneNum, String email, Date birthday, char gender) {
@@ -39,18 +39,18 @@ public class Patient extends User {
     }
 
     /* Get all the care providers */
-    public ArrayList<CareProvider> getCareProviders() {
-        return careProviders;
+    public ArrayList<String> getCareProviderUserIds() {
+        return careProviderUserIds;
     }
 
     /* Add one care provider */
-    public void addCareProvider(CareProvider careProvider) {
-        careProviders.add(careProvider);
+    public void addCareProvider(String careProviderUserId) {
+        careProviderUserIds.add(careProviderUserId);
     }
 
     /* Get one care provider by index */
-    public CareProvider getCareProviderByIndex(int index) {
-        return careProviders.get(index);
+    public String getCareProviderUserIdByIndex(int index) {
+        return careProviderUserIds.get(index);
     }
 
     /*Get all the requests*/

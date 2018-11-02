@@ -7,26 +7,26 @@ import java.util.Date;
 
 public class CareProvider extends User {
 
-    private ArrayList<Patient> patients;
+    private ArrayList<String> patientUserIds; // The user id list of all the patients belongs to this care provider
 
     public CareProvider(String userId, String password, String fullName, String phoneNum, String email, Date birthday, char gender) {
         super(userId, password, fullName, phoneNum, email, birthday, gender);
 
     }
 
-    /* Get all the patients */
-    public ArrayList<Patient> getPatients() {
-        return patients;
+    /* Get all the patients user id*/
+    public ArrayList<String> getPatients() {
+        return patientUserIds;
     }
 
-    /* Add patient*/
-    public void addPatient(Patient patient) {
-        patients.add(patient);
+    /* Add patient user id*/
+    public void addPatient(String patientUserId) {
+        patientUserIds.add(patientUserId);
     }
 
-    /* Get one patient by index */
-    public Patient getPatientByIndex(int index) {
-        return patients.get(index);
+    /* Get one patient user id by index */
+    public String getPatientUserIdByIndex(int index) {
+        return patientUserIds.get(index);
     }
 
 

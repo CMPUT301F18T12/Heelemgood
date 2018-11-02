@@ -3,22 +3,22 @@ package com.example.jerry.healemgood.model.request;
 import com.example.jerry.healemgood.model.user.CareProvider;
 
 public class Request {
-    private CareProvider sender;
+    private String senderUserId;
     private String message;
 
-    public Request(CareProvider sender, String message) {
-        this.sender = sender;
+    public Request(String senderUserId, String message) {
+        this.senderUserId = senderUserId;
         this.message = message;
     }
 
-    /* Get the sender*/
-    public CareProvider getSender() {
-        return sender;
+    /* Get the sender user id*/
+    public String getSenderUserId() {
+        return senderUserId;
     }
 
     /* Set the sender*/
-    public void setSender(CareProvider sender) {
-        this.sender = sender;
+    public void setSenderUserId(String senderUserId) {
+        this.senderUserId = senderUserId;
     }
 
     /* Get the message*/
