@@ -5,6 +5,10 @@ import com.example.jerry.healemgood.model.photo.Photo;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * This is the base class for record
+ * contains basic information that a record should have
+ * */
 public class Record {
 
     /* Record ID*/

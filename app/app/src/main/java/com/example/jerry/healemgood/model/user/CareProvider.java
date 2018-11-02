@@ -5,6 +5,9 @@ import com.example.jerry.healemgood.model.user.User;
 import java.util.ArrayList;
 import java.util.Date;
 
+/** It is the class for care provider
+ * It inherits from the base class User
+ * */
 public class CareProvider extends User {
 
     private ArrayList<String> patientUserIds; // The user id list of all the patients belongs to this care provider
