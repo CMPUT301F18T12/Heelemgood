@@ -15,12 +15,12 @@ public class CareProvider extends User {
     }
 
     /* Get all the patients user id*/
-    public ArrayList<String> getPatients() {
+    public ArrayList<String> getPatientsUserIds() {
         return patientUserIds;
     }
 
     /* Add patient user id*/
-    public void addPatient(String patientUserId) {
+    public void addPatientUserId(String patientUserId) {
         patientUserIds.add(patientUserId);
     }
 

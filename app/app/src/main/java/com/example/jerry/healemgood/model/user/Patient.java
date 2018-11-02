@@ -38,13 +38,13 @@ public class Patient extends User {
         }
     }
 
-    /* Get all the care providers */
+    /* Get all the care providers' user id*/
     public ArrayList<String> getCareProviderUserIds() {
         return careProviderUserIds;
     }
 
-    /* Add one care provider */
-    public void addCareProvider(String careProviderUserId) {
+    /* Add one care provider user id*/
+    public void addCareProviderUserId(String careProviderUserId) {
         careProviderUserIds.add(careProviderUserId);
     }
 
