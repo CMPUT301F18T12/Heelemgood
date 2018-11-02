@@ -3,6 +3,8 @@ package com.example.jerry.healemgood;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.example.jerry.healemgood.model.problem.Problem;
+import com.example.jerry.healemgood.model.record.CareProviderRecord;
+import com.example.jerry.healemgood.model.record.PatientRecord;
 import com.example.jerry.healemgood.model.record.Record;
 
 import org.junit.Test;
@@ -19,7 +21,7 @@ import static org.junit.Assert.assertTrue;
  * 1. problemConstructorTest: The class constructors and getters and setters
  * 2. problemRecordTest: Tests related with records contained in a problem
  * @author tw
- * @version 1.0.2
+ * @version 1.0.3
  */
 @RunWith(AndroidJUnit4.class)
 public class ProblemTest {
@@ -55,8 +57,8 @@ public class ProblemTest {
         Date date = new Date();
         Problem problem = new Problem(pid, title, date);
 
-        Record record = new Record(pid,title,true);
-        Record record2 = new Record(pid+1,"Test2",false);
+        Record record = new PatientRecord(pid,title);
+        Record record2 = new CareProviderRecord(pid+1,"Test2");
         problem.addRecord(record);
         problem.addRecord(record2);
 
