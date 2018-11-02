@@ -17,11 +17,13 @@ import static org.junit.Assert.assertTrue;
 /**
  * Record Test
  * 1. recordConstructorTest: The class constructors and getters and setters.
+ * @deprecated
  * @author tw
- * @version 1.0.3
+ * @version 1.0.4
  */
 @RunWith(AndroidJUnit4.class)
 public class RecordTest {
+    /*
     @Test
     public void recordConstructorTest() {
         // constructor and getters
@@ -68,4 +70,5 @@ public class RecordTest {
         // isPatientRecord
         assertTrue(record.isPatientRecord());
     }
+    */
 }

@@ -9,7 +9,7 @@ import java.util.Date;
  * This is the base class for record
  * contains basic information that a record should have
  * */
-public class Record {
+public abstract class Record {
 
     /* Record ID*/
     private int rId;
@@ -25,7 +25,7 @@ public class Record {
         this.rId = rId;
         this.createdDate = new Date();
         this.isPatientRecord = isPatientRecord;
-        this.photos = new ArrayList<Photo>();
+        this.photos = new ArrayList<>();
     }
 
     /* Set the title*/
