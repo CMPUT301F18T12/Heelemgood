@@ -30,6 +30,5 @@ public class CareProvider extends User {
         return patientUserIds.get(index);
     }
 
-
-
+    public void removePatientUserId(String patientUserId){patientUserIds.remove(patientUserId);}
 }
