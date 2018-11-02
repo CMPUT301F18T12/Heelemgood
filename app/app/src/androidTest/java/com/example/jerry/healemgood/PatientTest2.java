@@ -21,12 +21,13 @@ import static org.junit.Assert.assertTrue;
  * 3. problemsTest: Tests related to the problems contained in a patient
  * 4. careProvidersTest: Tests related to the careProviders contained in a patient
  * @author tw
- * @version 1.0.2
+ * @version 1.0.3
  */
 @RunWith(AndroidJUnit4.class)
 public class PatientTest2 {
     @Test
     public void userConstructorTest() {
+        // constructor and getters
         String userId = "jackb0";
         String password = "12345678";
         String fullName = "Black Jack";
@@ -44,6 +45,7 @@ public class PatientTest2 {
         assertEquals(user.getBirthday(), birthday);
         assertEquals(user.getGender(), gender);
 
+        // setters and getters
         String userId2 = "jackb1";
         String password2 = "12345677";
         String fullName2 = "White Jack";
@@ -70,6 +72,7 @@ public class PatientTest2 {
     }
 
     public void requestsTest() {
+        // request ArrayList tests
         String userId = "jackb0";
         String password = "12345678";
         String fullName = "Black Jack";
@@ -102,6 +105,7 @@ public class PatientTest2 {
     }
 
     public void problemTest() {
+        // problem ArrayList test
         String userId = "jackb0";
         String password = "12345678";
         String fullName = "Black Jack";
@@ -129,6 +133,7 @@ public class PatientTest2 {
     }
 
     public void careProvidersTest() {
+        // careProvider ArrayList tests
         String userId = "jackb0";
         String password = "12345678";
         String fullName = "Black Jack";

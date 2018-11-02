@@ -18,12 +18,13 @@ import static org.junit.Assert.assertTrue;
  * 1. careProviderConstructorTest: The class constructors and getters and setters.
  * 2. patientsTest: Tests related to the patients contained by a care provider
  * @author tw
- * @version 1.0.1
+ * @version 1.0.2
  */
 @RunWith(AndroidJUnit4.class)
 public class CareProviderTest {
     @Test
     public void userConstructorTest() {
+        // constructors and getters
         String userId = "jackb0";
         String password = "12345678";
         String fullName = "Black Jack";
@@ -41,6 +42,7 @@ public class CareProviderTest {
         assertEquals(user.getBirthday(), birthday);
         assertEquals(user.getGender(), gender);
 
+        // setters and getters
         String userId2 = "jackb1";
         String password2 = "12345677";
         String fullName2 = "White Jack";
@@ -67,6 +69,7 @@ public class CareProviderTest {
     }
 
     public void patientsTest() {
+        // ArrayList of pids tests
         String userId = "jackb0";
         String password = "12345678";
         String fullName = "Black Jack";
@@ -87,6 +90,7 @@ public class CareProviderTest {
         assertEquals(user.getPatientUserIdByIndex(0), pid1);
         assertEquals(user.getPatientUserIdByIndex(1), pid2);
 
-        // Deletion ?
+        user.removePatientUserId(pid1);
+        assertEquals(user.getPatientUserIdByIndex(1), pid1);
     }
 }

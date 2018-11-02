@@ -13,12 +13,13 @@ import static org.junit.Assert.assertEquals;
  * Request Test
  * 1. requestConstructorTest: The class constructors and getters and setters.
  * @author tw
- * @version 1.0.2
+ * @version 1.0.3
  */
 @RunWith(AndroidJUnit4.class)
 public class RequestTest {
     @Test
     public void requestConstructorTest() {
+        // constructor and getters
         String id = "Black Jack";
         String msg = "Hello, accept me!";
 
@@ -26,6 +27,7 @@ public class RequestTest {
         assertEquals(request.getMessage(), msg);
         assertEquals(request.getSenderUserId(), id);
 
+        // setters and getters
         String id2 = "White Jack";
         String msg2 = "I am a real doctor";
         request.setSenderUserId(id2);

@@ -19,12 +19,13 @@ import static org.junit.Assert.assertTrue;
  * 1. problemConstructorTest: The class constructors and getters and setters
  * 2. problemRecordTest: Tests related with records contained in a problem
  * @author tw
- * @version 1.0.1
+ * @version 1.0.2
  */
 @RunWith(AndroidJUnit4.class)
 public class ProblemTest {
     @Test
     public void problemConstructorTest() {
+        // constructor and getters
         int pid = 1;
         String title = "Test";
         Date date = new Date();
@@ -34,6 +35,7 @@ public class ProblemTest {
         assertEquals(title,problem.getTitle());
         assertEquals(date,problem.getCreatedDate());
 
+        // setters and getters
         int pid2 = 2;
         String title2 = "Test2";
         Date date2 = new Date();
@@ -47,6 +49,7 @@ public class ProblemTest {
 
     @Test
     public void problemRecordTest() {
+        // problemRecord ArrayList test
         int pid = 1;
         String title = "Test";
         Date date = new Date();

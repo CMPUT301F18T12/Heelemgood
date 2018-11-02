@@ -15,12 +15,13 @@ import static org.junit.Assert.assertEquals;
  * User Test
  * 1. userConstructorTest: The class constructors and getters and setters.
  * @author tw
- * @version 1.0.1
+ * @version 1.0.2
  */
 @RunWith(AndroidJUnit4.class)
 public class UserTest {
     @Test
     public void userConstructorTest() {
+        // constructor and getters
         String userId = "jackb0";
         String password = "12345678";
         String fullName = "Black Jack";
@@ -38,6 +39,7 @@ public class UserTest {
         assertEquals(user.getBirthday(), birthday);
         assertEquals(user.getGender(), gender);
 
+        // setters and getters
         String userId2 = "jackb1";
         String password2 = "12345677";
         String fullName2 = "White Jack";
