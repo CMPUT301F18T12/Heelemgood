@@ -21,10 +21,6 @@ import io.searchbox.core.SearchResult;
 
 public class ProblemController {
     private static JestDroidClient client=null;
-    public static void createProblem(Problem p) {
-
-    }
-
     /**
      * Create a problem in the database and assigned a JestID to it
      */
@@ -96,6 +92,25 @@ public class ProblemController {
         }
     }
 
+    /**
+     * Update the problem in the DB, assuming the problem passed exist in the current DB
+     * @params the modified problem
+     * (Note: Do not modify the Problem Id, otherwise it will create a new problem instead)
+     */
+    public static class UpdateProblemTask extends AsyncTask<Problem,Void,Void>{
+        @Override
+        protected Void doInBackground(Problem... problems) {
+            setClient();
+            Problem problem = problems[0];
+            Index index = new Index.Builder(problem).index("Name-Jeff").type("problem").id(problem.getpId()).build();
+            try{
+                DocumentResult result = client.execute(index);
+            }catch(IOException e){
+                Log.d("Name-Jeff"," IOexception when updating the problem");
+            }
+            return null;
+        }
+    }
     /**
      * Create client
      */
