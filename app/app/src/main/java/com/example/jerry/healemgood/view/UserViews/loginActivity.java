@@ -1,7 +1,7 @@
-package com.example.jerry.healemgood.view;
+package com.example.jerry.healemgood.view.UserViews;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.jerry.healemgood.R;
 
