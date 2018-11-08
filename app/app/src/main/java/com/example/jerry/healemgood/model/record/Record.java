@@ -5,14 +5,27 @@ import com.example.jerry.healemgood.model.photo.Photo;
 import java.util.ArrayList;
 import java.util.Date;
 
+import io.searchbox.annotations.JestId;
+
 /**
  * This is the base class for record
  * contains basic information that a record should have
  * */
-public abstract class Record {
+public class Record {
 
     /* Record ID*/
-    private int rId;
+    @JestId
+    private String rId;
+
+    public String getpId() {
+        return pId;
+    }
+
+    public void setpId(String pId) {
+        this.pId = pId;
+    }
+
+    private String pId;
     private String title;
     private String description;
     private ArrayList<Photo> photos;
@@ -20,9 +33,15 @@ public abstract class Record {
     /* This is a boolean var to determine whether this record is a patient record or care provider record*/
     private boolean isPatientRecord;
 
-    public Record(int rId,String title, boolean isPatientRecord){
+    /**
+     * A problem have to be created before this record can be created;
+     * @param pid
+     * @param title
+     * @param isPatientRecord
+     */
+    public Record(String pid,String title, boolean isPatientRecord){
+        this.pId = pid;
         this.title = title;
-        this.rId = rId;
         this.createdDate = new Date();
         this.isPatientRecord = isPatientRecord;
         this.photos = new ArrayList<>();
@@ -79,11 +98,11 @@ public abstract class Record {
         return isPatientRecord;
     }
 
-    public int getrId() {
+    public String getrId() {
         return rId;
     }
 
-    public void setrId(int rId) {
+    public void setrId(String rId) {
         this.rId = rId;
     }
 }
