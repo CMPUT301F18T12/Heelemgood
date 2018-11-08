@@ -24,6 +24,10 @@ public class ProblemController {
     public static void createProblem(Problem p) {
 
     }
+
+    /**
+     * Create a problem in the database and assigned a JestID to it
+     */
     public static class CreateProblemTask extends AsyncTask<Problem,Void,Void> {
 
         protected Void doInBackground(Problem... problems) {
@@ -40,8 +44,11 @@ public class ProblemController {
             }
             return null;
         }
-
     }
+
+    /**
+     * Delete a problem base on the id(JestID)
+     */
     public static class DeleteProblemTask extends AsyncTask<String,Void,Void> {
 
         protected Void doInBackground(String... pids) {
@@ -57,18 +64,22 @@ public class ProblemController {
             }
             return null;
         }
-
     }
 
     /***
+     * Seach for a list of problems by the title name
      * @params Search query:String
      * @return list of problems that fit the search query: ArrayList<Problem>
      */
 
     public static class SearchProblemTask extends AsyncTask<String,Void,ArrayList<Problem>> {
-        protected ArrayList<Problem> doInBackground(String... querys) {
+        protected ArrayList<Problem> doInBackground(String... titles) {
             setClient();
-            String query = querys[0];
+            String query = "{\n" +
+                    "    \"query\": {\n" +
+                    "        \"match\" :{ \"message\" : \""+titles[0]+"\"}\n"+
+                    "    }\n" +
+                    "}";
             ArrayList<Problem> problems = new ArrayList<Problem>();
             Search search = new Search.Builder(query).addIndex("Name-Jeff").addType("problem").build();
             try{
@@ -85,6 +96,9 @@ public class ProblemController {
         }
     }
 
+    /**
+     * Create client
+     */
     public static void setClient(){
         if(client==null){
             DroidClientConfig config = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080/").build();
