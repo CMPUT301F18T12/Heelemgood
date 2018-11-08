@@ -1,5 +1,9 @@
 package com.example.jerry.healemgood.model.photo;
 
+/**
+ * This is the class for Photo
+ * patients and care providers can take photos and put them in records
+ * */
 public class Photo {
 
     private String path;

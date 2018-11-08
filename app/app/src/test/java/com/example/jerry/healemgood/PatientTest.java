@@ -1,6 +1,8 @@
 package com.example.jerry.healemgood;
 
 
+import android.util.Log;
+
 import com.example.jerry.healemgood.model.request.Request;
 import com.example.jerry.healemgood.model.user.CareProvider;
 import com.example.jerry.healemgood.model.user.Patient;
@@ -37,7 +39,7 @@ public class PatientTest {
         assertEquals(female_p.getGender(),'F');
     }
     @Test
-    public void patientAddRequest(){
+    public void patientAddRequestTest(){
         String userid = "userid";
         String password = "password";
         String name = "Joey Wong";
@@ -50,11 +52,13 @@ public class PatientTest {
         String cp ="2";
         Request r = new Request(cp,":(");
         Request r2 = new Request(cp, ":)");
+        male_p.addRequest(r);
         male_p.addRequest(r2);
         assertEquals(male_p.getRequestByIndex(0),r);
-        assertEquals(male_p.getRequestByIndex(1),r);
+        assertEquals(male_p.getRequestByIndex(1),r2);
     }
-    public void patientDeleteRequest(){
+    @Test
+    public void patientDeleteRequestTest(){
         String userid = "userid";
         String password = "password";
         String name = "Joey Wong";
@@ -67,13 +71,15 @@ public class PatientTest {
         String cp ="2";
         Request r = new Request(cp,":(");
         Request r2 = new Request(cp, ":)");
+        male_p.addRequest(r);
         male_p.addRequest(r2);
         male_p.deleteRequest(0);
         assertEquals(male_p.getRequests().size(),1);
         male_p.deleteRequest(0);
         assertEquals(male_p.getRequests().size(),0);
     }
-    public  void patientGetRequest(){
+    @Test
+    public  void patientGetRequestTest(){
         String userid = "userid";
         String password = "password";
         String name = "Joey Wong";
@@ -86,6 +92,8 @@ public class PatientTest {
         String cp ="2a";
         Request r = new Request(cp,":(");
         Request r2 = new Request(cp, ":)");
+        male_p.addRequest(r);
+        male_p.addRequest(r2);
         assertEquals(male_p.getRequestByIndex(0),r);
         assertEquals(male_p.getRequestByIndex(1),r2);
     }

@@ -2,7 +2,11 @@ package com.example.jerry.healemgood.model.user;
 
 import java.util.Date;
 
-public class User {
+/**
+ * This is the class for user
+ * It is a base class contains common info for both patients and care providers
+ * */
+public abstract class User {
 
     private String userId;
     private String password;
@@ -12,7 +16,7 @@ public class User {
     private Date birthday;
     private char gender;
 
-    public User(String userId, String password, String fullName, String phoneNum, String email, Date birthday, char gender){
+    User(String userId, String password, String fullName, String phoneNum, String email, Date birthday, char gender){
 
         this.userId = userId;
         this.password = password;

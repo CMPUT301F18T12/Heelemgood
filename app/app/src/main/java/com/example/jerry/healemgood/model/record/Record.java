@@ -5,7 +5,11 @@ import com.example.jerry.healemgood.model.photo.Photo;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Record {
+/**
+ * This is the base class for record
+ * contains basic information that a record should have
+ * */
+public abstract class Record {
 
     /* Record ID*/
     private int rId;
@@ -21,7 +25,7 @@ public class Record {
         this.rId = rId;
         this.createdDate = new Date();
         this.isPatientRecord = isPatientRecord;
-        this.photos = new ArrayList<Photo>();
+        this.photos = new ArrayList<>();
     }
 
     /* Set the title*/
@@ -73,5 +77,13 @@ public class Record {
     /* a method to know whether it is a patient record or doctor record*/
     public boolean isPatientRecord() {
         return isPatientRecord;
+    }
+
+    public int getrId() {
+        return rId;
+    }
+
+    public void setrId(int rId) {
+        this.rId = rId;
     }
 }

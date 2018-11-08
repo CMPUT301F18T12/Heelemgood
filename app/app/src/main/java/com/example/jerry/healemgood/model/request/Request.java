@@ -2,6 +2,12 @@ package com.example.jerry.healemgood.model.request;
 
 import com.example.jerry.healemgood.model.user.CareProvider;
 
+/**
+ * This is the class for request
+ * A request is a message that care provider sends to patients in order to get the permission to treat the patient
+ * Patients can accept it or reject a request
+ * */
+
 public class Request {
     private String senderUserId;
     private String message;

@@ -2,13 +2,17 @@ package com.example.jerry.healemgood.model.record;
 
 import android.location.Location;
 
+/**
+ * This is the class for patient record
+ * It inherits from the base class Record
+ * */
 public class PatientRecord extends Record {
 
     private Location geoLocation;
     private int bodyLocation;
 
-    public PatientRecord(int rId, String title,boolean isPatientRecord){
-        super(rId,title,isPatientRecord);
+    public PatientRecord(int rId, String title){
+        super(rId,title,true);
     }
 
     /*Set the geo-location*/

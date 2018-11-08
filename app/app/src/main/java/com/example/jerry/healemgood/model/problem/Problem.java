@@ -5,6 +5,10 @@ import com.example.jerry.healemgood.model.record.Record;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * This is the class for problem
+ * Problem contains records
+ * */
 public class Problem {
 
     private int pId;
