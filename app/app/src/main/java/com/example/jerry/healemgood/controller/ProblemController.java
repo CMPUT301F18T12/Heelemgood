@@ -13,7 +13,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.searchbox.client.JestResult;
 import io.searchbox.core.Delete;
+import io.searchbox.core.DeleteByQuery;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -43,17 +45,31 @@ public class ProblemController {
     }
 
     /**
-     * Delete a problem base on the id(JestID)
+     * Delete a problem base on the id(JestID), and removed corresponding records from DB2
      */
-    public static class DeleteProblemTask extends AsyncTask<String,Void,Void> {
+    public static class DeleteProblemTask extends AsyncTask<Problem,Void,Void> {
 
-        protected Void doInBackground(String... pids) {
-            String pid = pids[0];
+        protected Void doInBackground(Problem... problems) {
+            String pid = problems[0].getpId();
             Delete delete = new Delete.Builder(pid).index("Name-Jeff").type("problem").build();
+            String query = "{\n" +
+                    "    \"query\": {\n" +
+                    "        \"constant\" :{ \n"+
+                    "           \"term\" :{ \n"+
+                    "               \"pId\" :\""+pid+"\"\n"+
+                    "            }\n"+
+                    "         }\n"+
+                    "    }\n" +
+                    "}";
+            DeleteByQuery deleteRecord = new DeleteByQuery.Builder(query).addIndex("Name-Jeff").addType("problem").build();
             try{
                 DocumentResult result = client.execute(delete);
+                JestResult result2 = client.execute(deleteRecord);
                 if(result.isSucceeded()){
                     Log.d("Name-Jeff","Problem removed");
+                }
+                if(result2.isSucceeded()){
+                    Log.d("Name-Jeff","Records removed");
                 }
             }catch(IOException e){
                 Log.d("Joey Error"," IOexception when executing client");

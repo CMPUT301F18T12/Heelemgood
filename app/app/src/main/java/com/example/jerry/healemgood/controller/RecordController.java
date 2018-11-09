@@ -25,7 +25,7 @@ public class RecordController {
     private static JestDroidClient client=null;
 
     /**]
-     * This will create a record in the database, and add the problemID(auto generated) to the corresponding
+     * This will create a record in the database
      * problem in the database
      *
      * @params record
@@ -41,13 +41,13 @@ public class RecordController {
                 if(result.isSucceeded()){
                     record.setrId(result.getId());
                 }
-                ///Append the recordIds to the problem in DB
+                /*Append the recordIds to the problem in DB
                 String query = "{\n" +
                         "    \"script\": {\n" +
                         "        \"inline\" :{ \"ctx._source.recordsIDs\" : \""+result.getId()+"\"}\n"+
                         "    }\n" +
                         "}";
-                Update update = new Update.Builder(query).index("Name-Jeff").type("problem").id(record.getpId()).build();
+                Update update = new Update.Builder(query).index("Name-Jeff").type("problem").id(record.getpId()).build();*/
             }catch(IOException e){
                 Log.d("Name-Jeff"," IOexception when executing client");
             }
@@ -108,6 +108,7 @@ public class RecordController {
             return records;
         }
     }
+
     public static class GetRecordsByProblemIdTask extends AsyncTask<String,Void,ArrayList<Record>> {
         protected ArrayList<Record> doInBackground(String... piDs) {
             setClient();
@@ -131,7 +132,7 @@ public class RecordController {
             return records;
         }
     }
-    
+
     /**
      * Create client
      */
