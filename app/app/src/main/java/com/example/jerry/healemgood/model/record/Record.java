@@ -1,7 +1,12 @@
 package com.example.jerry.healemgood.model.record;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import com.example.jerry.healemgood.model.photo.Photo;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -28,7 +33,7 @@ public class Record {
     private String pId;
     private String title;
     private String description;
-    private ArrayList<Photo> photos;
+    private ArrayList<String> photos;
     private Date createdDate;
     /* This is a boolean var to determine whether this record is a patient record or care provider record*/
     private boolean isPatientRecord;
@@ -67,19 +72,40 @@ public class Record {
         return description;
     }
 
-    /* Add photos*/
-    public void addPhoto(Photo photo){
-        photos.add(photo);
+    /**
+     * Add photos to the list, converting it into base64 format
+     * See : https://stackoverflow.com/questions/4830711/how-to-convert-a-image-into-base64-string
+     *
+     */
+    public void addPhoto(String imgPath){
+        Bitmap src=BitmapFactory.decodeFile(imgPath);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        src.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte [] b = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+        photos.add(encodedImage);
     }
 
-    /* Get photo collection*/
-    public ArrayList<Photo> getPhotos() {
+    /**
+     *  Get photo collection
+     *  See https://stackoverflow.com/questions/4837110/how-to-convert-a-base64-string-into-a-bitmap-image-to-show-it-in-a-imageview
+     */
+    public ArrayList<Bitmap> getPhotos() {
+        ArrayList<Bitmap> photos = new ArrayList<Bitmap>();
+        for (String imgString: this.photos){
+            byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            photos.add(decodedByte);
+        }
         return photos;
     }
 
     /* Get photo by id*/
-    public Photo getPhotoById(int id){
-        return photos.get(id);
+    public Bitmap getPhotoById(int id){
+        String imgString = this.photos.get(id);
+        byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        return decodedByte;
     }
 
 

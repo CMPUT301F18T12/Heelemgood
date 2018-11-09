@@ -26,8 +26,6 @@ public class RecordController {
 
     /**]
      * This will create a record in the database
-     * problem in the database
-     *
      * @params record
      */
     public static class CreateRecordTask extends AsyncTask<Record,Void,Void> {
@@ -51,19 +49,17 @@ public class RecordController {
             }catch(IOException e){
                 Log.d("Name-Jeff"," IOexception when executing client");
             }
-
-
             return null;
         }
     }
 
     /**
-     * Delete a record base on the id(JestID)
+     * Delete a record from DB
      */
-    public static class DeleteRecordTask extends AsyncTask<String,Void,Void> {
+    public static class DeleteRecordTask extends AsyncTask<Record,Void,Void> {
 
-        protected Void doInBackground(String... rids) {
-            String rid = rids[0];
+        protected Void doInBackground(Record... records) {
+            String rid = records[0].getrId();
             Delete delete = new Delete.Builder(rid).index("Name-Jeff").type("record").build();
             try{
                 DocumentResult result = client.execute(delete);
