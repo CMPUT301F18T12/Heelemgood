@@ -2,9 +2,12 @@ package com.example.jerry.healemgood.model.record;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.util.Base64;
 
 import com.example.jerry.healemgood.model.photo.Photo;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -37,7 +40,9 @@ public class Record {
     private Date createdDate;
     /* This is a boolean var to determine whether this record is a patient record or care provider record*/
     private boolean isPatientRecord;
-
+    // Added here for simplicity, since elasticsearch might require all documents to have the same field
+    protected LatLng geoLocation;
+    protected int bodyLocation;
     /**
      * A problem have to be created before this record can be created;
      * @param pid
@@ -130,5 +135,18 @@ public class Record {
 
     public void setrId(String rId) {
         this.rId = rId;
+    }
+
+    /*Set the geo-location
+    * * See https://developers.google.com/places/android-sdk/placepicker
+    * */
+    public void setGeoLocation(Place place) {
+        this.geoLocation= place.getLatLng();
+    }
+
+    /*Get the geo-location
+     * */
+    public LatLng getGeoLocation() {
+        return this.geoLocation;
     }
 }
