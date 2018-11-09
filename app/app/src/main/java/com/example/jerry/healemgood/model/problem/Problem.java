@@ -5,31 +5,32 @@ import com.example.jerry.healemgood.model.record.Record;
 import java.util.ArrayList;
 import java.util.Date;
 
+import io.searchbox.annotations.JestId;
+
 /**
  * This is the class for problem
  * Problem contains records
  * */
 public class Problem {
-
-    private int pId;
+    @JestId
+    private String pId;
     private String title;
     private ArrayList<Record> records;
     private Date createdDate;
 
-    public Problem(int pId, String title, Date date) {
-        this.pId = pId;
+    public Problem(String title, Date date) {
         this.title = title;
         this.createdDate = date; // The createdDate of a problem should be the date of the first record
         this.records = new ArrayList<Record>();
     }
 
     /*Get the problem id*/
-    public int getpId() {
+    public String getpId() {
         return pId;
     }
 
     /*Set the problem id*/
-    public void setpId(int pId) {
+    public void setpId(String pId) {
         this.pId = pId;
     }
 
