@@ -1,5 +1,6 @@
 package com.example.jerry.healemgood.controller;
 
+import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
