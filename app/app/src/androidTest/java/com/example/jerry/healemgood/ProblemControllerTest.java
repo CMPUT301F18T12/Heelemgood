@@ -1,6 +1,7 @@
 package com.example.jerry.healemgood;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 
 import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.model.problem.Problem;
@@ -34,12 +35,21 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
     }
     public void testCreateProblem(){
         boolean temp2=true;
-        try{
-            String text = "finally got it working";
-            Problem p = new Problem(text,new Date());
-            new ProblemController.CreateProblemTask().execute(p);
+        String text = "cant get it working";
+        System.out.println(text);
+        Problem p = new Problem(text,new Date());
+        try {
+            new ProblemController.CreateProblemTask().execute(p).get();
         }catch(Exception e){
-            temp2 = false;
+
         }
+        Problem p2=null;
+        try {
+            p2 = new ProblemController.GetProblemByIdTask().execute(p.getpId()).get();
+        }catch(Exception e){
+            temp2=false;
+        }
+        assertTrue(temp2);
     }
+
 }
