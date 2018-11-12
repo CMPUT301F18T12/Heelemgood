@@ -4,23 +4,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:enabled="true"
-        android:title="@string/home"
-        android:visible="true" />
+        android:id="@+id/navigation_home"
+        android:icon="@android:drawable/ic_menu_today"
+        android:title="@string/home" />
     <item
-        android:enabled="true"
-        android:title="@string/history"
-        android:visible="true" />
+        android:id="@+id/navigation_history"
+        android:icon="@android:drawable/ic_menu_recent_history"
+        android:title="@string/history" />
     <item
-        android:enabled="true"
-        android:title="@string/request"
-        android:visible="true" />
+        android:id="@+id/navigation_request"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:title="@string/request" />
     <item
-        android:enabled="true"
-        android:title="@string/search"
-        android:visible="true" />
+        android:id="@+id/navigation_search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="@string/search" />
     <item
-        android:enabled="true"
-        android:title="@string/user"
-        android:visible="true" />
+        android:id="@+id/navigation_user"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="@string/user" />
 </menu>

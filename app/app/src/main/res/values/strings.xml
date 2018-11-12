@@ -14,7 +14,10 @@
     <string name="request">Request</string>
     <string name="search">Search</string>
     <string name="user">User</string>
-    <string name="avatar">Avatar</string>
     <string name="home">Home</string>
+    <string name="quick_view">Quick View</string>
+    <string name="create_record">Create Record</string>
+    <string name="continue">Continue</string>
+    <string name="body_map_to_click">click body map</string>
 
 </resources>
