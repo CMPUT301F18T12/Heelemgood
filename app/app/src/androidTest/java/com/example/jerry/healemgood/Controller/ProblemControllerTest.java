@@ -1,10 +1,12 @@
-package com.example.jerry.healemgood;
+package com.example.jerry.healemgood.Controller;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 
+import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.model.problem.Problem;
+import com.google.gson.Gson;
 import com.robotium.solo.Solo;
 
 import java.util.Date;
@@ -31,7 +33,7 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
         boolean temp2=true;
         String text = "cant get it working";
         System.out.println(text);
-        Problem p = new Problem(text,new Date());
+        Problem p = new Problem(text,new Date(),"asdasdasdasdasd");
         try {
             new ProblemController.CreateProblemTask().execute(p).get();
         }catch(Exception e){
@@ -43,12 +45,15 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
         }catch(Exception e){
             temp2=false;
         }
-        assertTrue(temp2);
+        assertNotNull(p2);
+        String objectString1 = new Gson().toJson(p);
+        String objectString2 = new Gson().toJson(p2);
+        assertEquals(objectString1,objectString2);
     }
     public void testUpdateProblem(){
         String text = "Just another test";
         System.out.println(text);
-        Problem p = new Problem(text,new Date());
+        Problem p = new Problem(text,new Date(),"dgdg_sdcv@sds");
         try {
             new ProblemController.CreateProblemTask().execute(p).get();
         }catch(Exception e){
@@ -72,7 +77,7 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
     public void testDeleteProblem(){
         String text = "Just another test";
         System.out.println(text);
-        Problem p = new Problem(text,new Date());
+        Problem p = new Problem(text,new Date(),"sdsadsfdfdsf");
         try {
             new ProblemController.CreateProblemTask().execute(p).get();
         }catch(Exception e){

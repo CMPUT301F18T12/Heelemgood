@@ -17,6 +17,7 @@ import java.util.List;
 
 import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
+import io.searchbox.core.Get;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
@@ -26,6 +27,26 @@ public class RecordController {
     private static JestDroidClient client=null;
     private static String indexName = "cmput301f18t12";
     private static String searchQuery;
+
+    /**
+     * Get recor
+     */
+    public static class  GetRecordByIdTask extends AsyncTask<String,Void,Record>{
+        protected Record doInBackground(String... rids){
+            setClient();
+            Record r= null;
+            String rid = rids[0];
+            Get get = new Get.Builder(indexName, rid).type("record").build();
+            try{
+                DocumentResult result = client.execute(get);
+                r = result.getSourceAsObject(Record.class);
+            }catch(Exception e){
+                Log.d("Name-Jeff","Fail to get record by id");
+            }
+            return r;
+        }
+    }
+
     /**
      * This will create a record in the database
      * @params record

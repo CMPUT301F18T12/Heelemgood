@@ -39,7 +39,6 @@ public class ProblemController {
             String id = ids[0];
             Get get = new Get.Builder(indexName, id).type("problem").build();
             try{
-
                 DocumentResult result = client.execute(get);
                 Problem p  = result.getSourceAsObject(Problem.class);
                 return p;
