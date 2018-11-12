@@ -12,16 +12,25 @@ import io.searchbox.annotations.JestId;
  * Problem contains records
  * */
 public class Problem {
+    //pid is auto generated when problem is added to DB
     @JestId
     private String pId;
+    //Title of the problem
     private String title;
-    private ArrayList<String> recordsIDs;
     private Date createdDate;
 
-    public Problem(String title, Date date) {
+    //Id of the patient who created this problem
+    private String userId;
+
+    /**
+     * @param title     Title of the problem
+     * @param date      The date when this problem is created
+     * @param userId    The patient who created this problem
+     */
+    public Problem(String title, Date date,String userId) {
         this.title = title;
         this.createdDate = date; // The createdDate of a problem should be the date of the first record
-        this.recordsIDs = new ArrayList<String>();
+        this.userId =userId;
     }
 
     /*Get the problem id*/
@@ -53,26 +62,8 @@ public class Problem {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
-
-    /*Add record into records*/
-    public void addRecordIDs(String record) {
-        recordsIDs.add(record);
-    }
-
-    /* delete a record*/
-    public void deleteRecord(int index) {
-        if (index < recordsIDs.size()){
-            recordsIDs.remove(index);
-        }
-    }
-
-    /*Get all the records*/
-    public ArrayList<String> getRecords() {
-        return recordsIDs;
-    }
-
-    /*Get a single record*/
-    public String getRecordByIndex(int index) {
-        return recordsIDs.get(index);
+    
+    public String getUserId() {
+        return userId;
     }
 }
