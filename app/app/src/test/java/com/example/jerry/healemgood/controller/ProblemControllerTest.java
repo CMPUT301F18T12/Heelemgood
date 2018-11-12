@@ -39,7 +39,8 @@ public class ProblemControllerTest {
     @Test
     public void updateProblemTest(){
         try {
-            new ProblemController.UpdateProblemTask().execute();
+            Problem p =new Problem("My neck feel stringy",new Date());
+            new ProblemController.UpdateProblemTask().execute(p);
         }catch(Exception e){
 
         }
