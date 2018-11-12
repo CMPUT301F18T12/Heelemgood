@@ -32,7 +32,7 @@ public class ProblemTest {
         String title = "Test";
         Date date = new Date();
 
-        Problem problem = new Problem(pid, title, date);
+        Problem problem = new Problem(title, date);
         assertEquals(pid,problem.getpId());
         assertEquals(title,problem.getTitle());
         assertEquals(date,problem.getCreatedDate());
@@ -41,7 +41,6 @@ public class ProblemTest {
         int pid2 = 2;
         String title2 = "Test2";
         Date date2 = new Date();
-        problem.setpId(pid2);
         problem.setTitle(title2);
         problem.setCreatedDate(date2);
         assertEquals(pid2,problem.getpId());
@@ -49,26 +48,5 @@ public class ProblemTest {
         assertEquals(date2,problem.getCreatedDate());
     }
 
-    @Test
-    public void problemRecordTest() {
-        // problemRecord ArrayList test
-        int pid = 1;
-        String title = "Test";
-        Date date = new Date();
-        Problem problem = new Problem(pid, title, date);
 
-        Record record = new PatientRecord(pid,title);
-        Record record2 = new CareProviderRecord(pid+1,"Test2");
-        problem.addRecord(record);
-        problem.addRecord(record2);
-
-        ArrayList<Record> records = problem.getRecords();
-        assertTrue(records.contains(record));
-        assertTrue(records.contains(record2));
-
-        assertEquals(record2, problem.getRecordByIndex(1));
-
-        problem.deleteRecord(0);
-        assertEquals(record2, problem.getRecordByIndex(0));
-    }
 }

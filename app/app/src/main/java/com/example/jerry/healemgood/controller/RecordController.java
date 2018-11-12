@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
+import com.google.android.gms.location.places.Place;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
@@ -23,7 +24,8 @@ import io.searchbox.core.Update;
 
 public class RecordController {
     private static JestDroidClient client=null;
-
+    private static String indexName = "cmput301f18t12";
+    private static String searchQuery;
     /**]
      * This will create a record in the database
      * @params record
@@ -33,19 +35,12 @@ public class RecordController {
         protected Void doInBackground(Record... records) {
             setClient();
             Record record = records[0];
-            Index index = new Index.Builder(record).index("Name-Jeff").type("record").build();
+            Index index = new Index.Builder(record).index(indexName).type("record").build();
             try{
                 DocumentResult result = client.execute(index);
                 if(result.isSucceeded()){
                     record.setrId(result.getId());
                 }
-                /*Append the recordIds to the problem in DB
-                String query = "{\n" +
-                        "    \"script\": {\n" +
-                        "        \"inline\" :{ \"ctx._source.recordsIDs\" : \""+result.getId()+"\"}\n"+
-                        "    }\n" +
-                        "}";
-                Update update = new Update.Builder(query).index("Name-Jeff").type("problem").id(record.getpId()).build();*/
             }catch(IOException e){
                 Log.d("Name-Jeff"," IOexception when executing client");
             }
@@ -60,7 +55,7 @@ public class RecordController {
 
         protected Void doInBackground(Record... records) {
             String rid = records[0].getrId();
-            Delete delete = new Delete.Builder(rid).index("Name-Jeff").type("record").build();
+            Delete delete = new Delete.Builder(rid).index(indexName).type("record").build();
             try{
                 DocumentResult result = client.execute(delete);
                 if(result.isSucceeded()){
@@ -82,15 +77,8 @@ public class RecordController {
     public static class SearchRecordTask extends AsyncTask<String,Void,ArrayList<Record>> {
         protected ArrayList<Record> doInBackground(String... keywords) {
             setClient();
-            String query = "{\n" +
-                    "    \"query\": {\n" +
-                    "        \"multi_match\" :{ \n"+
-                    "               \"query\": \""+keywords[0]+"\",\n"+
-                    "               \"fields\": [ \"title\",\"description\"]\n"+
-                    "    }\n" +
-                    "}";
             ArrayList<Record> records = new ArrayList<Record>();
-            Search search = new Search.Builder(query).addIndex("Name-Jeff").addType("record").build();
+            Search search = new Search.Builder(searchQuery).addIndex(indexName).addType("record").build();
             try{
                 SearchResult result = client.execute(search);
                 if(result.isSucceeded()){
@@ -101,20 +89,71 @@ public class RecordController {
             }catch(IOException e){
                 Log.d("Joey Error"," IOexception when executing client");
             }
+            searchQuery="";
             return records;
         }
     }
+
+    public static void initSearchQuery(){
+        String query = "{\n" +
+                "    \"query\" : {\n" +
+                "    \"bool\" : {\n" +
+                "        \"must\" [\n"
+                ;
+        searchQuery=query;
+    }
+    public static void searchByKeyword(String keyword){
+        if(keyword!="") {
+            searchQuery += "   {\"multi_match\" : {\n" +
+                    "   \"query\": \""+keyword+"\", \n"+
+                    "   \"fields\": [\"title\",\"description\"] \n"+
+                    "   }\n"+
+                    " }\n";
+        }
+    }
+    public static void searchByBodyLocation(int location){
+        if (location>=0){
+            searchQuery += "   {\"term\" : {\n" +
+                    "   \"bodyLocation\": \""+String.valueOf(location)+"\", \n"+
+                    "       }\n"+
+                    "   }\n";
+
+        }
+    }
+    //distance is in km
+    public static void searchByGeoLocation(Place place,int distance){
+        double Lat = place.getLatLng().latitude;
+        double Lon = place.getLatLng().longitude;
+        searchQuery += "   {\"geo_location\" : {\n" +
+                "               \"distance\": \""+String.valueOf(distance)+"km\", \n"+
+                "                   \"geoLocation\": { \n"+
+                "                   \"latitude\": " +String.valueOf(Lat) +", \n"+
+                "                   \"longitude\": " +String.valueOf(Lon) +"\n"+
+                "                   }\n"+
+                "       }\n"+
+                "   }\n";
+    }
+
+    public static void finalizeSearchQuery(){
+        searchQuery += "]\n"+
+                "           }\n"+
+                "           }\n"+
+                "}";
+
+    }
+
+
 
     public static class GetRecordsByProblemIdTask extends AsyncTask<String,Void,ArrayList<Record>> {
         protected ArrayList<Record> doInBackground(String... piDs) {
             setClient();
             String query = "{\n" +
                     "    \"query\": {\n" +
-                    "        \"match_phrase\" :{ \"pId\" : \""+piDs[0]+"\"}\n"+
+                    "        \"term\" :{ \"pId\" : \""+piDs[0]+"\"}\n"+
                     "    }\n" +
                     "}";
             ArrayList<Record> records = new ArrayList<Record>();
-            Search search = new Search.Builder(query).addIndex("Name-Jeff").addType("record").build();
+            Search search = new Search.Builder(query).addIndex(indexName).addType("record").build();
             try{
                 SearchResult result = client.execute(search);
                 if(result.isSucceeded()){
@@ -140,4 +179,7 @@ public class RecordController {
             client=(JestDroidClient)factory.getObject();
         }
     }
+    /**
+     * provide client
+     */
 }

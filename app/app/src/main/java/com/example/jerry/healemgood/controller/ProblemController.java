@@ -115,7 +115,7 @@ public class ProblemController {
             setClient();
             String query = "{\n" +
                     "    \"query\": {\n" +
-                    "        \"match\" :{ \"message\" : \""+titles[0]+"\"}\n"+
+                    "        \"match\" :{ \"title\" : \""+titles[0]+"\"}\n"+
                     "    }\n" +
                     "}";
             ArrayList<Problem> problems = new ArrayList<Problem>();

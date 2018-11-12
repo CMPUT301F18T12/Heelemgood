@@ -27,12 +27,6 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
         solo.finishOpenedActivities();
     }
 
-    public void testTweet() {
-        solo.assertCurrentActivity("wrong activity", MainActivity.class);
-    }
-    public void testEqual(){
-        assertEquals("Not equal",5,5);
-    }
     public void testCreateProblem(){
         boolean temp2=true;
         String text = "cant get it working";
@@ -51,5 +45,50 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
         }
         assertTrue(temp2);
     }
+    public void testUpdateProblem(){
+        String text = "Just another test";
+        System.out.println(text);
+        Problem p = new Problem(text,new Date());
+        try {
+            new ProblemController.CreateProblemTask().execute(p).get();
+        }catch(Exception e){
+
+        }
+        String title = "New title";
+        p.setTitle(title);
+        try{
+            new ProblemController.UpdateProblemTask().execute(p).get();
+        }catch(Exception e){
+
+        }
+        Problem p2=null;
+        try {
+            p2 = new ProblemController.GetProblemByIdTask().execute(p.getpId()).get();
+        }catch(Exception e){
+        }
+        assertEquals(p2.getTitle(),title);
+    }
+
+    public void testDeleteProblem(){
+        String text = "Just another test";
+        System.out.println(text);
+        Problem p = new Problem(text,new Date());
+        try {
+            new ProblemController.CreateProblemTask().execute(p).get();
+        }catch(Exception e){
+        }
+        //delete problem
+        try{
+            new ProblemController.DeleteProblemTask().execute(p).get();
+        }catch (Exception e){}
+        //check if problem still in database
+        Problem p2=null;
+        try {
+            p2 = new ProblemController.GetProblemByIdTask().execute(p.getpId()).get();
+        }catch(Exception e){ }
+        assertNull(p2);
+        //Need to test if records is deleted here
+    }
+
 
 }

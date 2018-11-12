@@ -1,5 +1,6 @@
 package com.example.jerry.healemgood;
 
+import android.graphics.Bitmap;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.example.jerry.healemgood.model.photo.Photo;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
@@ -26,21 +28,18 @@ public class CareProviderRecordTest {
     @Test
     public void careProviderRecordConstructorTest() {
         // constructor and getters
-        int rId = 1;
+        String pid = "sdasdsafasdasdgcx";
         String title = "Test";
 
-        CareProviderRecord record = new CareProviderRecord(rId, title);
+        CareProviderRecord record = new CareProviderRecord(pid, title);
 
         assertEquals(record.getTitle(), title);
-        assertEquals(record.getrId(), rId);
+        assertEquals(record.getpId(), pid);
 
         // setters
-        int rId2 = 2;
         String title2 = "Test2";
-        record.setrId(rId2);
         record.setTitle(title2);
         assertEquals(record.getTitle(), title2);
-        assertEquals(record.getrId(), rId2);
 
         // description
         String description = "Test care provider record";
@@ -48,18 +47,14 @@ public class CareProviderRecordTest {
         assertEquals(record.getDescription(), description);
 
         // photo ArrayList
-        Photo photo1 = new Photo("/tmp/1.png",200,320);
-        Photo photo2 = new Photo("/tmp/2.png",400,520);
+        String imgPath = "/tmp/1.png";
+        String imgPath2 = "/tmp/2.png";
+        record.addPhoto(imgPath);
+        record.addPhoto(imgPath2);
 
-        record.addPhoto(photo1);
-        record.addPhoto(photo2);
+        ArrayList<Bitmap> photos = record.getPhotos();
 
-        ArrayList<Photo> photos = record.getPhotos();
-
-        assertTrue(photos.contains(photo1));
-        assertTrue(photos.contains(photo2));
-        assertEquals(photo1, record.getPhotoById(0));
-        assertEquals(photo2, record.getPhotoById(1));
+        assertEquals(photos.size(),2);
 
         // dateCreated
         Date date = new Date();
