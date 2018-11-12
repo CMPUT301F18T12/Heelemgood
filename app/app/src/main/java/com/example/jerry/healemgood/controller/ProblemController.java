@@ -29,9 +29,9 @@ import io.searchbox.core.SearchResult;
 public class ProblemController {
     private static JestDroidClient client=null;
     private static String indexName = "cmput301f18t12";
+
     /**
-     * For debug/testing purposes, return a problem given a problemID
-     *
+     * This function is for debug/testing purposes, return a problem given a problem id
      */
     public static class GetProblemByIdTask extends AsyncTask<String,Void,Problem>{
         protected Problem doInBackground(String... ids) {
@@ -50,10 +50,9 @@ public class ProblemController {
         }
     }
     /**
-     * Create a problem in the database and assigned a JestID to it
+     * Create a problem in the database and assigned a JestID/pId to it
      */
     public static class CreateProblemTask extends AsyncTask<Problem,Void,Void> {
-
         protected Void doInBackground(Problem... problems) {
             setClient();
             Problem problem = problems[0];
@@ -109,7 +108,6 @@ public class ProblemController {
      * @params Search query:String
      * @return list of problems that fit the search query: ArrayList<Problem>
      */
-
     public static class SearchProblemTask extends AsyncTask<String,Void,ArrayList<Problem>> {
         protected ArrayList<Problem> doInBackground(String... titles) {
             setClient();

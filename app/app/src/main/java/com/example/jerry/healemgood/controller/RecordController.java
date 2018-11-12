@@ -26,7 +26,7 @@ public class RecordController {
     private static JestDroidClient client=null;
     private static String indexName = "cmput301f18t12";
     private static String searchQuery;
-    /**]
+    /**
      * This will create a record in the database
      * @params record
      */
@@ -49,7 +49,7 @@ public class RecordController {
     }
 
     /**
-     * Delete a record from DB
+     * Delete a record from DB given the the record as input
      */
     public static class DeleteRecordTask extends AsyncTask<Record,Void,Void> {
 
@@ -69,13 +69,11 @@ public class RecordController {
     }
 
     /***
-     * Seach for a list of records by the title name, description
-     * @params Search query:String
-     * @return list of problems that fit the search query: ArrayList<Problem>
+     * Seach for a list of records by the title name, description. At the end, it will reset the searchQuery
+     * @params It will use the searchQuery user created before
      */
-
-    public static class SearchRecordTask extends AsyncTask<String,Void,ArrayList<Record>> {
-        protected ArrayList<Record> doInBackground(String... keywords) {
+    public static class SearchRecordTask extends AsyncTask<Void,Void,ArrayList<Record>> {
+        protected ArrayList<Record> doInBackground(Void... empty) {
             setClient();
             ArrayList<Record> records = new ArrayList<Record>();
             Search search = new Search.Builder(searchQuery).addIndex(indexName).addType("record").build();
@@ -94,6 +92,9 @@ public class RecordController {
         }
     }
 
+    /**
+     * Initialize/Create the searchQuery, call finalizeSearchQuery() after adding the necessary input
+     */
     public static void initSearchQuery(){
         String query = "{\n" +
                 "    \"query\" : {\n" +
@@ -102,6 +103,11 @@ public class RecordController {
                 ;
         searchQuery=query;
     }
+
+    /**
+     * Modify the search query so it will search for records by keyword in descriptions and title
+     * @param keyword
+     */
     public static void searchByKeyword(String keyword){
         if(keyword!="") {
             searchQuery += "   {\"multi_match\" : {\n" +
@@ -111,6 +117,11 @@ public class RecordController {
                     " }\n";
         }
     }
+
+    /**
+     * Modify the search query so it will search for records by bodyLocation
+     * @param location
+     */
     public static void searchByBodyLocation(int location){
         if (location>=0){
             searchQuery += "   {\"term\" : {\n" +
@@ -120,7 +131,12 @@ public class RecordController {
 
         }
     }
-    //distance is in km
+
+    /**
+     * Modify the search query so it it will search for records that are inside the distance of place
+     * @param place     Enter a location
+     * @param distance  Enter the radius from the location
+     */
     public static void searchByGeoLocation(Place place,int distance){
         double Lat = place.getLatLng().latitude;
         double Lon = place.getLatLng().longitude;
@@ -134,6 +150,9 @@ public class RecordController {
                 "   }\n";
     }
 
+    /**
+     * Call this after all the search parameter is entered
+     */
     public static void finalizeSearchQuery(){
         searchQuery += "]\n"+
                 "           }\n"+
@@ -142,8 +161,9 @@ public class RecordController {
 
     }
 
-
-
+    /**
+     * This is most likely for testing/debug purposes, enter a record ID and it will get a record, if the record with such ID exist
+     */
     public static class GetRecordsByProblemIdTask extends AsyncTask<String,Void,ArrayList<Record>> {
         protected ArrayList<Record> doInBackground(String... piDs) {
             setClient();

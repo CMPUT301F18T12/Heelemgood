@@ -13,9 +13,6 @@ public class PatientRecord extends Record {
         super(pId,title,true);
 
     }
-
-
-
     /*Set the body location*/
     public void setBodyLocation(int bodyLocation) {
         this.bodyLocation = bodyLocation;

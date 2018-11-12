@@ -17,7 +17,6 @@ public class Problem {
     private String pId;
     //Title of the problem
     private String title;
-    private ArrayList<String> recordsIDs;
     private Date createdDate;
 
     public Problem(String title, Date date) {
