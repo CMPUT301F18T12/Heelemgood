@@ -24,30 +24,27 @@ public class Record {
     /* Record ID*/
     @JestId
     private String rId;
-
-    public String getpId() {
-        return pId;
-    }
-
-    public void setpId(String pId) {
-        this.pId = pId;
-    }
-
+    // pId is the problem ID this record belongs to
     private String pId;
+    //title of the record
     private String title;
+    //descriptions in this record
     private String description;
+    /*photos attached to the record, store as String Base64*/
     private ArrayList<String> photos;
+    /*The date when this record is created*/
     private Date createdDate;
     /* This is a boolean var to determine whether this record is a patient record or care provider record*/
     private boolean isPatientRecord;
-    // Added here for simplicity, since elasticsearch might require all documents to have the same field
+    /* geoLocation(optional) of where this problem is created*/
     protected LatLng geoLocation;
+    /*The bodyLocaton id*/
     protected int bodyLocation;
     /**
      * A problem have to be created before this record can be created;
-     * @param pid
-     * @param title
-     * @param isPatientRecord
+     * @param pid    which problem this record is attached to
+     * @param title   title of the record
+     * @param isPatientRecord   indicate whether or not this is patient record or doctor record
      */
     public Record(String pid,String title, boolean isPatientRecord){
         this.pId = pid;
@@ -78,9 +75,9 @@ public class Record {
     }
 
     /**
-     * Add photos to the list, converting it into base64 format
+     * Add photos to the list, then converting it into base64 format and add it to the photo list
      * See : https://stackoverflow.com/questions/4830711/how-to-convert-a-image-into-base64-string
-     *
+     * @param imgPath enter the imgPath
      */
     public void addPhoto(String imgPath){
         Bitmap src=BitmapFactory.decodeFile(imgPath);
@@ -105,9 +102,13 @@ public class Record {
         return photos;
     }
 
-    /* Get photo by id*/
-    public Bitmap getPhotoById(int id){
-        String imgString = this.photos.get(id);
+    /**
+     * Get aphoto by Index
+     * @param index where this photo positon int the photo list
+     * @return Bitmap of the photo
+     */
+    public Bitmap getPhotoById(int index){
+        String imgString = this.photos.get(index);
         byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         return decodedByte;
@@ -129,6 +130,10 @@ public class Record {
         return isPatientRecord;
     }
 
+    /**get the record Id
+     *
+     * @return record Id
+     */
     public String getrId() {
         return rId;
     }
@@ -137,16 +142,34 @@ public class Record {
         this.rId = rId;
     }
 
-    /*Set the geo-location
-    * * See https://developers.google.com/places/android-sdk/placepicker
-    * */
+    /**
+     * Set geo-location from place, then store it as LatLng See https://developers.google.com/places/android
+     * @param place the place is obtained through place picker
+     */
     public void setGeoLocation(Place place) {
         this.geoLocation= place.getLatLng();
     }
 
-    /*Get the geo-location
-     * */
+    /**
+     * @return GeoLocation in LatLng
+     */
     public LatLng getGeoLocation() {
         return this.geoLocation;
+    }
+
+    /**
+     * Get the pid of the correspoded problem
+     * @return pid
+     */
+    public String getpId() {
+        return pId;
+    }
+
+    /**
+     * Set the pid (optional, most likely not needed in this application)
+     * @param pId
+     */
+    public void setpId(String pId) {
+        this.pId = pId;
     }
 }
