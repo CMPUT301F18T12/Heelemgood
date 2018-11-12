@@ -6,46 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".view.UserViews.accountCreationActivity">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="13dp"
-        android:layout_height="37dp"
-        android:text="/"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.303"
-        tools:layout_editor_absoluteX="95dp" />
-
-    <EditText
-        android:id="@+id/editText10"
-        android:layout_width="52dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/editText11"
-        tools:layout_editor_absoluteY="135dp" />
-
-    <EditText
-        android:id="@+id/editText11"
-        android:layout_width="52dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/editText4"
-        tools:layout_editor_absoluteY="135dp" />
-
     <EditText
         android:id="@+id/editText8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editText6"
-        tools:layout_editor_absoluteX="32dp" />
+        app:layout_constraintStart_toStartOf="@+id/editText6"
+        app:layout_constraintTop_toBottomOf="@+id/editText6" />
 
     <EditText
         android:id="@+id/editText9"
@@ -54,8 +23,8 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editText8"
-        tools:layout_editor_absoluteX="32dp" />
+        app:layout_constraintStart_toStartOf="@+id/editText8"
+        app:layout_constraintTop_toBottomOf="@+id/editText8" />
 
     <EditText
         android:id="@+id/editText"
@@ -91,7 +60,7 @@
 
     <EditText
         android:id="@+id/editText4"
-        android:layout_width="52dp"
+        android:layout_width="214dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -106,8 +75,8 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editText4"
-        tools:layout_editor_absoluteX="32dp" />
+        app:layout_constraintStart_toStartOf="@+id/editText4"
+        app:layout_constraintTop_toBottomOf="@+id/editText4" />
 
     <EditText
         android:id="@+id/editText6"
@@ -116,17 +85,17 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editText5"
-        tools:layout_editor_absoluteX="32dp" />
+        app:layout_constraintStart_toStartOf="@+id/editText5"
+        app:layout_constraintTop_toBottomOf="@+id/editText5" />
 
     <RadioButton
         android:id="@+id/patientRadioButton"
         android:layout_width="86dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:text="Patient"
-        app:layout_constraintTop_toBottomOf="@+id/editText9"
-        tools:layout_editor_absoluteX="32dp" />
+        app:layout_constraintStart_toStartOf="@+id/editText9"
+        app:layout_constraintTop_toBottomOf="@+id/editText9" />
 
     <RadioButton
         android:id="@+id/careProviderRadioButton"
@@ -141,26 +110,19 @@
         android:id="@+id/createAccountButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="Create"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="455dp" />
+        app:layout_constraintTop_toBottomOf="@+id/patientRadioButton" />
 
     <Spinner
         android:id="@+id/genderSpinner"
         android:layout_width="86dp"
         android:layout_height="24dp"
-        tools:layout_editor_absoluteX="260dp"
-        tools:layout_editor_absoluteY="135dp" />
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/editText4"
+        app:layout_constraintTop_toTopOf="@+id/editText4" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="13dp"
-        android:layout_height="37dp"
-        android:text="/"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.303"
-        tools:layout_editor_absoluteX="172dp" />
 </android.support.constraint.ConstraintLayout>
