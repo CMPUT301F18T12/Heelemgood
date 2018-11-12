@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
  * 1. patientRecordConstructorTest: The class constructors and getters and setters.
  * 2. locationTest: Tests related to the geo-location and body location contained by a patientRecord
  * @author tw
- * @version 1.0.3
+ * @version 1.0.4
  */
 @RunWith(AndroidJUnit4.class)
 public class PatientRecordTest {
@@ -30,7 +30,7 @@ public class PatientRecordTest {
         int rId = 1;
         String title = "Test";
 
-        PatientRecord record = new PatientRecord(rId, title, true);
+        PatientRecord record = new PatientRecord(rId, title);
 
         assertEquals(record.getTitle(), title);
         assertEquals(record.getrId(), rId);
@@ -76,7 +76,7 @@ public class PatientRecordTest {
         int rId = 1;
         String title = "Test";
 
-        PatientRecord record = new PatientRecord(rId, title, true);
+        PatientRecord record = new PatientRecord(rId, title);
 
         Location location = new Location("");
         location.setLatitude(0.0d);

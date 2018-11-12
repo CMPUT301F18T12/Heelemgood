@@ -11,8 +11,8 @@ public class PatientRecord extends Record {
     private Location geoLocation;
     private int bodyLocation;
 
-    public PatientRecord(int rId, String title){
-        super(rId,title,true);
+    public PatientRecord(String pId,String title){
+        super(pId,title,true);
     }
 
     /*Set the geo-location*/

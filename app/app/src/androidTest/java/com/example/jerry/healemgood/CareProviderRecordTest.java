@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
  * CareProviderRecord Test
  * 1. CareProviderRecordConstructorTest: The class constructors and getters and setters.
  * @author tw
- * @version 1.0.3
+ * @version 1.0.4
  */
 @RunWith(AndroidJUnit4.class)
 public class CareProviderRecordTest {
@@ -29,7 +29,7 @@ public class CareProviderRecordTest {
         int rId = 1;
         String title = "Test";
 
-        CareProviderRecord record = new CareProviderRecord(rId, title, false);
+        CareProviderRecord record = new CareProviderRecord(rId, title);
 
         assertEquals(record.getTitle(), title);
         assertEquals(record.getrId(), rId);

@@ -23,6 +23,10 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(AndroidJUnit4.class)
 public class RecordTest {
+    @Test
+    public void test() {
+        assertTrue(true);
+    }
     /*
     @Test
     public void recordConstructorTest() {
