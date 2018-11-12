@@ -19,9 +19,18 @@ public class Problem {
     private String title;
     private Date createdDate;
 
-    public Problem(String title, Date date) {
+    //Id of the patient who created this problem
+    private String userId;
+
+    /**
+     * @param title     Title of the problem
+     * @param date      The date when this problem is created
+     * @param userId    The patient who created this problem
+     */
+    public Problem(String title, Date date,String userId) {
         this.title = title;
         this.createdDate = date; // The createdDate of a problem should be the date of the first record
+        this.userId =userId;
     }
 
     /*Get the problem id*/
@@ -53,5 +62,8 @@ public class Problem {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
-
+    
+    public String getUserId() {
+        return userId;
+    }
 }
