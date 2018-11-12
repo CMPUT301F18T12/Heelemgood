@@ -53,4 +53,29 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
         String objectString2 = new Gson().toJson(r2);
         assertEquals(objectString1,objectString2);
     }
+
+    public void testDeleteRecord(){
+        String text = "cant get it working";
+        System.out.println(text);
+        Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@");
+        try {
+            new ProblemController.CreateProblemTask().execute(p).get();
+        }catch(Exception e){        }
+        //Create Patient Record, you can also declare it as PatientRecord
+        Record r = new Record(p.getpId(),p.getTitle(),true);
+        try{
+            new RecordController.CreateRecordTask().execute(r).get();
+        }catch (Exception e){}
+        //Delete record
+        try{
+            new RecordController.DeleteRecordTask().execute(r).get();
+        }catch(Exception e){}
+        //check if record still exist
+        Record r2=null;
+        try{
+            r2=new RecordController.GetRecordByIdTask().execute(r.getrId()).get();
+        }catch(Exception e){        }
+        assertNull(r2);
+    }
+
 }
