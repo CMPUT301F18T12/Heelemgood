@@ -14,7 +14,6 @@ import io.searchbox.core.Index;
 
 public class UserController {
 
-    //TODO
     /*User log into the application*/
     public static boolean login(String userId,String password) {
         return true;
