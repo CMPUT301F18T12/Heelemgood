@@ -4,11 +4,9 @@
     <string name="password_text">Password</string>
     <string name="firstname_text">First Name</string>
     <string name="lastname_text">Last Name</string>
-<<<<<<< HEAD
     <string name="email_text">Email Address</string>
     <string name="phonenumber_text">Phone Number</string>
     <string name="confirmpassword_text">Confirm Password</string>
-=======
     <string name="user_fullname">Tianqi Wang</string>
     <string name="user_id">twang2</string>
     <string name="user_avatar">user\'s avatar</string>
@@ -47,5 +45,4 @@
     <string name="search">Search</string>
     <string name="requests">Requests</string>
     <string name="reject">Reject</string>
->>>>>>> origin/master
 </resources>
