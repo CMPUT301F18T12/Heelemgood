@@ -33,5 +33,6 @@
     <string name="view_comment">View Comment</string>
     <string name="record_map">Record Map</string>
     <string name="full_history_problem">Full History (problem)</string>
+    <string name="delete">Delete</string>
 
 </resources>

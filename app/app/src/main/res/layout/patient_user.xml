@@ -44,9 +44,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/userEmail"
+        android:id="@+id/userBirthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="@string/user_birthday"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,24 +55,26 @@
         app:layout_constraintTop_toBottomOf="@+id/userId" />
 
     <EditText
-        android:id="@+id/userEmail"
+        android:id="@+id/userBirthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="216dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/hint_email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userEmail"
-        app:layout_constraintVertical_bias="0.0"
-        android:autofillHints="" tools:targetApi="o" />
+        app:layout_constraintTop_toBottomOf="@+id/userId"
+        tools:targetApi="o" />
 
     <EditText
         android:id="@+id/userPhone"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -79,9 +82,12 @@
         android:ems="10"
         android:hint="@string/hint_phone"
         android:inputType="phone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userEmail"
+        app:layout_constraintTop_toBottomOf="@+id/userBirthday"
+        app:layout_constraintVertical_bias="0.078"
         tools:targetApi="o" />
 
     <Button
