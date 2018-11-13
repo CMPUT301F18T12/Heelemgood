@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/userId" />
 
     <EditText
-        android:id="@+id/userBirthday"
+        android:id="@+id/userEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -86,7 +86,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userBirthday"
+        app:layout_constraintTop_toBottomOf="@+id/userEmail"
         app:layout_constraintVertical_bias="0.078"
         tools:targetApi="o" />
 
