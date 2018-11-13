@@ -50,8 +50,28 @@ public class UserCreationController {
     }
 
 
-    // Add a Patient to the database
+/*    // Add a Patient to the database
     public static class addPatientTask extends AsyncTask<Patient, Void, Void> {
+        protected Void doInBackground(Patient... patients) {
+            setClient();
+            User user = patients[0];
+            Index index = new Index.Builder(user).index("Name-Jeff").type("patient").build();
+            try {
+                DocumentResult result = client.execute(index);
+                if (result.isSucceeded()) {
+                    System.out.println("OK, it worked");
+                    user.setUserId(result.getId());
+                }
+            } catch (IOException e) {
+                System.out.println("lmao, I dun goofed here boyo");
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }*/
+
+    // Add a Patient to the database
+    public static class addPatientTask{
         protected Void doInBackground(Patient... patients) {
             setClient();
             User user = patients[0];
@@ -221,7 +241,7 @@ public class UserCreationController {
     // Set the client, duplicate code
     private static void setClient() {
         if (client == null) {
-            DroidClientConfig config = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080/").build();
+            DroidClientConfig config = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080/cmput301f18t12/").build();
             JestClientFactory factory = new JestClientFactory();
             factory.setDroidClientConfig(config);
             client = (JestDroidClient) factory.getObject();

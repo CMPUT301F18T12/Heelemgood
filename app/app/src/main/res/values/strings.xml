@@ -4,4 +4,7 @@
     <string name="password_text">Password</string>
     <string name="firstname_text">First Name</string>
     <string name="lastname_text">Last Name</string>
+    <string name="email_text">Email Address</string>
+    <string name="phonenumber_text">Phone Number</string>
+    <string name="confirmpassword_text">Confirm Password</string>
 </resources>

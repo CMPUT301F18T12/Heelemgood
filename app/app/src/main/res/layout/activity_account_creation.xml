@@ -7,6 +7,7 @@
     tools:context=".view.UserViews.accountCreationActivity">
 
     <EditText
+        android:hint="@string/password_text"
         android:id="@+id/editText8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,6 +20,7 @@
     <EditText
         android:id="@+id/editText9"
         android:layout_width="wrap_content"
+        android:hint="@string/confirmpassword_text"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -77,6 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="@string/email_text"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="@+id/editText4"
         app:layout_constraintTop_toBottomOf="@+id/editText4" />
@@ -87,6 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="@string/phonenumber_text"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="@+id/editText5"
         app:layout_constraintTop_toBottomOf="@+id/editText5" />

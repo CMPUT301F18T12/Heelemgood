@@ -36,7 +36,7 @@ public class ProblemControllerTest {
 
         }
     }
-    @Test
+/*    @Test
     public void updateProblemTest(){
         try {
             Problem p =new Problem("My neck feel stringy",new Date());
@@ -44,5 +44,5 @@ public class ProblemControllerTest {
         }catch(Exception e){
 
         }
-    }
+    }*/
 }
