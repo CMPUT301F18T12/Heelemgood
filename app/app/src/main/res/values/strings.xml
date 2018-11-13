@@ -27,5 +27,11 @@
     <string name="hint_specify_details">specify details</string>
     <string name="add_location_button">Add Location</string>
     <string name="todo">Todo</string>
+    <string name="back">Back</string>
+    <string name="problem_tiltle">Problem Tiltle</string>
+    <string name="side_show">Side Show</string>
+    <string name="view_comment">View Comment</string>
+    <string name="record_map">Record Map</string>
+    <string name="full_history_problem">Full History (problem)</string>
 
 </resources>
