@@ -12,7 +12,6 @@
     <string name="save">Save</string>
     <string name="history">History</string>
     <string name="request">Request</string>
-    <string name="search">Search</string>
     <string name="user">User</string>
     <string name="home">Home</string>
     <string name="quick_view">Quick View</string>
@@ -34,5 +33,10 @@
     <string name="record_map">Record Map</string>
     <string name="full_history_problem">Full History (problem)</string>
     <string name="delete">Delete</string>
+    <string name="your_problem">your problem</string>
+    <string name="Default">Default</string>
+    <string name="geo_location">Geo-Location</string>
+    <string name="body_location">Body-Location</string>
+    <string name="search">Search</string>
 
 </resources>
