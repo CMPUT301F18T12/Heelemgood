@@ -15,6 +15,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.searchbox.client.JestResult;
 import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Get;
@@ -22,6 +23,7 @@ import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import io.searchbox.core.Update;
+import io.searchbox.indices.IndicesExists;
 
 public class RecordController {
     private static JestDroidClient client=null;
@@ -98,6 +100,7 @@ public class RecordController {
             setClient();
             ArrayList<Record> records = new ArrayList<Record>();
             Search search = new Search.Builder(searchQuery).addIndex(indexName).addType("record").build();
+            Log.d("Name-Jeff",searchQuery);
             try{
                 SearchResult result = client.execute(search);
                 if(result.isSucceeded()){
@@ -120,7 +123,7 @@ public class RecordController {
         String query = "{\n" +
                 "    \"query\" : {\n" +
                 "    \"bool\" : {\n" +
-                "        \"must\" [\n"
+                "        \"must\": [\n"
                 ;
         searchQuery=query;
     }
@@ -146,14 +149,28 @@ public class RecordController {
     public static void searchByBodyLocation(int location){
         if (location>=0){
             searchQuery += "   {\"term\" : {\n" +
-                    "   \"bodyLocation\": \""+String.valueOf(location)+"\", \n"+
+                    "   \"bodyLocation\": \""+String.valueOf(location)+"\" \n"+
                     "       }\n"+
                     "   }\n";
 
         }
     }
+    public static void searchByProblemIds(String ... piDs){
+        searchQuery +="        {\"terms\" :{ \"pId\" : [";
+        for (int i =0;i<piDs.length;i++){
+            searchQuery += "\""+piDs[i]+"\"";
+            if(i!=piDs.length-1){
+                searchQuery+=",";
+            }
+        }
+        searchQuery+="]}\n"+
+                "    }\n";
+    }
+
+
 
     /**
+     *
      * Modify the search query so it it will search for records that are inside the distance of place
      * @param place     Enter a location
      * @param distance  Enter the radius from the location
@@ -183,33 +200,6 @@ public class RecordController {
     }
 
     /**
-     * This is most likely for testing/debug purposes, enter a record ID and it will get a record, if the record with such ID exist
-     */
-    public static class GetRecordsByProblemIdTask extends AsyncTask<String,Void,ArrayList<Record>> {
-        protected ArrayList<Record> doInBackground(String... piDs) {
-            setClient();
-            String query = "{\n" +
-                    "    \"query\": {\n" +
-                    "        \"term\" :{ \"pId\" : \""+piDs[0]+"\"}\n"+
-                    "    }\n" +
-                    "}";
-            ArrayList<Record> records = new ArrayList<Record>();
-            Search search = new Search.Builder(query).addIndex(indexName).addType("record").build();
-            try{
-                SearchResult result = client.execute(search);
-                if(result.isSucceeded()){
-                    Log.d("Name-Jeff","Record searched");
-                    List<Record> resultList = result.getSourceAsObjectList(Record.class);
-                    records.addAll(resultList);
-                }
-            }catch(IOException e){
-                Log.d("Joey Error"," IOexception when executing client");
-            }
-            return records;
-        }
-    }
-
-    /**
      * Create client
      */
     public static void setClient(){
@@ -220,7 +210,5 @@ public class RecordController {
             client=(JestDroidClient)factory.getObject();
         }
     }
-    /**
-     * provide client
-     */
+
 }
