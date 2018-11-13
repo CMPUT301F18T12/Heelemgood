@@ -39,5 +39,6 @@
     <string name="body_location">Body-Location</string>
     <string name="search">Search</string>
     <string name="requests">Requests</string>
+    <string name="reject">Reject</string>
 
 </resources>
