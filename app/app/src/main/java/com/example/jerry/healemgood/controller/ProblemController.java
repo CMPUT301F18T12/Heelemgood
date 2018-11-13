@@ -1,5 +1,6 @@
 package com.example.jerry.healemgood.controller;
 
+import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -8,30 +9,53 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Delete;
 import io.searchbox.core.DeleteByQuery;
 import io.searchbox.core.DocumentResult;
+import io.searchbox.core.Get;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
 public class ProblemController {
     private static JestDroidClient client=null;
+    private static String indexName = "cmput301f18t12";
+
     /**
-     * Create a problem in the database and assigned a JestID to it
+     * This function is for debug/testing purposes, return a problem given a problem id
+     */
+    public static class GetProblemByIdTask extends AsyncTask<String,Void,Problem>{
+        protected Problem doInBackground(String... ids) {
+            setClient();
+            String id = ids[0];
+            Get get = new Get.Builder(indexName, id).type("problem").build();
+            try{
+                DocumentResult result = client.execute(get);
+                Problem p  = result.getSourceAsObject(Problem.class);
+                return p;
+            }catch(IOException e){
+                Log.d("Joey Error"," IOexception when executing client");
+            }
+            return null;
+        }
+    }
+    /**
+     * Create a problem in the database and assigned a JestID/pId to it
      */
     public static class CreateProblemTask extends AsyncTask<Problem,Void,Void> {
-
         protected Void doInBackground(Problem... problems) {
             setClient();
             Problem problem = problems[0];
-            Index index = new Index.Builder(problem).index("Name-Jeff").type("problem").build();
+            Index index = new Index.Builder(problem).index(indexName).type("problem").build();
             try{
                 DocumentResult result = client.execute(index);
                 if(result.isSucceeded()){
@@ -51,7 +75,7 @@ public class ProblemController {
 
         protected Void doInBackground(Problem... problems) {
             String pid = problems[0].getpId();
-            Delete delete = new Delete.Builder(pid).index("Name-Jeff").type("problem").build();
+            Delete delete = new Delete.Builder(pid).index(indexName).type("problem").build();
             String query = "{\n" +
                     "    \"query\": {\n" +
                     "        \"constant\" :{ \n"+
@@ -61,7 +85,7 @@ public class ProblemController {
                     "         }\n"+
                     "    }\n" +
                     "}";
-            DeleteByQuery deleteRecord = new DeleteByQuery.Builder(query).addIndex("Name-Jeff").addType("problem").build();
+            DeleteByQuery deleteRecord = new DeleteByQuery.Builder(query).addIndex(indexName).addType("problem").build();
             try{
                 DocumentResult result = client.execute(delete);
                 JestResult result2 = client.execute(deleteRecord);
@@ -83,17 +107,16 @@ public class ProblemController {
      * @params Search query:String
      * @return list of problems that fit the search query: ArrayList<Problem>
      */
-
     public static class SearchProblemTask extends AsyncTask<String,Void,ArrayList<Problem>> {
         protected ArrayList<Problem> doInBackground(String... titles) {
             setClient();
             String query = "{\n" +
                     "    \"query\": {\n" +
-                    "        \"match\" :{ \"message\" : \""+titles[0]+"\"}\n"+
+                    "        \"match\" :{ \"title\" : \""+titles[0]+"\"}\n"+
                     "    }\n" +
                     "}";
             ArrayList<Problem> problems = new ArrayList<Problem>();
-            Search search = new Search.Builder(query).addIndex("Name-Jeff").addType("problem").build();
+            Search search = new Search.Builder(query).addIndex(indexName).addType("problem").build();
             try{
                 SearchResult result = client.execute(search);
                 if(result.isSucceeded()){
@@ -118,7 +141,7 @@ public class ProblemController {
         protected Void doInBackground(Problem... problems) {
             setClient();
             Problem problem = problems[0];
-            Index index = new Index.Builder(problem).index("Name-Jeff").type("problem").id(problem.getpId()).build();
+            Index index = new Index.Builder(problem).index(indexName).type("problem").id(problem.getpId()).build();
             try{
                 DocumentResult result = client.execute(index);
             }catch(IOException e){
@@ -138,4 +161,5 @@ public class ProblemController {
             client=(JestDroidClient)factory.getObject();
         }
     }
+
 }
