@@ -8,40 +8,39 @@
 
     <EditText
         android:hint="@string/password_text"
-        android:id="@+id/editText8"
+        android:id="@+id/passwordEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editText6"
-        app:layout_constraintTop_toBottomOf="@+id/editText6" />
+        app:layout_constraintStart_toStartOf="@+id/phoneEditText"
+        app:layout_constraintTop_toBottomOf="@+id/phoneEditText" />
 
     <EditText
-        android:id="@+id/editText9"
+        android:id="@+id/confirmPasswordEditText"
         android:layout_width="wrap_content"
         android:hint="@string/confirmpassword_text"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editText8"
-        app:layout_constraintTop_toBottomOf="@+id/editText8" />
+        app:layout_constraintStart_toStartOf="@+id/passwordEditText"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/userNameEditText"
         android:layout_width="321dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/username_text"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/firstNameEditText"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/firstNameEditText"
         android:layout_width="153dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -50,18 +49,18 @@
         android:hint="@string/firstname_text"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/userNameEditText" />
 
     <EditText
-        android:id="@+id/editText7"
+        android:id="@+id/lastNameEditText"
         android:layout_width="153dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:ems="10"
         android:hint="@string/lastname_text"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/editText2"
-        app:layout_constraintTop_toTopOf="@+id/editText2" />
+        app:layout_constraintStart_toEndOf="@+id/firstNameEditText"
+        app:layout_constraintTop_toTopOf="@+id/firstNameEditText" />
 
     <EditText
         android:id="@+id/editText4"
@@ -70,11 +69,11 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editText2"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintStart_toStartOf="@+id/firstNameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/firstNameEditText" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/emailEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -85,15 +84,15 @@
         app:layout_constraintTop_toBottomOf="@+id/editText4" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/phoneEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/phonenumber_text"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editText5"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintStart_toStartOf="@+id/emailEditText"
+        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 
     <RadioButton
         android:id="@+id/patientRadioButton"
@@ -101,8 +100,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Patient"
-        app:layout_constraintStart_toStartOf="@+id/editText9"
-        app:layout_constraintTop_toBottomOf="@+id/editText9" />
+        app:layout_constraintStart_toStartOf="@+id/confirmPasswordEditText"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordEditText" />
 
     <RadioButton
         android:id="@+id/careProviderRadioButton"
