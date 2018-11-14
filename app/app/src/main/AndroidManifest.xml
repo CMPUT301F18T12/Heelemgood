@@ -23,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.UserViews.accountCreationActivity"></activity>
+        <activity android:name=".view.UserViews.accountCreationActivity" />
+        <activity android:name=".view.UserViews.BodyMapSelectionActivity"></activity>
     </application>
 
 </manifest>
