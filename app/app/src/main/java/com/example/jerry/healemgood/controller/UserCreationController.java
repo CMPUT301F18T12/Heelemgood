@@ -3,6 +3,7 @@ package com.example.jerry.healemgood.controller;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.model.user.CareProvider;
 import com.example.jerry.healemgood.model.user.Patient;
@@ -16,6 +17,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.searchbox.client.JestResult;
+import io.searchbox.core.Delete;
+import io.searchbox.core.DeleteByQuery;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -28,89 +32,51 @@ import static com.example.jerry.healemgood.controller.ProblemController.setClien
 public class UserCreationController {
 
     private static JestDroidClient client = null;
+    private static String indexName = "cmput301f18t12";
 
     // Add a User to the database
+    // Can either be a patient or a user
     public static class addUserTask extends AsyncTask<User, Void, Void>{
         protected Void doInBackground(User... users) {
             setClient();
-            User user = users[0];
-            Index index = new Index.Builder(user).index("Name-Jeff").type("patient").build();
+            Index index = new Index.Builder(users[0]).index(indexName).type("patient").build();
             try {
                 DocumentResult result = client.execute(index);
                 if (result.isSucceeded()) {
-                    System.out.println("OK, it worked");
-                    user.setUserId(result.getId());
+                    users[0].setUserId(result.getId());
                 }
             } catch (IOException e) {
-                System.out.println("lmao, I dun goofed here boyo");
                 e.printStackTrace();
             }
             return null;
         }
     }
 
-
-/*    // Add a Patient to the database
-    public static class addPatientTask extends AsyncTask<Patient, Void, Void> {
-        protected Void doInBackground(Patient... patients) {
-            setClient();
-            User user = patients[0];
-            Index index = new Index.Builder(user).index("Name-Jeff").type("patient").build();
-            try {
-                DocumentResult result = client.execute(index);
-                if (result.isSucceeded()) {
-                    System.out.println("OK, it worked");
-                    user.setUserId(result.getId());
+    // Delete a user from the DB
+    public static class deleteUserTask extends AsyncTask<User,Void,Void> {
+        protected Void doInBackground(User... users) {
+            String userId = users[0].getUserId();
+            Delete delete = new Delete.Builder(userId).index(indexName).type("patient").build();
+            String query = "{\n" +
+                    "    \"query\": {\n" +
+                    "        \"constant\" :{ \n"+
+                    "           \"term\" :{ \n"+
+                    "               \"userId\" :\""+ userId +"\"\n"+
+                    "            }\n"+
+                    "         }\n"+
+                    "    }\n" +
+                    "}";
+            try{
+                DocumentResult result = client.execute(delete);
+                if(result.isSucceeded()){
+                    Log.d("DeleteUserSuccess","User removed");
                 }
-            } catch (IOException e) {
-                System.out.println("lmao, I dun goofed here boyo");
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }*/
-
-    // Add a Patient to the database
-    public static class addPatientTask{
-        protected Void doInBackground(Patient... patients) {
-            setClient();
-            User user = patients[0];
-            Index index = new Index.Builder(user).index("Name-Jeff").type("patient").build();
-            try {
-                DocumentResult result = client.execute(index);
-                if (result.isSucceeded()) {
-                    System.out.println("OK, it worked");
-                    user.setUserId(result.getId());
-                }
-            } catch (IOException e) {
-                System.out.println("lmao, I dun goofed here boyo");
-                e.printStackTrace();
+            }catch(IOException e){
+                Log.d("DeleteUserError"," IOexception when executing client");
             }
             return null;
         }
     }
-
-
-    // Add a Care provider to the database
-    public static class addCareProviderTask extends AsyncTask<CareProvider, Void, Void> {
-        protected Void doInBackground(CareProvider... careProviders) {
-            setClient();
-            User user = careProviders[0];
-            Index index = new Index.Builder(user).index("Name-Jeff").type("careprovider").build();
-            try {
-                DocumentResult result = client.execute(index);
-                if (result.isSucceeded()) {
-                    System.out.println("OK, it worked");
-                    user.setUserId(result.getId());
-                }
-            } catch (IOException e) {
-                System.out.println("lmao, I dun goofed here boyo");
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
 
     // Searches to see if a username already exists
     // Returns the object associated with that username
@@ -124,7 +90,7 @@ public class UserCreationController {
                     "               \"fields\": [ \"userId\"]\n" +
                     "    }\n" +
                     "}";
-            Search searchUsername = new Search.Builder(usernameQuery).addIndex("Name-Jeff").addType("user").build();
+            Search searchUsername = new Search.Builder(usernameQuery).addIndex(indexName).addType("patient").build();
             ArrayList<User> userArrayList = new ArrayList<>();
             try {
                 SearchResult usernameResult = client.execute(searchUsername);
@@ -150,7 +116,7 @@ public class UserCreationController {
                     "               \"fields\": [ \"userId\"]\n" +
                     "    }\n" +
                     "}";
-            Search searchUsername = new Search.Builder(usernameQuery).addIndex("Name-Jeff").addType("careprovider").build();
+            Search searchUsername = new Search.Builder(usernameQuery).addIndex(indexName).addType("careprovider").build();
             ArrayList<CareProvider> userArrayList = new ArrayList<>();
             try {
                 SearchResult usernameResult = client.execute(searchUsername);
@@ -176,7 +142,7 @@ public class UserCreationController {
                     "               \"fields\": [ \"userId\"]\n" +
                     "    }\n" +
                     "}";
-            Search searchUsername = new Search.Builder(usernameQuery).addIndex("Name-Jeff").addType("patient").build();
+            Search searchUsername = new Search.Builder(usernameQuery).addIndex(indexName).addType("patient").build();
             ArrayList<Patient> userArrayList = new ArrayList<>();
             try {
                 SearchResult usernameResult = client.execute(searchUsername);
@@ -190,21 +156,6 @@ public class UserCreationController {
             return userArrayList;
         }
     }
-
-/*    public static class searchCareProviderID extends  AsyncTask<String, Void, ArrayList<CareProvider>>{
-        protected ArrayList<User> doInBackground(String... keywords) {
-            setClient();
-            ArrayList<User> userList = new UserCreationController.searchUsername().doInBackground(keywords[0]);
-            ArrayList<User> careProviders = new ArrayList<>();
-            for (int i = 0; i < userList.size(); i++) {
-                if (userList.get(i).getClass() == CareProvider.class) {
-                    careProviders.add(userList.get(i));
-                }
-            }
-            return careProviders;
-        }
-    }*/
-
 
     // Class used to find the user from the password and username
     // Assume the positioning is username, then password
@@ -220,7 +171,7 @@ public class UserCreationController {
                     "               \"fields\": [ \"password\"]\n" +
                     "    }\n" +
                     "}";
-            Search searchPassword = new Search.Builder(passwordQuery).addIndex("Name-Jeff").addType("user").build();
+            Search searchPassword = new Search.Builder(passwordQuery).addIndex(indexName).addType("user").build();
             ArrayList<User> userArrayList = new ArrayList<>();
             try {
                 SearchResult passwordResult = client.execute(searchPassword);
@@ -241,7 +192,7 @@ public class UserCreationController {
     // Set the client, duplicate code
     private static void setClient() {
         if (client == null) {
-            DroidClientConfig config = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080/cmput301f18t12/").build();
+            DroidClientConfig config = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080/").build();
             JestClientFactory factory = new JestClientFactory();
             factory.setDroidClientConfig(config);
             client = (JestDroidClient) factory.getObject();
