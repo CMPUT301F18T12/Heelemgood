@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
 
-public class loginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +20,18 @@ public class loginActivity extends AppCompatActivity {
 
     public void onCreateAccount(){
         TextView createTextView = findViewById(R.id.createAccountTextView);
+
+
         createTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(loginActivity.this, accountCreationActivity.class));
+                startActivity(new Intent(LoginActivity.this, AccountCreationActivity.class));
             }
         });
+
+
+
+
 
     }
 }

@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.jerry.healemgood.view.UserViews.accountCreationActivity;
-import com.example.jerry.healemgood.view.UserViews.loginActivity;
+import com.example.jerry.healemgood.view.UserViews.AccountCreationActivity;
+import com.example.jerry.healemgood.view.UserViews.PatientHome;
+import com.example.jerry.healemgood.view.UserViews.PatientUserActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,10 +21,20 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onCreateAccount(){
         TextView createTextView = findViewById(R.id.createAccountTextView);
+        Button signInButton = findViewById(R.id.signInButton);
         createTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, accountCreationActivity.class));
+                startActivity(new Intent(MainActivity.this, AccountCreationActivity.class));
+            }
+        });
+        signInButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this,PatientHome.class);
+                startActivity(intent);
+
+
             }
         });
 
