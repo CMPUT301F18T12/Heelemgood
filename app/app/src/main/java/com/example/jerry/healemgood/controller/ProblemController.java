@@ -29,7 +29,7 @@ import io.searchbox.core.SearchResult;
 public class ProblemController {
     private static JestDroidClient client=null;
     private static String indexName = "cmput301f18t12";
-
+    private static String searchQuery;
     /**
      * This function is for debug/testing purposes, return a problem given a problem id
      */
@@ -74,6 +74,7 @@ public class ProblemController {
     public static class DeleteProblemTask extends AsyncTask<Problem,Void,Void> {
 
         protected Void doInBackground(Problem... problems) {
+            setClient();
             String pid = problems[0].getpId();
             Delete delete = new Delete.Builder(pid).index(indexName).type("problem").build();
             String query = "{\n" +
@@ -107,16 +108,11 @@ public class ProblemController {
      * @params Search query:String
      * @return list of problems that fit the search query: ArrayList<Problem>
      */
-    public static class SearchProblemTask extends AsyncTask<String,Void,ArrayList<Problem>> {
-        protected ArrayList<Problem> doInBackground(String... titles) {
+    public static class SearchProblemTask extends AsyncTask<Void,Void,ArrayList<Problem>> {
+        protected ArrayList<Problem> doInBackground(Void... voids) {
             setClient();
-            String query = "{\n" +
-                    "    \"query\": {\n" +
-                    "        \"match\" :{ \"title\" : \""+titles[0]+"\"}\n"+
-                    "    }\n" +
-                    "}";
             ArrayList<Problem> problems = new ArrayList<Problem>();
-            Search search = new Search.Builder(query).addIndex(indexName).addType("problem").build();
+            Search search = new Search.Builder(searchQuery).addIndex(indexName).addType("problem").build();
             try{
                 SearchResult result = client.execute(search);
                 if(result.isSucceeded()){
@@ -129,6 +125,58 @@ public class ProblemController {
             }
             return problems;
         }
+    }
+
+    /**
+     * Initialize/Create the searchQuery, call finalizeSearchQuery() after adding the necessary input
+     */
+    public static void initSearchQuery(){
+        String query = "{\n" +
+                "    \"query\" : {\n" +
+                "    \"bool\" : {\n" +
+                "        \"must\": [\n"
+                ;
+        searchQuery=query;
+    }
+    /**
+     *
+     * Modify the search query so it will search for problems by keyword in title
+     * @param keyword
+     */
+    public static void searchByKeyword(String keyword){
+        if(keyword!="") {
+            searchQuery += "   {\"multi_match\" : {\n" +
+                    "   \"query\": \""+keyword+"\", \n"+
+                    "   \"fields\": [\"title\"] \n"+
+                    "   }\n"+
+                    " }\n";
+        }
+    }
+    /**
+     *
+     * Modify the search query so it will search for problems by patient ids
+     * @param pIds
+     */
+    public static void searchByPatientIds(String... pIds){
+        searchQuery +="        {\"terms\" :{ \"pId\" : [";
+        for (int i =0;i<pIds.length;i++){
+            searchQuery += "\""+pIds[i]+"\"";
+            if(i!=pIds.length-1){
+                searchQuery+=",";
+            }
+        }
+        searchQuery+="]}\n"+
+                "    }\n";
+    }
+    /**
+     * Call this after all the search parameter is entered
+     */
+    public static void finalizeSearchQuery(){
+        searchQuery += "]\n"+
+                "           }\n"+
+                "           }\n"+
+                "}";
+
     }
 
     /**

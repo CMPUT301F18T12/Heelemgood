@@ -37,7 +37,7 @@ public class Record {
     /* This is a boolean var to determine whether this record is a patient record or care provider record*/
     private boolean isPatientRecord;
     /* geoLocation(optional) of where this problem is created*/
-    protected LatLng geoLocation;
+    protected double[] geoLocation;
     /*The bodyLocaton id*/
     protected int bodyLocation;
     /**
@@ -144,16 +144,19 @@ public class Record {
 
     /**
      * Set geo-location from place, then store it as LatLng See https://developers.google.com/places/android
-     * @param place the place is obtained through place picker
+     * @param lat the latitude
+     * @param lon the lontitude
      */
-    public void setGeoLocation(Place place) {
-        this.geoLocation= place.getLatLng();
+    public void setGeoLocation(double lat,double lon) {
+        this.geoLocation= new double[2];
+        this.geoLocation[0]= lon;
+        this.geoLocation[1]=lat;
     }
 
     /**
      * @return GeoLocation in LatLng
      */
-    public LatLng getGeoLocation() {
+    public double[] getGeoLocation() {
         return this.geoLocation;
     }
 
