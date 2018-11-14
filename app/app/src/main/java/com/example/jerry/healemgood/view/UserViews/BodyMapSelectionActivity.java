@@ -25,7 +25,9 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_body_selection);
+
         ImageView imageView = findViewById (R.id.bodyMap);
+
         imageView.setOnTouchListener(touchListener);
         imageView.setOnClickListener(clickListener);
     }
@@ -37,13 +39,15 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
 
             // save the X,Y coordinates
             if (e.getActionMasked() == MotionEvent.ACTION_UP) {
-                int color = getHotspotColor(R.id.colorMap,(int) e.getX(),(int) e.getY());
+                int color = getHotspotColor(R.id.colorMap,(int) e.getX(),(int) e.getY());  // an integer represents the color
 
                 Log.i("Click", "X = "+ e.getX() + " Y = " + e.getY());
+
                 if (bodyColor.getBodyPart(color) == BodyPart.NULL) {  // the position is invalid
                     return false;
                 }
 
+                // position is valid save it into variables
                 lastTouchX = (int) e.getX();
                 lastTouchY = (int) e.getY();
                 Toast toast = Toast.makeText(getApplicationContext(), ""+bodyColor.getBodyPart(color), Toast.LENGTH_SHORT);
@@ -66,6 +70,7 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
     };
 
 
+    // get the color of the clicked pixel
     public int getHotspotColor (int hotspotId, int x, int y) {
         ImageView img = findViewById (hotspotId);
         if (img == null) {
@@ -73,13 +78,13 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
             return 0;
         } else {
             img.setDrawingCacheEnabled(true);
-            Bitmap hotspots = Bitmap.createBitmap(img.getDrawingCache());
-            if (hotspots == null) {
-                Log.d ("ImageAreasActivity", "Hot spot bitmap was not created");
+            Bitmap hotspot = Bitmap.createBitmap(img.getDrawingCache());
+            if (hotspot == null) {
+                Log.d ("BodyMapSelection", "Hot spot bitmap was not created");
                 return 0;
             } else {
                 img.setDrawingCacheEnabled(false);
-                return hotspots.getPixel(x, y);
+                return hotspot.getPixel(x, y);
             }
         }
     }
