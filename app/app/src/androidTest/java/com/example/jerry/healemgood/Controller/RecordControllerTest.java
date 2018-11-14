@@ -13,6 +13,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.robotium.solo.Solo;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
