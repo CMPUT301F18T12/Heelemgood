@@ -28,9 +28,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".view.UserViews.AccountCreationActivity" />
         <activity android:name=".view.UserViews.PatientUserActivity" />
         <activity android:name=".view.UserViews.PatientHome"></activity>
+=======
+        <activity android:name=".view.UserViews.accountCreationActivity" />
+        <activity android:name=".view.UserViews.BodyMapSelectionActivity"></activity>
+>>>>>>> master
     </application>
 
 </manifest>
