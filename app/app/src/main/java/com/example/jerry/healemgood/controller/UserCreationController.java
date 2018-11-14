@@ -3,7 +3,10 @@ package com.example.jerry.healemgood.controller;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
+import com.example.jerry.healemgood.model.user.CareProvider;
+import com.example.jerry.healemgood.model.user.Patient;
 import com.example.jerry.healemgood.model.user.User;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
@@ -14,6 +17,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.searchbox.client.JestResult;
+import io.searchbox.core.Delete;
+import io.searchbox.core.DeleteByQuery;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -22,30 +28,55 @@ import io.searchbox.core.SearchResult;
 import static com.example.jerry.healemgood.controller.ProblemController.setClient;
 
 //TODO: Fix the issue of setClient() being local, assign it a singleton and make it global
+// https://stackoverflow.com/questions/12069669/how-can-you-pass-multiple-primitive-parameters-to-asynctask
 public class UserCreationController {
-    private static JestDroidClient client = null;
 
+    private static JestDroidClient client = null;
+    private static String indexName = "cmput301f18t12";
 
     // Add a User to the database
-    public static class addUserTask extends AsyncTask<User, Void, Void> {
+    // Can either be a patient or a user
+    public static class addUserTask extends AsyncTask<User, Void, Void>{
         protected Void doInBackground(User... users) {
             setClient();
-            User user = users[0];
-            Index index = new Index.Builder(user).index("Name-Jeff").type("user").build();
+            Index index = new Index.Builder(users[0]).index(indexName).type("patient").build();
             try {
                 DocumentResult result = client.execute(index);
                 if (result.isSucceeded()) {
-                    System.out.println("OK, it worked");
-                    user.setUserId(result.getId());
+                    users[0].setUserId(result.getId());
                 }
             } catch (IOException e) {
-                System.out.println("lmao, I dun goofed here boyo");
                 e.printStackTrace();
             }
             return null;
         }
     }
 
+    // Delete a user from the DB
+    public static class deleteUserTask extends AsyncTask<User,Void,Void> {
+        protected Void doInBackground(User... users) {
+            String userId = users[0].getUserId();
+            Delete delete = new Delete.Builder(userId).index(indexName).type("patient").build();
+            String query = "{\n" +
+                    "    \"query\": {\n" +
+                    "        \"constant\" :{ \n"+
+                    "           \"term\" :{ \n"+
+                    "               \"userId\" :\""+ userId +"\"\n"+
+                    "            }\n"+
+                    "         }\n"+
+                    "    }\n" +
+                    "}";
+            try{
+                DocumentResult result = client.execute(delete);
+                if(result.isSucceeded()){
+                    Log.d("DeleteUserSuccess","User removed");
+                }
+            }catch(IOException e){
+                Log.d("DeleteUserError"," IOexception when executing client");
+            }
+            return null;
+        }
+    }
 
     // Searches to see if a username already exists
     // Returns the object associated with that username
@@ -59,7 +90,7 @@ public class UserCreationController {
                     "               \"fields\": [ \"userId\"]\n" +
                     "    }\n" +
                     "}";
-            Search searchUsername = new Search.Builder(usernameQuery).addIndex("Name-Jeff").addType("user").build();
+            Search searchUsername = new Search.Builder(usernameQuery).addIndex(indexName).addType("patient").build();
             ArrayList<User> userArrayList = new ArrayList<>();
             try {
                 SearchResult usernameResult = client.execute(searchUsername);
@@ -74,6 +105,57 @@ public class UserCreationController {
         }
     }
 
+    // Search for the username of a care provider
+    public static class searchCareProviderUsername extends AsyncTask<String, Void, ArrayList<CareProvider>> {
+        protected ArrayList<CareProvider> doInBackground(String... username) {
+            setClient();
+            String usernameQuery = "{\n" +
+                    "    \"query\": {\n" +
+                    "        \"multi_match\" :{ \n" +
+                    "               \"query\": \"" + username[0] + "\",\n" +
+                    "               \"fields\": [ \"userId\"]\n" +
+                    "    }\n" +
+                    "}";
+            Search searchUsername = new Search.Builder(usernameQuery).addIndex(indexName).addType("careprovider").build();
+            ArrayList<CareProvider> userArrayList = new ArrayList<>();
+            try {
+                SearchResult usernameResult = client.execute(searchUsername);
+                if (usernameResult.isSucceeded()) {
+                    List<CareProvider> userList = usernameResult.getSourceAsObjectList(CareProvider.class);
+                    userArrayList.addAll(userList);
+                }
+            } catch (IOException e) {
+                Log.d("Error", " IOexception when executing client");
+            }
+            return userArrayList;
+        }
+    }
+
+    // Class used to find the patient profile from searching for its username
+    public static class searchPatientUsername extends AsyncTask<String, Void, ArrayList<Patient>> {
+        protected ArrayList<Patient> doInBackground(String... username) {
+            setClient();
+            String usernameQuery = "{\n" +
+                    "    \"query\": {\n" +
+                    "        \"multi_match\" :{ \n" +
+                    "               \"query\": \"" + username[0] + "\",\n" +
+                    "               \"fields\": [ \"userId\"]\n" +
+                    "    }\n" +
+                    "}";
+            Search searchUsername = new Search.Builder(usernameQuery).addIndex(indexName).addType("patient").build();
+            ArrayList<Patient> userArrayList = new ArrayList<>();
+            try {
+                SearchResult usernameResult = client.execute(searchUsername);
+                if (usernameResult.isSucceeded()) {
+                    List<Patient> userList = usernameResult.getSourceAsObjectList(Patient.class);
+                    userArrayList.addAll(userList);
+                }
+            } catch (IOException e) {
+                Log.d("Error", " IOexception when executing client");
+            }
+            return userArrayList;
+        }
+    }
 
     // Class used to find the user from the password and username
     // Assume the positioning is username, then password
@@ -89,13 +171,15 @@ public class UserCreationController {
                     "               \"fields\": [ \"password\"]\n" +
                     "    }\n" +
                     "}";
-            Search searchPassword = new Search.Builder(passwordQuery).addIndex("Name-Jeff").addType("user").build();
+            Search searchPassword = new Search.Builder(passwordQuery).addIndex(indexName).addType("user").build();
             ArrayList<User> userArrayList = new ArrayList<>();
             try {
                 SearchResult passwordResult = client.execute(searchPassword);
                 if (userList.size() != 0 && passwordResult.isSucceeded()) {
-                    List<User> users = passwordResult.getSourceAsObjectList(User.class);
-                    userArrayList.addAll(users);
+                    if (userList.get(0).getPassword().equals(passwordResult.getSourceAsObject(User.class).getPassword())) {
+                        List<User> users = passwordResult.getSourceAsObjectList(User.class);
+                        userArrayList.addAll(users);
+                    }
                 }
             } catch (IOException e) {
                 Log.d("Error", " IOexception when executing client");

@@ -35,8 +35,8 @@ public class CareProviderTest {
         assertEquals(male_p.getEmail(),email);
         assertEquals(male_p.getBirthday(),birthday);
         assertEquals(male_p.getGender(),gender);
-        gender='F';
         // test female
+        gender='F';
         CareProvider female_p =new CareProvider(userid,password,name,phoneNum,email,birthday,gender);
         assertEquals(female_p.getGender(),'F');
     }
