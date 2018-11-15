@@ -1,6 +1,5 @@
 package com.example.jerry.healemgood.view.UserViews;
 
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -82,7 +81,7 @@ public class AccountCreationActivity extends AppCompatActivity {
     }
 
     private void getAllXML(){
-        userName = findViewById(R.id.userNameEditText);
+        userName = findViewById(R.id.userIdEditText);
         firstName = findViewById(R.id.firstNameEditText);
         lastName = findViewById(R.id.lastNameEditText);
         emailAddress = findViewById(R.id.emailEditText);
