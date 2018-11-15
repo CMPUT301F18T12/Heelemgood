@@ -6,21 +6,29 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
+import com.example.jerry.healemgood.view.UserViews.adapter.ImageAdapter;
 
 public class PatientAddRecordActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
+    // for display the collection of photos
+    private ImageAdapter imageAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_add_record);
+
         Button addLocationButton =  findViewById(R.id.addLocationButton);
         Button saveButton = findViewById(R.id.saveButton);
         ImageButton photoButton = findViewById(R.id.photoButton);
@@ -51,6 +59,19 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         });
 
 
+        GridView gridview = (GridView) findViewById(R.id.gridView);
+        imageAdapter = new ImageAdapter(this);
+        gridview.setAdapter(imageAdapter);
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                Toast.makeText(PatientAddRecordActivity.this, "" + position,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
     //https://developer.android.com/training/camera/photobasics
@@ -63,13 +84,14 @@ public class PatientAddRecordActivity extends AppCompatActivity {
     }
 
     @Override
-    // get the photo taken just now
+    // get the photo taken just now and add it to the gallery
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            ImageView photoView = findViewById(R.id.imageView);
-            photoView.setImageBitmap(imageBitmap);
+            imageAdapter.addPhoto(imageBitmap);
+            imageAdapter.notifyDataSetChanged();
+
         }
     }
 
