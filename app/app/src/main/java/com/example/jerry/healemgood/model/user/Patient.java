@@ -1,3 +1,13 @@
+/*
+ *  Class Name: Patient
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 1, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
 package com.example.jerry.healemgood.model.user;
 
 import com.example.jerry.healemgood.model.request.Request;
@@ -7,8 +17,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * It is the class for patients
- * It inherits from the base class User*/
+ * Represents a patient
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see User
+ * @since 1.0
+ */
+
 public class Patient extends User {
 
     private ArrayList<String> problemIds;
