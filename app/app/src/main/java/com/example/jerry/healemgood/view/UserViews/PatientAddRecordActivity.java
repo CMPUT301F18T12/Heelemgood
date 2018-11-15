@@ -21,10 +21,14 @@ public class PatientAddRecordActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
+    // for display the collection of photos
+    private ImageAdapter imageAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_add_record);
+
         Button addLocationButton =  findViewById(R.id.addLocationButton);
         Button saveButton = findViewById(R.id.saveButton);
         ImageButton photoButton = findViewById(R.id.photoButton);
@@ -55,9 +59,9 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         });
 
 
-
         GridView gridview = (GridView) findViewById(R.id.gridView);
-        gridview.setAdapter(new ImageAdapter(this));
+        imageAdapter = new ImageAdapter(this);
+        gridview.setAdapter(imageAdapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
@@ -80,13 +84,14 @@ public class PatientAddRecordActivity extends AppCompatActivity {
     }
 
     @Override
-    // get the photo taken just now
+    // get the photo taken just now and add it to the gallery
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-//            ImageView photoView = findViewById(R.id.imageView);
-//            photoView.setImageBitmap(imageBitmap);
+            imageAdapter.addPhoto(imageBitmap);
+            imageAdapter.notifyDataSetChanged();
+
         }
     }
 

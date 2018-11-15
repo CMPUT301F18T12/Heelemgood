@@ -142,7 +142,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
-        android:columnWidth="120dp"
+        android:columnWidth="110dp"
         android:gravity="center"
         android:horizontalSpacing="0dp"
         android:numColumns="auto_fit"
