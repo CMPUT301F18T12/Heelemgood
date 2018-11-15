@@ -79,14 +79,13 @@ public class ProblemController {
             Delete delete = new Delete.Builder(pid).index(indexName).type("problem").build();
             String query = "{\n" +
                     "    \"query\": {\n" +
-                    "        \"constant\" :{ \n"+
-                    "           \"term\" :{ \n"+
+                    "           \"match\" :{ \n"+
                     "               \"pId\" :\""+pid+"\"\n"+
                     "            }\n"+
                     "         }\n"+
-                    "    }\n" +
                     "}";
-            DeleteByQuery deleteRecord = new DeleteByQuery.Builder(query).addIndex(indexName).addType("problem").build();
+            Log.d("Name-Jeff",query);
+            DeleteByQuery deleteRecord = new DeleteByQuery.Builder(query).addIndex(indexName).addType("record").build();
             try{
                 DocumentResult result = client.execute(delete);
                 JestResult result2 = client.execute(deleteRecord);
