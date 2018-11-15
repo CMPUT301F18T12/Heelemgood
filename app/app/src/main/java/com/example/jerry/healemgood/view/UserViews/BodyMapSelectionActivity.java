@@ -11,6 +11,7 @@
 package com.example.jerry.healemgood.view.UserViews;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -39,6 +41,7 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
     private float lastTouchX;  // position x
     private float lastTouchY;  // position y
     private BodyColor bodyColor = new BodyColor();  // color under the hood
+    private String bodyString;
 
     /**
      * This function will load a previously used instance of the activity
@@ -55,6 +58,23 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
 
         imageView.setOnTouchListener(touchListener);
         imageView.setOnClickListener(clickListener);
+
+        Button continueButton = findViewById(R.id.continueButton);
+        continueButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                // Make sure that user has selected a body location
+                if (bodyString != null){
+                    Intent intent = new Intent(BodyMapSelectionActivity.this,PatientAddRecordActivity.class);
+                    startActivity(intent);
+                }
+
+
+
+            }
+        });
+
+
     }
 
     /**
@@ -68,18 +88,19 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
 
             // save the X,Y coordinates
             if (e.getActionMasked() == MotionEvent.ACTION_UP) {
-                int color = getHotspotColor(R.id.colorMap,(int) e.getX(),(int) e.getY());  // an integer represents the color
+                int colorId = getHotspotColor(R.id.colorMap,(int) e.getX(),(int) e.getY());  // an integer represents the color
+                bodyString = bodyColor.getBodyPart(colorId).toString();
 
                 Log.i("Click", "X = "+ e.getX() + " Y = " + e.getY());
 
-                if (bodyColor.getBodyPart(color) == BodyPart.NULL) {  // the position is invalid
+                if (bodyColor.getBodyPart(colorId) == BodyPart.NULL) {  // the position is invalid
                     return false;
                 }
 
                 // position is valid save it into variables
                 lastTouchX = (int) e.getX();
                 lastTouchY = (int) e.getY();
-                Toast toast = Toast.makeText(getApplicationContext(), ""+bodyColor.getBodyPart(color), Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), ""+bodyColor.getBodyPart(colorId), Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
                 return true;

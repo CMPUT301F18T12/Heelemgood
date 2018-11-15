@@ -15,11 +15,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.jerry.healemgood.controller.UserCreationController;
+import com.example.jerry.healemgood.model.user.User;
 import com.example.jerry.healemgood.view.UserViews.AccountCreationActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientHome;
-import com.example.jerry.healemgood.view.UserViews.PatientUserActivity;
+import com.example.jerry.healemgood.view.UserViews.PatientHomeActivity;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(MainActivity.this,PatientHome.class);
+                String userId = ((EditText)findViewById(R.id.userIdEditText)).getText().toString();
+
+                Intent intent = new Intent(MainActivity.this,PatientHomeActivity.class);
                 startActivity(intent);
 
 

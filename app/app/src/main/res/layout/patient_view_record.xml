@@ -123,7 +123,7 @@
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/todo"
         app:layout_constraintEnd_toEndOf="@+id/viewPager"
-        app:layout_constraintTop_toTopOf="@+id/locationButton2"
+        app:layout_constraintTop_toTopOf="@+id/addLocationButton"
         app:srcCompat="@android:drawable/ic_menu_mylocation" />
 
     <Button
