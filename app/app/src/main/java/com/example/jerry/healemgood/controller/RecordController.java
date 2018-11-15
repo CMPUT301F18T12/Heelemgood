@@ -16,6 +16,7 @@ import android.util.Log;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.maps.model.LatLng;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
@@ -49,7 +50,7 @@ public class RecordController {
     private static String searchQuery;
 
     /**
-     * Get record
+     * Get record by Id, used for testing
      */
     public static class  GetRecordByIdTask extends AsyncTask<String,Void,Record>{
         protected Record doInBackground(String... rids){
@@ -95,6 +96,7 @@ public class RecordController {
     public static class DeleteRecordTask extends AsyncTask<Record,Void,Void> {
 
         protected Void doInBackground(Record... records) {
+            setClient();
             String rid = records[0].getrId();
             Delete delete = new Delete.Builder(rid).index(indexName).type("record").build();
             try{
@@ -108,9 +110,23 @@ public class RecordController {
             return null;
         }
     }
+    public static class UpdateRecordTask extends AsyncTask<Record,Void,Void> {
 
+        protected Void doInBackground(Record... records) {
+            setClient();
+            Index index = new Index.Builder(records[0]).index(indexName).type("record").id(records[0].getrId()).build();
+            try{
+                DocumentResult result = client.execute(index);
+                Log.d("Name-Jeff","Record updated");
+            }catch(IOException e){
+                Log.d("Joey Error"," IOexception when executing client");
+            }
+            return null;
+        }
+    }
     /***
-     * Seach for a list of records by the title name, description. At the end, it will reset the searchQuery
+     * Seach for a list of records by the searchQuery created. At the end, it will reset the searchQuery.
+     * To build searchQuery, use initSearchQuery(), finalizeSearchQuery(), searchBy.....()
      * @params It will use the searchQuery user created before
      */
     public static class SearchRecordTask extends AsyncTask<Void,Void,ArrayList<Record>> {
@@ -185,27 +201,6 @@ public class RecordController {
                 "    }\n";
     }
 
-
-
-    /**
-     *
-     * Modify the search query so it it will search for records that are inside the distance of place
-     * @param place     Enter a location
-     * @param distance  Enter the radius from the location
-     */
-    public static void searchByGeoLocation(Place place,int distance){
-        double Lat = place.getLatLng().latitude;
-        double Lon = place.getLatLng().longitude;
-        searchQuery += "   {\"geo_location\" : {\n" +
-                "               \"distance\": \""+String.valueOf(distance)+"km\", \n"+
-                "                   \"geoLocation\": { \n"+
-                "                   \"latitude\": " +String.valueOf(Lat) +", \n"+
-                "                   \"longitude\": " +String.valueOf(Lon) +"\n"+
-                "                   }\n"+
-                "       }\n"+
-                "   }\n";
-    }
-
     /**
      * Call this after all the search parameter is entered
      */
@@ -216,6 +211,28 @@ public class RecordController {
                 "}";
 
     }
+
+    /**
+     *
+     * Modify the search query so it it will search for records that are inside the distance of place
+     * @param latlng     Enter a location
+     * @param distance  Enter the radius from the location in km
+     */
+    public static void searchByGeoLocation(LatLng latlng, int distance){
+        double lat = latlng.latitude;
+        double lon = latlng.longitude;
+        searchQuery +=   "   {\"filtered\" : {\n"+
+                "   \"filter\" : {\n"+
+                "   \"geo_distance\" : {\n" +
+                "               \"distance\": \""+String.valueOf(distance)+"km\", \n"+
+                "                   \"geoLocation\": ["+String.valueOf(lon)+","+String.valueOf(lat)+"] \n"+
+                "       }\n"+
+                "       }\n"+
+                "       }\n"+
+                "   }\n";
+    }
+
+
 
     /**
      * Create client

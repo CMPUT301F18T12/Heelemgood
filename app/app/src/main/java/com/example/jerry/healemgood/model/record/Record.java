@@ -53,7 +53,7 @@ public class Record {
     /* This is a boolean var to determine whether this record is a patient record or care provider record*/
     private boolean isPatientRecord;
     /* geoLocation(optional) of where this problem is created*/
-    protected LatLng geoLocation;
+    protected double[] geoLocation;
     /*The bodyLocaton id*/
     protected int bodyLocation;
     /**
@@ -115,11 +115,10 @@ public class Record {
      * Add photos to the list, then converting it into base64 format and add it to the photo list
      *
      * See : https://stackoverflow.com/questions/4830711/how-to-convert-a-image-into-base64-string
-     * @param imgPath enter the imgPath
+     * @param src enter the Bitmap
      */
 
-    public void addPhoto(String imgPath){
-        Bitmap src=BitmapFactory.decodeFile(imgPath);
+    public void addPhoto(Bitmap src){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         src.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte [] b = baos.toByteArray();
@@ -211,14 +210,14 @@ public class Record {
     }
 
     /**
-     * Set geo-location from place, then store it as LatLng
-     * @See https://developers.google.com/places/android
-     *
-     * @param place the place is obtained through place picker
+     * Set geo-location from place, then store it as LatLng See https://developers.google.com/places/android
+     * @param lat the latitude
+     * @param lon the lontitude
      */
-
-    public void setGeoLocation(Place place) {
-        this.geoLocation= place.getLatLng();
+    public void setGeoLocation(double lat,double lon) {
+        this.geoLocation= new double[2];
+        this.geoLocation[0]= lon;
+        this.geoLocation[1]=lat;
     }
 
     /**
@@ -227,7 +226,7 @@ public class Record {
      * @return GeoLocation in LatLng
      */
 
-    public LatLng getGeoLocation() {
+    public double[] getGeoLocation() {
         return this.geoLocation;
     }
 

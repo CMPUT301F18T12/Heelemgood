@@ -5,11 +5,15 @@ import android.util.Log;
 
 import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.controller.ProblemController;
+import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.problem.Problem;
+import com.example.jerry.healemgood.model.record.PatientRecord;
+import com.example.jerry.healemgood.model.record.Record;
 import com.google.gson.Gson;
 import com.robotium.solo.Solo;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class ProblemControllerTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
@@ -82,6 +86,13 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             new ProblemController.CreateProblemTask().execute(p).get();
         }catch(Exception e){
         }
+        //create record
+        Record r=null;
+        try{
+            r=  new PatientRecord(p.getpId(),"Record for deleteion  title");
+            new RecordController.CreateRecordTask().execute(r).get();
+        }catch(Exception e){
+        }
         //delete problem
         try{
             new ProblemController.DeleteProblemTask().execute(p).get();
@@ -93,7 +104,15 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
         }catch(Exception e){ }
         assertNull(p2);
         //Need to test if records is deleted here
+        Record r2=null;
+        try{
+            r2 = new RecordController.GetRecordByIdTask().execute(r.getrId()).get();
+        }catch(Exception e){ }
+
+        //wait for the above querys to complete in our server
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        }catch(Exception e){assertTrue(false);}
+        assertNull(r2);
     }
-
-
 }
