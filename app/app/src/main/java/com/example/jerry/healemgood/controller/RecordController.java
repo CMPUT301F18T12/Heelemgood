@@ -32,7 +32,7 @@ public class RecordController {
     private static String searchQuery;
 
     /**
-     * Get recor
+     * Get record by Id, used for testing
      */
     public static class  GetRecordByIdTask extends AsyncTask<String,Void,Record>{
         protected Record doInBackground(String... rids){
