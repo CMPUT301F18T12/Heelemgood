@@ -1,3 +1,13 @@
+/*
+ *  Class Name: PatientAddRecordActivity
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 14, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
 package com.example.jerry.healemgood.view.UserViews;
 
 import android.content.Intent;
@@ -21,6 +31,16 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a PatientAddRecordActivity
+ * Handles all functions relating to allowing a patient to post a record for a problem
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class PatientAddRecordActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -30,6 +50,11 @@ public class PatientAddRecordActivity extends AppCompatActivity {
     private ImageAdapter imageAdapter;
     private ArrayList<Bitmap> photoBitmapCollection = new ArrayList<Bitmap>();
 
+    /**
+     * Handles loading an older version of the activity
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +113,13 @@ public class PatientAddRecordActivity extends AppCompatActivity {
 
     }
 
-    //https://developer.android.com/training/camera/photobasics
-    // Method that handles camera
+    /**
+     * This function allows users to take a picture with their devices camera.
+     *
+     * @see  //https://developer.android.com/training/camera/photobasics
+     *
+     */
+
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -97,10 +127,21 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Reloads the activity after doing various intents (ex. taking a picture).
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     // receive the intent result when the next activity finishes
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // get the photo taken just now and add it to the gallery
+
+        /**
+         * Adds the photo just taken to the gallery
+         *
+         */
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -111,7 +152,10 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         }
 
 
-        //Get the geo location
+        /**
+         * Gets the geolocation for the record
+         *
+         */
         else if (requestCode == PLACE_PICKER_REQUEST && resultCode == RESULT_OK){
             Place place = PlacePicker.getPlace(data, this);
             String toastMsg = String.format("Place: %s", place.getName());
@@ -119,13 +163,20 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         }
     }
 
-    // add a photo bitmap to the collection
+    /**
+     * Adds a photo bitmap to the gallery
+     *
+     * @param imageBitmap
+     */
     private void addPhoto(Bitmap imageBitmap){
         photoBitmapCollection.add(imageBitmap);
 
     }
 
-
+    /**
+     * Saves everything recorded in the record to the problem in the form of a new record.
+     *
+     */
     private void save(){
         EditText titleInput = findViewById(R.id.titleInput);
         String titleString = titleInput.getText().toString();

@@ -25,14 +25,34 @@ import com.example.jerry.healemgood.view.UserViews.PatientHomeActivity;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a MainActivity
+ * Handles all functions relating to signing in to an already created account
+ * Also gives the option to create a new account
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * Reloads an earlier version of the activity if possible
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.onCreateAccount();
     }
+
+    /**
+     * Handles everything relating to switching to the account creation page.
+     */
     public void onCreateAccount(){
         TextView createTextView = findViewById(R.id.createAccountTextView);
         Button signInButton = findViewById(R.id.signInButton);
