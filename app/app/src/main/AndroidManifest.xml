@@ -28,14 +28,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".view.UserViews.AccountCreationActivity" />
         <activity android:name=".view.UserViews.PatientUserActivity" />
-        <activity android:name=".view.UserViews.PatientHome"></activity>
-
-
-        <activity android:name=".view.UserViews.BodyMapSelectionActivity"></activity>
-
+        <activity android:name=".view.UserViews.PatientHomeActivity" />
+        <activity android:name=".view.UserViews.BodyMapSelectionActivity" />
+        <activity android:name=".view.UserViews.PatientAddRecordActivity" />
+        <activity android:name=".view.UserViews.PatientMapSelection"></activity>
     </application>
 
 </manifest>

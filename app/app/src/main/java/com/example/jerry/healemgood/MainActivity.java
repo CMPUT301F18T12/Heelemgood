@@ -8,8 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.view.UserViews.AccountCreationActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientHome;
-import com.example.jerry.healemgood.view.UserViews.PatientUserActivity;
+import com.example.jerry.healemgood.view.UserViews.PatientHomeActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(MainActivity.this,PatientHome.class);
+                Intent intent = new Intent(MainActivity.this,PatientHomeActivity.class);
                 startActivity(intent);
 
 
