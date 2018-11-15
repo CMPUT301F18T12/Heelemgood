@@ -1,3 +1,13 @@
+/*
+ *  Class Name: PatientTest2
+ *
+ *  Version: Version 1.0.3
+ *
+ *  Date: November 1, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
 package com.example.jerry.healemgood;
 
 import android.support.test.runner.AndroidJUnit4;
@@ -71,6 +81,9 @@ public class PatientTest2 {
         assertEquals(user.getGender(), gender2);
     }
 
+    /**
+     * Tests request lists
+     */
     public void requestsTest() {
         // request ArrayList tests
         String userId = "jackb0";
@@ -104,6 +117,9 @@ public class PatientTest2 {
         assertEquals(request2,user.getRequestByIndex(0));
     }
 
+    /**
+     * Tests problems
+     */
     public void problemTest() {
         // problem ArrayList test
         String userId = "jackb0";
@@ -132,6 +148,9 @@ public class PatientTest2 {
         assertEquals(problemId2,user.getCareProviderUserIdByIndex(0));
     }
 
+    /**
+     * Tests care providers
+     */
     public void careProvidersTest() {
         // careProvider ArrayList tests
         String userId = "jackb0";
