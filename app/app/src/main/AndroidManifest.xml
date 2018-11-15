@@ -3,6 +3,8 @@
     package="com.example.jerry.healemgood">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -17,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,6 +39,9 @@
         <activity android:name=".view.UserViews.BodyMapSelectionActivity" />
         <activity android:name=".view.UserViews.PatientAddRecordActivity" />
         <activity android:name=".view.UserViews.PatientMapSelection"></activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDMQjpqMqtFS2ogPixlLUPvUu9muw_Sm6w"/>
     </application>
 
 </manifest>

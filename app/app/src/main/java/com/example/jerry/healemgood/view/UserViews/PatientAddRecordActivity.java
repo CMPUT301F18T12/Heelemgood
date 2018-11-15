@@ -5,24 +5,30 @@ import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.view.UserViews.adapter.ImageAdapter;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+
+import java.util.ArrayList;
 
 public class PatientAddRecordActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int PLACE_PICKER_REQUEST = 2;
 
     // for display the collection of photos
     private ImageAdapter imageAdapter;
+    private ArrayList<Bitmap> photoBitmapCollection = new ArrayList<Bitmap>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +42,16 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         addLocationButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(PatientAddRecordActivity.this,PatientMapSelection.class);
-                startActivity(intent);
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+                try{
+                    startActivityForResult(builder.build(PatientAddRecordActivity.this), PLACE_PICKER_REQUEST);
+                }
+                catch (Exception e){
+                    Log.d("Error","Place Picker Error");
+                }
+
+
             }
         });
 
@@ -84,15 +98,31 @@ public class PatientAddRecordActivity extends AppCompatActivity {
     }
 
     @Override
-    // get the photo taken just now and add it to the gallery
+    // receive the intent result when the next activity finishes
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // get the photo taken just now and add it to the gallery
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+            addPhoto(imageBitmap);
             imageAdapter.addPhoto(imageBitmap);
             imageAdapter.notifyDataSetChanged();
 
         }
+
+
+        //Get the geo location
+        else if (requestCode == PLACE_PICKER_REQUEST && resultCode == RESULT_OK){
+            Place place = PlacePicker.getPlace(data, this);
+            String toastMsg = String.format("Place: %s", place.getName());
+            Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // add a photo bitmap to the collection
+    private void addPhoto(Bitmap imageBitmap){
+        photoBitmapCollection.add(imageBitmap);
+
     }
 
 
