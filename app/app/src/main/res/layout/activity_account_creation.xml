@@ -29,12 +29,12 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
 
     <EditText
-        android:id="@+id/userNameEditText"
+        android:id="@+id/userIdEditText"
         android:layout_width="321dp"
         android:layout_height="42dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="@string/username_text"
+        android:hint="@string/userid_text"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="@+id/firstNameEditText"
         app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +49,7 @@
         android:hint="@string/firstname_text"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userNameEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/userIdEditText" />
 
     <EditText
         android:id="@+id/lastNameEditText"
