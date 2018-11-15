@@ -20,7 +20,7 @@ import java.util.Date;
  *
  * @author xiacijie
  * @version 1.0
- * @see CareProvider
+ * @see User
  * @since 1.0
  */
 

@@ -10,6 +10,14 @@
 
 package com.example.jerry.healemgood.utils;
 
+/**
+ * Represents a body part
+ *
+ * @author TianqiCS
+ * @version 1.0
+ * @since 1.0
+ */
+
 public enum BodyPart {
     HEAD,
     SHOULDER,

@@ -1,3 +1,13 @@
+/*
+ *  Class Name: BodyMapSelectionActivity
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 14, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
 package com.example.jerry.healemgood.view.UserViews;
 
 import android.annotation.SuppressLint;
@@ -15,11 +25,26 @@ import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.utils.BodyColor;
 import com.example.jerry.healemgood.utils.BodyPart;
 
+/**
+ * Represents a BodyMapSelectionActivity
+ * This activity handles everything relating to selecting a body part on the map for use in records/problems
+ *
+ * @author TianqiCS
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class BodyMapSelectionActivity extends AppCompatActivity{
     private float lastTouchX;  // position x
     private float lastTouchY;  // position y
     private BodyColor bodyColor = new BodyColor();  // color under the hood
 
+    /**
+     * This function will load a previously used instance of the activity
+     *
+     * @param savedInstanceState
+     */
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +57,10 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
         imageView.setOnClickListener(clickListener);
     }
 
+    /**
+     * This is a listener that deals with the body part map
+     *
+     */
     View.OnTouchListener touchListener = new View.OnTouchListener() {
         @SuppressLint("ClickableViewAccessibility")
         @Override
@@ -61,6 +90,9 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
         }
     };
 
+    /**
+     * This is a listener that records the values entered.
+     */
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -70,7 +102,15 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
     };
 
 
-    // get the color of the clicked pixel
+    /**
+     * This gets the color of the pixel clicked on
+     *
+     * @param hotspotId
+     * @param x
+     * @param y
+     * @return x,y
+     */
+
     public int getHotspotColor (int hotspotId, int x, int y) {
         ImageView img = findViewById (hotspotId);
         if (img == null) {
