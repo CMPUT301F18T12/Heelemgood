@@ -1,12 +1,24 @@
+/*
+ *  Class Name: Request
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 1, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
 package com.example.jerry.healemgood.model.request;
 
 import com.example.jerry.healemgood.model.user.CareProvider;
 
 /**
- * This is the class for request
- * A request is a message that care provider sends to patients in order to get the permission to treat the patient
- * Patients can accept it or reject a request
- * */
+ * Represents a Request
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @since 1.0
+ */
 
 public class Request {
     private String senderUserId;

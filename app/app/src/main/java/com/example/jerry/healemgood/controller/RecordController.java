@@ -1,3 +1,13 @@
+/*
+ * Controller Name: RecordController
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 8, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
 package com.example.jerry.healemgood.controller;
 
 import android.os.AsyncTask;
@@ -25,13 +35,21 @@ import io.searchbox.core.SearchResult;
 import io.searchbox.core.Update;
 import io.searchbox.indices.IndicesExists;
 
+/**
+ * Represents a RecordController
+ *
+ * @author joeyUalberta
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class RecordController {
     private static JestDroidClient client=null;
     private static String indexName = "cmput301f18t12";
     private static String searchQuery;
 
     /**
-     * Get recor
+     * Get record
      */
     public static class  GetRecordByIdTask extends AsyncTask<String,Void,Record>{
         protected Record doInBackground(String... rids){

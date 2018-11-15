@@ -1,3 +1,14 @@
+/*
+ * Controller Name: UserCreationController
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 11, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
+
 package com.example.jerry.healemgood.controller;
 
 import android.os.AsyncTask;
@@ -27,6 +38,14 @@ import io.searchbox.core.SearchResult;
 
 import static com.example.jerry.healemgood.controller.ProblemController.setClient;
 
+/**
+ * Represents a UserCreationController
+ *
+ * @author WeakMill98
+ * @version 1.0
+ * @since 1.0
+ */
+
 //TODO: Fix the issue of setClient() being local, assign it a singleton and make it global
 // https://stackoverflow.com/questions/12069669/how-can-you-pass-multiple-primitive-parameters-to-asynctask
 public class UserCreationController {
@@ -34,8 +53,10 @@ public class UserCreationController {
     private static JestDroidClient client = null;
     private static String indexName = "cmput301f18t12";
 
-    // Add a User to the database
-    // Can either be a patient or a user
+    /**
+     *Add a User to the database
+     *Can either be a patient or a user
+     */
     public static class addUserTask extends AsyncTask<User, Void, Void>{
         protected Void doInBackground(User... users) {
             setClient();
@@ -52,7 +73,9 @@ public class UserCreationController {
         }
     }
 
-    // Delete a user from the DB
+    /**
+     * Delete a user from the DB
+     */
     public static class deleteUserTask extends AsyncTask<User,Void,Void> {
         protected Void doInBackground(User... users) {
             String userId = users[0].getUserId();
@@ -78,8 +101,9 @@ public class UserCreationController {
         }
     }
 
-    // Searches to see if a username already exists
-    // Returns the object associated with that username
+    /** Searches to see if a username already exists
+     * Returns the object associated with that username
+     */
     public static class searchUsername extends AsyncTask<String, Void, ArrayList<User>> {
         protected ArrayList<User> doInBackground(String... username) {
             setClient();
@@ -105,7 +129,10 @@ public class UserCreationController {
         }
     }
 
-    // Search for the username of a care provider
+    /**
+     *     Search for the username of a care provider
+     */
+
     public static class searchCareProviderUsername extends AsyncTask<String, Void, ArrayList<CareProvider>> {
         protected ArrayList<CareProvider> doInBackground(String... username) {
             setClient();
@@ -131,7 +158,10 @@ public class UserCreationController {
         }
     }
 
-    // Class used to find the patient profile from searching for its username
+    /**
+     *     Class used to find the patient profile from searching for its username
+      */
+
     public static class searchPatientUsername extends AsyncTask<String, Void, ArrayList<Patient>> {
         protected ArrayList<Patient> doInBackground(String... username) {
             setClient();
@@ -157,9 +187,12 @@ public class UserCreationController {
         }
     }
 
-    // Class used to find the user from the password and username
-    // Assume the positioning is username, then password
-    // Returns the user object if username and passwords match
+    /**
+     * Class used to find the user from the password and username
+     * Assume the positioning is username, then password
+     * Returns the user object if username and passwords match
+     */
+
     public static class searchUserPasswordandUsername extends AsyncTask<String, Void, ArrayList<User>> {
         protected ArrayList<User> doInBackground(String... keywords) {
             setClient();
@@ -189,8 +222,10 @@ public class UserCreationController {
     }
 
 
-    // Set the client, duplicate code
-    private static void setClient() {
+    /**
+     * Set the client, duplicate code
+     */
+     private static void setClient() {
         if (client == null) {
             DroidClientConfig config = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080/").build();
             JestClientFactory factory = new JestClientFactory();

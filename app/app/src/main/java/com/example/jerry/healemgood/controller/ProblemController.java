@@ -1,3 +1,13 @@
+/*
+ * Controller Name: ProblemController
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 7, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
 package com.example.jerry.healemgood.controller;
 
 import android.location.Location;
@@ -26,12 +36,21 @@ import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
+/**
+ * Represents a ProblemController
+ *
+ * @author joeyUalberta
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class ProblemController {
     private static JestDroidClient client=null;
     private static String indexName = "cmput301f18t12";
 
     /**
      * This function is for debug/testing purposes, return a problem given a problem id
+     *
      */
     public static class GetProblemByIdTask extends AsyncTask<String,Void,Problem>{
         protected Problem doInBackground(String... ids) {

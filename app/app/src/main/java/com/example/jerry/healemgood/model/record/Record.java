@@ -1,3 +1,13 @@
+/*
+ *  Class Name: Record
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 1, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
 package com.example.jerry.healemgood.model.record;
 
 import android.graphics.Bitmap;
@@ -16,9 +26,15 @@ import java.util.Date;
 import io.searchbox.annotations.JestId;
 
 /**
- * This is the base class for record
- * contains basic information that a record should have
- * */
+ * Represents a Record
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see PatientRecord
+ * @see CareProviderRecord
+ * @since 1.0
+ */
+
 public class Record {
 
     /* Record ID*/
@@ -42,6 +58,7 @@ public class Record {
     protected int bodyLocation;
     /**
      * A problem have to be created before this record can be created;
+     *
      * @param pid    which problem this record is attached to
      * @param title   title of the record
      * @param isPatientRecord   indicate whether or not this is patient record or doctor record
@@ -54,31 +71,53 @@ public class Record {
         this.photos = new ArrayList<>();
     }
 
-    /* Set the title*/
+    /**
+     * This sets the title of the record.
+     *
+     * @param title
+     */
+
     public void setTitle(String title) {
         this.title = title;
     }
 
-    /* Get the title*/
+    /**
+     * This gets and returns the title of the record.
+     *
+     * @return title
+     */
+
     public String getTitle() {
         return title;
     }
 
-    /* Set the description */
+    /**
+     * This sets the description of the Record
+     *
+     * @param description
+     */
+
     public void setDescription(String description) {
         this.description = description;
     }
 
-    /* Get the description*/
+    /**
+     * This gets and returns the description of the record
+     *
+     * @return
+     */
+
     public String getDescription(){
         return description;
     }
 
     /**
      * Add photos to the list, then converting it into base64 format and add it to the photo list
+     *
      * See : https://stackoverflow.com/questions/4830711/how-to-convert-a-image-into-base64-string
      * @param imgPath enter the imgPath
      */
+
     public void addPhoto(String imgPath){
         Bitmap src=BitmapFactory.decodeFile(imgPath);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -90,8 +129,12 @@ public class Record {
 
     /**
      *  Get photo collection
-     *  See https://stackoverflow.com/questions/4837110/how-to-convert-a-base64-string-into-a-bitmap-image-to-show-it-in-a-imageview
+     *
+     *  @See https://stackoverflow.com/questions/4837110/how-to-convert-a-base64-string-into-a-bitmap-image-to-show-it-in-a-imageview
+     *
+     * @return photos
      */
+
     public ArrayList<Bitmap> getPhotos() {
         ArrayList<Bitmap> photos = new ArrayList<Bitmap>();
         for (String imgString: this.photos){
@@ -103,10 +146,12 @@ public class Record {
     }
 
     /**
-     * Get aphoto by Index
+     * Get a photo by Index
+     *
      * @param index where this photo positon int the photo list
      * @return Bitmap of the photo
      */
+
     public Bitmap getPhotoById(int index){
         String imgString = this.photos.get(index);
         byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
@@ -115,22 +160,39 @@ public class Record {
     }
 
 
-    /* Get the date*/
+    /**
+     * Gets and returns the date of the record
+     *
+     * @return record
+     *
+     */
+
     public Date getCreatedDate() {
         return createdDate;
     }
 
-    /* Set the date*/
+    /**
+     * Sets the date of the record.
+     *
+     * @param createdDate
+     */
+
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
-    /* a method to know whether it is a patient record or doctor record*/
+    /**
+     * Returns whether the record belongs to a patient or not
+     *
+     * @return isPatientRecord
+     */
+
     public boolean isPatientRecord() {
         return isPatientRecord;
     }
 
-    /**get the record Id
+    /**
+     * get the record Id
      *
      * @return record Id
      */
@@ -138,37 +200,53 @@ public class Record {
         return rId;
     }
 
+    /**
+     * Sets the id of the record
+     *
+     * @param rId
+     */
+
     public void setrId(String rId) {
         this.rId = rId;
     }
 
     /**
-     * Set geo-location from place, then store it as LatLng See https://developers.google.com/places/android
+     * Set geo-location from place, then store it as LatLng
+     * @See https://developers.google.com/places/android
+     *
      * @param place the place is obtained through place picker
      */
+
     public void setGeoLocation(Place place) {
         this.geoLocation= place.getLatLng();
     }
 
     /**
+     * Returns the GeoLocation
+     *
      * @return GeoLocation in LatLng
      */
+
     public LatLng getGeoLocation() {
         return this.geoLocation;
     }
 
     /**
      * Get the pid of the correspoded problem
+     *
      * @return pid
      */
+
     public String getpId() {
         return pId;
     }
 
     /**
      * Set the pid (optional, most likely not needed in this application)
+     *
      * @param pId
      */
+
     public void setpId(String pId) {
         this.pId = pId;
     }

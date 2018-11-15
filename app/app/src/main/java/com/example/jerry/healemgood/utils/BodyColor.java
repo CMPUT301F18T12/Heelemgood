@@ -1,7 +1,25 @@
+/*
+ *  Class Name: BodyColor
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 14, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
 package com.example.jerry.healemgood.utils;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+
+/**
+ * Represents a color on the body map
+ *
+ * @author TianqiCS
+ * @version 1.0
+ * @since 1.0
+ */
 
 public class BodyColor {
     private Hashtable<ArrayList<Integer>,BodyPart> colorTable = new Hashtable<>();
