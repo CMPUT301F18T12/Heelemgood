@@ -69,7 +69,7 @@ public class ProblemController {
     }
 
     /**
-     * Delete a problem base on the id(JestID), and removed corresponding records from DB2
+     * Delete a problem, and removed corresponding records from DB2
      */
     public static class DeleteProblemTask extends AsyncTask<Problem,Void,Void> {
 

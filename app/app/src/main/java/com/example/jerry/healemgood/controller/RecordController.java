@@ -203,9 +203,13 @@ public class RecordController {
     public static void searchByGeoLocation(LatLng latlng, int distance){
         double lat = latlng.latitude;
         double lon = latlng.longitude;
-        searchQuery += "   {\"geo_distance\" : {\n" +
+        searchQuery +=   "   {\"filtered\" : {\n"+
+                "   \"filter\" : {\n"+
+                "   \"geo_distance\" : {\n" +
                 "               \"distance\": \""+String.valueOf(distance)+"km\", \n"+
-                "                   \"geoLocation\": ["+String.valueOf(lat)+","+String.valueOf(lon)+"] \n"+
+                "                   \"geoLocation\": ["+String.valueOf(lon)+","+String.valueOf(lat)+"] \n"+
+                "       }\n"+
+                "       }\n"+
                 "       }\n"+
                 "   }\n";
     }

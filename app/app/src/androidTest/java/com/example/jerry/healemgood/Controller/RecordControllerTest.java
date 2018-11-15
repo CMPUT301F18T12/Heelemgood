@@ -1,11 +1,13 @@
 package com.example.jerry.healemgood.Controller;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 
 import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.controller.RecordController;
+import com.example.jerry.healemgood.controller.TestingTools;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.PatientRecord;
 import com.example.jerry.healemgood.model.record.Record;
@@ -38,6 +40,8 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
     }
 
     public void testCreateRecord(){
+        //reset the database
+        new TestingTools.ResetRecordsTask().execute();
         //record create a problem first
         String text = "cant get it working";
         System.out.println(text);
@@ -60,7 +64,10 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
         String objectString2 = new Gson().toJson(r2);
         assertEquals(objectString1,objectString2);
     }
+
     public void testUpdateRecord(){
+        //reset the database
+        new TestingTools.ResetRecordsTask().execute();
         //record create a problem first
         String text = "cant get it working";
         System.out.println(text);
@@ -90,6 +97,8 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
 
     }
     public void testDeleteRecord(){
+        //reset the database
+        new TestingTools.ResetRecordsTask().execute();
         String text = "cant get it working";
         System.out.println(text);
         Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@");
@@ -114,6 +123,11 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
     }
 
     public void testSearchRecord(){
+        Log.d("Name-Jeff","start testSearchRecord");
+        //reset the database
+        try {
+            new TestingTools.ResetRecordsTask().execute().get();
+        }catch(Exception e){assertTrue(false);}
         String pid = Long.toHexString(Double.doubleToLongBits(Math.random()));
         String pid2= Long.toHexString(Double.doubleToLongBits(Math.random()));
         String pid3= Long.toHexString(Double.doubleToLongBits(Math.random()));;
@@ -182,6 +196,7 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
             RecordController.finalizeSearchQuery();
             records=new RecordController.SearchRecordTask().execute().get();
         }catch(Exception e){        }
+
         assertEquals(records.size(),3);
         try{
             RecordController.initSearchQuery();
