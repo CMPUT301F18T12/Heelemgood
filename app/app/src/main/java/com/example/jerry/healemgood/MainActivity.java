@@ -11,8 +11,6 @@
 package com.example.jerry.healemgood;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.UserCreationController;
 import com.example.jerry.healemgood.model.user.User;
 
@@ -34,9 +31,9 @@ import com.example.jerry.healemgood.model.user.User;
  * @see AppCompatActivity
  * @since 1.0
  */
-import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientHomeActivity;
+import com.example.jerry.healemgood.view.UserViews.adapter.ProblemAdapter;
+import com.example.jerry.healemgood.view.UserViews.adapter.RequestsAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private Button signInButton;
@@ -51,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
         this.onCreateAccount();
 
         signInButton = findViewById(R.id.signInButton);
@@ -64,17 +59,17 @@ public class MainActivity extends AppCompatActivity {
                 try{
                     User user = new UserCreationController.searchUserTask().execute(userNameEditText.getText().toString()).get();
                     if (user.getUserId().equals(userNameEditText.getText().toString())){
-
-                        SharedPreferenceUtil.store(MainActivity.this,AppConfig.USERID,user.getUserId());
-                        Intent intent = new Intent(getApplicationContext(), PatientHomeActivity.class);
+                        ////////////////////////////////////////////////////////////////////////////
+                        ////////////////////////////////////////////////////////////////////////////
+                        ////////////////////////////////////////////////////////////////////////////
+                        ////////////////////////////////////////////////////////////////////////////
+                        Intent intent = new Intent(getApplicationContext(), ProblemAdapter.class);
                         startActivity(intent);
                     }
                 }catch (Exception e){ }
             }
         });
     }
-
-
 
     /**
      * Handles everything relating to switching to the account creation page.

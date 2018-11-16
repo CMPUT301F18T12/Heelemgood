@@ -26,11 +26,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.407"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/patientProbelmListView"
+            app:layout_constraintTop_toBottomOf="@+id/patientProblemListView"
             app:layout_constraintVertical_bias="1.0" />
 
         <ListView
-            android:id="@+id/patientProbelmListView"
+            android:id="@+id/patientProblemListView"
             android:layout_width="395dp"
             android:layout_height="344dp"
             android:layout_marginStart="8dp"
