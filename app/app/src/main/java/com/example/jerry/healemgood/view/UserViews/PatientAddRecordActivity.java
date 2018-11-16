@@ -30,11 +30,18 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
+import com.example.jerry.healemgood.config.AppConfig;
+import com.example.jerry.healemgood.controller.ProblemController;
+import com.example.jerry.healemgood.controller.RecordController;
+import com.example.jerry.healemgood.model.problem.Problem;
+import com.example.jerry.healemgood.model.record.PatientRecord;
+import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.UserViews.adapter.ImageAdapter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Represents a PatientAddRecordActivity
@@ -97,7 +104,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
+                save();
                 finish();
             }
         });
@@ -187,14 +194,73 @@ public class PatientAddRecordActivity extends AppCompatActivity {
      *
      */
     private void save(){
-        EditText titleInput = findViewById(R.id.titleInput);
-        String titleString = titleInput.getText().toString();
+        EditText recordTitleInput = findViewById(R.id.titleInput);
+        String recordTitle = recordTitleInput.getText().toString();
 
-        EditText problemInput = findViewById(R.id.problemInput);
-        String problemString = problemInput.getText().toString();
+        EditText problemTitleInput = findViewById(R.id.problemInput);
+        String problemTitle = problemTitleInput.getText().toString();
 
         EditText descriptionInput = findViewById(R.id.descriptionInput);
-        String description = descriptionInput.getText().toString();
+        String descriptionString = descriptionInput.getText().toString();
+
+        // make a new patient record
+        PatientRecord patientRecord;
+
+        //Search if the problem title already exists
+        ProblemController.initSearchQuery();
+        ProblemController.searchByKeyword(problemTitle);
+        ProblemController.finalizeSearchQuery();
+
+        ArrayList<Problem> problems; //searching result
+
+        try{
+            problems = new ProblemController.SearchProblemTask().execute().get();
+
+        }
+        catch (Exception e){
+            problems = new ArrayList<Problem>();
+        }
+
+        if (problems.size() > 0){ // The problem has already exists
+            patientRecord = new PatientRecord(problems.get(0).getpId(),recordTitle);
+        }
+
+        else{ // The problem title does not exist, create a new one!
+            Problem problem = new Problem(problemTitle,new Date(),SharedPreferenceUtil.get(this,AppConfig.USERID));
+            try{
+                new ProblemController.CreateProblemTask().execute(problem).get();
+            }
+            catch (Exception e){
+                Log.d("Error","Fail to send problem to elastic search");
+            }
+
+            patientRecord = new PatientRecord(problem.getpId(),recordTitle);
+
+        }
+
+        // set the description of the record
+        patientRecord.setDescription(descriptionString);
+
+        //set the photos of the record
+        for (Bitmap photo: photoBitmapCollection){
+            patientRecord.addPhoto(photo);
+        }
+
+        // send patient record to the server
+        try{
+            new RecordController.CreateRecordTask().execute(patientRecord).get();
+        }
+        catch (Exception e){
+            Log.d("Error","Fail to send record to elastic search");
+        }
+
+
+
+
+
+
+
+
 
 
     }
