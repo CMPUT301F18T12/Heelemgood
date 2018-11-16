@@ -59,8 +59,6 @@ public class CareProviderRecordTest {
         // photo ArrayList
         String imgPath = "/tmp/1.png";
         String imgPath2 = "/tmp/2.png";
-        record.addPhoto(imgPath);
-        record.addPhoto(imgPath2);
 
         ArrayList<Bitmap> photos = record.getPhotos();
 
