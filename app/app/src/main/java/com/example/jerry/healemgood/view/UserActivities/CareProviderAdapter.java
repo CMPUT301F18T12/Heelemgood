@@ -1,4 +1,4 @@
-package com.example.jerry.healemgood.view.UserViews.Adapters;
+package com.example.jerry.healemgood.view.UserActivities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -82,7 +82,7 @@ public class CareProviderAdapter extends AppCompatActivity {
         @NonNull
         @Override
         public View getView(int i, View convertView, ViewGroup viewGroup) {
-            View view = getLayoutInflater().inflate(R.layout.ListViewCustomLayout, null);
+            View view = getLayoutInflater().inflate(R.layout.list_view_custom_layout, null);
             ImageView mImageView = view.findViewById(R.id.imageView);
             TextView mTextView = view.findViewById(R.id.textView);
 

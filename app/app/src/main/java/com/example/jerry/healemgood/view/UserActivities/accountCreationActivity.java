@@ -1,6 +1,5 @@
-package com.example.jerry.healemgood.view.UserViews;
+package com.example.jerry.healemgood.view.UserActivities;
 
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
