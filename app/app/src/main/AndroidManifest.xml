@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.jerry.healemgood">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -27,27 +28,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.UserViews.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".view.UserViews.AccountCreationActivity" />
         <activity android:name=".view.UserViews.PatientUserActivity" />
         <activity android:name=".view.UserViews.PatientHomeActivity" />
         <activity android:name=".view.UserViews.BodyMapSelectionActivity" />
         <activity android:name=".view.UserViews.PatientAddRecordActivity" />
         <activity android:name=".view.UserViews.PatientMapSelection" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDMQjpqMqtFS2ogPixlLUPvUu9muw_Sm6w" />
-
         <activity android:name=".view.UserViews.PatientHistoryActivity" />
         <activity android:name=".view.UserViews.PatientSearchActivity" />
         <activity android:name=".view.UserViews.PatientRequestActivity"></activity>
+        <activity android:name=".view.UserActivities.loginActivity" />
+        <activity android:name=".view.UserActivities.accountCreationActivity" />
+        <activity android:name=".view.UserActivities.CareProviderAdapter" />
     </application>
 
 </manifest>

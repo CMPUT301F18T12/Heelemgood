@@ -21,9 +21,6 @@ import android.widget.TextView;
 import com.example.jerry.healemgood.controller.UserCreationController;
 import com.example.jerry.healemgood.model.user.User;
 import com.example.jerry.healemgood.view.UserViews.AccountCreationActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientHomeActivity;
-
-import java.util.ArrayList;
 
 /**
  * Represents a MainActivity
@@ -35,8 +32,11 @@ import java.util.ArrayList;
  * @see AppCompatActivity
  * @since 1.0
  */
+import com.example.jerry.healemgood.view.UserActivities.accountCreationActivity;
 
 public class MainActivity extends AppCompatActivity {
+    private Button signInButton;
+    private EditText userNameEditText;
 
     /**
      * Reloads an earlier version of the activity if possible
@@ -48,6 +48,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.onCreateAccount();
+
+        signInButton = findViewById(R.id.signInButton);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                userNameEditText = findViewById(R.id.userIdEditText);
+                try{
+                    User user = new UserCreationController.searchUserTask().execute(userNameEditText.getText().toString()).get();
+                    if (user.getUserId().equals(userNameEditText.getText().toString())){
+                        Intent intent = new Intent(getApplicationContext(), accountCreationActivity.class);
+                        startActivity(intent);
+                    }
+                }catch (Exception e){ }
+            }
+        });
     }
 
     /**
@@ -55,24 +71,11 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onCreateAccount(){
         TextView createTextView = findViewById(R.id.createAccountTextView);
-        Button signInButton = findViewById(R.id.signInButton);
         createTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, AccountCreationActivity.class));
             }
         });
-        signInButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                String userId = ((EditText)findViewById(R.id.userIdEditText)).getText().toString();
-
-                Intent intent = new Intent(MainActivity.this,PatientHomeActivity.class);
-                startActivity(intent);
-
-
-            }
-        });
-
     }
 }

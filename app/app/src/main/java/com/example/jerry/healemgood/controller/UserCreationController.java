@@ -19,6 +19,8 @@ import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.model.user.CareProvider;
 import com.example.jerry.healemgood.model.user.Patient;
 import com.example.jerry.healemgood.model.user.User;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
@@ -27,6 +29,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Delete;
@@ -101,123 +104,50 @@ public class UserCreationController {
         }
     }
 
-    /** Searches to see if a username already exists
-     * Returns the object associated with that username
-     */
-    public static class searchUsername extends AsyncTask<String, Void, ArrayList<User>> {
-        protected ArrayList<User> doInBackground(String... username) {
-            setClient();
-            String usernameQuery = "{\n" +
-                    "    \"query\": {\n" +
-                    "        \"multi_match\" :{ \n" +
-                    "               \"query\": \"" + username[0] + "\",\n" +
-                    "               \"fields\": [ \"userId\"]\n" +
-                    "    }\n" +
-                    "}";
-            Search searchUsername = new Search.Builder(usernameQuery).addIndex(indexName).addType("patient").build();
-            ArrayList<User> userArrayList = new ArrayList<>();
-            try {
-                SearchResult usernameResult = client.execute(searchUsername);
-                if (usernameResult.isSucceeded()) {
-                    List<User> userList = usernameResult.getSourceAsObjectList(User.class);
-                    userArrayList.addAll(userList);
-                }
-            } catch (IOException e) {
-                Log.d("Error", " IOexception when executing client");
-            }
-            return userArrayList;
-        }
-    }
-
-    /**
-     *     Search for the username of a care provider
-     */
-
-    public static class searchCareProviderUsername extends AsyncTask<String, Void, ArrayList<CareProvider>> {
-        protected ArrayList<CareProvider> doInBackground(String... username) {
-            setClient();
-            String usernameQuery = "{\n" +
-                    "    \"query\": {\n" +
-                    "        \"multi_match\" :{ \n" +
-                    "               \"query\": \"" + username[0] + "\",\n" +
-                    "               \"fields\": [ \"userId\"]\n" +
-                    "    }\n" +
-                    "}";
-            Search searchUsername = new Search.Builder(usernameQuery).addIndex(indexName).addType("careprovider").build();
-            ArrayList<CareProvider> userArrayList = new ArrayList<>();
-            try {
-                SearchResult usernameResult = client.execute(searchUsername);
-                if (usernameResult.isSucceeded()) {
-                    List<CareProvider> userList = usernameResult.getSourceAsObjectList(CareProvider.class);
-                    userArrayList.addAll(userList);
-                }
-            } catch (IOException e) {
-                Log.d("Error", " IOexception when executing client");
-            }
-            return userArrayList;
-        }
-    }
-
-    /**
-     *     Class used to find the patient profile from searching for its username
-      */
-
-    public static class searchPatientUsername extends AsyncTask<String, Void, ArrayList<Patient>> {
-        protected ArrayList<Patient> doInBackground(String... username) {
-            setClient();
-            String usernameQuery = "{\n" +
-                    "    \"query\": {\n" +
-                    "        \"multi_match\" :{ \n" +
-                    "               \"query\": \"" + username[0] + "\",\n" +
-                    "               \"fields\": [ \"userId\"]\n" +
-                    "    }\n" +
-                    "}";
-            Search searchUsername = new Search.Builder(usernameQuery).addIndex(indexName).addType("patient").build();
-            ArrayList<Patient> userArrayList = new ArrayList<>();
-            try {
-                SearchResult usernameResult = client.execute(searchUsername);
-                if (usernameResult.isSucceeded()) {
-                    List<Patient> userList = usernameResult.getSourceAsObjectList(Patient.class);
-                    userArrayList.addAll(userList);
-                }
-            } catch (IOException e) {
-                Log.d("Error", " IOexception when executing client");
-            }
-            return userArrayList;
-        }
-    }
-
     /**
      * Class used to find the user from the password and username
      * Assume the positioning is username, then password
      * Returns the user object if username and passwords match
      */
 
-    public static class searchUserPasswordandUsername extends AsyncTask<String, Void, ArrayList<User>> {
-        protected ArrayList<User> doInBackground(String... keywords) {
+
+
+    public static class searchUserTask extends AsyncTask<String, Void, User> {
+        @Override
+        protected User doInBackground(String... userNames) {
             setClient();
-            ArrayList<User> userList = new UserCreationController.searchUsername().doInBackground(keywords[0]);
-            String passwordQuery = "{\n" +
+            String userName = userNames[0];
+
+            // Build the search query
+            String query = "{\n" +
                     "    \"query\": {\n" +
-                    "        \"multi_match\" :{ \n" +
-                    "               \"query\": \"" + keywords[0] + "\",\n" +
-                    "               \"fields\": [ \"password\"]\n" +
+                    "        \"query_string\" : {\n" +
+                    "            \"query\" : \"(userId:" + userName + ")\" \n" +
+                    "        }\n" +
                     "    }\n" +
                     "}";
-            Search searchPassword = new Search.Builder(passwordQuery).addIndex(indexName).addType("user").build();
-            ArrayList<User> userArrayList = new ArrayList<>();
+
+            Search search = new Search.Builder(query).addIndex(indexName).addType("patient").build();
+
+            // If searched, then return object, otherwise return null
             try {
-                SearchResult passwordResult = client.execute(searchPassword);
-                if (userList.size() != 0 && passwordResult.isSucceeded()) {
-                    if (userList.get(0).getPassword().equals(passwordResult.getSourceAsObject(User.class).getPassword())) {
-                        List<User> users = passwordResult.getSourceAsObjectList(User.class);
-                        userArrayList.addAll(users);
+                SearchResult searchResult = client.execute(search);
+                if(searchResult.isSucceeded() && searchResult.getSourceAsStringList().size()>0){
+
+                    JsonParser parser = new JsonParser();
+                    JsonObject jsonObject = parser.parse(searchResult.getSourceAsStringList().get(0)).getAsJsonObject();
+
+                    if(jsonObject.getClass().toString().equals("CareProvider")){
+                        return searchResult.getSourceAsObjectList(CareProvider.class).get(0);
                     }
+                    return searchResult.getSourceAsObjectList(Patient.class).get(0);
                 }
+                Log.d("Succeed", "Empty");
             } catch (IOException e) {
-                Log.d("Error", " IOexception when executing client");
+                Log.d("Succeed", "Failed!");
+                e.printStackTrace();
             }
-            return userArrayList;
+            return null;
         }
     }
 
