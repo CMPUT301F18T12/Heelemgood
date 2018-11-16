@@ -208,9 +208,9 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         PatientRecord patientRecord;
 
         //Search if the problem title already exists
-        ProblemController.initSearchQuery();
+//        ProblemController.initSearchQuery();
         ProblemController.searchByKeyword(problemTitle);
-        ProblemController.finalizeSearchQuery();
+//        ProblemController.finalizeSearchQuery();
 
         ArrayList<Problem> problems; //searching result
 
