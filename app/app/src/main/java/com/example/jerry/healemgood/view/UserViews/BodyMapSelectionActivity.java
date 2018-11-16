@@ -13,6 +13,11 @@ package com.example.jerry.healemgood.view.UserViews;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +31,7 @@ import android.widget.Toast;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.utils.BodyColor;
 import com.example.jerry.healemgood.utils.BodyPart;
+import com.example.jerry.healemgood.utils.DrawDot;
 
 /**
  * Represents a BodyMapSelectionActivity
@@ -67,7 +73,6 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
                 if (bodyString != null){
                     Intent intent = new Intent(BodyMapSelectionActivity.this,PatientAddRecordActivity.class);
                     startActivity(intent);
-                    finish();
                 }
 
 
@@ -89,6 +94,17 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
 
             // save the X,Y coordinates
             if (e.getActionMasked() == MotionEvent.ACTION_UP) {
+                ImageView imageView = findViewById (R.id.bodyMap);
+                //Convert drawable to bitmap
+                Drawable drawable = getResources().getDrawable(R.drawable.body_map);
+                Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+                //Create a new image bitmap and attach a brand new canvas to it
+                Bitmap newbitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
+                Canvas canvas = new Canvas(newbitmap);
+                Paint paint = new Paint();
+                paint.setColor(Color.RED);
+                //Draw the bitmap into canvas
+                canvas.drawBitmap(bitmap,0,0,null);
                 int colorId = getHotspotColor(R.id.colorMap,(int) e.getX(),(int) e.getY());  // an integer represents the color
                 bodyString = bodyColor.getBodyPart(colorId).toString();
 
@@ -101,6 +117,13 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
                 // position is valid save it into variables
                 lastTouchX = (int) e.getX();
                 lastTouchY = (int) e.getY();
+                //Draw dots
+                canvas.drawCircle(lastTouchX, lastTouchY, 20, paint);
+                //Draw canvas to imageView
+                imageView.setImageDrawable(new BitmapDrawable(getResources(), newbitmap));
+                //DrawDot.setx(lastTouchX);
+                //DrawDot.sety(lastTouchY);
+                //setContentView(DrawDot);
                 Toast toast = Toast.makeText(getApplicationContext(), ""+bodyColor.getBodyPart(colorId), Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
