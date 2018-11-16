@@ -10,12 +10,17 @@
 
 package com.example.jerry.healemgood.view.UserViews;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -112,6 +117,10 @@ public class PatientAddRecordActivity extends AppCompatActivity {
 
 
     }
+
+
+
+
 
     /**
      * This function allows users to take a picture with their devices camera.

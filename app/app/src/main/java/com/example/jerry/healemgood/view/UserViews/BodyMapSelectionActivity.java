@@ -67,6 +67,7 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
                 if (bodyString != null){
                     Intent intent = new Intent(BodyMapSelectionActivity.this,PatientAddRecordActivity.class);
                     startActivity(intent);
+                    finish();
                 }
 
 
