@@ -1,4 +1,4 @@
-package com.example.jerry.healemgood.view.UserActivities;
+package com.example.jerry.healemgood.view.UserViews.adapter;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,7 +16,7 @@ import com.example.jerry.healemgood.model.user.CareProvider;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class CareProviderAdapter extends AppCompatActivity {
+public class RequestsAdapter extends AppCompatActivity {
     ListView mListView;
 
     // TODO: replce this list with a controller that gets all the doctor's images
@@ -82,7 +82,7 @@ public class CareProviderAdapter extends AppCompatActivity {
         @NonNull
         @Override
         public View getView(int i, View convertView, ViewGroup viewGroup) {
-            View view = getLayoutInflater().inflate(R.layout.list_view_custom_layout, null);
+            View view = getLayoutInflater().inflate(R.layout.requests_list_view_custom_layout, null);
             ImageView mImageView = view.findViewById(R.id.imageView);
             TextView mTextView = view.findViewById(R.id.textView);
 
