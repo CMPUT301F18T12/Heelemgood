@@ -37,7 +37,7 @@ import com.example.jerry.healemgood.utils.DrawDot;
  * Represents a BodyMapSelectionActivity
  * This activity handles everything relating to selecting a body part on the map for use in records/problems
  *
- * @author TianqiCS
+ * @author TianqiCS rwang4
  * @version 1.0
  * @see AppCompatActivity
  * @since 1.0
@@ -99,7 +99,7 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
                 Drawable drawable = getResources().getDrawable(R.drawable.body_map);
                 Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
                 //Create a new image bitmap and attach a brand new canvas to it
-                Bitmap newbitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
+                Bitmap newbitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
                 Canvas canvas = new Canvas(newbitmap);
                 Paint paint = new Paint();
                 paint.setColor(Color.RED);
