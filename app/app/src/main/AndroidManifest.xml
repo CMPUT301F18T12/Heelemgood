@@ -40,8 +40,8 @@
         <activity android:name=".view.UserViews.PatientHistoryActivity" />
         <activity android:name=".view.UserViews.PatientSearchActivity" />
         <activity android:name=".view.UserViews.PatientRequestActivity"></activity>
-        <activity android:name=".view.UserActivities.loginActivity" />
-        <activity android:name=".view.UserActivities.accountCreationActivity" />
+        <activity android:name=".view.UserActivities.LoginActivity" />
+        <activity android:name=".view.UserActivities.AccountCreationActivity" />
         <activity android:name=".view.UserActivities.CareProviderAdapter" />
     </application>
 

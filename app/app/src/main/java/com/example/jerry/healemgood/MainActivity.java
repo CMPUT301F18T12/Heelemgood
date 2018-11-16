@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.example.jerry.healemgood.controller.UserCreationController;
 import com.example.jerry.healemgood.model.user.User;
-import com.example.jerry.healemgood.view.UserViews.AccountCreationActivity;
 
 /**
  * Represents a MainActivity
@@ -32,7 +31,7 @@ import com.example.jerry.healemgood.view.UserViews.AccountCreationActivity;
  * @see AppCompatActivity
  * @since 1.0
  */
-import com.example.jerry.healemgood.view.UserActivities.accountCreationActivity;
+import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Button signInButton;
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 try{
                     User user = new UserCreationController.searchUserTask().execute(userNameEditText.getText().toString()).get();
                     if (user.getUserId().equals(userNameEditText.getText().toString())){
-                        Intent intent = new Intent(getApplicationContext(), accountCreationActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), AccountCreationActivity.class);
                         startActivity(intent);
                     }
                 }catch (Exception e){ }

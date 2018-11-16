@@ -15,7 +15,7 @@ import com.example.jerry.healemgood.model.user.Patient;
 
 import java.util.Date;
 
-public class accountCreationActivity extends AppCompatActivity {
+public class AccountCreationActivity extends AppCompatActivity {
 
     private EditText userName;
     private EditText firstName;

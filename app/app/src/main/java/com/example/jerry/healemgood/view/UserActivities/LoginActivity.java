@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.jerry.healemgood.R;
 
 
-public class loginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private EditText userNameEditText;
     private String userName;
     private Button signInButton;
@@ -27,7 +27,7 @@ public class loginActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), accountCreationActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AccountCreationActivity.class);
                 startActivity(intent);
             }
         });
@@ -45,7 +45,7 @@ public class loginActivity extends AppCompatActivity {
         createAccountTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(loginActivity.this, accountCreationActivity.class));
+                startActivity(new Intent(LoginActivity.this, AccountCreationActivity.class));
             }
         });
     }
