@@ -61,6 +61,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
     // for display the collection of photos
     private ImageAdapter imageAdapter;
     private ArrayList<Bitmap> photoBitmapCollection = new ArrayList<Bitmap>();
+    private Place place;
 
     /**
      * Handles loading an older version of the activity
@@ -173,7 +174,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
          *
          */
         else if (requestCode == PLACE_PICKER_REQUEST && resultCode == RESULT_OK){
-            Place place = PlacePicker.getPlace(data, this);
+            place = PlacePicker.getPlace(data, this);
             String toastMsg = String.format("Place: %s", place.getName());
             Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
         }
@@ -245,6 +246,9 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         for (Bitmap photo: photoBitmapCollection){
             patientRecord.addPhoto(photo);
         }
+
+        //set the geolocation
+        patientRecord.setGeoLocation(place.getLatLng().latitude,place.getLatLng().longitude);
 
         // send patient record to the server
         try{
