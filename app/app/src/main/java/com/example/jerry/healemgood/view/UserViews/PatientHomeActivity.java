@@ -21,11 +21,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
+import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
+import com.example.jerry.healemgood.view.UserViews.adapter.ProblemAdapter;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Represents a PatientHomeActivity
@@ -41,6 +50,7 @@ public class PatientHomeActivity extends AppCompatActivity {
 
     //https://developer.android.com/training/implementing-navigation/nav-drawer
     private DrawerLayout mDrawerLayout;
+    private ArrayList<Problem> problems = problemsListConstructor();
 
     /**
      * Reloads an earlier version of the activity if possible
@@ -52,18 +62,23 @@ public class PatientHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_home);
 
+        ListView mListView;
+        Button createRecordButton;
 
-        Button createRecordButton = findViewById(R.id.createRecordButton);
+        mListView = findViewById(R.id.patientProblemListView);
+        createRecordButton = findViewById(R.id.createRecordButton);
 
-        createRecordButton.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                Intent intent = new Intent(PatientHomeActivity.this,BodyMapSelectionActivity.class);
+        CustomProblemAdapter customProblemAdapter = new CustomProblemAdapter();
+        mListView.setAdapter(customProblemAdapter);
+
+        createRecordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BodyMapSelectionActivity.class);
                 startActivity(intent);
-
-
             }
         });
+
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -74,7 +89,7 @@ public class PatientHomeActivity extends AppCompatActivity {
 
                         switch (menuItem.getItemId()){
                             case R.id.navigation_history:
-                                startActivity(new Intent(PatientHomeActivity.this,PatientHistoryActivity.class));
+                                startActivity(new Intent(PatientHomeActivity.this, PatientHistoryActivity.class));
                                 break;
                             case R.id.navigation_user:
                                 startActivity(new Intent(PatientHomeActivity.this, PatientUserActivity.class));
@@ -83,7 +98,7 @@ public class PatientHomeActivity extends AppCompatActivity {
                                 startActivity(new Intent(PatientHomeActivity.this, PatientSearchActivity.class));
                                 break;
                             case R.id.navigation_request:
-                                startActivity(new Intent(PatientHomeActivity.this,PatientRequestActivity.class));
+                                startActivity(new Intent(PatientHomeActivity.this, PatientRequestActivity.class));
                                 break;
 
                         }
@@ -96,16 +111,50 @@ public class PatientHomeActivity extends AppCompatActivity {
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
 
-
-
                         return true;
                     }
                 });
-
-
-
-
     }
 
 
+    public class CustomProblemAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return problems.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int i, View convertView, ViewGroup viewGroup) {
+            View view = getLayoutInflater().inflate(R.layout.problems_list_view_custom_layout, null);
+            TextView problemName = view.findViewById(R.id.problemNameTextView);
+            TextView date = view.findViewById(R.id.dateTextView);
+            TextView records = view.findViewById(R.id.recordsTextView);
+
+            problemName.setText(problems.get(i).getTitle());
+            date.setText(problems.get(i).getCreatedDate().toString());
+            records.setText(problems.get(i).getTitle());
+            return view;
+        }
+    }
+
+
+    // Temporary test constructor
+    private ArrayList<Problem> problemsListConstructor(){
+        ArrayList<Problem> problems = new ArrayList<>();
+        Problem problem = new Problem("Knee Itchy", new Date(), "Hello");
+        problems.add(problem);
+        return problems;
+    }
 }
