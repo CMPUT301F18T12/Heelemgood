@@ -47,7 +47,13 @@ import io.searchbox.core.SearchResult;
 public class ProblemController {
     private static JestDroidClient client=null;
     private static String indexName = "cmput301f18t12";
-    private static String searchQuery;
+    private static final String introQuery= "{\n" +
+            "    \"query\" : {\n" +
+            "    \"bool\" : {\n" +
+            "        \"must\": [\n"
+            ;
+    private static String searchQuery = introQuery;
+    private static boolean building=false;
     /**
      * This function is for debug/testing purposes, return a problem given a problem id
      *
@@ -123,14 +129,23 @@ public class ProblemController {
 
     /***
      * Seach for a list of problems by the title name
+     *
      * @params Search query:String
      * @return list of problems that fit the search query: ArrayList<Problem>
      */
     public static class SearchProblemTask extends AsyncTask<Void,Void,ArrayList<Problem>> {
         protected ArrayList<Problem> doInBackground(Void... voids) {
+            searchQuery += "]\n"+
+                    "           }\n"+
+                    "           }\n"+
+                    "}";
             setClient();
+            Log.d("Name-Jeff",searchQuery);
             ArrayList<Problem> problems = new ArrayList<Problem>();
             Search search = new Search.Builder(searchQuery).addIndex(indexName).addType("problem").build();
+            //Reset the search Query
+            searchQuery = introQuery;
+            building = false;
             try{
                 SearchResult result = client.execute(search);
                 if(result.isSucceeded()){
@@ -146,55 +161,43 @@ public class ProblemController {
     }
 
     /**
-     * Initialize/Create the searchQuery, call finalizeSearchQuery() after adding the necessary input
-     */
-    public static void initSearchQuery(){
-        String query = "{\n" +
-                "    \"query\" : {\n" +
-                "    \"bool\" : {\n" +
-                "        \"must\": [\n"
-                ;
-        searchQuery=query;
-    }
-    /**
      *
      * Modify the search query so it will search for problems by keyword in title
      * @param keyword
      */
     public static void searchByKeyword(String keyword){
         if(keyword!="") {
+            if(building==true){
+                searchQuery+=",";
+            }
             searchQuery += "   {\"multi_match\" : {\n" +
                     "   \"query\": \""+keyword+"\", \n"+
                     "   \"fields\": [\"title\"] \n"+
                     "   }\n"+
                     " }\n";
         }
+        building=true;
     }
+
     /**
      *
      * Modify the search query so it will search for problems by patient ids
      * @param pIds
      */
     public static void searchByPatientIds(String... pIds){
-        searchQuery +="        {\"terms\" :{ \"pId\" : [";
+        if(building==true){
+            searchQuery+=",";
+        }
+        searchQuery +="        {\"terms\" :{ \"userId\" : [";
         for (int i =0;i<pIds.length;i++){
-            searchQuery += "\""+pIds[i]+"\"";
+            searchQuery += "\""+pIds[i].toLowerCase()+"\"";
             if(i!=pIds.length-1){
                 searchQuery+=",";
             }
         }
         searchQuery+="]}\n"+
                 "    }\n";
-    }
-    /**
-     * Call this after all the search parameter is entered
-     */
-    public static void finalizeSearchQuery(){
-        searchQuery += "]\n"+
-                "           }\n"+
-                "           }\n"+
-                "}";
-
+        building=true;
     }
 
     /**
