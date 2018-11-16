@@ -34,6 +34,7 @@ import com.example.jerry.healemgood.model.user.User;
  * @see AppCompatActivity
  * @since 1.0
  */
+import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.UserViews.PatientHomeActivity;
 
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 try{
                     User user = new UserCreationController.searchUserTask().execute(userNameEditText.getText().toString()).get();
                     if (user.getUserId().equals(userNameEditText.getText().toString())){
+
+                        SharedPreferenceUtil.store(MainActivity.this,AppConfig.USERID,user.getUserId());
                         Intent intent = new Intent(getApplicationContext(), PatientHomeActivity.class);
                         startActivity(intent);
                     }
@@ -70,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     /**
      * Handles everything relating to switching to the account creation page.

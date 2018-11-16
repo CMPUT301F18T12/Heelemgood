@@ -35,7 +35,7 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
 
     public void testCreateProblem(){
         boolean temp2=true;
-        String text = "cant get it working";
+        String text = "HOLY";
         System.out.println(text);
         Problem p = new Problem(text,new Date(),"asdasdasdasdasd");
         try {
@@ -79,7 +79,7 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
     }
 
     public void testDeleteProblem(){
-        String text = "Just another test";
+        String text = "HOLY";
         System.out.println(text);
         Problem p = new Problem(text,new Date(),"sdsadsfdfdsf");
         try {

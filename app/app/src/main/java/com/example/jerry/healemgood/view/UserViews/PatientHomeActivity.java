@@ -25,6 +25,7 @@ import android.widget.Button;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
+import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 
 /**
  * Represents a PatientHomeActivity
