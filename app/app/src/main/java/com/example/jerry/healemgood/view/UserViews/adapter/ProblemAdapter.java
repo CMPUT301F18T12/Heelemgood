@@ -48,7 +48,7 @@ public class ProblemAdapter extends AppCompatActivity {
         });
     }
 
-    class CustomProblemAdapter extends BaseAdapter{
+    public class CustomProblemAdapter extends BaseAdapter{
 
         @Override
         public int getCount() {
@@ -87,5 +87,4 @@ public class ProblemAdapter extends AppCompatActivity {
         problems.add(problem);
         return problems;
     }
-
 }
