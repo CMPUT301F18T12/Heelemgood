@@ -46,6 +46,32 @@ public class TestingTools {
     }
 
     /**
+     * Remove all records under the type
+     */
+    public static class ResetTypeTask extends AsyncTask<String,Void,Void> {
+
+        protected Void doInBackground(String... types) {
+            setClient();
+            String query = "{\n" +
+                    "    \"query\": {\n" +
+                    "           \"match_all\" :{ }\n"+
+                    "         }\n"+
+                    "}";
+            Log.d("Name-Jeff",query);
+            DeleteByQuery deleteRecord = new DeleteByQuery.Builder(query).addIndex(indexName).addType(types[0]).build();
+            try{
+                JestResult result = client.execute(deleteRecord);
+                if(result.isSucceeded()){
+                    Log.d("Name-Jeff","the documents are deleted");
+                }
+            }catch(IOException e){
+                Log.d("Name-Jeff"," IOexception when executing client");
+            }
+            return null;
+        }
+    }
+
+    /**
      * Create client
      */
     public static void setClient(){
