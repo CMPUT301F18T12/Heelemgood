@@ -1,12 +1,10 @@
 package com.example.jerry.healemgood.view.UserViews.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
@@ -21,14 +19,21 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
 
     private Context mContext;
     private int layout;
+    private List<Problem> problems;
 
     public ProblemAdapter(Context c, int layout, List<Problem> problems){
         super(c,layout,problems);
         this.layout = layout;
         this.mContext = c;
+        this.problems = problems;
     }
 
 
+    public void refreshAdapter(List<Problem> problems){
+        this.problems.clear();
+        this.problems.addAll(problems);
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -46,7 +51,7 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
 
             TextView problemName = v.findViewById(R.id.problemNameTextView);
             TextView date = v.findViewById(R.id.dateTextView);
-            TextView recordCount = v.findViewById(R.id.recordsTextView);
+            TextView recordCount = v.findViewById(R.id.descriptionTextView);
             problemName.setText(p.getTitle());
             date.setText(p.getCreatedDate().toString());
 

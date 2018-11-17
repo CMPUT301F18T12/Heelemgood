@@ -111,6 +111,13 @@ public class ProblemController {
         protected void onPostExecute(Void v){
             super.onPostExecute(v);
             if (a!= null){
+                try{
+                    Thread.sleep(500);
+                }
+                catch (Exception e){
+
+                }
+
                 a.finish();
             }
 
@@ -134,16 +141,16 @@ public class ProblemController {
                     "         }\n"+
                     "}";
             Log.d("Name-Jeff",query);
-            DeleteByQuery deleteRecord = new DeleteByQuery.Builder(query).addIndex(indexName).addType("record").build();
+//            DeleteByQuery deleteRecord = new DeleteByQuery.Builder(query).addIndex(indexName).addType("record").build();
             try{
                 DocumentResult result = client.execute(delete);
-                JestResult result2 = client.execute(deleteRecord);
+//                JestResult result2 = client.execute(deleteRecord);
                 if(result.isSucceeded()){
                     Log.d("Name-Jeff","Problem removed");
                 }
-                if(result2.isSucceeded()){
-                    Log.d("Name-Jeff","Records removed");
-                }
+//                if(result2.isSucceeded()){
+//                    Log.d("Name-Jeff","Records removed");
+//                }
             }catch(IOException e){
                 Log.d("Joey Error"," IOexception when executing client");
             }

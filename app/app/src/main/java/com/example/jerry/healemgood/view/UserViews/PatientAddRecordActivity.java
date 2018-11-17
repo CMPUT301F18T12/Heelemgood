@@ -126,10 +126,6 @@ public class PatientAddRecordActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
     /**
      * This function allows users to take a picture with their devices camera.
      *
@@ -221,22 +217,28 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         }
 
 
-        // send patient record to the server
+
+
+        //load the problem by Pid
+        Problem problem;
         try{
-            new RecordController.CreateRecordTask().execute(patientRecord).get();
+            problem = new ProblemController.GetProblemByIdTask().execute(getIntent().getStringExtra(AppConfig.PID)).get();
         }
         catch (Exception e){
-            Log.d("Error","Fail to send record to elastic search");
+            problem = null;
+            Log.d("Error","Fail to get the problem by id");
         }
 
+        problem.addRecord(patientRecord);
 
 
-
-
-
-
-
-
+        // update the problem
+        try{
+            new ProblemController.UpdateProblemTask().execute(problem).get();
+        }
+        catch (Exception e){
+            Log.d("Error","Fail to update problem");
+        }
 
     }
 }

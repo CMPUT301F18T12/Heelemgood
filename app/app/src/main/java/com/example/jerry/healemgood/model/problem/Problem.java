@@ -37,6 +37,9 @@ public class Problem {
     //Id of the patient who created this problem
     private String userId;
 
+    //records
+    private ArrayList<Record> records;
+
     /**
      * This initializes a Problem
      *
@@ -48,7 +51,60 @@ public class Problem {
         this.title = title;
         this.createdDate = date; // The createdDate of a problem should be the date of the first record
         this.userId =userId;
+        this.records = new ArrayList<Record>();
     }
+
+    /**
+     * This add record to problem
+     *
+     * @param record
+     *
+     */
+    public void addRecord(Record record){
+        records.add(record);
+    }
+
+    /**
+     * This return a single
+     *
+     * @param index
+     * @return Record
+     *
+     */
+    public Record getRecordByIndex(int index){
+        return records.get(index);
+    }
+
+    /**
+     * Return all records
+     *
+     *
+     * @return Records
+     *
+     */
+    public ArrayList<Record> getAllRecords(){
+        return records;
+    }
+
+
+    /**
+     * remove a record
+     *
+     *
+     * @param index
+     *
+     */
+
+    public void removeRecordByIndex(int index){
+        records.remove(index);
+    }
+
+
+
+
+
+
+
 
     /**
      * This gets and returns the Id of the problem

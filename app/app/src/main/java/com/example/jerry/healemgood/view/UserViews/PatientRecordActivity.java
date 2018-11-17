@@ -10,7 +10,9 @@ import android.widget.ListView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
+import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.controller.RecordController;
+import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.view.UserViews.adapter.ProblemAdapter;
 import com.example.jerry.healemgood.view.UserViews.adapter.RecordAdapter;
@@ -47,21 +49,29 @@ public class PatientRecordActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    protected void onResume(){
+
+        super.onResume();
+        loadRecords();
+        recordAdapter.refreshAdapter(records);
+
+    }
 
 
     // TODO: THE records are not loaded as expected ( nothing is loaded)
     private void loadRecords(){
-
-        String pId = getIntent().getStringExtra(AppConfig.PID);
-        RecordController.initSearchQuery();
-        RecordController.searchByProblemIds(pId);
-        RecordController.finalizeSearchQuery();
+        //load the problem by Pid
+        Problem problem;
         try{
-            records = new RecordController.SearchRecordTask().execute().get();
-            Log.d("COUNT---",records.size()+""+" " + pId);
+            problem = new ProblemController.GetProblemByIdTask().execute(getIntent().getStringExtra(AppConfig.PID)).get();
         }
         catch (Exception e){
-            Log.d("Error","Fail to get records");
+            problem = null;
+            Log.d("Error","Fail to get the problem by id");
         }
+
+        records = problem.getAllRecords();
+
     }
 }

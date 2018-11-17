@@ -47,6 +47,7 @@ public class PatientProblemActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ArrayList<Problem> problems;
     private ProblemAdapter problemAdapter;
+    private final int CREATE_PROBLEM = 1;
 
     /**
      * Reloads an earlier version of the activity if possible
@@ -83,10 +84,11 @@ public class PatientProblemActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String pId = problems.get(position).getpId();
-                Intent intent = new Intent(PatientProblemActivity.this,PatientRecordActivity.class);
-                intent.putExtra(AppConfig.PID,pId);
-                startActivity(intent);
+
+            String pId = problems.get(position).getpId();
+            Intent intent = new Intent(PatientProblemActivity.this,PatientRecordActivity.class);
+            intent.putExtra(AppConfig.PID,pId);
+            startActivity(intent);
             }
         });
 
@@ -133,11 +135,8 @@ public class PatientProblemActivity extends AppCompatActivity {
     protected void onResume(){
 
         super.onResume();
-//        Intent intent = getIntent();
-//        finish();
-//        startActivity(intent);
         loadProblems();
-        problemAdapter.notifyDataSetChanged();
+        problemAdapter.refreshAdapter(problems);
 
     }
 
@@ -145,7 +144,7 @@ public class PatientProblemActivity extends AppCompatActivity {
         ProblemController.searchByPatientIds(SharedPreferenceUtil.get(this,AppConfig.USERID));
         try{
             problems = new ProblemController.SearchProblemTask().execute().get();
-            Log.d("COUNT",""+problems.size());
+
 
         }
         catch (Exception e){
@@ -154,6 +153,20 @@ public class PatientProblemActivity extends AppCompatActivity {
         }
 
 
+
+    }
+
+    private void deleteProblem(int i){
+
+        try {
+            new ProblemController.DeleteProblemTask().execute(problems.get(i)).get();
+            problems.remove(i);
+            // notify changes
+            problemAdapter.refreshAdapter(problems);
+        }
+        catch (Exception e){
+            Log.d("ERROR","FAIL to delete problem");
+        }
 
     }
 
