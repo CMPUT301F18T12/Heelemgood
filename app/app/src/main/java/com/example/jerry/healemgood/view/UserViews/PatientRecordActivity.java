@@ -48,6 +48,8 @@ public class PatientRecordActivity extends AppCompatActivity {
 
     }
 
+
+    // TODO: THE records are not loaded as expected ( nothing is loaded)
     private void loadRecords(){
 
         String pId = getIntent().getStringExtra(AppConfig.PID);

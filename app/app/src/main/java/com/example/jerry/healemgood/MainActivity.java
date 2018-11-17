@@ -13,11 +13,13 @@ package com.example.jerry.healemgood;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.UserCreationController;
 import com.example.jerry.healemgood.model.user.User;
 
@@ -31,6 +33,7 @@ import com.example.jerry.healemgood.model.user.User;
  * @see AppCompatActivity
  * @since 1.0
  */
+import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.UserViews.PatientProblemActivity;
 
@@ -58,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
                 try{
                     User user = new UserCreationController.searchUserTask().execute(userNameEditText.getText().toString()).get();
                     if (user.getUserId().equals(userNameEditText.getText().toString())){
+
+                        //Store userid into shared preference
+                        SharedPreferenceUtil.store(MainActivity.this,AppConfig.USERID,user.getUserId());
                         ////////////////////////////////////////////////////////////////////////////
                         ////////////////////////////////////////////////////////////////////////////
                         ////////////////////////////////////////////////////////////////////////////

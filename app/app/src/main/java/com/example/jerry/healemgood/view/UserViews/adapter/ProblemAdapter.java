@@ -10,7 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
+import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.problem.Problem;
+import com.example.jerry.healemgood.model.record.Record;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,10 +46,23 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
 
             TextView problemName = v.findViewById(R.id.problemNameTextView);
             TextView date = v.findViewById(R.id.dateTextView);
-            TextView records = v.findViewById(R.id.recordsTextView);
+            TextView recordCount = v.findViewById(R.id.recordsTextView);
             problemName.setText(p.getTitle());
             date.setText(p.getCreatedDate().toString());
-            records.setText(p.getTitle());
+
+            ArrayList<Record> records;
+
+            try{
+                RecordController.initSearchQuery();
+                RecordController.searchByProblemIds(p.getpId());
+                RecordController.finalizeSearchQuery();
+                records = new RecordController.SearchRecordTask().execute().get();
+            }
+            catch (Exception e){
+                records = new ArrayList<Record>();
+
+            }
+            recordCount.setText(records.size()+"");
         }
 
 
