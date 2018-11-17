@@ -25,6 +25,7 @@ import android.widget.ListView;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
+import com.example.jerry.healemgood.controller.SwipeDetector;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.UserViews.adapter.ProblemAdapter;
@@ -71,6 +72,9 @@ public class PatientProblemActivity extends AppCompatActivity {
         problemAdapter = new ProblemAdapter(this,R.layout.problems_list_view_custom_layout,problems);
 
         mListView.setAdapter(problemAdapter);
+        final SwipeDetector swipeDetector = new SwipeDetector();
+        mListView.setOnTouchListener(swipeDetector);
+
 
         createProblemButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,11 +88,17 @@ public class PatientProblemActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(swipeDetector.swipeDetected()) {
+                    if(swipeDetector.getAction() == SwipeDetector.Action.RL) {
+                        String pId = problems.get(position).getpId();
+                        Intent intent = new Intent(PatientProblemActivity.this,PatientRecordActivity.class);
+                        intent.putExtra(AppConfig.PID,pId);
+                        startActivity(intent);
+                    } else if(swipeDetector.getAction() == SwipeDetector.Action.LR){
+                        deleteProblem(position);
+                    }
+                }
 
-            String pId = problems.get(position).getpId();
-            Intent intent = new Intent(PatientProblemActivity.this,PatientRecordActivity.class);
-            intent.putExtra(AppConfig.PID,pId);
-            startActivity(intent);
             }
         });
 
