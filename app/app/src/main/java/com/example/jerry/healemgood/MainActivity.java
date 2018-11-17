@@ -32,9 +32,7 @@ import com.example.jerry.healemgood.model.user.User;
  * @since 1.0
  */
 import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientHomeActivity;
-import com.example.jerry.healemgood.view.UserViews.adapter.ProblemAdapter;
-import com.example.jerry.healemgood.view.UserViews.adapter.RequestsAdapter;
+import com.example.jerry.healemgood.view.UserViews.PatientProblemActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Button signInButton;
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         ////////////////////////////////////////////////////////////////////////////
                         ////////////////////////////////////////////////////////////////////////////
                         ////////////////////////////////////////////////////////////////////////////
-                        Intent intent = new Intent(getApplicationContext(), PatientHomeActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), PatientProblemActivity.class);
                         startActivity(intent);
                     }
                 }catch (Exception e){ }

@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
-import com.example.jerry.healemgood.view.UserViews.PatientHomeActivity;
+import com.example.jerry.healemgood.view.UserViews.PatientProblemActivity;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PatientHomeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PatientProblemActivity.class);
                 startActivity(intent);
             }
         });

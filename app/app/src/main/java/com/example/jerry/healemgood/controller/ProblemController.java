@@ -10,8 +10,11 @@
 
 package com.example.jerry.healemgood.controller;
 
+import android.app.Activity;
+import android.content.Context;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.jerry.healemgood.model.problem.Problem;
@@ -26,6 +29,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Delete;
@@ -77,6 +81,17 @@ public class ProblemController {
      * Create a problem in the database and assigned a JestID/pId to it
      */
     public static class CreateProblemTask extends AsyncTask<Problem,Void,Void> {
+
+        private AppCompatActivity a;
+
+        public CreateProblemTask(){
+
+        }
+
+        public CreateProblemTask(AppCompatActivity a){
+            this.a = a;
+        }
+
         protected Void doInBackground(Problem... problems) {
             setClient();
             Problem problem = problems[0];
@@ -87,9 +102,18 @@ public class ProblemController {
                     problem.setpId(result.getId());
                 }
             }catch(IOException e){
-                Log.d("Name-Jeff"," IOexception when executing client");
+                Log.d("Name-Jeff","IOexception when executing client");
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v){
+            super.onPostExecute(v);
+            if (a!= null){
+                a.finish();
+            }
+
         }
     }
 
@@ -158,6 +182,9 @@ public class ProblemController {
             }
             return problems;
         }
+
+
+
     }
 
     /**

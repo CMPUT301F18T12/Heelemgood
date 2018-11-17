@@ -1,5 +1,5 @@
 /*
- *  Class Name: PatientHomeActivity
+ *  Class Name: PatientProblemActivity
  *
  *  Version: Version 1.0
  *
@@ -10,11 +10,7 @@
 
 package com.example.jerry.healemgood.view.UserViews;
 
-import android.app.Fragment;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -22,11 +18,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
@@ -36,10 +30,9 @@ import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.UserViews.adapter.ProblemAdapter;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
- * Represents a PatientHomeActivity
+ * Represents a PatientProblemActivity
  * Handles all functions relating to the homepage of the patient account type
  *
  * @author xiacijie
@@ -48,7 +41,7 @@ import java.util.Date;
  * @since 1.0
  */
 
-public class PatientHomeActivity extends AppCompatActivity {
+public class PatientProblemActivity extends AppCompatActivity {
 
     //https://developer.android.com/training/implementing-navigation/nav-drawer
     private DrawerLayout mDrawerLayout;
@@ -63,7 +56,7 @@ public class PatientHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.patient_home);
+        setContentView(R.layout.patient_problem);
 
         ListView mListView;
         Button createProblemButton;
@@ -74,14 +67,25 @@ public class PatientHomeActivity extends AppCompatActivity {
         loadProblems();
 
 
-//        problemAdapter = new ProblemAdapter(this,R.layout.problems_list_view_custom_layout,problems);
-//
-//        mListView.setAdapter(problemAdapter);
+        problemAdapter = new ProblemAdapter(this,R.layout.problems_list_view_custom_layout,problems);
+
+        mListView.setAdapter(problemAdapter);
 
         createProblemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PatientAddProblemActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String pId = problems.get(position).getpId();
+                Intent intent = new Intent(PatientProblemActivity.this,PatientRecordActivity.class);
+                intent.putExtra(AppConfig.PID,pId);
                 startActivity(intent);
             }
         });
@@ -98,16 +102,16 @@ public class PatientHomeActivity extends AppCompatActivity {
 
                         switch (menuItem.getItemId()){
                             case R.id.navigation_history:
-                                startActivity(new Intent(PatientHomeActivity.this, PatientHistoryActivity.class));
+                                startActivity(new Intent(PatientProblemActivity.this, PatientHistoryActivity.class));
                                 break;
                             case R.id.navigation_user:
-                                startActivity(new Intent(PatientHomeActivity.this, PatientUserActivity.class));
+                                startActivity(new Intent(PatientProblemActivity.this, PatientUserActivity.class));
                                 break;
                             case R.id.navigation_search:
-                                startActivity(new Intent(PatientHomeActivity.this, PatientSearchActivity.class));
+                                startActivity(new Intent(PatientProblemActivity.this, PatientSearchActivity.class));
                                 break;
                             case R.id.navigation_request:
-                                startActivity(new Intent(PatientHomeActivity.this, PatientRequestActivity.class));
+                                startActivity(new Intent(PatientProblemActivity.this, PatientRequestActivity.class));
                                 break;
 
                         }
@@ -127,9 +131,14 @@ public class PatientHomeActivity extends AppCompatActivity {
 
     @Override
     protected void onResume(){
+
         super.onResume();
+//        Intent intent = getIntent();
+//        finish();
+//        startActivity(intent);
         loadProblems();
-//        problemAdapter.notifyDataSetChanged();
+        problemAdapter.notifyDataSetChanged();
+
     }
 
     private void loadProblems(){
@@ -143,6 +152,7 @@ public class PatientHomeActivity extends AppCompatActivity {
             Log.d("Error","Fail to get the problems");
             problems = new ArrayList<Problem>();
         }
+
 
 
     }

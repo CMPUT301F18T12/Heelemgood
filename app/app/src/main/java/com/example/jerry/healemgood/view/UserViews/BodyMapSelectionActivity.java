@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
+import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.utils.BodyColor;
 import com.example.jerry.healemgood.utils.BodyPart;
 
@@ -73,7 +74,9 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
                 // Make sure that user has selected a body location
                 if (bodyString != null){
                     Intent intent = new Intent(BodyMapSelectionActivity.this,PatientAddRecordActivity.class);
+                    intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
                     startActivity(intent);
+                    finish();
                 }
 
 

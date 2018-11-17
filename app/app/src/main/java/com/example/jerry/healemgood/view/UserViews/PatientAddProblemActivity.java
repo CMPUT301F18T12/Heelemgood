@@ -1,6 +1,7 @@
 package com.example.jerry.healemgood.view.UserViews;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,24 +31,32 @@ public class PatientAddProblemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveProblem();
-                finish();
+
             }
         });
     }
 
 
 
-    private void saveProblem(){
+    private void saveProblem() {
         EditText titleInput = findViewById(R.id.titleInput);
         String title = titleInput.getText().toString();
-        Problem problem = new Problem(title,new Date(),SharedPreferenceUtil.get(this,AppConfig.USERID));
+        Problem problem = new Problem(title, new Date(), SharedPreferenceUtil.get(this, AppConfig.USERID));
 
-        try{
-            new ProblemController.CreateProblemTask().execute(problem).get();
+
+        try {
+
+
+            new ProblemController.CreateProblemTask(this).execute(problem).get();
+
+        } catch (Exception e) {
+            Log.d("Error", "Fail to create problem");
+
         }
-        catch (Exception e){
-            Log.d("Error","Fail to create problem");
-        }
+
+
+
+
 
 
     }

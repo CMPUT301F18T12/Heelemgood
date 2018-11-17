@@ -39,9 +39,9 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
         }
 
         Problem p = getItem(position);
-        Log.d("PROBLEM","+++++++++++++++++");
+
         if (p != null){
-            Log.d("_______","++++++++++");
+
             TextView problemName = v.findViewById(R.id.problemNameTextView);
             TextView date = v.findViewById(R.id.dateTextView);
             TextView records = v.findViewById(R.id.recordsTextView);

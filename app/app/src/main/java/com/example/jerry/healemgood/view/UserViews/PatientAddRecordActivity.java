@@ -198,46 +198,14 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         EditText recordTitleInput = findViewById(R.id.titleInput);
         String recordTitle = recordTitleInput.getText().toString();
 
-        EditText problemTitleInput = findViewById(R.id.problemInput);
-        String problemTitle = problemTitleInput.getText().toString();
+
 
         EditText descriptionInput = findViewById(R.id.descriptionInput);
         String descriptionString = descriptionInput.getText().toString();
 
         // make a new patient record
         PatientRecord patientRecord;
-
-        //Search if the problem title already exists
-//        ProblemController.initSearchQuery();
-        ProblemController.searchByKeyword(problemTitle);
-//        ProblemController.finalizeSearchQuery();
-
-        ArrayList<Problem> problems; //searching result
-
-        try{
-            problems = new ProblemController.SearchProblemTask().execute().get();
-
-        }
-        catch (Exception e){
-            problems = new ArrayList<Problem>();
-        }
-
-        if (problems.size() > 0){ // The problem has already exists
-            patientRecord = new PatientRecord(problems.get(0).getpId(),recordTitle);
-        }
-
-        else{ // The problem title does not exist, create a new one!
-            Problem problem = new Problem(problemTitle,new Date(),SharedPreferenceUtil.get(this,AppConfig.USERID));
-            try{
-                new ProblemController.CreateProblemTask().execute(problem).get();
-            }
-            catch (Exception e){
-                Log.d("Error","Fail to send problem to elastic search");
-            }
-
-            patientRecord = new PatientRecord(problem.getpId(),recordTitle);
-
-        }
+        patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID),recordTitle);
 
         // set the description of the record
         patientRecord.setDescription(descriptionString);
@@ -248,7 +216,10 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         }
 
         //set the geolocation
-        patientRecord.setGeoLocation(place.getLatLng().latitude,place.getLatLng().longitude);
+        if (place != null){
+            patientRecord.setGeoLocation(place.getLatLng().latitude,place.getLatLng().longitude);
+        }
+
 
         // send patient record to the server
         try{

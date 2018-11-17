@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.UserViews.PatientUserActivity" />
-        <activity android:name=".view.UserViews.PatientHomeActivity" />
+        <activity android:name=".view.UserViews.PatientProblemActivity" />
         <activity android:name=".view.UserViews.BodyMapSelectionActivity" />
         <activity android:name=".view.UserViews.PatientAddRecordActivity" />
         <activity android:name=".view.UserViews.PatientMapSelection" />
@@ -46,7 +46,8 @@
         <activity android:name=".view.UserActivities.PatientViewRequestActivity" />
         <activity android:name=".view.UserViews.adapter.RequestsAdapter" />
         <activity android:name=".view.UserViews.adapter.ProblemAdapter" />
-        <activity android:name=".view.UserViews.PatientAddProblemActivity"></activity>
+        <activity android:name=".view.UserViews.PatientAddProblemActivity" />
+        <activity android:name=".view.UserViews.PatientRecordActivity"></activity>
     </application>
 
 </manifest>
