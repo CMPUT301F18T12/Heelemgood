@@ -124,26 +124,7 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
 
-                //ImageView imageView = findViewById (R.id.bodyMap);
-                //Convert drawable to bitmap
-                Drawable drawable = getResources().getDrawable(R.drawable.body_map);
-                Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-                //Create a new image bitmap and attach a brand new canvas to it
-                Bitmap newbitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-                Canvas canvas = new Canvas(newbitmap);
-                Paint paint = new Paint();
-                paint.setColor(Color.RED);
-                //Draw the bitmap into canvas
-                canvas.drawBitmap(bitmap,0,0,null);
-
-                // position is valid save it into variables
-
-                //Draw dots
-                canvas.drawCircle(lastTouchX * newbitmap.getWidth(),  lastTouchY * newbitmap.getHeight(), 20, paint);
-                //Draw canvas to imageView
-                map.setImageDrawable(new BitmapDrawable(getResources(), newbitmap));
-
-                //drawDot();
+                drawDot();
 
                 return true;
             }
@@ -211,8 +192,5 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
         canvas.drawCircle(lastTouchX * bitmap.getWidth(), lastTouchY * bitmap.getHeight(), 20, paint);
         //Draw canvas to imageView
         imageView.setImageDrawable(new BitmapDrawable(getResources(), newbitmap));
-        //DrawDot.setx(lastTouchX);
-        //DrawDot.sety(lastTouchY);
-        //setContentView(DrawDot);
     }
 }
