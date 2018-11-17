@@ -28,21 +28,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.UserViews.AccountCreationActivity" />
         <activity android:name=".view.UserViews.PatientUserActivity" />
         <activity android:name=".view.UserViews.PatientHomeActivity" />
         <activity android:name=".view.UserViews.BodyMapSelectionActivity" />
         <activity android:name=".view.UserViews.PatientAddRecordActivity" />
         <activity android:name=".view.UserViews.PatientMapSelection" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDMQjpqMqtFS2ogPixlLUPvUu9muw_Sm6w" />
+
         <activity android:name=".view.UserViews.PatientHistoryActivity" />
         <activity android:name=".view.UserViews.PatientSearchActivity" />
-        <activity android:name=".view.UserViews.PatientRequestActivity"></activity>
+        <activity android:name=".view.UserViews.PatientRequestActivity" />
         <activity android:name=".view.UserActivities.LoginActivity" />
         <activity android:name=".view.UserActivities.AccountCreationActivity" />
-        <activity android:name=".view.UserActivities.CareProviderAdapter" />
+        <activity android:name=".view.UserActivities.PatientViewRequestActivity" />
+        <activity android:name=".view.UserViews.adapter.RequestsAdapter" />
+        <activity android:name=".view.UserViews.adapter.ProblemAdapter" />
+        <activity android:name=".view.UserViews.PatientAddProblemActivity"></activity>
     </application>
 
 </manifest>
