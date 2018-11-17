@@ -34,6 +34,7 @@ public class Problem {
     private String title;
     private Date createdDate;
 
+    private String description;
     //Id of the patient who created this problem
     private String userId;
 
@@ -111,5 +112,13 @@ public class Problem {
      */
     public String getUserId() {
         return userId;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

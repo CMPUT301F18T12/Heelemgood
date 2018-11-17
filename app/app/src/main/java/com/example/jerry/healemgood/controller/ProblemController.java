@@ -172,7 +172,7 @@ public class ProblemController {
             }
             searchQuery += "   {\"multi_match\" : {\n" +
                     "   \"query\": \""+keyword+"\", \n"+
-                    "   \"fields\": [\"title\"] \n"+
+                    "   \"fields\": [\"title\",\"description\"] \n"+
                     "   }\n"+
                     " }\n";
         }
@@ -219,6 +219,7 @@ public class ProblemController {
             return null;
         }
     }
+
     /**
      * Create client
      */
@@ -230,5 +231,4 @@ public class ProblemController {
             client=(JestDroidClient)factory.getObject();
         }
     }
-
 }
