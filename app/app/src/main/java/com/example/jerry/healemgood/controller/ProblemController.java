@@ -162,7 +162,7 @@ public class ProblemController {
 
     /**
      *
-     * Modify the search query so it will search for problems by keyword in title
+     * Modify the search query so it will search for problems by keyword in title and description
      * @param keyword
      */
     public static void searchByKeyword(String keyword){

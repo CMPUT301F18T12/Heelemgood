@@ -96,6 +96,7 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
         assertEquals(objectString1,objectString2);
 
     }
+    /*
     public void testDeleteRecord(){
         //reset the database
         new TestingTools.ResetRecordsTask().execute();
@@ -120,7 +121,7 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
             r2=new RecordController.GetRecordByIdTask().execute(r.getrId()).get();
         }catch(Exception e){        }
         assertNull(r2);
-    }
+    }*/
 
     public void testSearchRecord(){
         Log.d("Name-Jeff","start testSearchRecord");
@@ -160,48 +161,36 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
             TimeUnit.SECONDS.sleep(1);
         }catch(Exception e){assertTrue(false);}
         try{
-            RecordController.initSearchQuery();
             RecordController.searchByProblemIds(pid,pid2);
-            RecordController.finalizeSearchQuery();
             records= new RecordController.SearchRecordTask().execute().get();
         }catch (Exception e){ }
         assertEquals(records.size(),4);
         //search by bodylocation
         try{
-            RecordController.initSearchQuery();
             RecordController.searchByBodyLocation(3);
-            RecordController.finalizeSearchQuery();
             records=new RecordController.SearchRecordTask().execute().get();
         }catch(Exception e){}
-        assertEquals(records.size(),2);
+        assertEquals(2,records.size());
         //search by keyword
         try{
-            RecordController.initSearchQuery();
             RecordController.searchByKeyword("nervous");
-            RecordController.finalizeSearchQuery();
             records=new RecordController.SearchRecordTask().execute().get();
         }catch(Exception e){}
         assertEquals(records.size(),3);
         try{
-            RecordController.initSearchQuery();
             RecordController.searchByKeyword("sweaty");
-            RecordController.finalizeSearchQuery();
             records=new RecordController.SearchRecordTask().execute().get();
         }catch(Exception e){}
         assertEquals(records.size(),2);
         //test by geolocation
         try{
-            RecordController.initSearchQuery();
             RecordController.searchByGeoLocation(new LatLng(53.518141, -113.512112),1);
-            RecordController.finalizeSearchQuery();
             records=new RecordController.SearchRecordTask().execute().get();
         }catch(Exception e){        }
 
         assertEquals(records.size(),3);
         try{
-            RecordController.initSearchQuery();
             RecordController.searchByGeoLocation(new LatLng(53.518141, -113.512112),2);
-            RecordController.finalizeSearchQuery();
             records=new RecordController.SearchRecordTask().execute().get();
         }catch(Exception e){        }
         assertEquals(records.size(),5);
