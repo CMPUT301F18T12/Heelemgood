@@ -68,7 +68,7 @@ public class PatientHomeActivity extends AppCompatActivity {
         ListView mListView;
         Button createProblemButton;
 
-        mListView = findViewById(R.id.patientProbelmListView);
+        mListView = findViewById(R.id.patientProblemListView);
         createProblemButton = findViewById(R.id.createProblemButton);
 
         loadProblems();
