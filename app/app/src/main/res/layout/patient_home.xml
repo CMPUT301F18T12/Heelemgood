@@ -14,14 +14,14 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/createRecordButton"
+            android:id="@+id/createProblemButton"
             android:layout_width="158dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="44dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="84dp"
-            android:text="@string/create_record"
+            android:text="@string/create_problem"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.407"

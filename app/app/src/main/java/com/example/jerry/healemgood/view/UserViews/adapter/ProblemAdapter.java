@@ -1,90 +1,60 @@
 package com.example.jerry.healemgood.view.UserViews.adapter;
-
-import android.content.Intent;
-import android.os.Bundle;
+import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.model.problem.Problem;
-import com.example.jerry.healemgood.model.user.CareProvider;
-import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
-import com.example.jerry.healemgood.view.UserViews.BodyMapSelectionActivity;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
-public class ProblemAdapter extends AppCompatActivity {
-    ListView mListView;
-    Button createRecordButton;
+public class ProblemAdapter extends ArrayAdapter<Problem> {
 
-    // TODO: replce this list with a controller that gets all the doctor's images
-    ArrayList<Problem> problems = problemsListConstructor();
+    private Context mContext;
+    private int layout;
 
+    public ProblemAdapter(Context c, int layout, List<Problem> problems){
+        super(c,layout,problems);
+        this.layout = layout;
+        this.mContext = c;
+    }
+
+
+
+    @NonNull
     @Override
-    protected void onCreate(Bundle saveInstanceState){
-        super.onCreate(saveInstanceState);
-        setContentView(R.layout.patient_home);
+    public View getView(int position, View convertView, ViewGroup viewGroup) {
+        View v = convertView;
+        if (v == null) {
+            LayoutInflater vi;
+            vi = LayoutInflater.from(mContext);
+            v = vi.inflate(layout, null);
+        }
 
-        mListView = findViewById(R.id.patientProblemListView);
-        createRecordButton = findViewById(R.id.createRecordButton);
+        Problem p = getItem(position);
+        Log.d("PROBLEM","+++++++++++++++++");
+        if (p != null){
+            Log.d("_______","++++++++++");
+            TextView problemName = v.findViewById(R.id.problemNameTextView);
+            TextView date = v.findViewById(R.id.dateTextView);
+            TextView records = v.findViewById(R.id.recordsTextView);
+            problemName.setText(p.getTitle());
+            date.setText(p.getCreatedDate().toString());
+            records.setText(p.getTitle());
+        }
 
-        CustomProblemAdapter customProblemAdapter = new CustomProblemAdapter();
-        mListView.setAdapter(customProblemAdapter);
 
-        createRecordButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), BodyMapSelectionActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
+        return v;
     }
 
-    public class CustomProblemAdapter extends BaseAdapter{
 
-        @Override
-        public int getCount() {
-            return problems.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @NonNull
-        @Override
-        public View getView(int i, View convertView, ViewGroup viewGroup) {
-            View view = getLayoutInflater().inflate(R.layout.problems_list_view_custom_layout, null);
-            TextView problemName = view.findViewById(R.id.problemNameTextView);
-            TextView date = view.findViewById(R.id.dateTextView);
-            TextView records = view.findViewById(R.id.recordsTextView);
-
-            problemName.setText(problems.get(i).getTitle());
-            date.setText(problems.get(i).getCreatedDate().toString());
-            records.setText(problems.get(i).getTitle());
-            return view;
-        }
-    }
-
-    // Temporary test constructor
-    private ArrayList<Problem> problemsListConstructor(){
-        ArrayList<Problem> problems = new ArrayList<>();
-        Problem problem = new Problem("Knee Itchy", new Date(), "Hello");
-        problems.add(problem);
-        return problems;
-    }
 }

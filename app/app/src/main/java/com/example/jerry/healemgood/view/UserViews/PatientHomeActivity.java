@@ -19,6 +19,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
+import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.UserViews.adapter.ProblemAdapter;
@@ -50,7 +52,8 @@ public class PatientHomeActivity extends AppCompatActivity {
 
     //https://developer.android.com/training/implementing-navigation/nav-drawer
     private DrawerLayout mDrawerLayout;
-    private ArrayList<Problem> problems = problemsListConstructor();
+    private ArrayList<Problem> problems;
+    private ProblemAdapter problemAdapter;
 
     /**
      * Reloads an earlier version of the activity if possible
@@ -63,21 +66,27 @@ public class PatientHomeActivity extends AppCompatActivity {
         setContentView(R.layout.patient_home);
 
         ListView mListView;
-        Button createRecordButton;
+        Button createProblemButton;
 
-        mListView = findViewById(R.id.patientProblemListView);
-        createRecordButton = findViewById(R.id.createRecordButton);
+        mListView = findViewById(R.id.patientProbelmListView);
+        createProblemButton = findViewById(R.id.createProblemButton);
 
-        CustomProblemAdapter customProblemAdapter = new CustomProblemAdapter();
-        mListView.setAdapter(customProblemAdapter);
+        loadProblems();
 
-        createRecordButton.setOnClickListener(new View.OnClickListener() {
+
+//        problemAdapter = new ProblemAdapter(this,R.layout.problems_list_view_custom_layout,problems);
+//
+//        mListView.setAdapter(problemAdapter);
+
+        createProblemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), BodyMapSelectionActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PatientAddProblemActivity.class);
                 startActivity(intent);
             }
         });
+
+
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -116,45 +125,33 @@ public class PatientHomeActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        loadProblems();
+//        problemAdapter.notifyDataSetChanged();
+    }
 
-    public class CustomProblemAdapter extends BaseAdapter {
+    private void loadProblems(){
+        ProblemController.searchByPatientIds(SharedPreferenceUtil.get(this,AppConfig.USERID));
+        try{
+            problems = new ProblemController.SearchProblemTask().execute().get();
+            Log.d("COUNT",""+problems.size());
 
-        @Override
-        public int getCount() {
-            return problems.size();
+        }
+        catch (Exception e){
+            Log.d("Error","Fail to get the problems");
+            problems = new ArrayList<Problem>();
         }
 
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
 
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @NonNull
-        @Override
-        public View getView(int i, View convertView, ViewGroup viewGroup) {
-            View view = getLayoutInflater().inflate(R.layout.problems_list_view_custom_layout, null);
-            TextView problemName = view.findViewById(R.id.problemNameTextView);
-            TextView date = view.findViewById(R.id.dateTextView);
-            TextView records = view.findViewById(R.id.recordsTextView);
-
-            problemName.setText(problems.get(i).getTitle());
-            date.setText(problems.get(i).getCreatedDate().toString());
-            records.setText(problems.get(i).getTitle());
-            return view;
-        }
     }
 
 
-    // Temporary test constructor
-    private ArrayList<Problem> problemsListConstructor(){
-        ArrayList<Problem> problems = new ArrayList<>();
-        Problem problem = new Problem("Knee Itchy", new Date(), "Hello");
-        problems.add(problem);
-        return problems;
-    }
+
+
+
+
+
+
 }
