@@ -58,7 +58,7 @@ public class PatientRecordActivity extends AppCompatActivity {
         RecordController.finalizeSearchQuery();
         try{
             records = new RecordController.SearchRecordTask().execute().get();
-            Log.d("COUNT---",records.size()+"");
+            Log.d("COUNT---",records.size()+""+" " + pId);
         }
         catch (Exception e){
             Log.d("Error","Fail to get records");
