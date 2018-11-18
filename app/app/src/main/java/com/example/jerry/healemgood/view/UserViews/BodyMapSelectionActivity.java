@@ -121,9 +121,7 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
                 lastTouchX = (e.getX()) / rect.width();
                 lastTouchY = (e.getY()) / rect.height();
 
-                body.setPart(bodyColor.getBodyPart(colorId));
-                body.setX(lastTouchX);
-                body.setY(lastTouchY);
+                body = new BodyLocation(bodyColor.getBodyPart(colorId), lastTouchX, lastTouchY);
 
                 Log.d("x:", ""+lastTouchX);
                 Log.d("y:", ""+lastTouchY);
