@@ -25,7 +25,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
 
-public class PatientViewRecordActivity extends AppCompatActivity {
+public class PatientRecordDetailActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int PLACE_PICKER_REQUEST = 2;
@@ -40,7 +40,7 @@ public class PatientViewRecordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.patient_view_record);
+        setContentView(R.layout.patient_record_detail);
 
         loadRecord();
 
@@ -58,7 +58,7 @@ public class PatientViewRecordActivity extends AppCompatActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Toast.makeText(PatientViewRecordActivity.this, "" + position,
+                Toast.makeText(PatientRecordDetailActivity.this, "" + position,
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -75,7 +75,7 @@ public class PatientViewRecordActivity extends AppCompatActivity {
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
                 try{
-                    startActivityForResult(builder.build(PatientViewRecordActivity.this), PLACE_PICKER_REQUEST);
+                    startActivityForResult(builder.build(PatientRecordDetailActivity.this), PLACE_PICKER_REQUEST);
                 }
                 catch (Exception e){
                     Log.d("Error","Place Picker Error");

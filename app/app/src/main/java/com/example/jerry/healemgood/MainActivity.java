@@ -13,7 +13,6 @@ package com.example.jerry.healemgood;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +34,7 @@ import com.example.jerry.healemgood.model.user.User;
  */
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientProblemActivity;
+import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Button signInButton;
@@ -64,11 +63,16 @@ public class MainActivity extends AppCompatActivity {
 
                         //Store userid into shared preference
                         SharedPreferenceUtil.store(MainActivity.this,AppConfig.USERID,user.getUserId());
+                        SharedPreferenceUtil.store(MainActivity.this,AppConfig.EMAIL,user.getEmail());
+                        SharedPreferenceUtil.store(MainActivity.this,AppConfig.BIRTHDAY,user.getBirthday().toString());
+                        SharedPreferenceUtil.store(MainActivity.this,AppConfig.NAME,user.getFullName());
+                        SharedPreferenceUtil.store(MainActivity.this,AppConfig.PHONE,user.getPhoneNum());
+
                         ////////////////////////////////////////////////////////////////////////////
                         ////////////////////////////////////////////////////////////////////////////
                         ////////////////////////////////////////////////////////////////////////////
                         ////////////////////////////////////////////////////////////////////////////
-                        Intent intent = new Intent(getApplicationContext(), PatientProblemActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
                         startActivity(intent);
                     }
                 }catch (Exception e){ }

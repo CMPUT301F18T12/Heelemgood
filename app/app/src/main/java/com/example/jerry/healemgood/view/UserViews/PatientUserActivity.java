@@ -10,10 +10,20 @@
 
 package com.example.jerry.healemgood.view.UserViews;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.R;
+import com.example.jerry.healemgood.config.AppConfig;
+import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
+
+import org.w3c.dom.Text;
 
 /**
  * Represents a PatientUserActivity
@@ -32,10 +42,58 @@ public class PatientUserActivity extends AppCompatActivity {
      *
      * @param savedInstanceState
      */
-
+    TextView nameText;
+    TextView userIdText;
+    TextView birthdayText;
+    EditText emailInput;
+    EditText phoneInput;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_user);
+
+         nameText = findViewById(R.id.userFullName);
+         userIdText = findViewById(R.id.userId);
+         birthdayText = findViewById(R.id.userBirthday);
+         emailInput = findViewById(R.id.userEmail);
+         phoneInput = findViewById(R.id.userPhone);
+
+        Button saveButton = findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+
+              finish();
+          }
+        });
+
+        Button logOutButton = findViewById(R.id.logoutButton);
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PatientUserActivity.this,MainActivity.class));
+            }
+        });
+
+        fillOutInfo();
+
     }
+
+
+    private void fillOutInfo(){
+        nameText.setText(SharedPreferenceUtil.get(this,AppConfig.NAME));
+        userIdText.setText(SharedPreferenceUtil.get(this,AppConfig.USERID));
+        birthdayText.setText(SharedPreferenceUtil.get(this,AppConfig.BIRTHDAY));
+        emailInput.setText(SharedPreferenceUtil.get(this,AppConfig.EMAIL));
+        phoneInput.setText(SharedPreferenceUtil.get(this,AppConfig.PHONE));
+
+    }
+
+
+    private void save(){
+
+    }
+
+
+
 }

@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
-import com.example.jerry.healemgood.view.UserViews.PatientProblemActivity;
+import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
 
 /**
  * A controller that handles swiping on the app
@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PatientProblemActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
                 startActivity(intent);
             }
         });

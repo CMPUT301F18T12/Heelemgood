@@ -11,10 +11,7 @@
         android:id="@+id/navigation_history"
         android:icon="@android:drawable/ic_menu_recent_history"
         android:title="@string/history" />
-    <item
-        android:id="@+id/navigation_request"
-        android:icon="@android:drawable/ic_dialog_alert"
-        android:title="@string/request" />
+
     <item
         android:id="@+id/navigation_search"
         android:icon="@android:drawable/ic_menu_search"
