@@ -42,7 +42,7 @@ public class ProblemTest {
         String title = "Test";
         Date date = new Date();
 
-        Problem problem = new Problem(title, date,":sdsdasdasd");
+        Problem problem = new Problem(title, date,":sdsdasdasd", "ok");
         assertEquals(pid,problem.getpId());
         assertEquals(title,problem.getTitle());
         assertEquals(date,problem.getCreatedDate());

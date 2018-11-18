@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.config.AppConfig;
-import com.example.jerry.healemgood.controller.UserCreationController;
+import com.example.jerry.healemgood.controller.UserController;
 import com.example.jerry.healemgood.model.user.User;
 
 /**
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
                 userNameEditText = findViewById(R.id.userIdEditText);
                 try{
-                    User user = new UserCreationController.searchUserTask().execute(userNameEditText.getText().toString()).get();
+                    User user = new UserController.SearchUserTask().execute(userNameEditText.getText().toString()).get();
                     if (user.getUserId().equals(userNameEditText.getText().toString())){
 
                         //Store userid into shared preference
@@ -68,10 +68,6 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferenceUtil.store(MainActivity.this,AppConfig.NAME,user.getFullName());
                         SharedPreferenceUtil.store(MainActivity.this,AppConfig.PHONE,user.getPhoneNum());
 
-                        ////////////////////////////////////////////////////////////////////////////
-                        ////////////////////////////////////////////////////////////////////////////
-                        ////////////////////////////////////////////////////////////////////////////
-                        ////////////////////////////////////////////////////////////////////////////
                         Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
                         startActivity(intent);
                     }

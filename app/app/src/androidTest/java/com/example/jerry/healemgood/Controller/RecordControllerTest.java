@@ -45,7 +45,7 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
         //record create a problem first
         String text = "cant get it working";
         System.out.println(text);
-        Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@");
+        Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@", "ok");
         try {
             new ProblemController.CreateProblemTask().execute(p).get();
         }catch(Exception e){        }
@@ -71,7 +71,7 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
         //record create a problem first
         String text = "cant get it working";
         System.out.println(text);
-        Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@");
+        Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@", "ok");
         try {
             new ProblemController.CreateProblemTask().execute(p).get();
         }catch(Exception e){        }
@@ -101,7 +101,7 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
         new TestingTools.ResetRecordsTask().execute();
         String text = "cant get it working";
         System.out.println(text);
-        Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@");
+        Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@", "ok");
         try {
             new ProblemController.CreateProblemTask().execute(p).get();
         }catch(Exception e){        }
