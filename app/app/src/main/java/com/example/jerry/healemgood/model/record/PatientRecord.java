@@ -12,6 +12,8 @@ package com.example.jerry.healemgood.model.record;
 
 import android.location.Location;
 
+import com.example.jerry.healemgood.utils.BodyLocation;
+
 /**
  * Represents a PatientRecord
  *
@@ -40,7 +42,7 @@ public class PatientRecord extends Record {
      *
      * @param bodyLocation
      */
-    public void setBodyLocation(int bodyLocation) {
+    public void setBodyLocation(BodyLocation bodyLocation) {
         this.bodyLocation = bodyLocation;
     }
 
@@ -49,7 +51,7 @@ public class PatientRecord extends Record {
      *
      * @return bodyLocation
      */
-    public int getBodyLocation() {
+    public BodyLocation getBodyLocation() {
         return bodyLocation;
     }
 }

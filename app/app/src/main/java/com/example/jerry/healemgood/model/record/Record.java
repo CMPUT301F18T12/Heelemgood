@@ -16,6 +16,7 @@ import android.location.Location;
 import android.util.Base64;
 
 import com.example.jerry.healemgood.model.photo.Photo;
+import com.example.jerry.healemgood.utils.BodyLocation;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -53,9 +54,9 @@ public class Record {
     /* This is a boolean var to determine whether this record is a patient record or care provider record*/
     private boolean isPatientRecord;
     /* geoLocation(optional) of where this problem is created*/
-    protected double[] geoLocation;
-    /*The bodyLocaton id*/
-    protected int bodyLocation;
+    private double[] geoLocation;
+    /*The bodyLocaton */
+    BodyLocation bodyLocation;
     /**
      * A problem have to be created before this record can be created;
      *
@@ -262,5 +263,23 @@ public class Record {
 
     public void setpId(String pId) {
         this.pId = pId;
+    }
+
+    /**
+     * Get the body location
+     *
+     * @return BodyLocation
+     */
+    public BodyLocation getBodyLocation() {
+        return bodyLocation;
+    }
+
+    /**
+     * Set the pid (optional, most likely not needed in this application)
+     *
+     * @param bodyLocation
+     */
+    public void setBodyLocation(BodyLocation bodyLocation) {
+        this.bodyLocation = bodyLocation;
     }
 }
