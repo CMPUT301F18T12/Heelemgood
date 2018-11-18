@@ -1,3 +1,13 @@
+/*
+ *  Class Name: PatientViewRequestActivity
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 16, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
 package com.example.jerry.healemgood.view.UserActivities;
 
 import android.os.Bundle;
@@ -16,14 +26,31 @@ import com.example.jerry.healemgood.model.user.CareProvider;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * A controller that handles swiping on the app
+ *
+ * @author WeakMill98
+ * @version 1.0
+ * @since 1.0
+ */
+
+
 public class PatientViewRequestActivity extends AppCompatActivity {
 
+    /**
+     * Loads a previous version of the activity if possible
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_view_request);
     }
 
+    /**
+     * Creates an instance of the CareProviderAdapter
+     */
     public static class CareProviderAdapter extends AppCompatActivity {
         ListView mListView;
 
@@ -32,6 +59,11 @@ public class PatientViewRequestActivity extends AppCompatActivity {
         int[] images = {R.drawable.beter};
         ArrayList<CareProvider> careProviders = careProviderListConstructor();
 
+        /**
+         * Loads a previous version of the adapter if possible
+         *
+         * @param saveInstanceState
+         */
         @Override
         protected void onCreate(Bundle saveInstanceState){
             super.onCreate(saveInstanceState);
@@ -43,7 +75,11 @@ public class PatientViewRequestActivity extends AppCompatActivity {
             mListView.setAdapter(customCareProviderAdaptor);
         }
 
-        // Temporary test constructor
+        /**
+         * Tests creating the adapter
+         *
+         * @return
+         */
         private ArrayList<CareProvider> careProviderListConstructor(){
             ArrayList<CareProvider> providers = new ArrayList<>();
             CareProvider male_1 =new CareProvider(
@@ -70,23 +106,52 @@ public class PatientViewRequestActivity extends AppCompatActivity {
             return providers;
         }
 
+        /**
+         * Creates a more specific version of the adapter
+         *
+         */
         class CustomCareProviderAdaptor extends BaseAdapter {
 
+            /**
+             * Returns count of patient requests
+             *
+             * @return
+             */
             @Override
             public int getCount() {
                 return careProviders.size();
             }
 
+            /**
+             * Gets a specific element of the request list
+             *
+             * @param i
+             * @return
+             */
             @Override
             public Object getItem(int i) {
                 return null;
             }
 
+            /**
+             * Gets the id of the selected request
+             *
+             * @param i
+             * @return
+             */
             @Override
             public long getItemId(int i) {
                 return 0;
             }
 
+            /**
+             * Loads the list of patient requests
+             *
+             * @param i
+             * @param convertView
+             * @param viewGroup
+             * @return
+             */
             @NonNull
             @Override
             public View getView(int i, View convertView, ViewGroup viewGroup) {

@@ -1,7 +1,27 @@
+/*
+ * Controller Name: ProblemController
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 17, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
+
 package com.example.jerry.healemgood.controller;
 
 import android.view.MotionEvent;
 import android.view.View;
+
+/**
+ * A controller that handles swiping on the app
+ *
+ * @author TianqiCS
+ * @version 1.0
+ * @since 1.0
+ */
+
 
 // https://stackoverflow.com/questions/17520750/list-view-item-swipe-left-and-swipe-right
 public class SwipeDetector implements View.OnTouchListener {
@@ -26,6 +46,13 @@ public class SwipeDetector implements View.OnTouchListener {
         return mSwipeDetected;
     }
 
+    /**
+     * Handles swiping
+     *
+     * @param v
+     * @param event
+     * @return
+     */
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {

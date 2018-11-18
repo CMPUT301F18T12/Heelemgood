@@ -1,3 +1,13 @@
+/*
+ *  Class Name: LoginActivity
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 17, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
 package com.example.jerry.healemgood.view.UserActivities;
 
 import android.content.Intent;
@@ -11,6 +21,14 @@ import android.widget.TextView;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.view.UserViews.PatientProblemActivity;
 
+/**
+ * A controller that handles swiping on the app
+ *
+ * @author WeakMill98
+ * @version 1.0
+ * @since 1.0
+ */
+
 
 public class LoginActivity extends AppCompatActivity {
     private EditText userNameEditText;
@@ -18,6 +36,11 @@ public class LoginActivity extends AppCompatActivity {
     private Button signInButton;
     private TextView createAccountTextView;
 
+    /**
+     * Loads a previous version of the activity if possible
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +57,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // Get all XML elements on the view
+    /**
+     * Gets all xml elements in the view
+     *
+     */
     public void getAllXML(){
         userNameEditText = findViewById(R.id.userIdEditText);
         signInButton = findViewById(R.id.signInButton);
@@ -42,6 +68,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Switches to the create account page
+     *
+     */
     public void onCreateAccount(){
         createAccountTextView.setOnClickListener(new View.OnClickListener() {
             @Override
