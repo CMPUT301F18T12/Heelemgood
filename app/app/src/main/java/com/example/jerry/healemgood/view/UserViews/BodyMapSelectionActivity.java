@@ -46,12 +46,15 @@ import com.example.jerry.healemgood.utils.BodyPart;
  * @since 1.0
  */
 
+
 public class BodyMapSelectionActivity extends AppCompatActivity{
     private float lastTouchX;  // position x
     private float lastTouchY;  // position y
     private BodyColor bodyColor = new BodyColor();  // color under the hood
     //private String bodyString;
     private BodyLocation body;
+
+    static boolean IsCreate = false;
 
     /**
      * This function will load a previously used instance of the activity
@@ -74,11 +77,14 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
             @Override
             public void onClick(View v){
                 // Make sure that user has selected a body location
-                if (body != null){
+                if (body != null && IsCreate){
                     Intent intent = new Intent(BodyMapSelectionActivity.this,PatientAddRecordActivity.class);
                     intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
                     intent.putExtra(AppConfig.BODYLOCATION, body);
                     startActivity(intent);
+                    finish();
+                }
+                else if (body != null) {
                     finish();
                 }
 
@@ -92,6 +98,9 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
             lastTouchX = body.getX();
             lastTouchY = body.getY();
             drawDot();
+        }
+        else {
+            IsCreate = true;
         }
     }
 

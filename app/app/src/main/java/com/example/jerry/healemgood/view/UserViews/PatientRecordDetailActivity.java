@@ -45,9 +45,6 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
         loadRecord();
 
-
-
-
         GridView gridview = (GridView) findViewById(R.id.gridView);
         imageAdapter = new ImageAdapter(this);
         gridview.setAdapter(imageAdapter);

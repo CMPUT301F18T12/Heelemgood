@@ -37,21 +37,4 @@ public class PatientRecord extends Record {
 
     }
 
-    /**
-     * This sets the bodyLocation of a problem
-     *
-     * @param bodyLocation
-     */
-    public void setBodyLocation(BodyLocation bodyLocation) {
-        this.bodyLocation = bodyLocation;
-    }
-
-    /**
-     * This finds and returns the location on the body that the problem occurred.
-     *
-     * @return bodyLocation
-     */
-    public BodyLocation getBodyLocation() {
-        return bodyLocation;
-    }
 }

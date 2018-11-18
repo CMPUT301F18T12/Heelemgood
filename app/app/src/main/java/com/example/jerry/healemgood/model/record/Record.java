@@ -56,7 +56,9 @@ public class Record {
     /* geoLocation(optional) of where this problem is created*/
     private double[] geoLocation;
     /*The bodyLocaton */
-    BodyLocation bodyLocation;
+    private String bodyLocation;
+
+    private float[] bodyLocationPercent;
     /**
      * A problem have to be created before this record can be created;
      *
@@ -270,7 +272,7 @@ public class Record {
      *
      * @return BodyLocation
      */
-    public BodyLocation getBodyLocation() {
+    public String getBodyLocation() {
         return bodyLocation;
     }
 
@@ -279,7 +281,37 @@ public class Record {
      *
      * @param bodyLocation
      */
-    public void setBodyLocation(BodyLocation bodyLocation) {
+    public void setBodyLocation(String bodyLocation) {
         this.bodyLocation = bodyLocation;
     }
+
+
+    /**
+     * Set geo-location from place, then store it as LatLng See https://developers.google.com/places/android
+     * @param x
+     * @param y
+     */
+    public void setBodyLocationPercent(float x,float y) {
+        this.bodyLocationPercent = new float[2];
+        this.bodyLocationPercent[0]= x;
+        this.bodyLocationPercent[1]=y;
+    }
+
+    /**
+     * Returns the GeoLocation
+     *
+     * @return GeoLocation in LatLng
+     */
+
+    public float[] getBodyLocationPercent() {
+        return this.bodyLocationPercent;
+    }
+
+    /**
+     * Get the pid of the correspoded problem
+     *
+     * @return pid
+     */
+
+
 }

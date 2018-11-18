@@ -50,7 +50,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int PLACE_PICKER_REQUEST = 2;
-
+    static final int GET_BODY_LOCATION_REQUEST = 3;
     // for display the collection of photos
     private ImageAdapter imageAdapter;
     private ArrayList<Bitmap> photoBitmapCollection = new ArrayList<Bitmap>();
@@ -93,8 +93,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), BodyMapSelectionActivity.class);
                 intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
                 intent.putExtra(AppConfig.BODYLOCATION, getIntent().getSerializableExtra(AppConfig.BODYLOCATION));
-                startActivity(intent);
-                finish();
+                startActivityForResult(intent, GET_BODY_LOCATION_REQUEST);
             }
 
         });
@@ -209,7 +208,10 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID),recordTitle);
 
         // set bodyLocation
-        patientRecord.setBodyLocation((BodyLocation) getIntent().getSerializableExtra(AppConfig.BODYLOCATION));
+        BodyLocation bodyLocation = (BodyLocation) getIntent().getSerializableExtra(AppConfig.BODYLOCATION);
+
+        patientRecord.setBodyLocation(bodyLocation.getPart().toString());
+        patientRecord.setBodyLocationPercent(bodyLocation.getX(),bodyLocation.getY());
 
         // set the description of the record
         patientRecord.setDescription(descriptionString);
