@@ -33,6 +33,7 @@ public class Problem {
     //Title of the problem
     private String title;
     private Date createdDate;
+    private String description;
 
     //Id of the patient who created this problem
     private String userId;
@@ -47,11 +48,12 @@ public class Problem {
      * @param date      The date when this problem is created
      * @param userId    The patient who created this problem
      */
-    public Problem(String title, Date date,String userId) {
+    public Problem(String title, Date date,String userId,String description) {
         this.title = title;
         this.createdDate = date; // The createdDate of a problem should be the date of the first record
         this.userId =userId;
         this.records = new ArrayList<Record>();
+        this.description = description;
     }
 
     /**
@@ -98,6 +100,33 @@ public class Problem {
     public void removeRecordByIndex(int index){
         records.remove(index);
     }
+
+    /**
+     * get description
+     *
+     *
+     *
+     *
+     */
+
+    public String getDescription(){
+        return this.description;
+    }
+
+
+
+    /**
+     * Update the record by index
+     *
+     *
+     * @param index
+     *
+     */
+
+    public void updateRecordByIndex(int index,Record record){
+        records.set(index,record);
+    }
+
 
 
 

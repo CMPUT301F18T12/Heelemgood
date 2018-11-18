@@ -112,7 +112,7 @@ public class ProblemController {
             super.onPostExecute(v);
             if (a!= null){
                 try{
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                 }
                 catch (Exception e){
 

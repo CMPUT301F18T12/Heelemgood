@@ -57,17 +57,8 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
 
             ArrayList<Record> records;
 
-            try{
-                RecordController.initSearchQuery();
-                RecordController.searchByProblemIds(p.getpId());
-                RecordController.finalizeSearchQuery();
-                records = new RecordController.SearchRecordTask().execute().get();
-            }
-            catch (Exception e){
-                records = new ArrayList<Record>();
 
-            }
-            recordCount.setText(records.size()+"");
+            recordCount.setText(p.getAllRecords().size()+"");
         }
 
 

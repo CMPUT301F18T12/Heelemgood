@@ -89,14 +89,15 @@ public class PatientProblemActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(swipeDetector.swipeDetected()) {
-                    if(swipeDetector.getAction() == SwipeDetector.Action.RL) {
-                        String pId = problems.get(position).getpId();
-                        Intent intent = new Intent(PatientProblemActivity.this,PatientRecordActivity.class);
-                        intent.putExtra(AppConfig.PID,pId);
-                        startActivity(intent);
-                    } else if(swipeDetector.getAction() == SwipeDetector.Action.LR){
+                   if(swipeDetector.getAction() == SwipeDetector.Action.LR){
                         deleteProblem(position);
-                    }
+                   }
+                }
+                else{
+                    String pId = problems.get(position).getpId();
+                    Intent intent = new Intent(PatientProblemActivity.this,PatientRecordActivity.class);
+                    intent.putExtra(AppConfig.PID,pId);
+                    startActivity(intent);
                 }
 
             }

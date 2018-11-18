@@ -6,4 +6,5 @@ public class AppConfig {
     public static final String MY_PREFS_NAME = "MyPrefsFile";
     public static final String USERID = "userId";
     public static final String PID = "pId";
+    public static final String INDEX = "index";
 }

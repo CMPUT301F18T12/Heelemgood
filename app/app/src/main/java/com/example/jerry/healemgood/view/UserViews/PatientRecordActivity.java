@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -13,6 +14,7 @@ import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.problem.Problem;
+import com.example.jerry.healemgood.model.record.PatientRecord;
 import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.view.UserViews.adapter.ProblemAdapter;
 import com.example.jerry.healemgood.view.UserViews.adapter.RecordAdapter;
@@ -47,6 +49,14 @@ public class PatientRecordActivity extends AppCompatActivity {
 
         listView.setAdapter(recordAdapter);
 
+        // set the list view click listener
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showDetailRecord(position);
+            }
+        });
+
 
     }
     @Override
@@ -56,6 +66,13 @@ public class PatientRecordActivity extends AppCompatActivity {
         loadRecords();
         recordAdapter.refreshAdapter(records);
 
+    }
+
+    private void showDetailRecord(int position){
+        Intent intent = new Intent(PatientRecordActivity.this, PatientViewRecordActivity.class);
+        intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
+        intent.putExtra(AppConfig.INDEX,position);
+        startActivity(intent);
     }
 
 

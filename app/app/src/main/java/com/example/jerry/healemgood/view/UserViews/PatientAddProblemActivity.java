@@ -21,6 +21,7 @@ import java.util.Date;
 
 public class PatientAddProblemActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +41,11 @@ public class PatientAddProblemActivity extends AppCompatActivity {
 
     private void saveProblem() {
         EditText titleInput = findViewById(R.id.titleInput);
+        EditText descriptionInput = findViewById(R.id.descriptionInput);
+
         String title = titleInput.getText().toString();
-        Problem problem = new Problem(title, new Date(), SharedPreferenceUtil.get(this, AppConfig.USERID));
+        String description = descriptionInput.getText().toString();
+        Problem problem = new Problem(title, new Date(), SharedPreferenceUtil.get(this, AppConfig.USERID),description);
 
 
         try {

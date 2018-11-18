@@ -127,6 +127,20 @@ public class Record {
     }
 
     /**
+     * Set a collection of new photos
+     *
+     * @param photos
+     *
+     */
+
+    public void setPhotos(ArrayList<Bitmap> photos){
+        this.photos = new ArrayList<String>();
+        for (Bitmap b : photos){
+            addPhoto(b);
+        }
+    }
+
+    /**
      *  Get photo collection
      *
      *  @See https://stackoverflow.com/questions/4837110/how-to-convert-a-base64-string-into-a-bitmap-image-to-show-it-in-a-imageview
