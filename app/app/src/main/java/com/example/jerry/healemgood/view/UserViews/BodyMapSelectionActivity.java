@@ -87,7 +87,12 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
             }
         });
 
-
+        body = (BodyLocation) getIntent().getSerializableExtra(AppConfig.BODYLOCATION);
+        if (body != null) {
+            lastTouchX = body.getX();
+            lastTouchY = body.getY();
+            drawDot();
+        }
     }
 
     /**
