@@ -12,6 +12,8 @@ package com.example.jerry.healemgood.model.record;
 
 import android.location.Location;
 
+import com.example.jerry.healemgood.utils.BodyLocation;
+
 /**
  * Represents a PatientRecord
  *
@@ -35,21 +37,4 @@ public class PatientRecord extends Record {
 
     }
 
-    /**
-     * This sets the bodyLocation of a problem
-     *
-     * @param bodyLocation
-     */
-    public void setBodyLocation(int bodyLocation) {
-        this.bodyLocation = bodyLocation;
-    }
-
-    /**
-     * This finds and returns the location on the body that the problem occurred.
-     *
-     * @return bodyLocation
-     */
-    public int getBodyLocation() {
-        return bodyLocation;
-    }
 }

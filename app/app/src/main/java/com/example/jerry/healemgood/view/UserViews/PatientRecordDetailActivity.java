@@ -29,6 +29,7 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int PLACE_PICKER_REQUEST = 2;
+    static final int GET_BODY_LOCATION_REQUEST = 3;
 
     Problem problem;
     Record record;
@@ -43,9 +44,6 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
         setContentView(R.layout.patient_record_detail);
 
         loadRecord();
-
-
-
 
         GridView gridview = (GridView) findViewById(R.id.gridView);
         imageAdapter = new ImageAdapter(this);
@@ -65,6 +63,7 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
         Button saveButton = findViewById(R.id.saveButton);
         Button backButton = findViewById(R.id.backButton);
+        Button bodyButton = findViewById(R.id.bodyButton);
 
         ImageButton photoButton = findViewById(R.id.photoButton);
         Button addLocationButton = findViewById(R.id.editLocationButton);
@@ -83,6 +82,17 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
 
             }
+        });
+
+        bodyButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), BodyMapSelectionActivity.class);
+                intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
+                intent.putExtra(AppConfig.BODYLOCATION, record.getBodyLocation());
+                startActivityForResult(intent, GET_BODY_LOCATION_REQUEST);
+            }
+
         });
 
 

@@ -29,6 +29,7 @@ import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.PatientRecord;
+import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.view.UserViews.adapter.ImageAdapter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -49,7 +50,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int PLACE_PICKER_REQUEST = 2;
-
+    static final int GET_BODY_LOCATION_REQUEST = 3;
     // for display the collection of photos
     private ImageAdapter imageAdapter;
     private ArrayList<Bitmap> photoBitmapCollection = new ArrayList<Bitmap>();
@@ -67,6 +68,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
 
         Button addLocationButton =  findViewById(R.id.addLocationButton);
         Button saveButton = findViewById(R.id.saveButton);
+        Button bodyButton = findViewById(R.id.bodyButton);
         ImageButton photoButton = findViewById(R.id.photoButton);
 
         addLocationButton.setOnClickListener(new View.OnClickListener(){
@@ -85,6 +87,16 @@ public class PatientAddRecordActivity extends AppCompatActivity {
             }
         });
 
+        bodyButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), BodyMapSelectionActivity.class);
+                intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
+                intent.putExtra(AppConfig.BODYLOCATION, getIntent().getSerializableExtra(AppConfig.BODYLOCATION));
+                startActivityForResult(intent, GET_BODY_LOCATION_REQUEST);
+            }
+
+        });
 
         photoButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -194,6 +206,12 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         // make a new patient record
         PatientRecord patientRecord;
         patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID),recordTitle);
+
+        // set bodyLocation
+        BodyLocation bodyLocation = (BodyLocation) getIntent().getSerializableExtra(AppConfig.BODYLOCATION);
+
+        patientRecord.setBodyLocation(bodyLocation.getPart().toString());
+        patientRecord.setBodyLocationPercent(bodyLocation.getX(),bodyLocation.getY());
 
         // set the description of the record
         patientRecord.setDescription(descriptionString);

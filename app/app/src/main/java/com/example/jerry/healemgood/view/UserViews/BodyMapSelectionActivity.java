@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.utils.BodyColor;
+import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.BodyPart;
 
 /**
@@ -45,11 +46,15 @@ import com.example.jerry.healemgood.utils.BodyPart;
  * @since 1.0
  */
 
+
 public class BodyMapSelectionActivity extends AppCompatActivity{
     private float lastTouchX;  // position x
     private float lastTouchY;  // position y
     private BodyColor bodyColor = new BodyColor();  // color under the hood
-    private String bodyString;
+    //private String bodyString;
+    private BodyLocation body;
+
+    static boolean IsCreate = false;
 
     /**
      * This function will load a previously used instance of the activity
@@ -72,10 +77,14 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
             @Override
             public void onClick(View v){
                 // Make sure that user has selected a body location
-                if (bodyString != null){
+                if (body != null && IsCreate){
                     Intent intent = new Intent(BodyMapSelectionActivity.this,PatientAddRecordActivity.class);
                     intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
+                    intent.putExtra(AppConfig.BODYLOCATION, body);
                     startActivity(intent);
+                    finish();
+                }
+                else if (body != null) {
                     finish();
                 }
 
@@ -84,7 +93,15 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
             }
         });
 
-
+        body = (BodyLocation) getIntent().getSerializableExtra(AppConfig.BODYLOCATION);
+        if (body != null) {
+            lastTouchX = body.getX();
+            lastTouchY = body.getY();
+            drawDot();
+        }
+        else {
+            IsCreate = true;
+        }
     }
 
     /**
@@ -100,7 +117,6 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
             if (e.getActionMasked() == MotionEvent.ACTION_UP) {
 
                 int colorId = getHotspotColor(R.id.colorMap,(int) e.getX(),(int) e.getY());  // an integer represents the color
-                bodyString = bodyColor.getBodyPart(colorId).toString();
 
                 Log.i("Click", "X = "+ e.getX() + " Y = " + e.getY());
 
@@ -118,6 +134,8 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
 
                 lastTouchX = (e.getX()) / rect.width();
                 lastTouchY = (e.getY()) / rect.height();
+
+                body = new BodyLocation(bodyColor.getBodyPart(colorId), lastTouchX, lastTouchY);
 
                 Log.d("x:", ""+lastTouchX);
                 Log.d("y:", ""+lastTouchY);
@@ -175,6 +193,10 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
             }
         }
     }
+
+    /**
+     * This draw the dot at the target position
+     */
 
     public void drawDot() {
         ImageView imageView = findViewById (R.id.bodyMap);
