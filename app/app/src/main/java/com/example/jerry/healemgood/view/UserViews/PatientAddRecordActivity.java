@@ -10,17 +10,12 @@
 
 package com.example.jerry.healemgood.view.UserViews;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -32,16 +27,13 @@ import android.widget.Toast;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
-import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.PatientRecord;
-import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.UserViews.adapter.ImageAdapter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Represents a PatientAddRecordActivity

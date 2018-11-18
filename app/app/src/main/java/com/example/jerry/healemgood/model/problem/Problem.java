@@ -104,13 +104,18 @@ public class Problem {
     /**
      * get description
      *
-     *
-     *
-     *
      */
 
     public String getDescription(){
         return this.description;
+    }
+
+    /**
+     * set description
+     *
+     */
+    public void setDescription(String description){
+        this.description = description;
     }
 
 

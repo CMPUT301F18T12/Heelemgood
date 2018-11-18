@@ -12,16 +12,13 @@ import android.widget.ListView;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
-import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.problem.Problem;
-import com.example.jerry.healemgood.model.record.PatientRecord;
 import com.example.jerry.healemgood.model.record.Record;
-import com.example.jerry.healemgood.view.UserViews.adapter.ProblemAdapter;
 import com.example.jerry.healemgood.view.UserViews.adapter.RecordAdapter;
 
 import java.util.ArrayList;
 
-public class PatientRecordActivity extends AppCompatActivity {
+public class PatientAllRecordActivity extends AppCompatActivity {
 
     private RecordAdapter recordAdapter;
     private ArrayList<Record> records;
@@ -29,9 +26,11 @@ public class PatientRecordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_record);
+        setContentView(R.layout.patient_all_record);
+        setTitle("Record");
 
         Button createRecordButton = findViewById(R.id.createRecordButton);
+
         createRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,6 +39,17 @@ public class PatientRecordActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button detailButton = findViewById(R.id.detailButton);
+        detailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),PatientProblemDetailActivity.class);
+                intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
+                startActivity(intent);
+            }
+        });
+
 
         ListView listView = findViewById(R.id.listView);
 
@@ -69,7 +79,7 @@ public class PatientRecordActivity extends AppCompatActivity {
     }
 
     private void showDetailRecord(int position){
-        Intent intent = new Intent(PatientRecordActivity.this, PatientViewRecordActivity.class);
+        Intent intent = new Intent(PatientAllRecordActivity.this, PatientRecordDetailActivity.class);
         intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
         intent.putExtra(AppConfig.INDEX,position);
         startActivity(intent);
