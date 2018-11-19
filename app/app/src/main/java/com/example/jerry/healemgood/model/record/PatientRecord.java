@@ -13,6 +13,7 @@ package com.example.jerry.healemgood.model.record;
 import android.location.Location;
 
 import com.example.jerry.healemgood.utils.BodyLocation;
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 
 /**
  * Represents a PatientRecord
@@ -32,7 +33,7 @@ public class PatientRecord extends Record {
      * @param title
      */
 
-    public PatientRecord(String pId,String title){
+    public PatientRecord(String pId,String title) throws LengthOutOfBoundException {
         super(pId,title,true);
 
     }

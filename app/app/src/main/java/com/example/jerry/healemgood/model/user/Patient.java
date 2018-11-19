@@ -12,6 +12,7 @@ package com.example.jerry.healemgood.model.user;
 
 import com.example.jerry.healemgood.model.request.Request;
 import com.example.jerry.healemgood.model.problem.Problem;
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,7 +32,7 @@ public class Patient extends User {
     private ArrayList<String> careProviderUserIds; // The userId list of the care providers
     private ArrayList<Request> requests;
 
-    public Patient(String userId, String password, String fullName, String phoneNum, String email, Date birthday, char gender) {
+    public Patient(String userId, String password, String fullName, String phoneNum, String email, Date birthday, char gender) throws LengthOutOfBoundException {
         super(userId, password, fullName, phoneNum, email, birthday, gender);
         this.problemIds = new ArrayList<String>();
         this.careProviderUserIds = new ArrayList<String>();

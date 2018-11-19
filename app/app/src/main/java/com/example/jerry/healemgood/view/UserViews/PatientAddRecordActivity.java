@@ -12,6 +12,7 @@ package com.example.jerry.healemgood.view.UserViews;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.audiofx.LoudnessEnhancer;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.PatientRecord;
 import com.example.jerry.healemgood.utils.BodyLocation;
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 import com.example.jerry.healemgood.view.UserViews.adapter.ImageAdapter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -205,8 +207,11 @@ public class PatientAddRecordActivity extends AppCompatActivity {
 
         // make a new patient record
         PatientRecord patientRecord;
-        patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID),recordTitle);
-
+        try {
+            patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID), recordTitle);
+        } catch (LengthOutOfBoundException e) {
+            return;
+        }
         // set bodyLocation
         BodyLocation bodyLocation = (BodyLocation) getIntent().getSerializableExtra(AppConfig.BODYLOCATION);
 
@@ -214,7 +219,11 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         patientRecord.setBodyLocationPercent(bodyLocation.getX(),bodyLocation.getY());
 
         // set the description of the record
-        patientRecord.setDescription(descriptionString);
+        try {
+            patientRecord.setDescription(descriptionString);
+        } catch (LengthOutOfBoundException e) {
+            return;
+        }
 
         //set the photos of the record
         for (Bitmap photo: photoBitmapCollection){

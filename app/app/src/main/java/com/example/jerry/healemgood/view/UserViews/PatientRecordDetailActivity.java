@@ -19,6 +19,7 @@ import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 import com.example.jerry.healemgood.view.UserViews.adapter.ImageAdapter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -217,8 +218,16 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
     private void saveRecord(){
         EditText titleInput = findViewById(R.id.titleInput);
         EditText description = findViewById(R.id.descriptionInput);
-        record.setDescription(description.getText().toString());
-        record.setTitle(titleInput.getText().toString());
+        try {
+            record.setDescription(description.getText().toString());
+        } catch (LengthOutOfBoundException e) {
+            return;
+        }
+        try {
+            record.setTitle(titleInput.getText().toString());
+        } catch (LengthOutOfBoundException e) {
+            return;
+        }
 
         if (place != null){
             record.setGeoLocation(place.getLatLng().latitude,place.getLatLng().longitude);

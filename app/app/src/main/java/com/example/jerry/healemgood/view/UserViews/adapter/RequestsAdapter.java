@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.model.user.CareProvider;
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,21 +39,41 @@ public class RequestsAdapter extends AppCompatActivity {
     // Temporary test constructor
     private ArrayList<CareProvider> careProviderListConstructor(){
         ArrayList<CareProvider> providers = new ArrayList<>();
-        CareProvider male_1 =new CareProvider(
-                "MisterGuy", "password","MisterGuy",
-                "phoneNum","email",new Date(),'M');
+        CareProvider male_1 = null;
+        try {
+            male_1 = new CareProvider(
+                    "MisterGuy", "password","MisterGuy",
+                    "phoneNum","email",new Date(),'M');
+        } catch (LengthOutOfBoundException e) {
+            e.printStackTrace();
+        }
 
-        CareProvider female_2 =new CareProvider(
-                "MissusLady1","password","MissusLady",
-                "phoneNum","email",new Date(),'F');
+        CareProvider female_2 = null;
+        try {
+            female_2 = new CareProvider(
+                    "MissusLady1","password","MissusLady",
+                    "phoneNum","email",new Date(),'F');
+        } catch (LengthOutOfBoundException e) {
+            e.printStackTrace();
+        }
 
-        CareProvider female_3 =new CareProvider(
-                "MissusLady2","password","MissusLady",
-                "phoneNum","email",new Date(),'F');
+        CareProvider female_3 = null;
+        try {
+            female_3 = new CareProvider(
+                    "MissusLady2","password","MissusLady",
+                    "phoneNum","email",new Date(),'F');
+        } catch (LengthOutOfBoundException e) {
+            e.printStackTrace();
+        }
 
-        CareProvider female_4 =new CareProvider(
-                "MissusLady3","password","MissusLady",
-                "phoneNum","email",new Date(),'F');
+        CareProvider female_4 = null;
+        try {
+            female_4 = new CareProvider(
+                    "MissusLady3","password","MissusLady",
+                    "phoneNum","email",new Date(),'F');
+        } catch (LengthOutOfBoundException e) {
+            e.printStackTrace();
+        }
 
 
         providers.add(female_2);

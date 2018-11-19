@@ -17,6 +17,7 @@ import android.util.Base64;
 
 import com.example.jerry.healemgood.model.photo.Photo;
 import com.example.jerry.healemgood.utils.BodyLocation;
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -66,8 +67,9 @@ public class Record {
      * @param title   title of the record
      * @param isPatientRecord   indicate whether or not this is patient record or doctor record
      */
-    public Record(String pid,String title, boolean isPatientRecord){
+    public Record(String pid,String title, boolean isPatientRecord) throws LengthOutOfBoundException {
         this.pId = pid;
+        if (title.length() > 30) {throw new LengthOutOfBoundException();}
         this.title = title;
         this.createdDate = new Date();
         this.isPatientRecord = isPatientRecord;
@@ -80,7 +82,8 @@ public class Record {
      * @param title
      */
 
-    public void setTitle(String title) {
+    public void setTitle(String title) throws LengthOutOfBoundException {
+        if (title.length() > 30) {throw new LengthOutOfBoundException();}
         this.title = title;
     }
 
@@ -100,7 +103,10 @@ public class Record {
      * @param description
      */
 
-    public void setDescription(String description) {
+    public void setDescription(String description) throws LengthOutOfBoundException {
+        if (description.length() > 300) {
+            throw new LengthOutOfBoundException();
+        }
         this.description = description;
     }
 

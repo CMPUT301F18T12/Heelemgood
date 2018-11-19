@@ -10,6 +10,8 @@
 
 package com.example.jerry.healemgood.model.user;
 
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
+
 import java.util.Date;
 
 /**
@@ -32,8 +34,10 @@ public abstract class User {
     private Date birthday;
     private char gender;
 
-    User(String userId, String password, String fullName, String phoneNum, String email, Date birthday, char gender){
-
+    User(String userId, String password, String fullName, String phoneNum, String email, Date birthday, char gender) throws LengthOutOfBoundException {
+        if (userId.length() < 8) {
+            throw new LengthOutOfBoundException();
+        }
         this.userId = userId;
         this.password = password;
         this.fullName = fullName;

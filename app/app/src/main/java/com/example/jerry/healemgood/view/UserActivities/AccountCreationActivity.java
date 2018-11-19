@@ -14,6 +14,7 @@ import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.controller.UserController;
 import com.example.jerry.healemgood.model.user.CareProvider;
 import com.example.jerry.healemgood.model.user.Patient;
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 
 import java.util.Date;
 
@@ -59,22 +60,38 @@ public class AccountCreationActivity extends AppCompatActivity {
                             ,Toast.LENGTH_SHORT).show();
                 }
                 if (patientRadioButton.isChecked()){
-                    Patient patient = new Patient(
-                            username, p, na, ph, ema,
-                            new Date(),
-                            'M'
-                    );
+                    Patient patient = null;
+                    try {
+                        patient = new Patient(
+                                username, p, na, ph, ema,
+                                new Date(),
+                                'M'
+                        );
+                    } catch (LengthOutOfBoundException e) {
+                        Toast.makeText(getApplicationContext(),
+                                "Your userId is too short (at least 8 characters)"
+                                ,Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     patientRadioButton.setChecked(false);
                     new UserController.AddUserTask().execute(patient);
                     clearText();
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }
                 if (careProviderRadioButton.isChecked()){
-                    CareProvider careProvider = new CareProvider(
-                            username, p, na, ph, ema,
-                            new Date(),
-                            'M'
-                    );
+                    CareProvider careProvider = null;
+                    try {
+                        careProvider = new CareProvider(
+                                username, p, na, ph, ema,
+                                new Date(),
+                                'M'
+                        );
+                    } catch (LengthOutOfBoundException e) {
+                        Toast.makeText(getApplicationContext(),
+                                "Your userId is too short (at least 8 characters)"
+                                ,Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     careProviderRadioButton.setChecked(false);
                     new UserController.AddUserTask().execute(careProvider);
                     clearText();
