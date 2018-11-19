@@ -3,17 +3,14 @@ package com.example.jerry.healemgood.Controller;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.example.jerry.healemgood.MainActivity;
-import com.example.jerry.healemgood.controller.RecordController;
-import com.example.jerry.healemgood.controller.UserCreationController;
+import com.example.jerry.healemgood.controller.UserController;
 import com.example.jerry.healemgood.model.user.Patient;
 import com.example.jerry.healemgood.model.user.User;
 import com.robotium.solo.Solo;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
-// A class used to test the methods of the UserController class
+// A class used to test the methods of the UserControllerDeprecated class
 public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
 
     private Solo solo;
@@ -29,9 +26,89 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
         solo.finishOpenedActivities();
     }
 
+    // Create a new patient, push it onto elastic search.
+    // Test using postman or an http request to see if the patient is successfully created and stored
+    public void testCreateUser(){
+        Patient patient = patientConstructor();
+        new UserController.AddUserTask().execute(patient);
+        // Add a breakpoint on the next line to view the object before it is deleted
+        try {
+            User user = new UserController.SearchUserTask().execute("test").get();
+            new UserController.DeleteUserTask().execute(user);
+            User user2 = new UserController.SearchUserTask().execute("test").get();
+            assertNull(user2);
+        }catch (Exception e){}
+    }
+
+    // Search for a patient that has been created
+    public void testSearchUser() {
+        User user;
+        Patient patient = patientConstructorHeb();
+        try {
+            // Search for a user that exists
+            new UserController.AddUserTask().execute(patient);
+            user = new UserController.SearchUserTask().execute("heb").get();
+            assertTrue(user.getUserId().equals("heb"));
+
+            // Search for a user that does not exist
+            // The user object returned should not have a name
+            user = new UserController.SearchUserTask().execute("jeb").get();
+            assertFalse(user.getUserId().equals("jeb"));
+        }catch (Exception e){}
+    }
+
+    // Test to delete a user
+    public void testDeleteUser(){
+        Patient patient = patientConstructor();
+        try{
+            User user;
+            // Create a test user, add them to the DB
+            new UserController.AddUserTask().execute(patient);
+            // Check that the user is in the DB, before we delete them
+            user = new UserController.SearchUserTask().execute("Patient").get();
+            assertEquals(user.getClass().getSimpleName(), "Patient");
+            // Delete the user and check that the reference is now null
+            new UserController.DeleteUserTask().execute(patient).get();
+            user = new UserController.SearchUserTask().execute("Patient").get();
+            assertNull(user);
+        }catch (Exception e){}
+    }
+
+/*    public void testDeleteSingleUser(){
+        //Delete a single user, will not change
+        User user;
+        try{
+            user = new UserController.SearchUserTask().execute("Jerryb").get();
+            new UserController.DeleteUserTask().execute(user).get();
+        }catch (Exception e){}
+    }*/
+
+
+   /* public void testAddSingleUser(){
+        //Delete a single user, will not change
+        User user = patientConstructor();
+        try{
+            new UserController.AddUserTask().execute(user).get();
+        }catch (Exception e){}
+    }*/
+
+
+    // Test to update a user
+    public void testUpdateUser(){
+        User user;
+        try{
+            user = new UserController.SearchUserTask().execute("userid").get();
+            String email = user.getEmail();
+            assertEquals(email, user.getEmail());
+
+            user.setEmail("jnjn Email");
+            new UserController.UpdateUserTask().execute(user);
+        }catch (Exception e){}
+    }
+
     // Creates a test patient for the following tests
     private Patient patientConstructor(){
-        String userId = "userid";
+        String userId = "update";
         String password = "password";
         String name = "Joey";
         String phoneNum = "123456789";
@@ -41,29 +118,15 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
         return new Patient(userId,password,name,phoneNum,email,birthday,gender);
     }
 
-    // Create a new patient, push it onto elastic search.
-    // Test using postman or an http request to see if the patient is successfully created and stored
-    public void testCreateUser(){
-        Patient patient = patientConstructor();
-        new UserCreationController.addUserTask().execute(patient);
-        // Add a breakpoint on the next line to view the object before it is deleted
-        new UserCreationController.deleteUserTask().execute(patient);
-    }
-
-    // Search for a patient that has been created
-    public void testSearchUser() {
-        User user;
-        try {
-            // Search for a user that exists
-            user = new UserCreationController.searchUserTask().execute("heb").get();
-            assertTrue(user.getUserId().equals("heb"));
-            user = new UserCreationController.searchUserTask().execute("userid").get();
-            assertEquals(user.getUserId(), "userid");
-
-            // Search for a user that does not exist
-            // The user object returned should not have a name
-            user = new UserCreationController.searchUserTask().execute("jeb").get();
-            assertFalse(user.getUserId().equals("jeb"));
-        }catch (Exception e){}
+    // Creates a test patient for the following tests
+    private Patient patientConstructorHeb(){
+        String userId = "heb";
+        String password = "password";
+        String name = "Joey";
+        String phoneNum = "123456789";
+        String email = "abc@ualberta.ca";
+        Date birthday = new Date();
+        char gender = 'M';
+        return new Patient(userId,password,name,phoneNum,email,birthday,gender);
     }
 }

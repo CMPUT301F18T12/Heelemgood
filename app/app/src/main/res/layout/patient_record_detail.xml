@@ -5,6 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/bodyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="58dp"
+        android:text="@string/body_map_to_click"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintEnd_toStartOf="@+id/editLocationButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridView" />
+
     <TextView
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
@@ -105,10 +118,12 @@
         android:id="@+id/editLocationButton"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Edit Location"
+        android:text="@string/edit_location"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bodyButton"
         app:layout_constraintTop_toBottomOf="@+id/gridView" />
 
     <Button

@@ -1,5 +1,6 @@
 package com.example.jerry.healemgood.view.UserActivities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,8 +9,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.R;
-import com.example.jerry.healemgood.controller.UserCreationController;
+import com.example.jerry.healemgood.controller.UserController;
 import com.example.jerry.healemgood.model.user.CareProvider;
 import com.example.jerry.healemgood.model.user.Patient;
 
@@ -45,31 +47,38 @@ public class AccountCreationActivity extends AppCompatActivity {
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String n = userName.getText().toString();
+                String username = userName.getText().toString();
                 String p = password.getText().toString();
                 String na =  firstName.getText().toString();
                 String ph =  phoneNumber.getText().toString();
                 String ema = emailAddress.getText().toString();
 
+                if (patientRadioButton.isChecked() && careProviderRadioButton.isChecked()){
+                    Toast.makeText(getApplicationContext(),
+                            "Please Select If You Are a Patient or Care Provider"
+                            ,Toast.LENGTH_SHORT).show();
+                }
                 if (patientRadioButton.isChecked()){
                     Patient patient = new Patient(
-                            n, p, na, ph, ema,
+                            username, p, na, ph, ema,
                             new Date(),
                             'M'
                     );
                     patientRadioButton.setChecked(false);
-                    new UserCreationController.addUserTask().execute(patient);
+                    new UserController.AddUserTask().execute(patient);
                     clearText();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }
                 if (careProviderRadioButton.isChecked()){
                     CareProvider careProvider = new CareProvider(
-                            n, p, na, ph, ema,
+                            username, p, na, ph, ema,
                             new Date(),
                             'M'
                     );
                     careProviderRadioButton.setChecked(false);
-                    new UserCreationController.addUserTask().execute(careProvider);
+                    new UserController.AddUserTask().execute(careProvider);
                     clearText();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }
                 else {
                     Toast.makeText(getApplicationContext(),

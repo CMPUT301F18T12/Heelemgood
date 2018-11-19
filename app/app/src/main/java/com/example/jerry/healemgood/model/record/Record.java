@@ -16,6 +16,7 @@ import android.location.Location;
 import android.util.Base64;
 
 import com.example.jerry.healemgood.model.photo.Photo;
+import com.example.jerry.healemgood.utils.BodyLocation;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -53,9 +54,11 @@ public class Record {
     /* This is a boolean var to determine whether this record is a patient record or care provider record*/
     private boolean isPatientRecord;
     /* geoLocation(optional) of where this problem is created*/
-    protected double[] geoLocation;
-    /*The bodyLocaton id*/
-    protected int bodyLocation;
+    private double[] geoLocation;
+    /*The bodyLocaton */
+    private String bodyLocation;
+
+    private float[] bodyLocationPercent;
     /**
      * A problem have to be created before this record can be created;
      *
@@ -263,4 +266,52 @@ public class Record {
     public void setpId(String pId) {
         this.pId = pId;
     }
+
+    /**
+     * Get the body location
+     *
+     * @return BodyLocation
+     */
+    public String getBodyLocation() {
+        return bodyLocation;
+    }
+
+    /**
+     * Set the pid (optional, most likely not needed in this application)
+     *
+     * @param bodyLocation
+     */
+    public void setBodyLocation(String bodyLocation) {
+        this.bodyLocation = bodyLocation;
+    }
+
+
+    /**
+     * Set geo-location from place, then store it as LatLng See https://developers.google.com/places/android
+     * @param x
+     * @param y
+     */
+    public void setBodyLocationPercent(float x,float y) {
+        this.bodyLocationPercent = new float[2];
+        this.bodyLocationPercent[0]= x;
+        this.bodyLocationPercent[1]=y;
+    }
+
+    /**
+     * Returns the GeoLocation
+     *
+     * @return GeoLocation in LatLng
+     */
+
+    public float[] getBodyLocationPercent() {
+        return this.bodyLocationPercent;
+    }
+
+    /**
+     * Get the pid of the correspoded problem
+     *
+     * @return pid
+     */
+
+
 }

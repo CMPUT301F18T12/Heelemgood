@@ -45,7 +45,7 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
         //record create a problem first
         String text = "cant get it working";
         System.out.println(text);
-        Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@");
+        Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@", "ok");
         try {
             new ProblemController.CreateProblemTask().execute(p).get();
         }catch(Exception e){        }
@@ -71,7 +71,7 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
         //record create a problem first
         String text = "cant get it working";
         System.out.println(text);
-        Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@");
+        Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@", "ok");
         try {
             new ProblemController.CreateProblemTask().execute(p).get();
         }catch(Exception e){        }
@@ -101,7 +101,7 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
         new TestingTools.ResetRecordsTask().execute();
         String text = "cant get it working";
         System.out.println(text);
-        Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@");
+        Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@", "ok");
         try {
             new ProblemController.CreateProblemTask().execute(p).get();
         }catch(Exception e){        }
@@ -132,17 +132,17 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
         String pid2= Long.toHexString(Double.doubleToLongBits(Math.random()));
         String pid3= Long.toHexString(Double.doubleToLongBits(Math.random()));;
         Record r = new PatientRecord(pid,"nervous and sweaty hand");
-        ((PatientRecord) r).setBodyLocation(3);
+        ((PatientRecord) r).setBodyLocation("3");
         r.setGeoLocation(53.518047, -113.512086);
         Record r2= new PatientRecord(pid,"I am nervous");
-        ((PatientRecord) r2).setBodyLocation(3);
+        ((PatientRecord) r2).setBodyLocation("3");
         r2.setGeoLocation(53.514267, -113.511946);
         Record r3= new PatientRecord(pid2,"hand is sweaty");
-        ((PatientRecord) r3).setBodyLocation(2);
+        ((PatientRecord) r3).setBodyLocation("2");
         r3.setGeoLocation(53.510777, -113.511984);
         Record r4= new PatientRecord(pid2,"back pain");
         r4.setDescription("a little bit nervous as well");
-        ((PatientRecord) r4).setBodyLocation(1);
+        ((PatientRecord) r4).setBodyLocation("1");
         r4.setGeoLocation(53.507529, -113.512040);
         Record r5= new Record(pid3,"Sofme title",false);
         r5.setGeoLocation(53.504739, -113.512045);
