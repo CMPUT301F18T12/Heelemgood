@@ -57,6 +57,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
     private ImageAdapter imageAdapter;
     private ArrayList<Bitmap> photoBitmapCollection = new ArrayList<Bitmap>();
     private Place place;
+    private ImageButton photoButton;
 
     /**
      * Handles loading an older version of the activity
@@ -71,7 +72,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         Button addLocationButton =  findViewById(R.id.addLocationButton);
         Button saveButton = findViewById(R.id.saveButton);
         Button bodyButton = findViewById(R.id.bodyButton);
-        ImageButton photoButton = findViewById(R.id.photoButton);
+        photoButton = findViewById(R.id.photoButton);
 
         addLocationButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -165,6 +166,10 @@ public class PatientAddRecordActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             addPhoto(imageBitmap);
+            if (photoBitmapCollection.size() >= 10) {
+                photoButton.setEnabled(false);
+                // TODO restore button if size < 10
+            }
             imageAdapter.addPhoto(imageBitmap);
             imageAdapter.notifyDataSetChanged();
 
