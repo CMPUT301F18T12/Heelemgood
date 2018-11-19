@@ -12,6 +12,7 @@
 package com.example.jerry.healemgood.model.problem;
 
 import com.example.jerry.healemgood.model.record.Record;
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,7 +49,10 @@ public class Problem {
      * @param date      The date when this problem is created
      * @param userId    The patient who created this problem
      */
-    public Problem(String title, Date date,String userId,String description) {
+    public Problem(String title, Date date,String userId,String description) throws LengthOutOfBoundException {
+        if (title.length() > 30) {
+            throw new LengthOutOfBoundException();
+        }
         this.title = title;
         this.createdDate = date; // The createdDate of a problem should be the date of the first record
         this.userId =userId;

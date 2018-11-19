@@ -188,8 +188,13 @@ public class PatientAddRecordActivity extends AppCompatActivity {
      * @param imageBitmap
      */
     private void addPhoto(Bitmap imageBitmap){
+        int bytes = imageBitmap.getRowBytes();
+        if (bytes > 65536) {
+            Toast.makeText(this,"Your photo is too large (> 65536 bytes)",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
         photoBitmapCollection.add(imageBitmap);
-
     }
 
     /**
@@ -227,7 +232,13 @@ public class PatientAddRecordActivity extends AppCompatActivity {
 
         //set the photos of the record
         for (Bitmap photo: photoBitmapCollection){
-            patientRecord.addPhoto(photo);
+            try {
+                patientRecord.addPhoto(photo);
+            } catch (LengthOutOfBoundException e) {
+                Toast.makeText(this,"Your photo is too large (> 65536 bytes)",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
 
         //set the geolocation

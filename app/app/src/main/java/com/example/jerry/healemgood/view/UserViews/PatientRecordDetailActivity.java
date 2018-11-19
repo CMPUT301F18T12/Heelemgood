@@ -234,7 +234,13 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
         }
 
-        record.setPhotos(photoBitmapCollection);
+        try {
+            record.setPhotos(photoBitmapCollection);
+        } catch (LengthOutOfBoundException e) {
+            Toast.makeText(this,"Your photo is too large (> 65536 bytes)",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
         problem.updateRecordByIndex(getIntent().getIntExtra(AppConfig.INDEX,0),record);
         try{
             new ProblemController.UpdateProblemTask().execute(problem).get();

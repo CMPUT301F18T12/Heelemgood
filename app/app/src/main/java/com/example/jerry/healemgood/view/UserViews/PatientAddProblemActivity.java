@@ -6,11 +6,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.model.problem.Problem;
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 
 import java.util.Date;
@@ -41,7 +43,14 @@ public class PatientAddProblemActivity extends AppCompatActivity {
 
         String title = titleInput.getText().toString();
         String description = descriptionInput.getText().toString();
-        Problem problem = new Problem(title, new Date(), SharedPreferenceUtil.get(this, AppConfig.USERID),description);
+        Problem problem = null;
+        try {
+            problem = new Problem(title, new Date(), SharedPreferenceUtil.get(this, AppConfig.USERID),description);
+        } catch (LengthOutOfBoundException e) {
+            Toast.makeText(this, "Title cannot have more than 30 characters",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
 
 
         try {
