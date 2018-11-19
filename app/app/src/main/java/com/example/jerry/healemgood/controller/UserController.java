@@ -64,10 +64,11 @@ public class UserController {
         protected Void doInBackground(User... users) {
             setClient();
             String type = users[0].getClass().getSimpleName();
-            Index index = new Index.Builder(users[0])
+            /*Index index = new Index.Builder(users[0])
                     .index(indexName)
                     .type(type.toLowerCase())
-                    .build();
+                    .build();*/
+            Index index = new Index.Builder(users[0]).index(indexName).type(type.toLowerCase()).id(users[0].getUserId()).build();
             try {
                 DocumentResult result = client.execute(index);
                 if (result.isSucceeded()) {

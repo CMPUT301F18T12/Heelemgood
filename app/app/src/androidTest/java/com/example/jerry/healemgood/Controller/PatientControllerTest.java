@@ -74,6 +74,25 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
         }catch (Exception e){}
     }
 
+/*    public void testDeleteSingleUser(){
+        //Delete a single user, will not change
+        User user;
+        try{
+            user = new UserController.SearchUserTask().execute("Jerryb").get();
+            new UserController.DeleteUserTask().execute(user).get();
+        }catch (Exception e){}
+    }*/
+
+
+   /* public void testAddSingleUser(){
+        //Delete a single user, will not change
+        User user = patientConstructor();
+        try{
+            new UserController.AddUserTask().execute(user).get();
+        }catch (Exception e){}
+    }*/
+
+
     // Test to update a user
     public void testUpdateUser(){
         User user;
@@ -82,14 +101,14 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
             String email = user.getEmail();
             assertEquals(email, user.getEmail());
 
-            user.setEmail("Bruh Email");
+            user.setEmail("jnjn Email");
             new UserController.UpdateUserTask().execute(user);
         }catch (Exception e){}
     }
 
     // Creates a test patient for the following tests
     private Patient patientConstructor(){
-        String userId = "test";
+        String userId = "update";
         String password = "password";
         String name = "Joey";
         String phoneNum = "123456789";

@@ -11,8 +11,10 @@
 package com.example.jerry.healemgood.view.UserViews;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,9 +23,13 @@ import android.widget.TextView;
 import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
+import com.example.jerry.healemgood.controller.UserController;
+import com.example.jerry.healemgood.model.user.User;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 
 import org.w3c.dom.Text;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * Represents a PatientUserActivity
@@ -58,11 +64,11 @@ public class PatientUserActivity extends AppCompatActivity {
          emailInput = findViewById(R.id.userEmail);
          phoneInput = findViewById(R.id.userPhone);
 
-        Button saveButton = findViewById(R.id.saveButton);
+        final Button saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-
+              save();
               finish();
           }
         });
@@ -80,6 +86,7 @@ public class PatientUserActivity extends AppCompatActivity {
     }
 
 
+    // Fill out the info in the fields
     private void fillOutInfo(){
         nameText.setText(SharedPreferenceUtil.get(this,AppConfig.NAME));
         userIdText.setText(SharedPreferenceUtil.get(this,AppConfig.USERID));
@@ -91,9 +98,19 @@ public class PatientUserActivity extends AppCompatActivity {
 
 
     private void save(){
+        User user;
+        try{
+            // Access the user object, and change the object's parameters to what was inputted
+            user = new UserController.SearchUserTask().execute(userIdText.getText().toString()).get();
+            user.setEmail(emailInput.getText().toString());
+            user.setPhoneNum(phoneInput.getText().toString());
+            new UserController.UpdateUserTask().execute(user);
 
+            // Set the new values into shared preferences
+            SharedPreferenceUtil.store(getApplicationContext(), AppConfig.EMAIL, emailInput.getText().toString());
+            SharedPreferenceUtil.store(getApplicationContext(), AppConfig.PHONE, phoneInput.getText().toString());
+        }catch (Exception e){
+            Log.d("Error", "Error with saving");
+        }
     }
-
-
-
 }
