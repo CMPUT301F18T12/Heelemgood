@@ -34,6 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:maxLength="30"
         android:autofillHints=""
         android:ems="10"
         android:inputType="text"
@@ -56,6 +57,7 @@
     <EditText
         android:id="@+id/descriptionInput"
         android:layout_width="0dp"
+        android:maxLength="300"
         android:layout_height="119dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
