@@ -13,6 +13,16 @@ import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.model.problem.Problem;
 
+/**
+ * Represents a PatientProblemDetailActivity
+ * displays problem details handles Problems details changes
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class PatientProblemDetailActivity extends AppCompatActivity {
 
 
@@ -22,6 +32,12 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
     EditText descriptionInput;
     Problem problem;
     String pId;
+
+    /**
+     * This function will load a previously used instance of the activity
+     *
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +72,10 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * load problem
+     *
+     */
 
     private void loadProblem(){
         try{
@@ -68,6 +88,10 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * fill problem detail
+     *
+     */
 
     private void fillOutDetail(){
 
@@ -75,7 +99,10 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
         descriptionInput.setText(problem.getDescription());
     }
 
-
+    /**
+     * save problem after changes
+     *
+     */
     private void saveProblem(){
         problem.setTitle(titleInput.getText().toString());
         problem.setDescription(descriptionInput.getText().toString());

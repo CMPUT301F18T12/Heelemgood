@@ -17,8 +17,23 @@ import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 
 import java.util.Date;
 
+/**
+ * Represents a PatientAddProblemActivity
+ * allowing a patient to add a problem
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class PatientAddProblemActivity extends AppCompatActivity {
 
+    /**
+     * This function will load a previously used instance of the activity
+     *
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +51,10 @@ public class PatientAddProblemActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * save the problem user added
+     *
+     */
 
     private void saveProblem() {
         EditText titleInput = findViewById(R.id.titleInput);
@@ -54,11 +73,19 @@ public class PatientAddProblemActivity extends AppCompatActivity {
 
 
         try {
+
+
             new ProblemController.CreateProblemTask(this).execute(problem).get();
 
         } catch (Exception e) {
             Log.d("Error", "Fail to create problem");
 
         }
+
+
+
+
+
+
     }
 }

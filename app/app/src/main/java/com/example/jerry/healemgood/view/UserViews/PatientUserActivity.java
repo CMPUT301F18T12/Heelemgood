@@ -85,8 +85,11 @@ public class PatientUserActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Fill out the info in the fields
+     *
+     */
 
-    // Fill out the info in the fields
     private void fillOutInfo(){
         nameText.setText(SharedPreferenceUtil.get(this,AppConfig.NAME));
         userIdText.setText(SharedPreferenceUtil.get(this,AppConfig.USERID));
@@ -96,6 +99,10 @@ public class PatientUserActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Fill out the info in the fields
+     *
+     */
 
     private void save(){
         User user;

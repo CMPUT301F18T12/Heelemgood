@@ -26,6 +26,16 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a PatientRecordDetailActivity
+ * displays Records details handles Records details changes
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class PatientRecordDetailActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -38,6 +48,12 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
     private Place place;
     private ImageAdapter imageAdapter;
     private ArrayList<Bitmap> photoBitmapCollection = new ArrayList<Bitmap>();
+
+    /**
+     * This function will load a previously used instance of the activity
+     *
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +200,10 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * fill record detail
+     *
+     */
 
     private void fillOutDetail(){
         EditText titleInput = findViewById(R.id.titleInput);
@@ -198,6 +218,9 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
         imageAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * load record
+     */
 
     private void loadRecord(){
         String pId = getIntent().getStringExtra(AppConfig.PID);
@@ -215,6 +238,9 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * save record
+     */
     private void saveRecord(){
         EditText titleInput = findViewById(R.id.titleInput);
         EditText description = findViewById(R.id.descriptionInput);

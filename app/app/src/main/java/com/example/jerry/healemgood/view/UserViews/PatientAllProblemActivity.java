@@ -32,11 +32,27 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a PatientAllProblemActivity
+ * displays all problems and handles all functions relates to navigate bar
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class PatientAllProblemActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ArrayList<Problem> problems;
     private ProblemAdapter problemAdapter;
+
+    /**
+     * Handles loading an older version of the activity
+     *
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +131,10 @@ public class PatientAllProblemActivity extends AppCompatActivity
 
     }
 
+    /**
+     * refresh problems
+     *
+     */
 
     @Override
     protected void onResume(){
@@ -124,6 +144,11 @@ public class PatientAllProblemActivity extends AppCompatActivity
         problemAdapter.refreshAdapter(problems);
 
     }
+
+    /**
+     * load problems
+     *
+     */
 
     private void loadProblems(){
         ProblemController.searchByPatientIds(SharedPreferenceUtil.get(this,AppConfig.USERID));
@@ -141,6 +166,11 @@ public class PatientAllProblemActivity extends AppCompatActivity
 
     }
 
+    /**
+     * delete problems
+     *
+     */
+
     private void deleteProblem(int i){
 
         try {
@@ -156,6 +186,11 @@ public class PatientAllProblemActivity extends AppCompatActivity
     }
 
 
+    /**
+     *  close drawer
+     *
+     */
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -166,17 +201,26 @@ public class PatientAllProblemActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * adds items to the action bar
+     *
+     * @param menu Menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.patient_all_problem, menu);
         return true;
     }
+    /**
+     * Handle action bar item clicks.
+     *
+     * @param item MenuItem
+     */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // The action bar will automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
@@ -188,10 +232,15 @@ public class PatientAllProblemActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Handle navigation view item clicks.
+     *
+     * @param item MenuItem
+     */
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
 

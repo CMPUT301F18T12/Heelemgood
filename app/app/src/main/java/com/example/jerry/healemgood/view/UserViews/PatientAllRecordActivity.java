@@ -18,10 +18,26 @@ import com.example.jerry.healemgood.view.UserViews.adapter.RecordAdapter;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a PatientAllProblemActivity
+ * displays all records and handles all functions relates to records
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class PatientAllRecordActivity extends AppCompatActivity {
 
     private RecordAdapter recordAdapter;
     private ArrayList<Record> records;
+
+    /**
+     * Handles loading an older version of the activity
+     *
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +75,9 @@ public class PatientAllRecordActivity extends AppCompatActivity {
 
         listView.setAdapter(recordAdapter);
 
-        // set the list view click listener
+        /**
+         * set the list view click listener
+         */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -69,6 +87,12 @@ public class PatientAllRecordActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * refresh records
+     *
+     */
+
     @Override
     protected void onResume(){
 
@@ -78,6 +102,12 @@ public class PatientAllRecordActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * show Detail Record
+     *
+     * @param position int
+     */
+
     private void showDetailRecord(int position){
         Intent intent = new Intent(PatientAllRecordActivity.this, PatientRecordDetailActivity.class);
         intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
@@ -85,10 +115,16 @@ public class PatientAllRecordActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * load the problem by Pid
+     *
+     */
 
     // TODO: THE records are not loaded as expected ( nothing is loaded)
     private void loadRecords(){
-        //load the problem by Pid
+        /**
+         * load the problem by Pid
+         */
         Problem problem;
         try{
             problem = new ProblemController.GetProblemByIdTask().execute(getIntent().getStringExtra(AppConfig.PID)).get();

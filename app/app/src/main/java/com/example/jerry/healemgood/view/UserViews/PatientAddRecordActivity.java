@@ -215,27 +215,35 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         EditText descriptionInput = findViewById(R.id.descriptionInput);
         String descriptionString = descriptionInput.getText().toString();
 
-        // make a new patient record
+        /**
+         * make a new patient record
+         */
         PatientRecord patientRecord;
         try {
             patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID), recordTitle);
         } catch (LengthOutOfBoundException e) {
             return;
         }
-        // set bodyLocation
+        /**
+         * set bodyLocation
+         */
         BodyLocation bodyLocation = (BodyLocation) getIntent().getSerializableExtra(AppConfig.BODYLOCATION);
 
         patientRecord.setBodyLocation(bodyLocation.getPart().toString());
         patientRecord.setBodyLocationPercent(bodyLocation.getX(),bodyLocation.getY());
 
-        // set the description of the record
+        /**
+         * set the description of the record
+         */
         try {
             patientRecord.setDescription(descriptionString);
         } catch (LengthOutOfBoundException e) {
             return;
         }
 
-        //set the photos of the record
+        /**
+         * set the photos of the record
+         */
         for (Bitmap photo: photoBitmapCollection){
             try {
                 patientRecord.addPhoto(photo);
@@ -246,15 +254,17 @@ public class PatientAddRecordActivity extends AppCompatActivity {
             }
         }
 
-        //set the geolocation
+        /**
+         * set the geolocation
+         */
         if (place != null){
             patientRecord.setGeoLocation(place.getLatLng().latitude,place.getLatLng().longitude);
         }
 
 
-
-
-        //load the problem by Pid
+        /**
+         * load the problem by Pid
+         */
         Problem problem;
         try{
             problem = new ProblemController.GetProblemByIdTask().execute(getIntent().getStringExtra(AppConfig.PID)).get();
@@ -267,7 +277,9 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         problem.addRecord(patientRecord);
 
 
-        // update the problem
+        /**
+         * update the problem
+         */
         try{
             new ProblemController.UpdateProblemTask().execute(problem).get();
         }
