@@ -19,6 +19,18 @@ import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
 import com.example.jerry.healemgood.view.UserViews.PatientUserActivity;
 import com.robotium.solo.Solo;
 
+/**
+ * Handles editing the user account
+ * Creates an account, uses it to log in, and edits it
+ * @author WeakMill98
+ * @version 1.0
+ * @see ActivityInstrumentationTestCase2
+ * @see AccountCreationActivity
+ * @see MainActivity
+ * @see PatientUserActivity
+ * @since 1.0
+ */
+
 public class EditUser_ActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
     Solo solo;
 
@@ -42,7 +54,7 @@ public class EditUser_ActivityTest extends ActivityInstrumentationTestCase2<Main
     public void testEditUser(){
         // Click on create a new user
         // Assert that you go to the right page
-/*        TextView createAccount = (TextView) solo.getView(R.id.createAccountTextView);
+        TextView createAccount = (TextView) solo.getView(R.id.createAccountTextView);
         solo.clickOnView(createAccount);
         solo.assertCurrentActivity("Check on login", AccountCreationActivity.class);
 
@@ -65,7 +77,7 @@ public class EditUser_ActivityTest extends ActivityInstrumentationTestCase2<Main
         solo.clickOnView(radioButton);
 
         // Create the account
-        solo.clickOnButton("Create");*/
+        solo.clickOnButton("Create");
 
         // Enter the credentials and enter the application
         EditText loginCredentials = (EditText) solo.getView(R.id.userIdEditText);
@@ -84,12 +96,5 @@ public class EditUser_ActivityTest extends ActivityInstrumentationTestCase2<Main
         solo.pressMenuItem(3);
 
         //solo.("PatientUserActivity");
-
-        // Delete the test user
-        /*User user;
-        try {
-            user = new UserController.SearchUserTask().execute("TestGUY12345").get();
-            new UserController.DeleteUserTask().execute(user);
-        }catch (Exception e){}*/
     }
 }

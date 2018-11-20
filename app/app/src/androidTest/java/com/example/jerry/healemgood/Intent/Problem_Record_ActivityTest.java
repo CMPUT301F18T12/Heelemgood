@@ -110,8 +110,8 @@ public class Problem_Record_ActivityTest extends ActivityInstrumentationTestCase
         EditText descriptionInput = (EditText) solo.getView(R.id.descriptionInput);
 
         // Populate the two fields
-        solo.enterText(titleInput, "Test Title");
-        solo.enterText(descriptionInput, "Test Description");
+        solo.enterText(titleInput, "Arm Broke");
+        solo.enterText(descriptionInput, "Yeah this hurts");
 
         // Save the Entry and leave
         Button saveButton = (Button) solo.getView(R.id.saveButton);
@@ -156,7 +156,7 @@ public class Problem_Record_ActivityTest extends ActivityInstrumentationTestCase
         ImageView imageView2 = (ImageView) solo.getView(R.id.colorMap);
         solo.clickOnView(imageView2);
 
-        
+        //TODO: Map needs to be clicked properly, works 100% with human intervention
 
         /*Button continueButton = (Button) solo.getView(R.id.continueButton);
         solo.clickOnView(continueButton);
