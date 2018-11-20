@@ -44,6 +44,10 @@ public class EditUser_ActivityTest extends ActivityInstrumentationTestCase2<Main
         super.tearDown();
     }
 
+    /**
+     * Tests Editing the user
+     *
+     */
     public void testEditUser(){
         // Click on create a new user
         // Assert that you go to the right page
