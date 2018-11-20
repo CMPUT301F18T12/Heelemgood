@@ -1,4 +1,14 @@
+/*
+ *  Class Name: ProblemAdapter
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 16, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
 package com.example.jerry.healemgood.view.UserViews.adapter;
+
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -15,12 +25,26 @@ import com.example.jerry.healemgood.model.record.Record;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An adapter class that helps with problems
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @since 1.0
+ */
 public class ProblemAdapter extends ArrayAdapter<Problem> {
 
     private Context mContext;
     private int layout;
     private List<Problem> problems;
 
+    /**
+     * Creates the ProblemAdapter
+     *
+     * @param c
+     * @param layout
+     * @param problems
+     */
     public ProblemAdapter(Context c, int layout, List<Problem> problems){
         super(c,layout,problems);
         this.layout = layout;
@@ -28,13 +52,25 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
         this.problems = problems;
     }
 
-
+    /**
+     * Refreshes the adapter
+     *
+     * @param problems
+     */
     public void refreshAdapter(List<Problem> problems){
         this.problems.clear();
         this.problems.addAll(problems);
         notifyDataSetChanged();
     }
 
+    /**
+     * Gets and returns the view
+     *
+     * @param position
+     * @param convertView
+     * @param viewGroup
+     * @return v
+     */
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {

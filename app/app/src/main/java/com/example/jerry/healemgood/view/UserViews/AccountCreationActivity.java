@@ -1,3 +1,12 @@
+/*
+ *  Class Name: AccountCreationActivity
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 15, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
 package com.example.jerry.healemgood.view.UserViews;
 
 import android.content.Intent;
@@ -18,6 +27,13 @@ import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 
 import java.util.Date;
 
+/**
+ * This class handles account creation
+ *
+ * @author WeakMill98
+ * @version 1.0
+ * @since 1.0
+ */
 public class AccountCreationActivity extends AppCompatActivity {
 
     private EditText userName;
@@ -32,6 +48,11 @@ public class AccountCreationActivity extends AppCompatActivity {
     private RadioButton patientRadioButton;
     private RadioButton careProviderRadioButton;
 
+    /**
+     * Loads older instance if possible
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +127,10 @@ public class AccountCreationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Gets all the xml elements
+     *
+     */
     private void getAllXML(){
         userName = findViewById(R.id.userIdEditText);
         firstName = findViewById(R.id.firstNameEditText);
@@ -119,6 +144,10 @@ public class AccountCreationActivity extends AppCompatActivity {
         careProviderRadioButton = findViewById(R.id.careProviderRadioButton);
     }
 
+    /**
+     * Clears the text
+     *
+     */
     private void clearText(){
         userName.getText().clear();
         firstName.getText().clear();

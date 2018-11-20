@@ -1,3 +1,12 @@
+/*
+ *  Class Name: RequestsAdapter
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 15, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
 package com.example.jerry.healemgood.view.UserViews.adapter;
 
 import android.os.Bundle;
@@ -17,6 +26,13 @@ import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * An adapter class that helps with requests
+ *
+ * @author WeakMill98
+ * @version 1.0
+ * @since 1.0
+ */
 public class RequestsAdapter extends AppCompatActivity {
     ListView mListView;
 
@@ -25,6 +41,11 @@ public class RequestsAdapter extends AppCompatActivity {
     int[] images = {R.drawable.beter};
     ArrayList<CareProvider> careProviders = careProviderListConstructor();
 
+    /**
+     * Loads older instance if possible
+     *
+     * @param saveInstanceState
+     */
     @Override
     protected void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
@@ -36,7 +57,11 @@ public class RequestsAdapter extends AppCompatActivity {
         mListView.setAdapter(customCareProviderAdaptor);
     }
 
-    // Temporary test constructor
+    /**
+     * Temporary test constructor
+     *
+     * @return providers
+     */
     private ArrayList<CareProvider> careProviderListConstructor(){
         ArrayList<CareProvider> providers = new ArrayList<>();
         CareProvider male_1 = null;
@@ -83,23 +108,53 @@ public class RequestsAdapter extends AppCompatActivity {
         return providers;
     }
 
+    /**
+     * Creates a special adapter for care providers
+     *
+     * @see BaseAdapter
+     */
     class CustomCareProviderAdaptor extends BaseAdapter{
 
+        /**
+         * Gets and returns length of careprovider list
+         *
+         * @return careProviders.size()
+         */
         @Override
         public int getCount() {
             return careProviders.size();
         }
 
+        /**
+         * Gets and returns a item
+         *
+         * @param i
+         * @return null
+         */
         @Override
         public Object getItem(int i) {
             return null;
         }
 
+        /**
+         * Gets and returns item id
+         *
+         * @param i
+         * @return 0
+         */
         @Override
         public long getItemId(int i) {
             return 0;
         }
 
+        /**
+         * Gets and returns a view
+         *
+         * @param i
+         * @param convertView
+         * @param viewGroup
+         * @return view
+         */
         @NonNull
         @Override
         public View getView(int i, View convertView, ViewGroup viewGroup) {
