@@ -277,7 +277,7 @@ public class Record {
     }
 
     /**
-     * Get the body location
+     * Get the body part name
      *
      * @return BodyLocation
      */
@@ -286,7 +286,7 @@ public class Record {
     }
 
     /**
-     * Set the pid (optional, most likely not needed in this application)
+     * Set the body part name
      *
      * @param bodyLocation
      */
@@ -296,7 +296,7 @@ public class Record {
 
 
     /**
-     * Set geo-location from place, then store it as LatLng See https://developers.google.com/places/android
+     * Set body-location by coordinate percentage
      * @param x
      * @param y
      */
@@ -307,20 +307,14 @@ public class Record {
     }
 
     /**
-     * Returns the GeoLocation
+     * Returns the body-location by coordinate percentage
      *
-     * @return GeoLocation in LatLng
+     * @return body-location by coordinate percentage
      */
 
     public float[] getBodyLocationPercent() {
         return this.bodyLocationPercent;
     }
-
-    /**
-     * Get the pid of the correspoded problem
-     *
-     * @return pid
-     */
 
 
 }
