@@ -7,7 +7,6 @@
  *
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
-
 package com.example.jerry.healemgood.model.user;
 
 import com.example.jerry.healemgood.model.request.Request;
@@ -25,13 +24,24 @@ import java.util.Date;
  * @see User
  * @since 1.0
  */
-
 public class Patient extends User {
 
     private ArrayList<String> problemIds;
     private ArrayList<String> careProviderUserIds; // The userId list of the care providers
     private ArrayList<Request> requests;
 
+    /**
+     * Sets up a patient user
+     *
+     * @param userId
+     * @param password
+     * @param fullName
+     * @param phoneNum
+     * @param email
+     * @param birthday
+     * @param gender
+     * @throws LengthOutOfBoundException
+     */
     public Patient(String userId, String password, String fullName, String phoneNum, String email, Date birthday, char gender) throws LengthOutOfBoundException {
         super(userId, password, fullName, phoneNum, email, birthday, gender);
         this.problemIds = new ArrayList<String>();
@@ -40,59 +50,106 @@ public class Patient extends User {
 
     }
 
-    /* Get all the problems ids*/
+    /**
+     * Gets arn returns a list of all the problem ids for the patient
+     *
+     * @return problemIds
+     */
     public ArrayList<String> getProblemIds() {
         return problemIds;
     }
 
-    /*Add new problem id*/
+    /**
+     * Adds the id of a problem to the list of the patient's problems
+     *
+     * @param problemId
+     */
     public void addProblemId(String problemId) {
         problemIds.add(problemId);
     }
 
-    /* Get single problem id by index */
+    /**
+     * Gets and returns the index of a problem id in the list of problems
+     *
+     * @param index
+     * @return problemIds.get(index)
+     */
     public String getProblemIdByIndex(int index) {
         return problemIds.get(index);
     }
 
-    /* Remove one problem id*/
+    /**
+     * Removes the problem id of a wanted problem (deletes a problem from the list)
+     *
+     * @param index
+     */
     public void deleteProblemId(int index) {
         if (index < problemIds.size()) {
             problemIds.remove(index);
         }
     }
 
-    /* Get all the care providers' user id*/
+    /**
+     * Gets and returns a list of the ids of all care providers that the patient has
+     *
+     * @return careProviderUserIds
+     */
     public ArrayList<String> getCareProviderUserIds() {
         return careProviderUserIds;
     }
 
-    /* Add one care provider user id*/
+    /**
+     * Adds a care provider's id to the list of care providers the patient is seeing
+     *
+     * @param careProviderUserId
+     */
     public void addCareProviderUserId(String careProviderUserId) {
         careProviderUserIds.add(careProviderUserId);
     }
 
-    /* Get one care provider by index */
+    /**
+     * Gets and returns the location of a care provider id in the list of care providers for the patient
+     *
+     * @param index
+     * @return careProviderUserIds.get(index)
+     */
     public String getCareProviderUserIdByIndex(int index) {
         return careProviderUserIds.get(index);
     }
 
-    /*Get all the requests*/
+    /**
+     * Gets and returns a list of all care provider requests
+     *
+     * @return requests
+     */
     public ArrayList<Request> getRequests() {
         return requests;
     }
 
-    /*Get one request by index*/
+    /**
+     * Gets and returns the location of a specific request from the list of care provider requests
+     *
+     * @param index
+     * @return requests.get(index)
+     */
     public Request getRequestByIndex(int index) {
         return requests.get(index);
     }
 
-    /* Add one request*/
+    /**
+     * Adds a request to the list of care provider requests
+     *
+     * @param request
+     */
     public void addRequest(Request request) {
         requests.add(request);
     }
 
-    /* remove one request by index */
+    /**
+     * Removes a specific request from the list of available requests
+     *
+     * @param index
+     */
     public void deleteRequest(int index) {
         if (index < requests.size()){
             requests.remove(index);

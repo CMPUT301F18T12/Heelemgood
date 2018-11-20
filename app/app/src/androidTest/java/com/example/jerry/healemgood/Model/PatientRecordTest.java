@@ -35,6 +35,11 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(AndroidJUnit4.class)
 public class PatientRecordTest {
+
+    /**
+     * Creates a patientRecordTest
+     *
+     */
     @Test
     public void patientRecordConstructorTest() {
         // constructor and getters
@@ -73,6 +78,10 @@ public class PatientRecordTest {
         }catch (LengthOutOfBoundException e){}
     }
 
+    /**
+     * Tests location
+     *
+     */
     public void locationTest() {
         // geo-location and body location tests
 

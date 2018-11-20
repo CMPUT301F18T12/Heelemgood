@@ -7,8 +7,6 @@
  *
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
-
-
 package com.example.jerry.healemgood.model.problem;
 
 import com.example.jerry.healemgood.model.record.Record;
@@ -26,7 +24,6 @@ import io.searchbox.annotations.JestId;
  * @version 1.0
  * @since 1.0
  */
-
 public class Problem {
     //pid is auto generated when problem is added to DB
     @JestId
@@ -100,16 +97,15 @@ public class Problem {
      * @param index
      *
      */
-
     public void removeRecordByIndex(int index){
         records.remove(index);
     }
 
     /**
-     * get description
+     * Get and returns the description of the problem
      *
+     * @return this.description
      */
-
     public String getDescription(){
         return this.description;
     }
@@ -131,7 +127,6 @@ public class Problem {
      * @param index
      *
      */
-
     public void updateRecordByIndex(int index,Record record){
         records.set(index,record);
     }

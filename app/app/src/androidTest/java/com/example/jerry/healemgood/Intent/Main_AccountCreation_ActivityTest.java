@@ -1,3 +1,12 @@
+/*
+ *  Class Name: Main_AccountCreation_ActivityTest
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 19, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
 package com.example.jerry.healemgood.Intent;
 
 import android.support.v7.app.AppCompatActivity;
@@ -30,28 +39,50 @@ import com.robotium.solo.Solo;
 public class Main_AccountCreation_ActivityTest extends ActivityInstrumentationTestCase2<com.example.jerry.healemgood.MainActivity> {
     private Solo solo;
 
+    /**
+     * Creates a Main_AccountCreation_ActivityTest
+     *
+     */
     public Main_AccountCreation_ActivityTest(){
         super("com.example.jerry.healemgood.Intent",
                 com.example.jerry.healemgood.MainActivity.class);
     }
 
+    /**
+     * Handles set up
+     *
+     * @throws Exception
+     */
     public void setUp() throws Exception {
         super.setUp();
         solo = new Solo(getInstrumentation(), getActivity());
     }
 
+    /**
+     * Handles clean up
+     *
+     * @throws Exception
+     */
     @Override
     public void tearDown() throws Exception {
         solo.finishOpenedActivities();
         super.tearDown();
     }
 
+    /**
+     * Tests logging in with no username entered
+     *
+     */
     public void testNoUserNameLogin(){
         // Clicking on sign in without a username will not sign in
         solo.clickOnButton("Sign In");
         solo.assertCurrentActivity("Check on login", MainActivity.class);
     }
 
+    /**
+     * Tests logging in
+     *
+     */
     public void testLogin() {
         solo.assertCurrentActivity("Check on login", MainActivity.class);
         // Just to check that the code is running

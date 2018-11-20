@@ -23,7 +23,6 @@ import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
  * @see Record
  * @since 1.0
  */
-
 public class PatientRecord extends Record {
 
     /**
@@ -32,7 +31,6 @@ public class PatientRecord extends Record {
      * @param pId
      * @param title
      */
-
     public PatientRecord(String pId,String title) throws LengthOutOfBoundException {
         super(pId,title,true);
 

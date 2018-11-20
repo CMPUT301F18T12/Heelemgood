@@ -28,6 +28,7 @@ import io.searchbox.core.Index;
  * @author WeakMill98
  * @version 1.0
  * @since 1.0
+ * @deprecated replaced with UserController
  */
 
 public class UserControllerDeprecated {

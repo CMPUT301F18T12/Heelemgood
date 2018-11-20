@@ -27,6 +27,10 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 public class RequestTest {
+    /**
+     * Creates a RequestTest
+     *
+     */
     @Test
     public void requestConstructorTest() {
         // constructor and getters

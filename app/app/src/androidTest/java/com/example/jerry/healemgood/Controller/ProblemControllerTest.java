@@ -1,3 +1,12 @@
+/*
+ *  Class Name: ProblemControllerTest
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 12, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
 package com.example.jerry.healemgood.Controller;
 
 import android.test.ActivityInstrumentationTestCase2;
@@ -18,24 +27,47 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Handles testing for the problem controller
+ *
+ * @author joeyUalbera
+ * @version 1.0
+ * @since 1.0
+ */
 public class ProblemControllerTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
     private Solo solo;
 
+    /**
+     * Creates a ProblemControllerTest
+     *
+     */
     public ProblemControllerTest() {
         super(MainActivity.class);
     }
 
+    /**
+     * Handles set up
+     *
+     */
     @Override
     public void setUp() {
         solo = new Solo(getInstrumentation(), getActivity());
     }
 
+    /**
+     * Handles clean up
+     *
+     */
     @Override
     public void tearDown() {
         solo.finishOpenedActivities();
     }
 
+    /**
+     * Tests creating a problem
+     *
+     */
     public void testCreateProblem(){
         boolean temp2=true;
         String text = "HOLY";
@@ -60,7 +92,10 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
         }catch (Exception e){}
     }
 
-
+    /**
+     * Tests updating an old problem
+     *
+     */
     public void testUpdateProblem(){
         String text = "Just another test";
         System.out.println(text);
@@ -87,7 +122,10 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
         }catch (Exception e){}
     }
 
-
+    /**
+     * Tests deleting a problem
+     *
+     */
     public void testDeleteProblem(){
         String text = "HOLY";
         System.out.println(text);
@@ -127,6 +165,11 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             //assertNull(r2);
         } catch (Exception e){}
     }
+
+    /**
+     * Tests searching for a problem
+     *
+     */
     public void testSearchProblem(){
         new TestingTools.ResetTypeTask().execute("problem");
         String userid = "sdsdsdsdsdvbu231AV";

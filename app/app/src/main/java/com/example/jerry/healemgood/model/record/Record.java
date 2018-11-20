@@ -316,11 +316,5 @@ public class Record {
         return this.bodyLocationPercent;
     }
 
-    /**
-     * Get the pid of the correspoded problem
-     *
-     * @return pid
-     */
-
 
 }

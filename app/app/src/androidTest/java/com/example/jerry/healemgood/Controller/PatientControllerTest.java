@@ -1,3 +1,12 @@
+/*
+ *  Class Name: PatientControllerTest
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 13, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
 package com.example.jerry.healemgood.Controller;
 
 import android.test.ActivityInstrumentationTestCase2;
@@ -22,7 +31,6 @@ import java.util.Date;
  * @version 1.0.3
  */
 
-
 // A class used to test the methods of the UserControllerDeprecated class
 public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
 
@@ -42,8 +50,10 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
         solo.finishOpenedActivities();
     }
 
-    // Create a new patient, push it onto elastic search.
-    // Test using postman or an http request to see if the patient is successfully created and stored
+    /**
+     * Tests storing users and searching for users
+     *
+     */
     public void testCreateUser() {
         try {
             Patient patient = patientConstructor();
@@ -61,7 +71,10 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    // Search for a patient that has been created
+    /**
+     * Tests searching for the user
+     *
+     */
     public void testSearchUser() {
         User user;
         Patient patient = patientConstructorHeb();
@@ -79,7 +92,10 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    // Test to delete a user
+    /**
+     * Tests deleting users
+     *
+     */
     public void testDeleteUser() {
         Patient patient = patientConstructor();
         try {
@@ -97,7 +113,10 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    // Test to update a user
+    /**
+     * Tests updating a user
+     *
+     */
     public void testUpdateUser() {
         User user;
         try {
@@ -111,7 +130,11 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    // Creates a test patient for the following tests
+    /**
+     * Tests various functions of patients
+     *
+     * @return
+     */
     private Patient patientConstructor() {
         String userId = "update12345678";
         String password = "password";
@@ -127,7 +150,11 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    // Creates a test patient for the following tests
+    /**
+     * Creates a test patient
+     *
+     * @return
+     */
     private Patient patientConstructorHeb() {
         String userId = "heb12345678";
         String password = "password";
