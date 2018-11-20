@@ -100,16 +100,15 @@ public class Problem {
      * @param index
      *
      */
-
     public void removeRecordByIndex(int index){
         records.remove(index);
     }
 
     /**
-     * get description
+     * Get and returns the description of the problem
      *
+     * @return this.description
      */
-
     public String getDescription(){
         return this.description;
     }
@@ -131,7 +130,6 @@ public class Problem {
      * @param index
      *
      */
-
     public void updateRecordByIndex(int index,Record record){
         records.set(index,record);
     }

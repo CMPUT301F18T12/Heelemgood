@@ -7,7 +7,6 @@
  *
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
-
 package com.example.jerry.healemgood.model.user;
 
 import com.example.jerry.healemgood.model.user.User;
@@ -24,7 +23,6 @@ import java.util.Date;
  * @see User
  * @since 1.0
  */
-
 public class CareProvider extends User {
 
     private ArrayList<String> patientUserIds; // The user id list of all the patients belongs to this care provider
@@ -35,20 +33,38 @@ public class CareProvider extends User {
 
     }
 
-    /* Get all the patients user id*/
+    /**
+     * Gets and returns a list of all patient ids
+     *
+     * @return patientUserIds
+     */
     public ArrayList<String> getPatientsUserIds() {
         return patientUserIds;
     }
 
-    /* Add patient user id*/
+    /**
+     * Add a patient id to the list of patients
+     *
+     * @param patientUserId
+     */
     public void addPatientUserId(String patientUserId) {
         patientUserIds.add(patientUserId);
     }
 
-    /* Get one patient user id by index */
+    /**
+     * Searches and returns the location in the list of patients of a required patient id
+     *
+     * @param index
+     * @return patientUserIds.get(index)
+     */
     public String getPatientUserIdByIndex(int index) {
         return patientUserIds.get(index);
     }
 
+    /**
+     * Removes a patient from the list of patients
+     *
+     * @param patientUserId
+     */
     public void removePatientUserId(String patientUserId){patientUserIds.remove(patientUserId);}
 }
