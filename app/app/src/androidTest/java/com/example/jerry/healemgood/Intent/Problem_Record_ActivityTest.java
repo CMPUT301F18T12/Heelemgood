@@ -1,27 +1,21 @@
 package com.example.jerry.healemgood.Intent;
 
-import android.support.v7.app.AppCompatActivity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
-import com.example.jerry.healemgood.controller.UserController;
-import com.example.jerry.healemgood.model.user.User;
 import com.example.jerry.healemgood.MainActivity;
-import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
+import com.example.jerry.healemgood.view.UserViews.AccountCreationActivity;
 import com.example.jerry.healemgood.view.UserViews.PatientAddProblemActivity;
 import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
 import com.example.jerry.healemgood.view.UserViews.PatientAllRecordActivity;
 import com.robotium.solo.Solo;
-
-import java.sql.BatchUpdateException;
 // Source: https://www.youtube.com/watch?v=T_8euppCz3k Accessed 2018-11-18
 
 /**

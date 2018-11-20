@@ -40,9 +40,9 @@
         <activity android:name=".view.UserViews.PatientHistoryActivity" />
         <activity android:name=".view.UserViews.PatientSearchActivity" />
         <activity android:name=".view.UserViews.PatientRequestActivity" />
-        <activity android:name=".view.UserActivities.LoginActivity" />
-        <activity android:name=".view.UserActivities.AccountCreationActivity" />
-        <activity android:name=".view.UserActivities.PatientViewRequestActivity" />
+        <activity android:name=".view.UserViews.LoginActivity" />
+        <activity android:name=".view.UserViews.AccountCreationActivity" />
+        <activity android:name=".view.UserViews.PatientViewRequestActivity" />
         <activity android:name=".view.UserViews.adapter.RequestsAdapter" />
         <activity android:name=".view.UserViews.PatientAddProblemActivity" />
         <activity android:name=".view.UserViews.PatientAllRecordActivity" />

@@ -33,7 +33,7 @@ import com.example.jerry.healemgood.model.user.User;
  * @since 1.0
  */
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
-import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
+import com.example.jerry.healemgood.view.UserViews.AccountCreationActivity;
 import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
 
 /**

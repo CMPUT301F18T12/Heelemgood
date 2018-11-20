@@ -3,78 +3,80 @@
  *
  *  Version: Version 1.0
  *
- *  Date: November 14, 2018
+ *  Date: November 17, 2018
  *
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
 
-//package com.example.jerry.healemgood.view.UserViews;
-//
-//import android.content.Intent;
-//import android.os.Bundle;
-//import android.support.v7.app.AppCompatActivity;
-//import android.view.View;
-//import android.widget.Button;
-//import android.widget.TextView;
-//
-//import com.example.jerry.healemgood.R;
-//
+package com.example.jerry.healemgood.view.UserViews;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.example.jerry.healemgood.R;
 
 /**
- * Represents an AccountCreationActivity
- * Handles all functions relating to creating an account
+ * A controller that handles swiping on the app
  *
- * @author xiacijie
+ * @author WeakMill98
  * @version 1.0
- * @see AppCompatActivity
  * @since 1.0
- * @deprecated Whole class no longer used. Replaced with MainActivity
  */
 
 
-//public class LoginActivity extends AppCompatActivity {
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_login);
-//
-//        this.onCreateAccount();
-//    }
-//
-/**
- * Handles everything relating to creating an account
- */
+public class LoginActivity extends AppCompatActivity {
+    private EditText userNameEditText;
+    private String userName;
+    private Button signInButton;
+    private TextView createAccountTextView;
 
-//    public void onCreateAccount(){
-//        TextView createTextView = findViewById(R.id.createAccountTextView);
-//
-//
-//        createTextView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(LoginActivity.this, AccountCreationActivity.class));
-//            }
-//        });
-//
-//
-//
-//
-//
-//    }
-//
+    /**
+     * Loads a previous version of the activity if possible
+     *
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        getAllXML();
+        //onCreateAccount();
 
-/**
- * This function loads the start activity after signing in
-  */
-//    public void onSignIn() {
-//        Button button = findViewById(R.id.signInButton);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(LoginActivity.this, BodyMapSelectionActivity.class));
-//            }
-//        });
-//    }
-//}
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 
+    /**
+     * Gets all xml elements in the view
+     *
+     */
+    public void getAllXML(){
+        userNameEditText = findViewById(R.id.userIdEditText);
+        signInButton = findViewById(R.id.signInButton);
+        createAccountTextView = findViewById(R.id.createAccountTextView);
+    }
+
+
+    /**
+     * Switches to the create account page
+     *
+     */
+    public void onCreateAccount(){
+        createAccountTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, AccountCreationActivity.class));
+            }
+        });
+    }
+}
