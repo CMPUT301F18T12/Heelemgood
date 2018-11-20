@@ -1,5 +1,7 @@
 package com.example.jerry.healemgood.Intent;
 
+import android.app.Instrumentation;
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.robotium.solo.Solo;
 public class EditUser_ActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
     Solo solo;
 
+    // Call the constructor
     public EditUser_ActivityTest(){
         super("com.example.jerry.healemgood.Intent",
                 MainActivity.class);
@@ -39,7 +42,7 @@ public class EditUser_ActivityTest extends ActivityInstrumentationTestCase2<Main
     public void testEditUser(){
         // Click on create a new user
         // Assert that you go to the right page
-        /*TextView createAccount = (TextView) solo.getView(R.id.createAccountTextView);
+/*        TextView createAccount = (TextView) solo.getView(R.id.createAccountTextView);
         solo.clickOnView(createAccount);
         solo.assertCurrentActivity("Check on login", AccountCreationActivity.class);
 
@@ -67,22 +70,26 @@ public class EditUser_ActivityTest extends ActivityInstrumentationTestCase2<Main
         // Enter the credentials and enter the application
         EditText loginCredentials = (EditText) solo.getView(R.id.userIdEditText);
         solo.enterText(loginCredentials, "TestGUY12345");
+        solo.sleep(2000);
         solo.clickOnButton("Sign In");
+        solo.sleep(2000);
         solo.assertCurrentActivity("Check on login", PatientAllProblemActivity.class);
 
         // Edit a field of the user class
-        solo.sleep(5000);
+        solo.sleep(5000);/*
         ViewGroup tabs = (ViewGroup) solo.getView(R.id.nav_view);
         View userIcon = tabs.getChildAt(0);
-        solo.clickOnView(userIcon);
+        solo.clickOnView(userIcon);*/
+
+        solo.pressMenuItem(3);
 
         //solo.("PatientUserActivity");
 
         // Delete the test user
-        User user;
+        /*User user;
         try {
             user = new UserController.SearchUserTask().execute("TestGUY12345").get();
             new UserController.DeleteUserTask().execute(user);
-        }catch (Exception e){}
+        }catch (Exception e){}*/
     }
 }
