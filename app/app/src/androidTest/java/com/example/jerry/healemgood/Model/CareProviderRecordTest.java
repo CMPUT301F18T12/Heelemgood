@@ -8,13 +8,14 @@
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
 
-package com.example.jerry.healemgood;
+package com.example.jerry.healemgood.Model;
 
 import android.graphics.Bitmap;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.example.jerry.healemgood.model.photo.Photo;
 import com.example.jerry.healemgood.model.record.CareProviderRecord;
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,35 +42,37 @@ public class CareProviderRecordTest {
         String pid = "sdasdsafasdasdgcx";
         String title = "Test";
 
-        CareProviderRecord record = new CareProviderRecord(pid, title);
+        try{
+            CareProviderRecord record = new CareProviderRecord(pid, title);
+            assertEquals(record.getTitle(), title);
+            assertEquals(record.getpId(), pid);
 
-        assertEquals(record.getTitle(), title);
-        assertEquals(record.getpId(), pid);
+            // setters
+            String title2 = "Test2";
+            record.setTitle(title2);
+            assertEquals(record.getTitle(), title2);
 
-       // setters
-        String title2 = "Test2";
-        record.setTitle(title2);
-        assertEquals(record.getTitle(), title2);
+            // description
+            String description = "Test care provider record";
+            record.setDescription(description);
+            assertEquals(record.getDescription(), description);
 
-       // description
-        String description = "Test care provider record";
-        record.setDescription(description);
-        assertEquals(record.getDescription(), description);
+            // photo ArrayList
+            String imgPath = "/tmp/1.png";
+            String imgPath2 = "/tmp/2.png";
 
-        // photo ArrayList
-        String imgPath = "/tmp/1.png";
-        String imgPath2 = "/tmp/2.png";
+            ArrayList<Bitmap> photos = record.getPhotos();
 
-        ArrayList<Bitmap> photos = record.getPhotos();
+            assertEquals(photos.size(),2);
 
-       assertEquals(photos.size(),2);
+            // dateCreated
+            Date date = new Date();
+            record.setCreatedDate(date);assertEquals(record.getCreatedDate(), date);
 
-        // dateCreated
-        Date date = new Date();
-        record.setCreatedDate(date);assertEquals(record.getCreatedDate(), date);
+            // isPatientRecord
+            assertFalse(record.isPatientRecord());
 
-        // isPatientRecord
-        assertFalse(record.isPatientRecord());
+        }catch (LengthOutOfBoundException e){}
     }
 
 }

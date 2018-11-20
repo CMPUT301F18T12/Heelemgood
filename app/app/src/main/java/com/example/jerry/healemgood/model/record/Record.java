@@ -127,11 +127,14 @@ public class Record {
      * @param src enter the Bitmap
      */
 
-    public void addPhoto(Bitmap src){
+    public void addPhoto(Bitmap src) throws LengthOutOfBoundException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         src.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte [] b = baos.toByteArray();
         String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+        if (b.length > 65536) {
+            throw new LengthOutOfBoundException();
+        }
         photos.add(encodedImage);
     }
 
@@ -142,7 +145,7 @@ public class Record {
      *
      */
 
-    public void setPhotos(ArrayList<Bitmap> photos){
+    public void setPhotos(ArrayList<Bitmap> photos) throws LengthOutOfBoundException {
         this.photos = new ArrayList<String>();
         for (Bitmap b : photos){
             addPhoto(b);
