@@ -7,7 +7,6 @@
  *
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
-
 package com.example.jerry.healemgood.model.user;
 
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
@@ -23,7 +22,6 @@ import java.util.Date;
  * @see CareProvider
  * @since 1.0
  */
-
 public abstract class User {
 
     private String userId;
@@ -34,6 +32,18 @@ public abstract class User {
     private Date birthday;
     private char gender;
 
+    /**
+     * Creates a new user
+     *
+     * @param userId
+     * @param password
+     * @param fullName
+     * @param phoneNum
+     * @param email
+     * @param birthday
+     * @param gender
+     * @throws LengthOutOfBoundException
+     */
     User(String userId, String password, String fullName, String phoneNum, String email, Date birthday, char gender) throws LengthOutOfBoundException {
         if (userId.length() < 8) {
             throw new LengthOutOfBoundException();
@@ -47,22 +57,39 @@ public abstract class User {
         this.gender = gender;
 
     }
-    /* Get the user id*/
+
+    /**
+     * Returns the id of the user
+     *
+     * @return userId
+     */
     public String getUserId() {
         return userId;
     }
 
-    /* Set the user id*/
+    /**
+     * Sets the id of the user
+     *
+     * @param userId
+     */
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    /* Get the password*/
+    /**
+     * Gets and returns the value of the password for the user
+     *
+     * @return password
+     */
     public String getPassword() {
         return password;
     }
 
-    /* Set the password*/
+    /**
+     * Sets the password for the user
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
