@@ -2,6 +2,7 @@ package com.example.jerry.healemgood.Intent;
 
 import android.support.v7.app.AppCompatActivity;
 import android.test.ActivityInstrumentationTestCase2;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -11,8 +12,11 @@ import com.example.jerry.healemgood.controller.UserController;
 import com.example.jerry.healemgood.model.user.User;
 import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
+import com.example.jerry.healemgood.view.UserViews.PatientAddProblemActivity;
 import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
 import com.robotium.solo.Solo;
+
+import java.sql.BatchUpdateException;
 // Source: https://www.youtube.com/watch?v=T_8euppCz3k Accessed 2018-11-18
 
 /**
@@ -46,7 +50,7 @@ public class Problem_Record_ActivityTest extends ActivityInstrumentationTestCase
         super.tearDown();
     }
 
-    public void testLogin() {
+    public void testProblemCreation() {
         solo.assertCurrentActivity("Check on login", MainActivity.class);
 
         // Enter the credentials and enter the application
@@ -55,6 +59,24 @@ public class Problem_Record_ActivityTest extends ActivityInstrumentationTestCase
         solo.clickOnButton("Sign In");
         solo.assertCurrentActivity("Check on login", PatientAllProblemActivity.class);
 
-        
+        // Create a new problem
+        Button createProblemButton = (Button) solo.getView(R.id.createProblemButton);
+        solo.clickOnView(createProblemButton);
+        solo.assertCurrentActivity("Check on Problem", PatientAddProblemActivity.class);
+
+        // Get the title and description edit texts
+        EditText titleInput = (EditText) solo.getView(R.id.titleInput);
+        EditText descriptionInput = (EditText) solo.getView(R.id.descriptionInput);
+
+        // Populate the two fields
+        solo.enterText(titleInput, "Test Title");
+        solo.enterText(descriptionInput, "Test Description");
+
+        // Save the Entry and leave
+        Button saveButton = (Button) solo.getView(R.id.saveButton);
+        solo.clickOnView(saveButton);
+
+        // Assert the activity
+        solo.assertCurrentActivity("Check on Problem", PatientAddProblemActivity.class);
     }
 }
