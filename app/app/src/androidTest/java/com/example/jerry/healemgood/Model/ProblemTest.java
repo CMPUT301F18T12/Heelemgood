@@ -8,7 +8,7 @@
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
 
-package com.example.jerry.healemgood;
+package com.example.jerry.healemgood.Model;
 
 import android.support.test.runner.AndroidJUnit4;
 
@@ -16,6 +16,7 @@ import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.CareProviderRecord;
 import com.example.jerry.healemgood.model.record.PatientRecord;
 import com.example.jerry.healemgood.model.record.Record;
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,21 +43,22 @@ public class ProblemTest {
         String title = "Test";
         Date date = new Date();
 
-        Problem problem = new Problem(title, date,":sdsdasdasd", "ok");
-        assertEquals(pid,problem.getpId());
-        assertEquals(title,problem.getTitle());
-        assertEquals(date,problem.getCreatedDate());
+        try{
+            Problem problem = new Problem(title, date,":sdsdasdasd", "ok");
+            assertEquals(pid,problem.getpId());
+            assertEquals(title,problem.getTitle());
+            assertEquals(date,problem.getCreatedDate());
 
-        // setters and getters
-        int pid2 = 2;
-        String title2 = "Test2";
-        Date date2 = new Date();
-        problem.setTitle(title2);
-        problem.setCreatedDate(date2);
-        assertEquals(pid2,problem.getpId());
-        assertEquals(title2,problem.getTitle());
-        assertEquals(date2,problem.getCreatedDate());
+            // setters and getters
+            int pid2 = 2;
+            String title2 = "Test2";
+            Date date2 = new Date();
+            problem.setTitle(title2);
+            problem.setCreatedDate(date2);
+            assertEquals(pid2,problem.getpId());
+            assertEquals(title2,problem.getTitle());
+            assertEquals(date2,problem.getCreatedDate());
+        }catch (LengthOutOfBoundException e){
+        }
     }
-
-
 }
