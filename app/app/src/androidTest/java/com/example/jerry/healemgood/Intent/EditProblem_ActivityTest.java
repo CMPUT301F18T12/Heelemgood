@@ -4,24 +4,22 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.MainActivity;
+import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.view.UserViews.AccountCreationActivity;
 import com.example.jerry.healemgood.view.UserViews.PatientAddProblemActivity;
 import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
 import com.example.jerry.healemgood.view.UserViews.PatientAllRecordActivity;
 import com.robotium.solo.Solo;
-// Source: https://www.youtube.com/watch?v=T_8euppCz3k Accessed 2018-11-18
 
 /**
- * Handles Problems and records creation
- * Creates a problem and adds a record to it
- * Tests Problem, Record, Body Maps
+ * Handles Editing Problems
+ * Creates a problem
+ * Tests Problem, and edit
  * @author WeakMill98
  * @version 1.0
  * @see ActivityInstrumentationTestCase2
@@ -31,10 +29,10 @@ import com.robotium.solo.Solo;
  * @since 1.0
  */
 
-public class Problem_Record_ActivityTest extends ActivityInstrumentationTestCase2<com.example.jerry.healemgood.MainActivity> {
+public class EditProblem_ActivityTest extends ActivityInstrumentationTestCase2<com.example.jerry.healemgood.MainActivity> {
     private Solo solo;
 
-    public Problem_Record_ActivityTest(){
+    public EditProblem_ActivityTest() {
         super("com.example.jerry.healemgood.Intent",
                 com.example.jerry.healemgood.MainActivity.class);
     }
@@ -51,10 +49,11 @@ public class Problem_Record_ActivityTest extends ActivityInstrumentationTestCase
     }
 
     /**
-     * Tests Account creation
+     * Tests Creating an account
      *
      */
-    public void testCreateAccount(){
+    // Create a testing account
+    public void testCreateAccount() {
         solo.assertCurrentActivity("Check on login", MainActivity.class);
         // Just to check that the code is running
         // fail()
@@ -87,11 +86,14 @@ public class Problem_Record_ActivityTest extends ActivityInstrumentationTestCase
         solo.clickOnButton("Create");
     }
 
+
     /**
-     * Tests Problem Creation
+     * Tests Creating a problem and editing it
      *
      */
-    public void testProblemCreation() {
+    // Create a new problem and be able to edit it
+    public void testProblemCreationAndEdit() {
+
         solo.assertCurrentActivity("Check on login", MainActivity.class);
 
         // Enter the credentials and enter the application
@@ -119,62 +121,62 @@ public class Problem_Record_ActivityTest extends ActivityInstrumentationTestCase
 
         // Assert the activity
         solo.assertCurrentActivity("Check on Problem", PatientAddProblemActivity.class);
-    }
 
-    /**
-     * Tests Record Creation
-     *
-     */
-    public void testcreateRecord(){
-        solo.assertCurrentActivity("Check on login", MainActivity.class);
+        solo.sleep(1000);
 
-        // Enter the credentials and enter the application
-        EditText loginCredentials = (EditText) solo.getView(R.id.userIdEditText);
-        solo.enterText(loginCredentials, "TestGUY12345");
-        solo.clickOnButton("Sign In");
-        solo.assertCurrentActivity("Check on login", PatientAllProblemActivity.class);
-
-        // Click on a problem, assuming there exists one
+        // Click on the first problem in the list view
         ListView ListView=(ListView)solo.getView(R.id.patientProblemListView);
         View problemOne = ListView.getChildAt(0);
         solo.clickOnView(problemOne);
         solo.assertCurrentActivity("Check on Record", PatientAllRecordActivity.class);
 
-        // Create a new record
-        Button createRecord = (Button) solo.getView(R.id.createRecordButton);
-        solo.clickOnView(createRecord);
+        // Get and click on the detail button
+        Button detailsButton = (Button)solo.getView(R.id.detailButton);
+        solo.clickOnView(detailsButton);
 
-        // Click on a location on the body map
-        solo.clickOnScreen(400, 400);
-        solo.clickOnScreen(500, 300);
-        solo.clickOnScreen(600, 600);
-        solo.clickOnScreen(100, 100);
-        solo.clickOnScreen(200, 200);
-        solo.clickOnScreen(300, 300);
-        solo.clickOnScreen(900, 100);
-        solo.clickOnScreen(100, 900);
+        // Get the title and description edit texts
+        EditText titleInput2 = (EditText) solo.getView(R.id.titleInput);
+        EditText descriptionInput2 = (EditText) solo.getView(R.id.descriptionInput);
 
-        ImageView imageView = (ImageView) solo.getView(R.id.bodyMap);
-        solo.clickOnView(imageView);
+        solo.sleep(1000);
 
-        ImageView imageView2 = (ImageView) solo.getView(R.id.colorMap);
-        solo.clickOnView(imageView2);
+        // Clear the text boxes
+        //titleInput2.getText().clear();
+        //descriptionInput2.getText().clear();
 
-        //TODO: Map needs to be clicked properly, works 100% with human intervention
-
-        /*Button continueButton = (Button) solo.getView(R.id.continueButton);
-        solo.clickOnView(continueButton);
-
-        // Get fields
-        EditText title = (EditText) solo.getView(R.id.titleInput);
-        EditText description = (EditText) solo.getView(R.id.descriptionInput);
+        // Get the original text
+        String originalName = titleInput2.getText().toString();
+        String originalDesc = descriptionInput2.getText().toString();
 
         // Populate the two fields
-        solo.enterText(title, "Test Title");
-        solo.enterText(description, "Test Description");
+        solo.enterText(titleInput2, "Arm Broken (Again)");
+        solo.enterText(descriptionInput2, "Yeah this hurts even more");
 
-        // Save the record, click on the button
-        Button saveButton = (Button) solo.getView(R.id.saveButton);
-        solo.clickOnView(saveButton);*/
+        // Assert that the changes have taken place
+        assertEquals(titleInput2.getText().toString(), originalName + "Arm Broken (Again)");
+        assertEquals(descriptionInput2.getText().toString(),originalDesc + "Yeah this hurts even more" );
+
+        // Save the changes, and assert the new activity is correct
+        Button saveButton2 = (Button)solo.getView(R.id.saveButton);
+        solo.clickOnView(saveButton2);
+        solo.assertCurrentActivity("Check on Record", PatientAllRecordActivity.class);
+
+        // Click on the first problem in the list view
+        ListView ListView2 =(ListView)solo.getView(R.id.patientProblemListView);
+        View problemOne2 = ListView2.getChildAt(0);
+        solo.clickOnView(problemOne2);
+        solo.assertCurrentActivity("Check on Record", PatientAllRecordActivity.class);
+
+        // Get and click on the detail button
+        Button detailsButton2 = (Button)solo.getView(R.id.detailButton);
+        solo.clickOnView(detailsButton2);
+
+        // Get the title and description edit texts
+        EditText titleInput3 = (EditText) solo.getView(R.id.titleInput);
+        EditText descriptionInput3 = (EditText) solo.getView(R.id.descriptionInput);
+
+        // Assert the changes have actually been saved
+        assertEquals(titleInput3.getText().toString(), originalName + "Arm Broken (Again)");
+        assertEquals(descriptionInput3.getText().toString(), originalDesc + "Yeah this hurts even more");
     }
 }
