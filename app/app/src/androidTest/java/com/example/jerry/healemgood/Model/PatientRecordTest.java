@@ -8,13 +8,14 @@
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
 
-package com.example.jerry.healemgood;
+package com.example.jerry.healemgood.Model;
 
 import android.location.Location;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.example.jerry.healemgood.model.photo.Photo;
 import com.example.jerry.healemgood.model.record.PatientRecord;
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,34 +41,36 @@ public class PatientRecordTest {
         String pid = "ThisisAPid";
         String title = "Test";
 
-        PatientRecord record = new PatientRecord(pid, title);
+        try{
+            PatientRecord record = new PatientRecord(pid, title);
 
-        assertEquals(record.getTitle(), title);
-        assertEquals(record.getpId(), pid);
+            assertEquals(record.getTitle(), title);
+            assertEquals(record.getpId(), pid);
 
-        // setters and getters
-        String pid2 = "ThisisAPid2";
-        String title2 = "Test2";
-        record.setrId(pid2);
-        record.setTitle(title2);
-        assertEquals(record.getTitle(), title2);
-        assertEquals(record.getpId(), pid2);
+            // setters and getters
+            String pid2 = "ThisisAPid2";
+            String title2 = "Test2";
+            record.setrId(pid2);
+            record.setTitle(title2);
+            assertEquals(record.getTitle(), title2);
+            assertEquals(record.getpId(), pid2);
 
-        // description
-        String description = "Test record";
-        record.setDescription(description);
-        assertEquals(record.getDescription(), description);
+            // description
+            String description = "Test record";
+            record.setDescription(description);
+            assertEquals(record.getDescription(), description);
 
-        // photo ArrayList
+            // photo ArrayList
 
 
-        // dateCreated
-        Date date = new Date();
-        record.setCreatedDate(date);
-        assertEquals(record.getCreatedDate(), date);
+            // dateCreated
+            Date date = new Date();
+            record.setCreatedDate(date);
+            assertEquals(record.getCreatedDate(), date);
 
-        // isPatientRecord
-        assertTrue(record.isPatientRecord());
+            // isPatientRecord
+            assertTrue(record.isPatientRecord());
+        }catch (LengthOutOfBoundException e){}
     }
 
     public void locationTest() {

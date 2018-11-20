@@ -10,6 +10,7 @@ import com.example.jerry.healemgood.controller.TestingTools;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.PatientRecord;
 import com.example.jerry.healemgood.model.record.Record;
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 import com.google.gson.Gson;
 import com.robotium.solo.Solo;
 
@@ -39,86 +40,92 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
         boolean temp2=true;
         String text = "HOLY";
         System.out.println(text);
-        Problem p = new Problem(text,new Date(),"ok", "asdasdasdasdasd");
         try {
-            new ProblemController.CreateProblemTask().execute(p).get();
-        }catch(Exception e){
+            Problem p = new Problem(text, new Date(), "ok", "asdasdasdasdasd");
+            try {
+                new ProblemController.CreateProblemTask().execute(p).get();
+            } catch (Exception e) {
 
-        }
-        Problem p2=null;
-        try {
-            p2 = new ProblemController.GetProblemByIdTask().execute(p.getpId()).get();
-        }catch(Exception e){
-            temp2=false;
-        }
-        assertNotNull(p2);
-        String objectString1 = new Gson().toJson(p);
-        String objectString2 = new Gson().toJson(p2);
-        assertEquals(objectString1,objectString2);
+            }
+            Problem p2 = null;
+            try {
+                p2 = new ProblemController.GetProblemByIdTask().execute(p.getpId()).get();
+            } catch (Exception e) {
+                temp2 = false;
+            }
+            assertNotNull(p2);
+            String objectString1 = new Gson().toJson(p);
+            String objectString2 = new Gson().toJson(p2);
+            assertEquals(objectString1, objectString2);
+        }catch (Exception e){}
     }
 
 
     public void testUpdateProblem(){
         String text = "Just another test";
         System.out.println(text);
-        Problem p = new Problem(text,new Date(),"ok", "dgdg_sdcv@sds");
-        try {
-            new ProblemController.CreateProblemTask().execute(p).get();
-        }catch(Exception e){
-
-        }
-        String title = "New title";
-        p.setTitle(title);
         try{
-            new ProblemController.UpdateProblemTask().execute(p).get();
-        }catch(Exception e){
+            Problem p = new Problem(text,new Date(),"ok", "dgdg_sdcv@sds");
+            try {
+                new ProblemController.CreateProblemTask().execute(p).get();
+            }catch(Exception e){
 
-        }
-        Problem p2=null;
-        try {
-            p2 = new ProblemController.GetProblemByIdTask().execute(p.getpId()).get();
-        }catch(Exception e){
-        }
-        assertEquals(p2.getTitle(),title);
+            }
+            String title = "New title";
+            p.setTitle(title);
+            try{
+                new ProblemController.UpdateProblemTask().execute(p).get();
+            }catch(Exception e){
+
+            }
+            Problem p2=null;
+            try {
+                p2 = new ProblemController.GetProblemByIdTask().execute(p.getpId()).get();
+            }catch(Exception e){
+            }
+            assertEquals(p2.getTitle(),title);
+        }catch (Exception e){}
     }
 
 
     public void testDeleteProblem(){
         String text = "HOLY";
         System.out.println(text);
-        Problem p = new Problem(text,new Date(),"ok","sdsadsfdfdsf");
         try {
-            new ProblemController.CreateProblemTask().execute(p).get();
-        }catch(Exception e){
-        }
-        //create record
-        Record r=null;
-        try{
-            r=  new PatientRecord(p.getpId(),"Record for deleteion  title");
-            new RecordController.CreateRecordTask().execute(r).get();
-        }catch(Exception e){
-        }
-        //delete problem
-        try{
-            new ProblemController.DeleteProblemTask().execute(p).get();
-        }catch (Exception e){}
-        //check if problem still in database
-        Problem p2=null;
-        try {
-            p2 = new ProblemController.GetProblemByIdTask().execute(p.getpId()).get();
-        }catch(Exception e){ }
-        assertNull(p2);
-        //Need to test if records is deleted here
-        Record r2=null;
-        try{
-            r2 = new RecordController.GetRecordByIdTask().execute(r.getrId()).get();
-        }catch(Exception e){ }
+            Problem p = new Problem(text,new Date(),"ok","sdsadsfdfdsf");
+            try {
+                new ProblemController.CreateProblemTask().execute(p).get();
+            }catch(Exception e){
+            }
+            //create record
+            Record r=null;
+            try{
+                r=  new PatientRecord(p.getpId(),"Record for deleteion  title");
+                new RecordController.CreateRecordTask().execute(r).get();
+            }catch(Exception e){
+            }
+            //delete problem
+            try{
+                new ProblemController.DeleteProblemTask().execute(p).get();
+            }catch (Exception e){}
+            //check if problem still in database
+            Problem p2=null;
+            try {
+                p2 = new ProblemController.GetProblemByIdTask().execute(p.getpId()).get();
+            }catch(Exception e){ }
+            assertNull(p2);
+            //Need to test if records is deleted here
+            Record r2=null;
+            try{
+                r2 = new RecordController.GetRecordByIdTask().execute(r.getrId()).get();
+            }catch(Exception e){ }
 
-        //wait for the above querys to complete in our server
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        }catch(Exception e){assertTrue(false);}
-        //assertNull(r2);
+            //wait for the above querys to complete in our server
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            }catch(Exception e){assertTrue(false);}
+            //assertNull(r2);
+        } catch (Exception e){}
     }
     public void testSearchProblem(){
         new TestingTools.ResetTypeTask().execute("problem");
@@ -126,77 +133,86 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
         String userid2 = "WSfisthissadassddad";
         String userid3 = "sdgsdsdvbu231AV";
 
-        Problem p = new Problem("Stomach sick",new Date(),userid, "ok");
-        Problem p2 = new Problem("how are you sick",new Date(),userid, "ok");
-        Problem p3 = new Problem("My stomach hurt",new Date(),userid2, "ok");
-        Problem p4 = new Problem("hand hurt",new Date(),userid2, "ok");
-        Problem p5 = new Problem("my hand hurt",new Date(),userid3, "ok");
         try {
-            new ProblemController.CreateProblemTask().execute(p).get();
-            new ProblemController.CreateProblemTask().execute(p2).get();
-            new ProblemController.CreateProblemTask().execute(p3).get();
-            new ProblemController.CreateProblemTask().execute(p4).get();
-            new ProblemController.CreateProblemTask().execute(p5).get();
-        }catch(Exception e){
+            Problem p = new Problem("Stomach sick", new Date(), userid, "ok");
+            Problem p2 = new Problem("how are you sick", new Date(), userid, "ok");
+            Problem p3 = new Problem("My stomach hurt", new Date(), userid2, "ok");
+            Problem p4 = new Problem("hand hurt", new Date(), userid2, "ok");
+            Problem p5 = new Problem("my hand hurt", new Date(), userid3, "ok");
+            try {
+                new ProblemController.CreateProblemTask().execute(p).get();
+                new ProblemController.CreateProblemTask().execute(p2).get();
+                new ProblemController.CreateProblemTask().execute(p3).get();
+                new ProblemController.CreateProblemTask().execute(p4).get();
+                new ProblemController.CreateProblemTask().execute(p5).get();
+            } catch (Exception e) {
 
-        }
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        }catch(Exception e){assertTrue(false);}
-        //test search By title
-        try{
-            ProblemController.searchByKeyword("sick");
-            ArrayList<Problem> problems = new ProblemController.SearchProblemTask().execute().get();
-            assertEquals(2,problems.size());
-            ProblemController.searchByKeyword("stomach");
-            problems = new ProblemController.SearchProblemTask().execute().get();
-            assertEquals(2,problems.size());
-            ProblemController.searchByKeyword("hurt");
-            problems = new ProblemController.SearchProblemTask().execute().get();
-            assertEquals(3,problems.size());
-        }catch (Exception e){assertTrue(false);}
-        //test search by Patient ids
-        try{
-            ProblemController.searchByPatientIds(userid);
-            ArrayList<Problem> problems = new ProblemController.SearchProblemTask().execute().get();
-            assertEquals(2,problems.size());
-            ProblemController.searchByPatientIds(userid3);
-            problems = new ProblemController.SearchProblemTask().execute().get();
-            assertEquals(1,problems.size());
-            ProblemController.searchByPatientIds(userid3,userid2);
-            problems = new ProblemController.SearchProblemTask().execute().get();
-            assertEquals(3,problems.size());
-            ProblemController.searchByPatientIds(userid3,userid2,userid);
-            problems = new ProblemController.SearchProblemTask().execute().get();
-            assertEquals(5,problems.size());
-        }catch(Exception e){assertTrue(false);        }
-        //test multiple search
-        try{
-            ProblemController.searchByPatientIds(userid,userid3);
-            ProblemController.searchByKeyword("sick");
-            ArrayList<Problem> problems = new ProblemController.SearchProblemTask().execute().get();
-            assertEquals(2,problems.size());
+            }
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (Exception e) {
+                assertTrue(false);
+            }
+            //test search By title
+            try {
+                ProblemController.searchByKeyword("sick");
+                ArrayList<Problem> problems = new ProblemController.SearchProblemTask().execute().get();
+                assertEquals(2, problems.size());
+                ProblemController.searchByKeyword("stomach");
+                problems = new ProblemController.SearchProblemTask().execute().get();
+                assertEquals(2, problems.size());
+                ProblemController.searchByKeyword("hurt");
+                problems = new ProblemController.SearchProblemTask().execute().get();
+                assertEquals(3, problems.size());
+            } catch (Exception e) {
+                assertTrue(false);
+            }
+            //test search by Patient ids
+            try {
+                ProblemController.searchByPatientIds(userid);
+                ArrayList<Problem> problems = new ProblemController.SearchProblemTask().execute().get();
+                assertEquals(2, problems.size());
+                ProblemController.searchByPatientIds(userid3);
+                problems = new ProblemController.SearchProblemTask().execute().get();
+                assertEquals(1, problems.size());
+                ProblemController.searchByPatientIds(userid3, userid2);
+                problems = new ProblemController.SearchProblemTask().execute().get();
+                assertEquals(3, problems.size());
+                ProblemController.searchByPatientIds(userid3, userid2, userid);
+                problems = new ProblemController.SearchProblemTask().execute().get();
+                assertEquals(5, problems.size());
+            } catch (Exception e) {
+                assertTrue(false);
+            }
+            //test multiple search
+            try {
+                ProblemController.searchByPatientIds(userid, userid3);
+                ProblemController.searchByKeyword("sick");
+                ArrayList<Problem> problems = new ProblemController.SearchProblemTask().execute().get();
+                assertEquals(2, problems.size());
 
-            ProblemController.searchByPatientIds(userid3,userid2);
-            ProblemController.searchByKeyword("hand");
-            problems = new ProblemController.SearchProblemTask().execute().get();
-            assertEquals(2,problems.size());
+                ProblemController.searchByPatientIds(userid3, userid2);
+                ProblemController.searchByKeyword("hand");
+                problems = new ProblemController.SearchProblemTask().execute().get();
+                assertEquals(2, problems.size());
 
-            ProblemController.searchByPatientIds(userid3,userid2);
-            ProblemController.searchByKeyword("stomach");
-            problems = new ProblemController.SearchProblemTask().execute().get();
-            assertEquals(1,problems.size());
+                ProblemController.searchByPatientIds(userid3, userid2);
+                ProblemController.searchByKeyword("stomach");
+                problems = new ProblemController.SearchProblemTask().execute().get();
+                assertEquals(1, problems.size());
 
-            ProblemController.searchByPatientIds(userid,userid2);
-            ProblemController.searchByKeyword("stomach");
-            problems = new ProblemController.SearchProblemTask().execute().get();
-            assertEquals(2,problems.size());
+                ProblemController.searchByPatientIds(userid, userid2);
+                ProblemController.searchByKeyword("stomach");
+                problems = new ProblemController.SearchProblemTask().execute().get();
+                assertEquals(2, problems.size());
 
-            ProblemController.searchByPatientIds(userid3,userid2,userid);
-            ProblemController.searchByKeyword("hurt");
-            problems = new ProblemController.SearchProblemTask().execute().get();
-            assertEquals(3,problems.size());
-        }catch(Exception e){assertTrue(false);        }
-
+                ProblemController.searchByPatientIds(userid3, userid2, userid);
+                ProblemController.searchByKeyword("hurt");
+                problems = new ProblemController.SearchProblemTask().execute().get();
+                assertEquals(3, problems.size());
+            } catch (Exception e) {
+                assertTrue(false);
+            }
+        }catch (Exception e){}
     }
 }
