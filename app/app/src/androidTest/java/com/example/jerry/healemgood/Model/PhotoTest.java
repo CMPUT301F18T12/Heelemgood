@@ -27,6 +27,10 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 public class PhotoTest {
+    /**
+     * Creates a photoConstructorTest
+     *
+     */
     @Test
     public void photoConstructorTest() {
         // constructor and getters

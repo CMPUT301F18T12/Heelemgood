@@ -36,6 +36,10 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(AndroidJUnit4.class)
 public class PatientTest2 {
+    /**
+     * Creates a userConstructorTest
+     *
+     */
     @Test
     public void userConstructorTest() {
         // constructor and getters

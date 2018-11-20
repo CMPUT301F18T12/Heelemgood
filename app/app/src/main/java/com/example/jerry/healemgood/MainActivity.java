@@ -36,6 +36,13 @@ import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
 
+/**
+ * Represents the main activity
+ *
+ * @author WeakMill98
+ * @version 1.0
+ * @since 1.0
+ */
 public class MainActivity extends AppCompatActivity {
     private Button signInButton;
     private EditText userNameEditText;
