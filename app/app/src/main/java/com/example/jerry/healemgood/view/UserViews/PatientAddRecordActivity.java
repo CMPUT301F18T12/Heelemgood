@@ -158,10 +158,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
     // receive the intent result when the next activity finishes
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        /**
-         * Adds the photo just taken to the gallery
-         *
-         */
+        /* Adds the photo just taken to the gallery */
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -176,10 +173,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         }
 
 
-        /**
-         * Gets the geolocation for the record
-         *
-         */
+        /* Gets the geolocation for the record */
         else if (requestCode == PLACE_PICKER_REQUEST && resultCode == RESULT_OK){
             place = PlacePicker.getPlace(data, this);
             String toastMsg = String.format("Place: %s", place.getName());
@@ -215,35 +209,28 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         EditText descriptionInput = findViewById(R.id.descriptionInput);
         String descriptionString = descriptionInput.getText().toString();
 
-        /**
-         * make a new patient record
-         */
+
+        // make a new patient record
         PatientRecord patientRecord;
         try {
             patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID), recordTitle);
         } catch (LengthOutOfBoundException e) {
             return;
         }
-        /**
-         * set bodyLocation
-         */
+        // set body location
         BodyLocation bodyLocation = (BodyLocation) getIntent().getSerializableExtra(AppConfig.BODYLOCATION);
 
         patientRecord.setBodyLocation(bodyLocation.getPart().toString());
         patientRecord.setBodyLocationPercent(bodyLocation.getX(),bodyLocation.getY());
 
-        /**
-         * set the description of the record
-         */
+        // set the description of the record
         try {
             patientRecord.setDescription(descriptionString);
         } catch (LengthOutOfBoundException e) {
             return;
         }
 
-        /**
-         * set the photos of the record
-         */
+        // set the photos of the record
         for (Bitmap photo: photoBitmapCollection){
             try {
                 patientRecord.addPhoto(photo);
@@ -254,17 +241,14 @@ public class PatientAddRecordActivity extends AppCompatActivity {
             }
         }
 
-        /**
-         * set the geolocation
-         */
+        // set the geolocation
+
         if (place != null){
             patientRecord.setGeoLocation(place.getLatLng().latitude,place.getLatLng().longitude);
         }
 
 
-        /**
-         * load the problem by Pid
-         */
+        // load the problem by Pid
         Problem problem;
         try{
             problem = new ProblemController.GetProblemByIdTask().execute(getIntent().getStringExtra(AppConfig.PID)).get();
@@ -277,9 +261,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         problem.addRecord(patientRecord);
 
 
-        /**
-         * update the problem
-         */
+        // update the problem
         try{
             new ProblemController.UpdateProblemTask().execute(problem).get();
         }

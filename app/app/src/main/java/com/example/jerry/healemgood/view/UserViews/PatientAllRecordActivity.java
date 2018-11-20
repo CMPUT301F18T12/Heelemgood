@@ -75,9 +75,7 @@ public class PatientAllRecordActivity extends AppCompatActivity {
 
         listView.setAdapter(recordAdapter);
 
-        /**
-         * set the list view click listener
-         */
+        // set the list view click listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -122,9 +120,7 @@ public class PatientAllRecordActivity extends AppCompatActivity {
 
     // TODO: THE records are not loaded as expected ( nothing is loaded)
     private void loadRecords(){
-        /**
-         * load the problem by Pid
-         */
+        // load the problem by Pid
         Problem problem;
         try{
             problem = new ProblemController.GetProblemByIdTask().execute(getIntent().getStringExtra(AppConfig.PID)).get();

@@ -165,10 +165,7 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
     // receive the intent result when the next activity finishes
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        /**
-         * Adds the photo just taken to the gallery
-         *
-         */
+        // Adds the photo just taken to the gallery
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -179,10 +176,7 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
         }
 
 
-        /**
-         * Gets the geolocation for the record
-         *
-         */
+        // Gets the geolocation for the record
         else if (requestCode == PLACE_PICKER_REQUEST && resultCode == RESULT_OK){
             place = PlacePicker.getPlace(data, this);
             String toastMsg = String.format("Place: %s", place.getName());

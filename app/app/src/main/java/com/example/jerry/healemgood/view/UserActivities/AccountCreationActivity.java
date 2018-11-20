@@ -59,11 +59,7 @@ public class AccountCreationActivity extends AppCompatActivity {
 
         getAllXML();
 
-        /**
-         * This is a listener that gets input text from the user
-         *
-         */
-
+        // This is a listener that gets input text from the user
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,11 +121,11 @@ public class AccountCreationActivity extends AppCompatActivity {
         });
     }
 
+
     /**
      * Gets all xml elements in the view
      *
      */
-
     private void getAllXML(){
         userName = findViewById(R.id.userIdEditText);
         firstName = findViewById(R.id.firstNameEditText);
@@ -142,11 +138,11 @@ public class AccountCreationActivity extends AppCompatActivity {
         patientRadioButton = findViewById(R.id.patientRadioButton);
         careProviderRadioButton = findViewById(R.id.careProviderRadioButton);
     }
+
     /**
      * Gets all text in the view
      *
      */
-
     private void clearText(){
         userName.getText().clear();
         firstName.getText().clear();

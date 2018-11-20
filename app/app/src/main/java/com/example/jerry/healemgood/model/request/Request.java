@@ -29,22 +29,30 @@ public class Request {
         this.message = message;
     }
 
-    /* Get the sender user id*/
+    /**
+     * Get the sender user id
+     */
     public String getSenderUserId() {
         return senderUserId;
     }
 
-    /* Set the sender*/
+    /**
+     * Set the sender
+     */
     public void setSenderUserId(String senderUserId) {
         this.senderUserId = senderUserId;
     }
 
-    /* Get the message*/
+    /**
+     * Get the message
+     */
     public String getMessage() {
         return message;
     }
 
-    /*Set the message*/
+    /**
+     * Set the message
+     */
     public void setMessage(String message) {
         this.message = message;
     }

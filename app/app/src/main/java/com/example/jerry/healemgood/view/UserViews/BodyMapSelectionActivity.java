@@ -77,9 +77,7 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
         continueButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                /**
-                 * Make sure that user has selected a body location
-                 */
+                // Make sure that user has selected a body location
                 if (body != null && IsCreate){
                     Intent intent = new Intent(BodyMapSelectionActivity.this,PatientAddRecordActivity.class);
                     intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
@@ -107,19 +105,13 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
         }
     }
 
-    /**
-     * This is a listener that deals with the body part map
-     *
-     */
+    // This is a listener that deals with the body part map
     View.OnTouchListener touchListener = new View.OnTouchListener() {
         @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouch(View v, MotionEvent e) {
 
-            /**
-             * save the X,Y coordinates
-             *
-             */
+            // save the X,Y coordinates
             if (e.getActionMasked() == MotionEvent.ACTION_UP) {
 
                 int colorId = getHotspotColor(R.id.colorMap,(int) e.getX(),(int) e.getY());  // an integer represents the color
@@ -132,16 +124,10 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
 
                 Rect rect = new Rect();
                 ImageView map = findViewById(R.id.bodyMap);
-                /**
-                 * For coordinates location relative to the parent
-                 *
-                 */
+                // For coordinates location relative to the parent
                 map.getLocalVisibleRect(rect);
 
-                /**
-                 * For coordinates location relative to the screen/display
-                 *
-                 */
+                // For coordinates location relative to the screen/display
                 map.getGlobalVisibleRect(rect);
 
                 lastTouchX = (e.getX()) / rect.width();
@@ -162,24 +148,17 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
                 return true;
             }
 
-            /**
-             * let the touch event pass on to whoever needs it
-             *
-             */
+            // let the touch event pass on to whoever needs it
             return false;
         }
     };
 
-    /**
-     * This is a listener that records the values entered.
-     */
+    // This is a listener that records the values entered.
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            /**
-             * retrieve the stored coordinates
-             * use the coordinates for whatever
-             */
+            // retrieve the stored coordinates
+            // use the coordinates for whatever
         }
     };
 
@@ -217,14 +196,10 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
 
     public void drawDot() {
         ImageView imageView = findViewById (R.id.bodyMap);
-        /**
-         * Convert drawable to bitmap
-         */
+        // Convert drawable to bitmap
         Drawable drawable = getResources().getDrawable(R.drawable.body_map);
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-        /**
-         * Create a new image bitmap and attach a brand new canvas to it
-         */
+        // Create a new image bitmap and attach a brand new canvas to it
         Bitmap newbitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(newbitmap);
         Paint paint = new Paint();
@@ -232,17 +207,12 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
         //Draw the bitmap into canvas
         canvas.drawBitmap(bitmap,0,0,null);
 
-        /**
-         * position is valid save it into variables
-         */
+        // position is valid save it into variables
 
-        /**
-         * Draw dots
-         */
+        // Draw dots
         canvas.drawCircle(lastTouchX * bitmap.getWidth(), lastTouchY * bitmap.getHeight(), 20, paint);
-        /**
-         * Draw canvas to imageView
-         */
+        // Draw canvas to imageView
+
         imageView.setImageDrawable(new BitmapDrawable(getResources(), newbitmap));
     }
 }
