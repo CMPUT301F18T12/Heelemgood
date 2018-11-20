@@ -7,6 +7,7 @@
  *
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
+
 package com.example.jerry.healemgood.model.record;
 
 import android.graphics.Bitmap;
@@ -35,6 +36,7 @@ import io.searchbox.annotations.JestId;
  * @see CareProviderRecord
  * @since 1.0
  */
+
 public class Record {
 
     /* Record ID*/
@@ -79,6 +81,7 @@ public class Record {
      *
      * @param title
      */
+
     public void setTitle(String title) throws LengthOutOfBoundException {
         if (title.length() > 30) {throw new LengthOutOfBoundException();}
         this.title = title;
@@ -89,6 +92,7 @@ public class Record {
      *
      * @return title
      */
+
     public String getTitle() {
         return title;
     }
@@ -98,6 +102,7 @@ public class Record {
      *
      * @param description
      */
+
     public void setDescription(String description) throws LengthOutOfBoundException {
         if (description.length() > 300) {
             throw new LengthOutOfBoundException();
@@ -110,6 +115,7 @@ public class Record {
      *
      * @return
      */
+
     public String getDescription(){
         return description;
     }
@@ -120,6 +126,7 @@ public class Record {
      * See : https://stackoverflow.com/questions/4830711/how-to-convert-a-image-into-base64-string
      * @param src enter the Bitmap
      */
+
     public void addPhoto(Bitmap src) throws LengthOutOfBoundException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         src.compress(Bitmap.CompressFormat.PNG, 100, baos);
@@ -137,6 +144,7 @@ public class Record {
      * @param photos
      *
      */
+
     public void setPhotos(ArrayList<Bitmap> photos) throws LengthOutOfBoundException {
         this.photos = new ArrayList<String>();
         for (Bitmap b : photos){
@@ -151,6 +159,7 @@ public class Record {
      *
      * @return photos
      */
+
     public ArrayList<Bitmap> getPhotos() {
         ArrayList<Bitmap> photos = new ArrayList<Bitmap>();
         for (String imgString: this.photos){
@@ -167,6 +176,7 @@ public class Record {
      * @param index where this photo positon int the photo list
      * @return Bitmap of the photo
      */
+
     public Bitmap getPhotoById(int index){
         String imgString = this.photos.get(index);
         byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
@@ -181,6 +191,7 @@ public class Record {
      * @return record
      *
      */
+
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -190,6 +201,7 @@ public class Record {
      *
      * @param createdDate
      */
+
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
@@ -199,6 +211,7 @@ public class Record {
      *
      * @return isPatientRecord
      */
+
     public boolean isPatientRecord() {
         return isPatientRecord;
     }
@@ -217,6 +230,7 @@ public class Record {
      *
      * @param rId
      */
+
     public void setrId(String rId) {
         this.rId = rId;
     }
@@ -237,6 +251,7 @@ public class Record {
      *
      * @return GeoLocation in LatLng
      */
+
     public double[] getGeoLocation() {
         return this.geoLocation;
     }
@@ -246,6 +261,7 @@ public class Record {
      *
      * @return pid
      */
+
     public String getpId() {
         return pId;
     }
@@ -255,6 +271,7 @@ public class Record {
      *
      * @param pId
      */
+
     public void setpId(String pId) {
         this.pId = pId;
     }
@@ -294,7 +311,10 @@ public class Record {
      *
      * @return GeoLocation in LatLng
      */
+
     public float[] getBodyLocationPercent() {
         return this.bodyLocationPercent;
     }
+
+
 }
