@@ -89,7 +89,6 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
         Button saveButton = findViewById(R.id.saveButton);
         Button backButton = findViewById(R.id.backButton);
-        Button bodyButton = findViewById(R.id.bodyButton);
 
         ImageButton photoButton = findViewById(R.id.photoButton);
         Button addLocationButton = findViewById(R.id.editLocationButton);
@@ -109,18 +108,6 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
             }
         });
-
-        bodyButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), BodyMapSelectionActivity.class);
-                intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
-                intent.putExtra(AppConfig.BODYLOCATION, record.getBodyLocation());
-                startActivityForResult(intent, GET_BODY_LOCATION_REQUEST);
-            }
-
-        });
-
 
         photoButton.setOnClickListener(new View.OnClickListener(){
             @Override

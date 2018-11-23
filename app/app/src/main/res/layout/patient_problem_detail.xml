@@ -53,7 +53,7 @@
         android:inputType="textPersonName"
         android:maxLength="30"
         app:layout_constraintStart_toEndOf="@+id/textView7"
-        tools:layout_editor_absoluteY="34dp" />
+        app:layout_constraintTop_toTopOf="@+id/textView7" />
 
     <Button
         android:id="@+id/saveButton"
