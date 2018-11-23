@@ -20,6 +20,7 @@
     <string name="user">User</string>
     <string name="home">Home</string>
     <string name="quick_view">Quick View</string>
+    <string name="generatecode">Generate Code</string>
     <string name="create_record">Create Record</string>
     <string name="Continue">Continue</string>
     <string name="body_map_to_click">click body map</string>
