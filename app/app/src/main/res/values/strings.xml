@@ -46,6 +46,11 @@
     <string name="requests">Requests</string>
     <string name="reject">Reject</string>
     <string name="title_activity_login2">Sign in</string>
+    <string name="title_contact">Contact</string>
+    <string name="user_phone_number">780-123-4567</string>
+    <string name="user_email">email@website.ca</string>
+    <string name="my_patients">My Patients</string>
+    <string name="problem_title_add_comment">Hand Problem</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
