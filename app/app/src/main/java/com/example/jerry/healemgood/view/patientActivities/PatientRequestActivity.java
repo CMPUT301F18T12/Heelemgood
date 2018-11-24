@@ -7,7 +7,7 @@
  *
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
-package com.example.jerry.healemgood.view.UserViews;
+package com.example.jerry.healemgood.view.patientActivities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

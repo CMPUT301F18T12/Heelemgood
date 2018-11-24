@@ -7,7 +7,7 @@
  *
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
-package com.example.jerry.healemgood.view.UserViews.adapter;
+package com.example.jerry.healemgood.view.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,8 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
-import com.example.jerry.healemgood.R;
 
 import java.util.ArrayList;
 

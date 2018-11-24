@@ -7,7 +7,7 @@
  *
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
-package com.example.jerry.healemgood.view.UserViews.adapter;
+package com.example.jerry.healemgood.view.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -18,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
-import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
 

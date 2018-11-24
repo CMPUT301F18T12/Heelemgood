@@ -28,28 +28,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.UserViews.PatientUserActivity" />
-        <activity android:name=".view.UserViews.BodyMapSelectionActivity" />
-        <activity android:name=".view.UserViews.PatientAddRecordActivity" />
-        <activity android:name=".view.UserViews.PatientMapSelection" />
+        <activity android:name=".view.patientActivities.PatientUserActivity" />
+        <activity android:name=".view.patientActivities.BodyMapSelectionActivity" />
+        <activity android:name=".view.patientActivities.PatientAddRecordActivity" />
+        <activity android:name=".view.patientActivities.PatientMapSelection" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDMQjpqMqtFS2ogPixlLUPvUu9muw_Sm6w" />
 
-        <activity android:name=".view.UserViews.PatientHistoryActivity" />
-        <activity android:name=".view.UserViews.PatientSearchActivity" />
-        <activity android:name=".view.UserViews.PatientRequestActivity" />
-        <activity android:name=".view.UserViews.LoginActivity" />
-        <activity android:name=".view.UserViews.AccountCreationActivity" />
-        <activity android:name=".view.UserViews.PatientViewRequestActivity" />
-        <activity android:name=".view.UserViews.adapter.RequestsAdapter" />
-        <activity android:name=".view.UserViews.PatientAddProblemActivity" />
-        <activity android:name=".view.UserViews.PatientAllRecordActivity" />
-        <activity android:name=".view.UserViews.PatientRecordDetailActivity" />
-        <activity android:name=".view.UserViews.PatientProblemDetailActivity" />
+        <activity android:name=".view.patientActivities.PatientHistoryActivity" />
+        <activity android:name=".view.patientActivities.PatientSearchActivity" />
+        <activity android:name=".view.patientActivities.PatientRequestActivity" />
+        <activity android:name=".view.patientActivities.LoginActivity" />
+        <activity android:name=".view.patientActivities.AccountCreationActivity" />
+        <activity android:name=".view.patientActivities.PatientViewRequestActivity" />
+        <activity android:name=".view.adapter.RequestsAdapter" />
+        <activity android:name=".view.patientActivities.PatientAddProblemActivity" />
+        <activity android:name=".view.patientActivities.PatientAllRecordActivity" />
+        <activity android:name=".view.patientActivities.PatientRecordDetailActivity" />
+        <activity android:name=".view.patientActivities.PatientProblemDetailActivity" />
         <activity
-            android:name=".view.UserViews.PatientAllProblemActivity"
+            android:name=".view.patientActivities.PatientAllProblemActivity"
             android:label="@string/title_activity_patient_all_problem"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

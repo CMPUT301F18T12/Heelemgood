@@ -8,7 +8,7 @@
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
 
-package com.example.jerry.healemgood.view.UserActivities;
+package com.example.jerry.healemgood.view.accountActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
-import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
+import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
 
 /**
  * A controller that handles swiping on the app

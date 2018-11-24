@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.MainActivity;
-import com.example.jerry.healemgood.view.UserViews.AccountCreationActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientAddProblemActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientAllRecordActivity;
+import com.example.jerry.healemgood.view.patientActivities.AccountCreationActivity;
+import com.example.jerry.healemgood.view.patientActivities.PatientAddProblemActivity;
+import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
+import com.example.jerry.healemgood.view.patientActivities.PatientAllRecordActivity;
 import com.robotium.solo.Solo;
 // Source: https://www.youtube.com/watch?v=T_8euppCz3k Accessed 2018-11-18
 

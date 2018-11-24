@@ -7,7 +7,7 @@
  *
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
-package com.example.jerry.healemgood.view.UserViews;
+package com.example.jerry.healemgood.view.patientActivities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -29,7 +29,7 @@ import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
-import com.example.jerry.healemgood.view.UserViews.adapter.ImageAdapter;
+import com.example.jerry.healemgood.view.adapter.ImageAdapter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 

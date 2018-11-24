@@ -7,7 +7,7 @@
  *
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
-package com.example.jerry.healemgood.view.UserViews;
+package com.example.jerry.healemgood.view.patientActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +25,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,9 +34,7 @@ import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.controller.SwipeDetector;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
-import com.example.jerry.healemgood.view.UserViews.adapter.ProblemAdapter;
-
-import org.w3c.dom.Text;
+import com.example.jerry.healemgood.view.adapter.ProblemAdapter;
 
 import java.util.ArrayList;
 

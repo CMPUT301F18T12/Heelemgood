@@ -8,9 +8,9 @@
         android:icon="@android:drawable/ic_menu_today"
         android:title="@string/home" />
     <item
-        android:id="@+id/navigation_history"
-        android:icon="@android:drawable/ic_menu_recent_history"
-        android:title="@string/history" />
+        android:id="@+id/navigation_map"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:title="@string/map_mode" />
 
     <item
         android:id="@+id/navigation_search"
