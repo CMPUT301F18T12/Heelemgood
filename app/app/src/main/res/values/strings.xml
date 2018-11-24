@@ -81,4 +81,5 @@
     <string name="title_activity_patient_all_problem">PatientAllProblemActivity</string>
     <string name="edit_location">Edit Location</string>
     <string name="map_mode">Map Mode</string>
+    <string name="view_location">View Location</string>
 </resources>

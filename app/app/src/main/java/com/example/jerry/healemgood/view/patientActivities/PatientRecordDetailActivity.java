@@ -89,6 +89,7 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
         Button saveButton = findViewById(R.id.saveButton);
         Button backButton = findViewById(R.id.backButton);
+        Button viewLocationButton = findViewById(R.id.viewLocationButton);
 
         ImageButton photoButton = findViewById(R.id.photoButton);
         Button addLocationButton = findViewById(R.id.editLocationButton);
@@ -104,6 +105,28 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
                 catch (Exception e){
                     Log.d("Error","Place Picker Error");
                 }
+
+
+            }
+        });
+
+
+        viewLocationButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(),PatientViewLocationActivity.class);
+                double[] geoLocation = record.getGeoLocation();
+                if (geoLocation != null){
+                    intent.putExtra("geoLocation",geoLocation);
+                    intent.putExtra("title",record.getTitle());
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),
+                            "No Geo location recorded!"
+                            ,Toast.LENGTH_SHORT).show();
+                }
+
 
 
             }

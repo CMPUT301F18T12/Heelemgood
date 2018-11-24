@@ -31,7 +31,6 @@
         <activity android:name=".view.patientActivities.PatientUserActivity" />
         <activity android:name=".view.patientActivities.BodyMapSelectionActivity" />
         <activity android:name=".view.patientActivities.PatientAddRecordActivity" />
-        <activity android:name=".view.patientActivities.PatientMapSelection" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -51,7 +50,9 @@
         <activity
             android:name=".view.patientActivities.PatientAllProblemActivity"
             android:label="@string/title_activity_patient_all_problem"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.patientActivities.PatientViewLocationActivity" />
+        <activity android:name=".view.patientActivities.PatientMapModeActivity"></activity>
     </application>
 
 </manifest>

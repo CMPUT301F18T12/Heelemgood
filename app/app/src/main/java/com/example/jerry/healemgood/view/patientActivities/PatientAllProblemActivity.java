@@ -261,6 +261,9 @@ public class PatientAllProblemActivity extends AppCompatActivity
         } else if (id == R.id.navigation_user) {
             startActivity(new Intent(getApplicationContext(),PatientUserActivity.class));
         }
+        else if (id == R.id.navigation_map){
+            startActivity(new Intent(getApplicationContext(),PatientMapModeActivity.class));
+        }
 
 
         return true;
