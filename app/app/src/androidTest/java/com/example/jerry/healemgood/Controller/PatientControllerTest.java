@@ -57,14 +57,14 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
     public void testCreateUser() {
         try {
             Patient patient = patientConstructor();
-            User usera = new UserController.SearchUserTask().execute("update12345678").get();
+            User usera = new UserController.SearchPatientTask().execute("update12345678").get();
             if (!usera.getUserId().equals("update12345678")){
                 new UserController.AddUserTask().execute(patient);
                 // Add a breakpoint on the next line to view the object before it is deleted
-                User user2 = new UserController.SearchUserTask().execute("update12345678").get();
+                User user2 = new UserController.SearchPatientTask().execute("update12345678").get();
                 assertNull(user2);
             }
-            User user = new UserController.SearchUserTask().execute("update12345678").get();
+            User user = new UserController.SearchPatientTask().execute("update12345678").get();
             new UserController.DeleteUserTask().execute(user);
         } catch (Exception e) {
             Log.d("Test", "Testing Error Add");
@@ -81,12 +81,12 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
         try {
             // Search for a user that exists
             new UserController.AddUserTask().execute(patient);
-            user = new UserController.SearchUserTask().execute("heb12345678").get();
+            user = new UserController.SearchPatientTask().execute("heb12345678").get();
             assertTrue(user.getUserId().equals("heb12345678"));
 
             // Search for a user that does not exist
             // The user object returned should not have a name
-            user = new UserController.SearchUserTask().execute("jeb12345678").get();
+            user = new UserController.SearchPatientTask().execute("jeb12345678").get();
             assertFalse(user.getUserId().equals("jeb12345678"));
         } catch (Exception e) {
         }
@@ -103,11 +103,11 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
             // Create a test user, add them to the DB
             new UserController.AddUserTask().execute(patient);
             // Check that the user is in the DB, before we delete them
-            user = new UserController.SearchUserTask().execute("Patient12345678").get();
+            user = new UserController.SearchPatientTask().execute("Patient12345678").get();
             assertEquals(user.getClass().getSimpleName(), "Patient12345678");
             // Delete the user and check that the reference is now null
             new UserController.DeleteUserTask().execute(patient).get();
-            user = new UserController.SearchUserTask().execute("Patient12345678").get();
+            user = new UserController.SearchPatientTask().execute("Patient12345678").get();
             assertNull(user);
         } catch (Exception e) {
         }
@@ -120,7 +120,7 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
     public void testUpdateUser() {
         User user;
         try {
-            user = new UserController.SearchUserTask().execute("userid12345678").get();
+            user = new UserController.SearchPatientTask().execute("userid12345678").get();
             String email = user.getEmail();
             assertEquals(email, user.getEmail());
 
@@ -174,7 +174,7 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
         //Delete a single user, will not change
         User user;
         try{
-            user = new UserController.SearchUserTask().execute("update12345678").get();
+            user = new UserController.SearchPatientTask().execute("update12345678").get();
             new UserController.DeleteUserTask().execute(user).get();
         }catch (Exception e){}
     }

@@ -103,7 +103,7 @@ public class PatientUserActivity extends AppCompatActivity {
         User user;
         try{
             // Access the user object, and change the object's parameters to what was inputted
-            user = new UserController.SearchUserTask().execute(userIdText.getText().toString()).get();
+            user = new UserController.SearchPatientTask().execute(userIdText.getText().toString()).get();
             user.setEmail(emailInput.getText().toString());
             user.setPhoneNum(phoneInput.getText().toString());
             new UserController.UpdateUserTask().execute(user);
