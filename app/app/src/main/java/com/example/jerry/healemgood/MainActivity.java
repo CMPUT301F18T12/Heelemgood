@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferenceUtil.store(MainActivity.this,AppConfig.PHONE,user.getPhoneNum());
 
                         // Altered
-                        Intent intent = new Intent(getApplicationContext(), PatientGenerateQRCode.class);
+                        Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
                         startActivity(intent);
                     }
                 }catch (Exception e){ }
