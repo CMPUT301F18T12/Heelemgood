@@ -123,7 +123,7 @@ public class Main_AccountCreation_ActivityTest extends ActivityInstrumentationTe
         // Delete the test user
         User user;
         try {
-            user = new UserController.SearchUserTask().execute("TestGUY12345").get();
+            user = new UserController.SearchPatientTask().execute("TestGUY12345").get();
             new UserController.DeleteUserTask().execute(user);
         }catch (Exception e){}
     }
