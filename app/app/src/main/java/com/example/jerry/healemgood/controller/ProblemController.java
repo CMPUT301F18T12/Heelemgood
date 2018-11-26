@@ -10,7 +10,10 @@
 
 package com.example.jerry.healemgood.controller;
 
+import android.content.Context;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -58,7 +61,8 @@ public class ProblemController {
      * This function is for debug/testing purposes, return a problem given a problem id
      *
      */
-    public static class GetProblemByIdTask extends AsyncTask<String,Void,Problem>{
+
+    public static class GetProblemByIdsTask extends AsyncTask<String,Void,Problem>{
         protected Problem doInBackground(String... ids) {
             setClient();
             String id = ids[0];
@@ -77,17 +81,39 @@ public class ProblemController {
      * Create a problem in the database and assigned a JestID/pId to it
      */
     public static class CreateProblemTask extends AsyncTask<Problem,Void,Void> {
+        private  Context context=null;
+
+        /**
+         * This constructor will take in a context. Note: this is needed if you want to have things
+         * @param c Application contest (not base context)
+        */
+        public CreateProblemTask setContext(Context c){
+            this.context =c;
+            return this;
+        }
+
         protected Void doInBackground(Problem... problems) {
             setClient();
             Problem problem = problems[0];
             Index index = new Index.Builder(problem).index(indexName).type("problem").build();
             try{
+                //wait until connection is avaliable
+                if(context!=null) {
+                    ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo activeNetworkInfo = connectivityManager
+                            .getActiveNetworkInfo();
+                    while (activeNetworkInfo == null || !activeNetworkInfo.isConnected()) {
+                        Thread.sleep(2000);
+                    }
+                }
                 DocumentResult result = client.execute(index);
                 if(result.isSucceeded()){
                     problem.setpId(result.getId());
                 }
             }catch(IOException e){
                 Log.d("Name-Jeff"," IOexception when executing client");
+            }catch(Exception e){
+                Log.d("Name-Jeff","Not waiting for internet connection"+e.getMessage());
             }
             return null;
         }

@@ -1,5 +1,8 @@
 package com.example.jerry.healemgood.Controller;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 
@@ -13,6 +16,7 @@ import com.example.jerry.healemgood.model.record.Record;
 import com.google.gson.Gson;
 import com.robotium.solo.Solo;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -194,6 +198,40 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             problems = new ProblemController.SearchProblemTask().execute().get();
             assertEquals(3,problems.size());
         }catch(Exception e){assertTrue(false);        }
-
     }
+
+    /*
+    public void testOfflineProblemBehaviour(){
+        boolean temp2=true;
+        String text = "cant get it working";
+        System.out.println(text);
+        Problem p = new Problem(text,new Date(),"asdasdasdasdasd");
+        //turn off connection
+        try {
+            //turn off wifi
+            WifiManager wifi=(WifiManager)getActivity().getBaseContext().getSystemService(Context.WIFI_SERVICE);
+            wifi.setWifiEnabled(false);
+            /*turn off mobile data
+            ConnectivityManager dataManager=(ConnectivityManager)solo.getCurrentActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+            Method dataClass = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
+            dataClass.setAccessible(true);
+            dataClass.invoke(dataManager, true);
+        }catch(Exception e){
+            Log.d("Name-Jeff", "error in changing network state");
+        }
+        try {
+            new ProblemController.CreateProblemTask().execute(p).get();
+        }catch(Exception e){
+        }
+        Problem p2=null;
+        try {
+            p2 = new ProblemController.GetProblemByIdTask().execute(p.getpId()).get();
+        }catch(Exception e){
+            temp2=false;
+        }
+        assertNotNull(p2);
+        String objectString1 = new Gson().toJson(p);
+        String objectString2 = new Gson().toJson(p2);
+        assertEquals(objectString1,objectString2);
+    }*/
 }
