@@ -62,17 +62,21 @@ public class ProblemController {
      *
      */
 
-    public static class GetProblemByIdsTask extends AsyncTask<String,Void,Problem>{
-        protected Problem doInBackground(String... ids) {
+    public static class GetProblemByIdsTask extends AsyncTask<String,Void,ArrayList<Problem>>{
+        protected ArrayList<Problem> doInBackground(String... ids) {
             setClient();
             String id = ids[0];
-            String query = "
-            "query": {
-                "ids" : {
-                    "type" : "_doc",
-                            "values" : ["1", "4", "100"]
+            String query ="{ \n"+
+            "   \"query\": { \n"+
+            "     \"ids\" : { \n"+
+            "        \"values\" : [";
+            for (int i =0;i<ids.length;i++){
+                searchQuery += "\""+ids[i]+"\"";
+                if(i!=ids.length-1){
+                    searchQuery+=",";
                 }
             }
+            query+="]}}}";
             Get get = new Get.Builder(indexName, id).type("problem").build();
             try{
                 DocumentResult result = client.execute(get);
