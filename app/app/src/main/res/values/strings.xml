@@ -52,6 +52,10 @@
     <string name="user_email">email@website.ca</string>
     <string name="my_patients">My Patients</string>
     <string name="problem_title_add_comment">Hand Problem</string>
+    <string name="recent_patients">Recent Patients</string>
+    <string name="add_patients">Add Patients</string>
+    <string name="add_a_patient">Add A Patient</string>
+    <string name="send_request">Send Request</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -88,7 +92,6 @@
     <string name="title_activity_patient_scan_qrcode">PatientScanQRCode</string>
     <string name="map_mode">Map Mode</string>
     <string name="view_location">View Location</string>
-    <string name="recent_patients">Recent Patients</string>
     <string name="add">Add</string>
 
     <string-array name="search_array">
