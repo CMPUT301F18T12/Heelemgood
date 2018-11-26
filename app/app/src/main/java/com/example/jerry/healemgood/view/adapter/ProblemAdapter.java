@@ -21,6 +21,7 @@ import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +89,9 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
             TextView date = v.findViewById(R.id.dateTextView);
             TextView recordCount = v.findViewById(R.id.descriptionTextView);
             problemName.setText(p.getTitle());
-            date.setText(p.getCreatedDate().toString());
+
+            SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
+            date.setText(sm.format(p.getCreatedDate()));
 
             ArrayList<Record> records;
 

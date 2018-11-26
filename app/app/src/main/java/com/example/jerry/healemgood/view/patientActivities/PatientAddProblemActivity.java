@@ -9,11 +9,15 @@
  */
 package com.example.jerry.healemgood.view.patientActivities;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,6 +28,7 @@ import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -44,12 +49,16 @@ public class PatientAddProblemActivity extends AppCompatActivity {
      * @param savedInstanceState
      */
 
+    private static Date date;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        date = null;
         setContentView(R.layout.activity_patient_add_problem);
 
-        final Button saveButton = findViewById(R.id.saveButton);
+        Button saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +66,17 @@ public class PatientAddProblemActivity extends AppCompatActivity {
 
             }
         });
+
+        Button pickDateButton = findViewById(R.id.pickDateButton);
+        pickDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getSupportFragmentManager(), "datePicker");
+
+            }
+        });
+
     }
 
 
@@ -73,7 +93,11 @@ public class PatientAddProblemActivity extends AppCompatActivity {
         String description = descriptionInput.getText().toString();
         Problem problem = null;
         try {
-            problem = new Problem(title, new Date(), SharedPreferenceUtil.get(this, AppConfig.USERID),description);
+            if (date == null){
+                date = new Date();
+            }
+
+            problem = new Problem(title, date, SharedPreferenceUtil.get(this, AppConfig.USERID),description);
         } catch (LengthOutOfBoundException e) {
             Toast.makeText(this, "Title cannot have more than 30 characters",
                     Toast.LENGTH_SHORT).show();
@@ -91,10 +115,31 @@ public class PatientAddProblemActivity extends AppCompatActivity {
 
         }
 
-
-
-
-
-
     }
+
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            // Do something with the date chosen by the user
+            System.out.println("YEAR"+year);
+            Calendar cal = Calendar.getInstance();
+            cal.set(year, month, day);
+            date = cal.getTime();
+
+        }
+    }
+
 }
