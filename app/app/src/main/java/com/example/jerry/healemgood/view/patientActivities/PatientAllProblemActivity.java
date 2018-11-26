@@ -253,9 +253,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
-        if (id == R.id.navigation_history) {
-            startActivity(new Intent(getApplicationContext(),PatientHistoryActivity.class));
-        } else if (id == R.id.navigation_search) {
+        if (id == R.id.navigation_search) {
             startActivity(new Intent(getApplicationContext(),PatientSearchActivity.class));
 
         } else if (id == R.id.navigation_user) {

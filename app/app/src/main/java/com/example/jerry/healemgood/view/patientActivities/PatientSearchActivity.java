@@ -9,10 +9,17 @@
  */
 package com.example.jerry.healemgood.view.patientActivities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
 
@@ -48,5 +55,47 @@ public class PatientSearchActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
 
+        RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup);
+
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId){
+                    case R.id.titleRadioButton:
+                        // do operations specific to this selection
+
+                        break;
+                    case R.id.geoRadioButton:
+                        // do operations specific to this selection
+                        break;
+                    case R.id.bodyRadioButton:
+                        // do operations specific to this selection
+                        break;
+                }
+            }
+        });
+
+        Button searchButton = findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PatientSearchRecordResultActivity.class);
+                EditText searchText = findViewById(R.id.searchText);
+                String query = searchText.getText().toString();
+                if (query.length() == 0){
+                    Toast.makeText(getApplicationContext(),
+                            "Searching query cannot be empty"
+                            ,Toast.LENGTH_SHORT).show();
+
+                    return;
+                }
+                intent.putExtra("query",query);
+                startActivity(intent);
+            }
+        });
+
+
+
     }
+
 }

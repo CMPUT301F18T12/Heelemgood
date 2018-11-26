@@ -9,13 +9,11 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-
 
     <application
         android:allowBackup="true"
@@ -39,9 +37,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDMQjpqMqtFS2ogPixlLUPvUu9muw_Sm6w" />
 
-        <activity android:name=".view.patientActivities.PatientHistoryActivity" />
         <activity android:name=".view.patientActivities.PatientSearchActivity" />
-        <activity android:name=".view.patientActivities.PatientRequestActivity" />
         <activity android:name=".view.accountActivities.AccountCreationActivity" />
         <activity android:name=".view.patientActivities.AccountCreationActivity" />
         <activity android:name=".view.patientActivities.PatientViewRequestActivity" />
@@ -55,10 +51,15 @@
             android:label="@string/title_activity_patient_all_problem"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.UserViews.PatientGenerateQRCode" />
-        <activity android:name=".view.UserViews.PatientScanQRCodeActivity"></activity>
-        <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="barcode"/>
+        <activity android:name=".view.UserViews.PatientScanQRCodeActivity" />
+
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+
         <activity android:name=".view.patientActivities.PatientViewLocationActivity" />
-        <activity android:name=".view.patientActivities.PatientMapModeActivity"></activity>
+        <activity android:name=".view.patientActivities.PatientMapModeActivity" />
+        <activity android:name=".view.patientActivities.PatientSearchRecordResultActivity"></activity>
     </application>
 
 </manifest>
