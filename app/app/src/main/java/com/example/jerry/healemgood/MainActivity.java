@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferenceUtil.store(MainActivity.this,AppConfig.NAME,user.getFullName());
                         SharedPreferenceUtil.store(MainActivity.this,AppConfig.PHONE,user.getPhoneNum());
 
+                        // Altered
                         Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
                         startActivity(intent);
                     }

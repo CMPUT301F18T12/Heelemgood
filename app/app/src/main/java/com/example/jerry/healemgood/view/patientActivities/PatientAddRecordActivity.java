@@ -214,6 +214,8 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         try {
             patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID), recordTitle);
         } catch (LengthOutOfBoundException e) {
+            Toast.makeText(this,"Your title is too long!",
+                    Toast.LENGTH_SHORT).show();
             return;
         }
         // set body location
@@ -226,6 +228,8 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         try {
             patientRecord.setDescription(descriptionString);
         } catch (LengthOutOfBoundException e) {
+            Toast.makeText(this,"Your description is too long!",
+                    Toast.LENGTH_SHORT).show();
             return;
         }
 
