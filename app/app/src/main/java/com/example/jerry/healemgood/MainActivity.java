@@ -33,8 +33,9 @@ import com.example.jerry.healemgood.model.user.User;
  * @since 1.0
  */
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
-import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
+import com.example.jerry.healemgood.view.UserViews.PatientGenerateQRCode;
+import com.example.jerry.healemgood.view.UserViews.PatientScanQRCodeActivity;
 
 /**
  * Represents the main activity
@@ -75,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferenceUtil.store(MainActivity.this,AppConfig.NAME,user.getFullName());
                         SharedPreferenceUtil.store(MainActivity.this,AppConfig.PHONE,user.getPhoneNum());
 
-                        Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
+                        // Altered
+                        Intent intent = new Intent(getApplicationContext(), PatientGenerateQRCode.class);
                         startActivity(intent);
                     }
                 }catch (Exception e){ }
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         createTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AccountCreationActivity.class));
+                startActivity(new Intent(MainActivity.this, PatientGenerateQRCode.class));
             }
         });
     }
