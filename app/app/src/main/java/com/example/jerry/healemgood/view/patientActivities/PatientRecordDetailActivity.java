@@ -9,18 +9,27 @@
  */
 package com.example.jerry.healemgood.view.patientActivities;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
@@ -34,6 +43,9 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
+
+import static com.example.jerry.healemgood.permisson.PermissionRequest.verifyPermission;
+import static java.security.AccessController.getContext;
 
 /**
  * Represents a PatientRecordDetailActivity
@@ -82,8 +94,7 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Toast.makeText(PatientRecordDetailActivity.this, "" + position,
-                        Toast.LENGTH_SHORT).show();
+               showLargePicture(position);
             }
         });
 
@@ -159,6 +170,17 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
     }
 
     /**
+     * This function pop up a dialog showing a bigger picture
+     *
+     * @see  //https://developer.android.com/training/camera/photobasics
+     *
+     */
+    private void showLargePicture(int position){
+        return;
+
+    }
+
+    /**
      * This function allows users to take a picture with their devices camera.
      *
      * @see  //https://developer.android.com/training/camera/photobasics
@@ -167,6 +189,10 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
+        }
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
