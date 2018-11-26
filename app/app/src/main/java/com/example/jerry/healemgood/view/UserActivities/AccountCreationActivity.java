@@ -18,16 +18,21 @@ import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 
 import java.util.Date;
 
+/**
+ * A controller that handles creating a new account
+ *
+ * @author WeakMill98
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class AccountCreationActivity extends AppCompatActivity {
 
     private EditText userName;
     private EditText firstName;
     private EditText lastName;
-    private EditText birthDay;
     private EditText emailAddress;
     private EditText phoneNumber;
-    private EditText password;
-    private EditText confirmationPassword;
     private Button createButton;
     private RadioButton patientRadioButton;
     private RadioButton careProviderRadioButton;
@@ -40,92 +45,86 @@ public class AccountCreationActivity extends AppCompatActivity {
 
         // Find references to the XML path
         // This includes all user attributes, such as username, password, etc.
-        // TODO: Remove duplicate user names
-        // TODO: Add in a calendar picker widget
-
         getAllXML();
 
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Get basic user parameters
                 String username = userName.getText().toString();
-                String p = password.getText().toString();
                 String na =  firstName.getText().toString();
                 String ph =  phoneNumber.getText().toString();
                 String ema = emailAddress.getText().toString();
 
-                if (patientRadioButton.isChecked() && careProviderRadioButton.isChecked()){
-                    Toast.makeText(getApplicationContext(),
-                            "Please Select If You Are a Patient or Care Provider"
-                            ,Toast.LENGTH_SHORT).show();
-                }
-                if (patientRadioButton.isChecked()){
-                    Patient patient = null;
-                    try {
-                        patient = new Patient(
-                                username, p, na, ph, ema,
-                                new Date(),
-                                'M'
-                        );
-                    } catch (LengthOutOfBoundException e) {
-                        Toast.makeText(getApplicationContext(),
-                                "Your userId is too short (at least 8 characters)"
-                                ,Toast.LENGTH_SHORT).show();
-                        return;
+                // If one of the radio buttons is selected, we can create an account
+                if (patientRadioButton.isChecked() || careProviderRadioButton.isChecked()){
+
+                    if (patientRadioButton.isChecked()){
+                        Patient patient;
+                        try {
+                            patient = new Patient(
+                                    username, "Password", na, ph, ema,
+                                    new Date(),
+                                    'M'
+                            );
+                        } catch (LengthOutOfBoundException e) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Your userId is too short (at least 8 characters)"
+                                    ,Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        patientRadioButton.setChecked(false);
+                        new UserController.AddUserTask().execute(patient);
+                        clearText();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     }
-                    patientRadioButton.setChecked(false);
-                    new UserController.AddUserTask().execute(patient);
-                    clearText();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
-                if (careProviderRadioButton.isChecked()){
-                    CareProvider careProvider = null;
-                    try {
-                        careProvider = new CareProvider(
-                                username, p, na, ph, ema,
-                                new Date(),
-                                'M'
-                        );
-                    } catch (LengthOutOfBoundException e) {
-                        Toast.makeText(getApplicationContext(),
-                                "Your userId is too short (at least 8 characters)"
-                                ,Toast.LENGTH_SHORT).show();
-                        return;
+                    if (careProviderRadioButton.isChecked()) {
+                        CareProvider careProvider;
+                        try {
+                            careProvider = new CareProvider(
+                                    username, "Password", na, ph, ema,
+                                    new Date(),
+                                    'M'
+                            );
+                        } catch (LengthOutOfBoundException e) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Your userId is too short (at least 8 characters)"
+                                    , Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        careProviderRadioButton.setChecked(false);
+                        new UserController.AddUserTask().execute(careProvider);
+                        clearText();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     }
-                    careProviderRadioButton.setChecked(false);
-                    new UserController.AddUserTask().execute(careProvider);
-                    clearText();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
-                else {
-                    Toast.makeText(getApplicationContext(),
-                            "Please Select If You Are a Patient or Care Provider"
-                            ,Toast.LENGTH_SHORT).show();
+                    // If no account type is selected, raise a warning
+                    else {
+                        Toast.makeText(getApplicationContext(), "Please Select an Account Type",
+                                Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
     }
 
+    // Gets all the XML elements on the screen
     private void getAllXML(){
         userName = findViewById(R.id.userIdEditText);
         firstName = findViewById(R.id.firstNameEditText);
         lastName = findViewById(R.id.lastNameEditText);
         emailAddress = findViewById(R.id.emailEditText);
         phoneNumber = findViewById(R.id.phoneEditText);
-        password = findViewById(R.id.passwordEditText);
-        confirmationPassword = findViewById(R.id.confirmPasswordEditText);
         createButton = findViewById(R.id.createAccountButton);
         patientRadioButton = findViewById(R.id.patientRadioButton);
         careProviderRadioButton = findViewById(R.id.careProviderRadioButton);
     }
 
+    // Clears all the text from the fields
     private void clearText(){
         userName.getText().clear();
         firstName.getText().clear();
         lastName.getText().clear();
         emailAddress.getText().clear();
         phoneNumber.getText().clear();
-        password.getText().clear();
-        confirmationPassword.getText().clear();
     }
 }

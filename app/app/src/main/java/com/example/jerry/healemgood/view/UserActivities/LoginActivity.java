@@ -22,7 +22,7 @@ import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
 
 /**
- * A controller that handles swiping on the app
+ * A controller that handles logging into the app
  *
  * @author WeakMill98
  * @version 1.0

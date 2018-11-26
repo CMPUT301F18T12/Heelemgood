@@ -60,6 +60,7 @@
         completions."
     </string>
     <string name="scanQRcodemain">Your QR code</string>
+    <string name="scanQRCodeLogin">Sign in Using a QR code</string>
     <string name="scannewQRCode">Scan a QR code</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_home">Home</string>

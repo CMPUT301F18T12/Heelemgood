@@ -28,7 +28,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * A controller that handles swiping on the app
+ * A controller that handles viewing the care provider requests
+ * Likely deprecated
  *
  * @author WeakMill98
  * @version 1.0
