@@ -54,6 +54,8 @@ public class PatientAddProblemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        date = null;
         setContentView(R.layout.activity_patient_add_problem);
 
         Button saveButton = findViewById(R.id.saveButton);
