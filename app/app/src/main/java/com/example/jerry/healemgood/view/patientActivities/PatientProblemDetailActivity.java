@@ -19,11 +19,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.model.problem.Problem;
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -134,8 +136,27 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
      *
      */
     private void saveProblem(){
-        problem.setTitle(titleInput.getText().toString());
-        problem.setDescription(descriptionInput.getText().toString());
+        // set the title of the record
+        try {
+            problem.setTitle(titleInput.getText().toString());
+        } catch (LengthOutOfBoundException e) {
+            Toast.makeText(this,"Your title is too long!",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // set the description of the record
+        try {
+            problem.setDescription(descriptionInput.getText().toString());
+        } catch (LengthOutOfBoundException e) {
+            Toast.makeText(this,"Your description is too long!",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+
+
         problem.setCreatedDate(date);
         try{
             new ProblemController.UpdateProblemTask().execute(problem).get();
