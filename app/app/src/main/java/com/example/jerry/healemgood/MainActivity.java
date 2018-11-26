@@ -33,10 +33,8 @@ import com.example.jerry.healemgood.model.user.User;
  * @since 1.0
  */
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
-import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientGenerateQRCode;
-import com.example.jerry.healemgood.view.UserViews.PatientScanQRCodeActivity;
+import com.example.jerry.healemgood.view.patientActivities.AccountCreationActivity;
+import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
 
 /**
  * Represents the main activity

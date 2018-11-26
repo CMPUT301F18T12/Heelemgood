@@ -1,0 +1,15 @@
+com.example.jerry.healemgood
+com.example.jerry.healemgood.Controller
+com.example.jerry.healemgood.Intent
+com.example.jerry.healemgood.Model
+com.example.jerry.healemgood.config
+com.example.jerry.healemgood.controller
+com.example.jerry.healemgood.model.photo
+com.example.jerry.healemgood.model.problem
+com.example.jerry.healemgood.model.record
+com.example.jerry.healemgood.model.request
+com.example.jerry.healemgood.model.user
+com.example.jerry.healemgood.utils
+com.example.jerry.healemgood.view.UserActivities
+com.example.jerry.healemgood.view.UserViews
+com.example.jerry.healemgood.view.UserViews.adapter

@@ -1,23 +1,28 @@
 package com.example.jerry.healemgood.Intent;
 
-import android.app.Instrumentation;
-import android.content.Intent;
-import android.test.ActivityInstrumentationTestCase;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.R;
-import com.example.jerry.healemgood.controller.UserController;
-import com.example.jerry.healemgood.model.user.User;
-import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientUserActivity;
+import com.example.jerry.healemgood.view.patientActivities.AccountCreationActivity;
+import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
+import com.example.jerry.healemgood.view.patientActivities.PatientUserActivity;
 import com.robotium.solo.Solo;
+
+/**
+ * Handles editing the user account
+ * Creates an account, uses it to log in, and edits it
+ * @author WeakMill98
+ * @version 1.0
+ * @see ActivityInstrumentationTestCase2
+ * @see AccountCreationActivity
+ * @see MainActivity
+ * @see PatientUserActivity
+ * @since 1.0
+ */
 
 public class EditUser_ActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
     Solo solo;
@@ -39,10 +44,14 @@ public class EditUser_ActivityTest extends ActivityInstrumentationTestCase2<Main
         super.tearDown();
     }
 
+    /**
+     * Tests Editing the user
+     *
+     */
     public void testEditUser(){
         // Click on create a new user
         // Assert that you go to the right page
-/*        TextView createAccount = (TextView) solo.getView(R.id.createAccountTextView);
+        TextView createAccount = (TextView) solo.getView(R.id.createAccountTextView);
         solo.clickOnView(createAccount);
         solo.assertCurrentActivity("Check on login", AccountCreationActivity.class);
 
@@ -65,7 +74,7 @@ public class EditUser_ActivityTest extends ActivityInstrumentationTestCase2<Main
         solo.clickOnView(radioButton);
 
         // Create the account
-        solo.clickOnButton("Create");*/
+        solo.clickOnButton("Create");
 
         // Enter the credentials and enter the application
         EditText loginCredentials = (EditText) solo.getView(R.id.userIdEditText);
@@ -84,12 +93,5 @@ public class EditUser_ActivityTest extends ActivityInstrumentationTestCase2<Main
         solo.pressMenuItem(3);
 
         //solo.("PatientUserActivity");
-
-        // Delete the test user
-        /*User user;
-        try {
-            user = new UserController.SearchUserTask().execute("TestGUY12345").get();
-            new UserController.DeleteUserTask().execute(user);
-        }catch (Exception e){}*/
     }
 }

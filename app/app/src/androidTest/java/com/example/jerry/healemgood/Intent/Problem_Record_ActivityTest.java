@@ -1,27 +1,21 @@
 package com.example.jerry.healemgood.Intent;
 
-import android.support.v7.app.AppCompatActivity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
-import com.example.jerry.healemgood.controller.UserController;
-import com.example.jerry.healemgood.model.user.User;
 import com.example.jerry.healemgood.MainActivity;
-import com.example.jerry.healemgood.view.UserActivities.AccountCreationActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientAddProblemActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientAllProblemActivity;
-import com.example.jerry.healemgood.view.UserViews.PatientAllRecordActivity;
+import com.example.jerry.healemgood.view.patientActivities.AccountCreationActivity;
+import com.example.jerry.healemgood.view.patientActivities.PatientAddProblemActivity;
+import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
+import com.example.jerry.healemgood.view.patientActivities.PatientAllRecordActivity;
 import com.robotium.solo.Solo;
-
-import java.sql.BatchUpdateException;
 // Source: https://www.youtube.com/watch?v=T_8euppCz3k Accessed 2018-11-18
 
 /**
@@ -56,7 +50,10 @@ public class Problem_Record_ActivityTest extends ActivityInstrumentationTestCase
         super.tearDown();
     }
 
-
+    /**
+     * Tests Account creation
+     *
+     */
     public void testCreateAccount(){
         solo.assertCurrentActivity("Check on login", MainActivity.class);
         // Just to check that the code is running
@@ -90,7 +87,10 @@ public class Problem_Record_ActivityTest extends ActivityInstrumentationTestCase
         solo.clickOnButton("Create");
     }
 
-
+    /**
+     * Tests Problem Creation
+     *
+     */
     public void testProblemCreation() {
         solo.assertCurrentActivity("Check on login", MainActivity.class);
 
@@ -110,8 +110,8 @@ public class Problem_Record_ActivityTest extends ActivityInstrumentationTestCase
         EditText descriptionInput = (EditText) solo.getView(R.id.descriptionInput);
 
         // Populate the two fields
-        solo.enterText(titleInput, "Test Title");
-        solo.enterText(descriptionInput, "Test Description");
+        solo.enterText(titleInput, "Arm Broke");
+        solo.enterText(descriptionInput, "Yeah this hurts");
 
         // Save the Entry and leave
         Button saveButton = (Button) solo.getView(R.id.saveButton);
@@ -121,6 +121,10 @@ public class Problem_Record_ActivityTest extends ActivityInstrumentationTestCase
         solo.assertCurrentActivity("Check on Problem", PatientAddProblemActivity.class);
     }
 
+    /**
+     * Tests Record Creation
+     *
+     */
     public void testcreateRecord(){
         solo.assertCurrentActivity("Check on login", MainActivity.class);
 
@@ -156,7 +160,7 @@ public class Problem_Record_ActivityTest extends ActivityInstrumentationTestCase
         ImageView imageView2 = (ImageView) solo.getView(R.id.colorMap);
         solo.clickOnView(imageView2);
 
-        
+        //TODO: Map needs to be clicked properly, works 100% with human intervention
 
         /*Button continueButton = (Button) solo.getView(R.id.continueButton);
         solo.clickOnView(continueButton);

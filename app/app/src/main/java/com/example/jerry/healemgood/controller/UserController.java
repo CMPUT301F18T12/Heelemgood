@@ -57,8 +57,8 @@ public class UserController {
     private static String indexName = "cmput301f18t12";
 
     /**
-     *Add a User to the database
-     *Can either be a patient or a user
+     * Add a User to the database
+     * Can either be a patient or a user
      */
     public static class AddUserTask extends AsyncTask<User, Void, Void>{
         protected Void doInBackground(User... users) {

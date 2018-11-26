@@ -55,7 +55,6 @@ public abstract class User {
         this.email = email;
         this.birthday = birthday;
         this.gender = gender;
-
     }
 
     /**

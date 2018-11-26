@@ -5,18 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/bodyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="58dp"
-        android:text="@string/body_map_to_click"
-        app:layout_constraintBottom_toTopOf="@+id/saveButton"
-        app:layout_constraintEnd_toStartOf="@+id/editLocationButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridView" />
 
     <TextView
         android:id="@+id/titleText"
@@ -34,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:autofillHints=""
         android:ems="10"
         android:inputType="text"
@@ -41,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/titleText"
-        tools:layout_editor_absoluteY="6dp"
+        app:layout_constraintTop_toTopOf="parent"
         tools:targetApi="o" />
 
     <TextView
@@ -79,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
         android:text="@string/save"
         app:layout_constraintEnd_toStartOf="@+id/backButton"
         app:layout_constraintHorizontal_bias="0.5"
@@ -118,14 +107,13 @@
 
     <Button
         android:id="@+id/editLocationButton"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/edit_location"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bodyButton"
         app:layout_constraintTop_toBottomOf="@+id/gridView" />
 
     <Button
@@ -133,11 +121,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
         android:text="@string/back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/saveButton"
         app:layout_constraintTop_toBottomOf="@+id/gridView" />
+
+    <Button
+        android:id="@+id/viewLocationButton"
+        android:layout_width="133dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/view_location"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/editLocationButton"
+        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridView" />
+
 </android.support.constraint.ConstraintLayout>
