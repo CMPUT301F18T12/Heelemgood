@@ -114,7 +114,10 @@ public class Problem {
      * set description
      *
      */
-    public void setDescription(String description){
+    public void setDescription(String description) throws LengthOutOfBoundException {
+        if (description.length() > 300) {
+            throw new LengthOutOfBoundException();
+        }
         this.description = description;
     }
 
@@ -162,7 +165,10 @@ public class Problem {
      *
      * @param title
      */
-    public void setTitle(String title) {
+    public void setTitle(String title) throws LengthOutOfBoundException {
+        if (title.length() > 30) {
+            throw new LengthOutOfBoundException();
+        }
         this.title = title;
     }
 
