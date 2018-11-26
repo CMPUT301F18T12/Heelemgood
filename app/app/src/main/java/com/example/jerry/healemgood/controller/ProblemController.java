@@ -71,17 +71,21 @@ public class ProblemController {
             "     \"ids\" : { \n"+
             "        \"values\" : [";
             for (int i =0;i<ids.length;i++){
-                searchQuery += "\""+ids[i]+"\"";
+                query += "\""+ids[i]+"\"";
                 if(i!=ids.length-1){
-                    searchQuery+=",";
+                    query+=",";
                 }
             }
             query+="]}}}";
-            Get get = new Get.Builder(indexName, id).type("problem").build();
+            Search search = new Search.Builder(query).addIndex(indexName).addType("problem").build();
             try{
-                DocumentResult result = client.execute(get);
-                ArrayList<Problem> p  = result.getSourceAsObjectList(Problem.class)
-                return p;
+                SearchResult result = client.execute(search);
+                if(result.isSucceeded()) {
+                    ArrayList<Problem> p = new ArrayList<>();
+                    List<Problem> resultList = result.getSourceAsObjectList(Problem.class);
+                    p.addAll(resultList);
+                    return p;
+                }
             }catch(IOException e){
                 Log.d("Joey Error"," IOexception when executing client");
             }
