@@ -80,9 +80,9 @@ public class PatientMapModeActivity extends AppCompatActivity
             problems = new ArrayList<Problem>();
         }
 
-        for (Problem p:problems){
-
-            records.addAll(p.getAllRecords());
-        }
+//        for (Problem p:problems){
+//
+//            records.addAll(p.getAllRecords());
+//        }
     }
 }

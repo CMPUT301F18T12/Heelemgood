@@ -272,7 +272,7 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
             problem = null;
         }
 
-        record = problem.getAllRecords().get(index);
+//        record = problem.getAllRecords().get(index);
 
 
     }
@@ -306,7 +306,7 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        problem.updateRecordByIndex(getIntent().getIntExtra(AppConfig.INDEX,0),record);
+//        problem.updateRecordByIndex(getIntent().getIntExtra(AppConfig.INDEX,0),record);
         try{
             new ProblemController.UpdateProblemTask().execute(problem).get();
         }

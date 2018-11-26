@@ -96,7 +96,7 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
             ArrayList<Record> records;
 
 
-            recordCount.setText(p.getAllRecords().size()+"");
+//            recordCount.setText(p.getAllRecords().size()+"");
         }
 
 

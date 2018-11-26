@@ -261,7 +261,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
             Log.d("Error","Fail to get the problem by id");
         }
 
-        problem.addRecord(patientRecord);
+//        problem.addRecord(patientRecord);
 
 
         // update the problem
