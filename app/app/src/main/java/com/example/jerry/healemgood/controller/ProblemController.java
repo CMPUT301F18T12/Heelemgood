@@ -66,10 +66,17 @@ public class ProblemController {
         protected Problem doInBackground(String... ids) {
             setClient();
             String id = ids[0];
+            String query = "
+            "query": {
+                "ids" : {
+                    "type" : "_doc",
+                            "values" : ["1", "4", "100"]
+                }
+            }
             Get get = new Get.Builder(indexName, id).type("problem").build();
             try{
                 DocumentResult result = client.execute(get);
-                Problem p  = result.getSourceAsObject(Problem.class);
+                ArrayList<Problem> p  = result.getSourceAsObjectList(Problem.class)
                 return p;
             }catch(IOException e){
                 Log.d("Joey Error"," IOexception when executing client");
