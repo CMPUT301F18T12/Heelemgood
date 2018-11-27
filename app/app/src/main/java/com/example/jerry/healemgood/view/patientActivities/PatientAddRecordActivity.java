@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
+import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.PatientRecord;
 import com.example.jerry.healemgood.utils.BodyLocation;
@@ -112,7 +113,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 save();
-                finish();
+
             }
         });
 
@@ -250,27 +251,37 @@ public class PatientAddRecordActivity extends AppCompatActivity {
             patientRecord.setGeoLocation(place.getLatLng().latitude,place.getLatLng().longitude);
         }
 
-
-        // load the problem by Pid
-        Problem problem;
+        // save the record
         try{
-            problem = new ProblemController.GetProblemByIdTask().execute(getIntent().getStringExtra(AppConfig.PID)).get();
+
+            new RecordController.CreateRecordTask().setContext(this).execute(patientRecord).get();
+
         }
         catch (Exception e){
-            problem = null;
-            Log.d("Error","Fail to get the problem by id");
+            Log.d("ERROR","Fail to create the record");
         }
 
-//        problem.addRecord(patientRecord);
 
-
-        // update the problem
-        try{
-            new ProblemController.UpdateProblemTask().execute(problem).get();
-        }
-        catch (Exception e){
-            Log.d("Error","Fail to update problem");
-        }
+//        // load the problem by Pid
+//        Problem problem;
+//        try{
+//            problem = new ProblemController.GetProblemByIdsTask().execute(getIntent().getStringExtra(AppConfig.PID)).get().get(0);
+//        }
+//        catch (Exception e){
+//            problem = null;
+//            Log.d("Error","Fail to get the problem by id");
+//        }
+//
+////        problem.addRecord(patientRecord);
+//
+//
+//        // update the problem
+//        try{
+//            new ProblemController.UpdateProblemTask().execute(problem).get();
+//        }
+//        catch (Exception e){
+//            Log.d("Error","Fail to update problem");
+//        }
 
     }
 }

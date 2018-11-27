@@ -10,10 +10,9 @@
 
 package com.example.jerry.healemgood.controller;
 
-<<<<<<< HEAD
+
 import android.app.Activity;
-=======
->>>>>>> Joey
+
 import android.content.Context;
 import android.location.Location;
 import android.net.ConnectivityManager;
@@ -102,13 +101,13 @@ public class ProblemController {
      * Create a problem in the database and assigned a JestID/pId to it
      */
     public static class CreateProblemTask extends AsyncTask<Problem,Void,Void> {
-        private  Context context=null;
+        private  AppCompatActivity context=null;
 
         /**
          * This constructor will take in a context. Note: this is needed if you want to have things
          * @param c Application contest (not base context)
         */
-        public CreateProblemTask setContext(Context c){
+        public CreateProblemTask setContext(AppCompatActivity c){
             this.context =c;
             return this;
         }
@@ -142,7 +141,7 @@ public class ProblemController {
         @Override
         protected void onPostExecute(Void v){
             super.onPostExecute(v);
-            if (a!= null){
+            if (context != null){
                 try{
                     Thread.sleep(1000);
                 }
@@ -150,7 +149,7 @@ public class ProblemController {
 
                 }
 
-                a.finish();
+                context.finish();
             }
 
         }

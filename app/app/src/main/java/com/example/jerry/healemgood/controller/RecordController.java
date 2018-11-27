@@ -11,6 +11,7 @@
 package com.example.jerry.healemgood.controller;
 
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.jerry.healemgood.model.problem.Problem;
@@ -80,6 +81,13 @@ public class RecordController {
      */
     public static class CreateRecordTask extends AsyncTask<Record,Void,Void> {
 
+        private  AppCompatActivity context=null;
+
+        public RecordController.CreateRecordTask setContext(AppCompatActivity c){
+            this.context =c;
+            return this;
+        }
+
         protected Void doInBackground(Record... records) {
             setClient();
             Record record = records[0];
@@ -93,6 +101,22 @@ public class RecordController {
                 Log.d("Name-Jeff"," IOexception when executing client");
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v){
+            super.onPostExecute(v);
+            if (context != null){
+                try{
+                    Thread.sleep(1000);
+                }
+                catch (Exception e){
+
+                }
+
+                context.finish();
+            }
+
         }
     }
 

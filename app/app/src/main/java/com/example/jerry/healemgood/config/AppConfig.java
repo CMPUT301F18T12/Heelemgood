@@ -31,5 +31,6 @@ public class AppConfig {
     public static final String BIRTHDAY = "birthday";
     public static final String PHONE = "phone";
     public static final String BODYLOCATION = "bodyLocation";
+    public static final String RID = "RID";
 
 }

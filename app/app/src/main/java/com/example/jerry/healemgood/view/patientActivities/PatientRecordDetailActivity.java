@@ -35,6 +35,7 @@ import android.widget.Toast;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
+import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
@@ -63,7 +64,7 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
     static final int PLACE_PICKER_REQUEST = 2;
     static final int GET_BODY_LOCATION_REQUEST = 3;
 
-    Problem problem;
+
     Record record;
 
     private Place place;
@@ -262,17 +263,15 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
      */
 
     private void loadRecord(){
-        String pId = getIntent().getStringExtra(AppConfig.PID);
-        int index = getIntent().getIntExtra(AppConfig.INDEX,0);
+        String rId = getIntent().getStringExtra(AppConfig.RID);
+
         try{
-            problem = new ProblemController.GetProblemByIdTask().execute(pId).get();
+            record = new RecordController.GetRecordByIdTask().execute(rId).get();
         }
         catch (Exception e){
             Log.d("ERROR","Fail to load the problem");
-            problem = null;
+            record = null;
         }
-
-//        record = problem.getAllRecords().get(index);
 
 
     }
@@ -306,9 +305,9 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-//        problem.updateRecordByIndex(getIntent().getIntExtra(AppConfig.INDEX,0),record);
+
         try{
-            new ProblemController.UpdateProblemTask().execute(problem).get();
+            new RecordController.UpdateRecordTask().execute(record).get();
         }
         catch (Exception e){
             Log.d("Error","Fail to update the record");
