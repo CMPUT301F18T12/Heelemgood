@@ -47,7 +47,13 @@ import io.searchbox.indices.IndicesExists;
 public class RecordController {
     private static JestDroidClient client=null;
     private static String indexName = "cmput301f18t12";
-    private static String searchQuery;
+    private static final String introQuery="{\n" +
+            "    \"query\" : {\n" +
+            "    \"bool\" : {\n" +
+            "        \"must\": [\n"
+            ;
+    private static String searchQuery = introQuery;
+    private static boolean building=false;
 
     /**
      * Get record by Id, used for testing
@@ -132,9 +138,15 @@ public class RecordController {
     public static class SearchRecordTask extends AsyncTask<Void,Void,ArrayList<Record>> {
         protected ArrayList<Record> doInBackground(Void... empty) {
             setClient();
+            searchQuery += "]\n"+
+                    "           }\n"+
+                    "           }\n"+
+                    "}";
             ArrayList<Record> records = new ArrayList<Record>();
             Search search = new Search.Builder(searchQuery).addIndex(indexName).addType("record").build();
             Log.d("Name-Jeff",searchQuery);
+            searchQuery = introQuery;
+            building = false;
             try{
                 SearchResult result = client.execute(search);
                 if(result.isSucceeded()){
@@ -145,22 +157,11 @@ public class RecordController {
             }catch(IOException e){
                 Log.d("Joey Error"," IOexception when executing client");
             }
-            searchQuery="";
+            searchQuery=introQuery;
             return records;
         }
     }
 
-    /**
-     * Initialize/Create the searchQuery, call finalizeSearchQuery() after adding the necessary input
-     */
-    public static void initSearchQuery(){
-        String query = "{\n" +
-                "    \"query\" : {\n" +
-                "    \"bool\" : {\n" +
-                "        \"must\": [\n"
-                ;
-        searchQuery=query;
-    }
 
     /**
      * Modify the search query so it will search for records by keyword in descriptions and title
@@ -168,11 +169,15 @@ public class RecordController {
      */
     public static void searchByKeyword(String keyword){
         if(keyword!="") {
+            if(building==true){
+                searchQuery+=",";
+            }
             searchQuery += "   {\"multi_match\" : {\n" +
                     "   \"query\": \""+keyword+"\", \n"+
                     "   \"fields\": [\"title\",\"description\"] \n"+
                     "   }\n"+
                     " }\n";
+            building=true;
         }
     }
 
@@ -182,35 +187,32 @@ public class RecordController {
      */
     public static void searchByBodyLocation(int location){
         if (location>=0){
+            if(building==true){
+                searchQuery+=",";
+            }
             searchQuery += "   {\"term\" : {\n" +
                     "   \"bodyLocation\": \""+String.valueOf(location)+"\" \n"+
                     "       }\n"+
                     "   }\n";
-
+            building=true;
         }
     }
     public static void searchByProblemIds(String ... piDs){
+        if(building==true){
+            searchQuery+=",";
+        }
         searchQuery +="        {\"terms\" :{ \"pId\" : [";
         for (int i =0;i<piDs.length;i++){
-            searchQuery += "\""+piDs[i]+"\"";
+            searchQuery += "\""+piDs[i].toLowerCase()+"\"";
             if(i!=piDs.length-1){
                 searchQuery+=",";
             }
         }
         searchQuery+="]}\n"+
                 "    }\n";
+        building=true;
     }
 
-    /**
-     * Call this after all the search parameter is entered
-     */
-    public static void finalizeSearchQuery(){
-        searchQuery += "]\n"+
-                "           }\n"+
-                "           }\n"+
-                "}";
-
-    }
 
     /**
      *
@@ -221,6 +223,9 @@ public class RecordController {
     public static void searchByGeoLocation(LatLng latlng, int distance){
         double lat = latlng.latitude;
         double lon = latlng.longitude;
+        if(building==true){
+            searchQuery+=",";
+        }
         searchQuery +=   "   {\"filtered\" : {\n"+
                 "   \"filter\" : {\n"+
                 "   \"geo_distance\" : {\n" +
@@ -230,8 +235,9 @@ public class RecordController {
                 "       }\n"+
                 "       }\n"+
                 "   }\n";
-    }
+        building=true;
 
+    }
 
 
     /**
