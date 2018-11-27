@@ -156,7 +156,41 @@ public class UserController {
             return null;
         }
     }
+    public static class GetPatientsByIdsTask extends AsyncTask<String, Void, ArrayList<Patient>> {
+        @Override
+        protected ArrayList<Patient> doInBackground(String... userNames) {
+            setClient();
+            String userName = userNames[0];
+            String query ="{ \n"+
+                    "   \"query\": { \n"+
+                    "     \"ids\" : { \n"+
+                    "        \"values\" : [";
+            for (int i =0;i<userNames.length;i++){
+                query += "\""+userNames[i]+"\"";
+                if(i!=userNames.length-1){
+                    query+=",";
+                }
+            }
+            query+="]}}}";
+            Search search = new Search.Builder(query).addIndex(indexName).addType("patient").build();
 
+            // If searched, then return object, otherwise return null
+            try {
+                SearchResult searchResult = client.execute(search);
+                ArrayList<Patient> returns = new ArrayList<Patient>();
+                if(searchResult.isSucceeded()){
+                    Log.d("Succeed", "Not Empty");
+                    returns.addAll(searchResult.getSourceAsObjectList(Patient.class));
+                    return returns;
+                }
+                Log.d("Succeed", "Empty");
+            } catch (IOException e) {
+                Log.d("Succeed", "Failed!");
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 
     /**
      * Class used to find the user from the password and username
