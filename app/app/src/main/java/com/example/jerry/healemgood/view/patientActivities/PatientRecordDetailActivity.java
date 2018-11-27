@@ -64,6 +64,7 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int PLACE_PICKER_REQUEST = 2;
     static final int GET_BODY_LOCATION_REQUEST = 3;
+    static final int VIEW_PHOTO_REQUEST = 4;
 
 
     Record record;
@@ -160,6 +161,11 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
         photoButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                if (photoBitmapCollection.size() > AppConfig.PHOTO_LIMIT-1){
+                    Toast.makeText(PatientRecordDetailActivity.this, "You can take up to "+AppConfig.PHOTO_LIMIT+" photos",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 dispatchTakePictureIntent();
             }
         });
@@ -190,7 +196,10 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
      *
      */
     private void showLargePicture(int position){
-        return;
+        Intent intent = new Intent(getApplicationContext(),PatientViewPhotoActivity.class);
+        intent.putExtra(AppConfig.RID,record.getrId());
+        intent.putExtra("position",position);
+        startActivityForResult(intent,VIEW_PHOTO_REQUEST);
 
     }
 
@@ -241,6 +250,13 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
             String toastMsg = String.format("Place: %s", place.getName());
             Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
         }
+        else if (requestCode == VIEW_PHOTO_REQUEST && resultCode == AppConfig.DELETE){
+            int position = data.getIntExtra("position",0);
+            removePhotoById(position);
+            imageAdapter.removePhotoByIndex(position);
+            imageAdapter.notifyDataSetChanged();
+
+        }
     }
 
     /**
@@ -251,6 +267,10 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
     private void addPhoto(Bitmap imageBitmap){
         photoBitmapCollection.add(imageBitmap);
 
+    }
+
+    private void removePhotoById(int i){
+        photoBitmapCollection.remove(i);
     }
 
     /**

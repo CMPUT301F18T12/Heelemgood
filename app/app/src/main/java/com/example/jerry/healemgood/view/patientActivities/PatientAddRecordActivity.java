@@ -10,9 +10,13 @@
 
 package com.example.jerry.healemgood.view.patientActivities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +36,7 @@ import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.PatientRecord;
 import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
+import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.ImageAdapter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -104,6 +109,11 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         photoButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                if (photoBitmapCollection.size() > AppConfig.PHOTO_LIMIT-1){
+                    Toast.makeText(PatientAddRecordActivity.this, "You can take up to "+AppConfig.PHOTO_LIMIT+" photos",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 dispatchTakePictureIntent();
             }
         });
@@ -142,6 +152,10 @@ public class PatientAddRecordActivity extends AppCompatActivity {
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
+        }
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
@@ -213,7 +227,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         // make a new patient record
         PatientRecord patientRecord;
         try {
-            patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID), recordTitle);
+            patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID), SharedPreferenceUtil.get(this,AppConfig.USERID),recordTitle);
         } catch (LengthOutOfBoundException e) {
             Toast.makeText(this,"Your title is too long!",
                     Toast.LENGTH_SHORT).show();
