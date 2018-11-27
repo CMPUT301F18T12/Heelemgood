@@ -209,18 +209,21 @@ public class RecordController {
      * Modify the search query so it will search for records by bodyLocation
      * @param location
      */
-    public static void searchByBodyLocation(int location){
-        if (location>=0){
-            if(building==true){
-                searchQuery+=",";
-            }
-            searchQuery += "   {\"term\" : {\n" +
-                    "   \"bodyLocation\": \""+String.valueOf(location)+"\" \n"+
-                    "       }\n"+
-                    "   }\n";
-            building=true;
+    public static void searchByBodyLocation(String location){
+        if(building==true){
+            searchQuery+=",";
         }
+        searchQuery += "   {\"term\" : {\n" +
+                "   \"bodyLocation\": \""+location+"\" \n"+
+                "       }\n"+
+                "   }\n";
+        building=true;
     }
+
+    /**
+     * Modify the search query so it will search for records by ProblemIds
+     * @param piDs
+     */
     public static void searchByProblemIds(String ... piDs){
         if(building==true){
             searchQuery+=",";
@@ -237,6 +240,25 @@ public class RecordController {
         building=true;
     }
 
+    /**
+     * Modify the search query so it will search for records by patient ids
+     * @param patientIds
+     */
+    public static void searchByPatientIds(String ... patientIds){
+        if(building==true){
+            searchQuery+=",";
+        }
+        searchQuery +="        {\"terms\" :{ \"patientId\" : [";
+        for (int i =0;i<patientIds.length;i++){
+            searchQuery += "\""+patientIds[i].toLowerCase()+"\"";
+            if(i!=patientIds.length-1){
+                searchQuery+=",";
+            }
+        }
+        searchQuery+="]}\n"+
+                "    }\n";
+        building=true;
+    }
 
     /**
      *

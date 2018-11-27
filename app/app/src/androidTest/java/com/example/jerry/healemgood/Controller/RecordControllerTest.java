@@ -84,7 +84,7 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
                 } catch (Exception e) {
                 }
                 //Create Patient Record, you can also declare it as PatientRecord
-                Record r = new Record(p.getpId(), p.getTitle(), true);
+                Record r = new Record(p.getpId(),p.getUserId(), p.getTitle(), true);
                 try {
                     new RecordController.CreateRecordTask().execute(r).get();
                 } catch (Exception e) {
@@ -118,7 +118,7 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
                 new ProblemController.CreateProblemTask().execute(p).get();
             }catch(Exception e){        }
             //Create Patient Record, you can also declare it as PatientRecord
-            Record r = new Record(p.getpId(),p.getTitle(),true);
+            Record r = new Record(p.getpId(),p.getUserId(),p.getTitle(),true);
             try{
                 new RecordController.CreateRecordTask().execute(r).get();
             }catch (Exception e){}
@@ -148,19 +148,16 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
         new TestingTools.ResetRecordsTask().execute();
         String text = "cant get it working";
         System.out.println(text);
-        Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@", "ok");
+        Record r = null;
         try {
+            Problem p = new Problem(text, new Date(), "tyhiswoneridsddf_sd@", "ok");
             new ProblemController.CreateProblemTask().execute(p).get();
-        }catch(Exception e){        }
-        //Create Patient Record, you can also declare it as PatientRecord
-        Record r = new Record(p.getpId(),p.getTitle(),true);
-        try{
+            //Create Patient Record, you can also declare it as PatientRecord
+            r = new Record(p.getpId(),p.getUserId(), p.getTitle(), true);
             new RecordController.CreateRecordTask().execute(r).get();
-        }catch (Exception e){}
-        //Delete record
-        try{
+            //Delete record
             new RecordController.DeleteRecordTask().execute(r).get();
-        }catch(Exception e){}
+        }catch(Exception e){assertTrue(false);}
         //check if record still exist
         Record r2=null;
         try{
@@ -183,22 +180,25 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
         String pid = Long.toHexString(Double.doubleToLongBits(Math.random()));
         String pid2= Long.toHexString(Double.doubleToLongBits(Math.random()));
         String pid3= Long.toHexString(Double.doubleToLongBits(Math.random()));;
-        Record r = new PatientRecord(pid,"nervous and sweaty hand");
-        ((PatientRecord) r).setBodyLocation("3");
-        r.setGeoLocation(53.518047, -113.512086);
-        Record r2= new PatientRecord(pid,"I am nervous");
-        ((PatientRecord) r2).setBodyLocation("3");
-        r2.setGeoLocation(53.514267, -113.511946);
-        Record r3= new PatientRecord(pid2,"hand is sweaty");
-        ((PatientRecord) r3).setBodyLocation("2");
-        r3.setGeoLocation(53.510777, -113.511984);
-        Record r4= new PatientRecord(pid2,"back pain");
-        r4.setDescription("a little bit nervous as well");
-        ((PatientRecord) r4).setBodyLocation("1");
-        r4.setGeoLocation(53.507529, -113.512040);
-        Record r5= new Record(pid3,"Sofme title",false);
-        r5.setGeoLocation(53.504739, -113.512045);
-        try{
+        String patientId = Long.toHexString(Double.doubleToLongBits(Math.random()));
+        String patientId2 = Long.toHexString(Double.doubleToLongBits(Math.random()));
+        Record r,r2,r3,r4,r5;
+        try {
+            r = new PatientRecord(pid,patientId, "nervous and sweaty hand");
+            ((PatientRecord) r).setBodyLocation("3");
+            r.setGeoLocation(53.518047, -113.512086);
+            r2 = new PatientRecord(pid,patientId, "I am nervous");
+            ((PatientRecord) r2).setBodyLocation("3");
+            r2.setGeoLocation(53.514267, -113.511946);
+            r3 = new PatientRecord(pid2,patientId2, "hand is sweaty");
+            ((PatientRecord) r3).setBodyLocation("2");
+            r3.setGeoLocation(53.510777, -113.511984);
+            r4 = new PatientRecord(pid2,patientId2, "back pain");
+            r4.setDescription("a little bit nervous as well");
+            ((PatientRecord) r4).setBodyLocation("1");
+            r4.setGeoLocation(53.507529, -113.512040);
+            r5 = new Record(pid3,patientId,"Sofme title", false);
+            r5.setGeoLocation(53.504739, -113.512045);
             new RecordController.CreateRecordTask().execute(r).get();
             new RecordController.CreateRecordTask().execute(r2).get();
             new RecordController.CreateRecordTask().execute(r3).get();
@@ -212,48 +212,36 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
             TimeUnit.SECONDS.sleep(1);
         }catch(Exception e){assertTrue(false);}
         try{
-            RecordController.initSearchQuery();
             RecordController.searchByProblemIds(pid,pid2);
-            RecordController.finalizeSearchQuery();
             records= new RecordController.SearchRecordTask().execute().get();
         }catch (Exception e){ }
         assertEquals(records.size(),4);
         //search by bodylocation
         try{
-            RecordController.initSearchQuery();
-            RecordController.searchByBodyLocation(3);
-            RecordController.finalizeSearchQuery();
+            RecordController.searchByBodyLocation("3");
             records=new RecordController.SearchRecordTask().execute().get();
         }catch(Exception e){}
         assertEquals(records.size(),2);
         //search by keyword
         try{
-            RecordController.initSearchQuery();
             RecordController.searchByKeyword("nervous");
-            RecordController.finalizeSearchQuery();
             records=new RecordController.SearchRecordTask().execute().get();
         }catch(Exception e){}
         assertEquals(records.size(),3);
         try{
-            RecordController.initSearchQuery();
             RecordController.searchByKeyword("sweaty");
-            RecordController.finalizeSearchQuery();
             records=new RecordController.SearchRecordTask().execute().get();
         }catch(Exception e){}
         assertEquals(records.size(),2);
         //test by geolocation
         try{
-            RecordController.initSearchQuery();
             RecordController.searchByGeoLocation(new LatLng(53.518141, -113.512112),1);
-            RecordController.finalizeSearchQuery();
             records=new RecordController.SearchRecordTask().execute().get();
         }catch(Exception e){        }
 
         assertEquals(records.size(),3);
         try{
-            RecordController.initSearchQuery();
             RecordController.searchByGeoLocation(new LatLng(53.518141, -113.512112),2);
-            RecordController.finalizeSearchQuery();
             records=new RecordController.SearchRecordTask().execute().get();
         }catch(Exception e){        }
         assertEquals(records.size(),5);

@@ -83,9 +83,9 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             } catch (Exception e) {
 
             }
-            Problem p2 = null;
+            Problem p2=null;
             try {
-                p2 = new ProblemController.GetProblemByIdTask().execute(p.getpId()).get();
+                p2 = new ProblemController.GetProblemByIdsTask().execute(p.getpId()).get().get(0);
             } catch (Exception e) {
                 temp2 = false;
             }
@@ -119,7 +119,7 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             }
             Problem p2=null;
             try {
-                p2 = new ProblemController.GetProblemByIdTask().execute(p.getpId()).get();
+                p2 = new ProblemController.GetProblemByIdsTask().execute(p.getpId()).get().get(0);
             }catch(Exception e){
             }
             assertEquals(p2.getTitle(),title);
@@ -142,7 +142,7 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             //create record
             Record r=null;
             try{
-                r=  new PatientRecord(p.getpId(),"Record for deleteion  title");
+                r=  new PatientRecord(p.getpId(),p.getUserId(),"Record for deleteion  title");
                 new RecordController.CreateRecordTask().execute(r).get();
             }catch(Exception e){
             }
@@ -153,7 +153,7 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             //check if problem still in database
             Problem p2=null;
             try {
-                p2 = new ProblemController.GetProblemByIdTask().execute(p.getpId()).get();
+                p2 = new ProblemController.GetProblemByIdsTask().execute(p.getpId()).get().get(0);
             }catch(Exception e){ }
             assertNull(p2);
             //Need to test if records is deleted here
@@ -179,13 +179,12 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
         String userid = "sdsdsdsdsdvbu231AV";
         String userid2 = "WSfisthissadassddad";
         String userid3 = "sdgsdsdvbu231AV";
-
-        Problem p = new Problem("Stomach sick", new Date(), userid, "ok");
-        Problem p2 = new Problem("how are you sick", new Date(), userid, "ok");
-        Problem p3 = new Problem("My stomach hurt", new Date(), userid2, "ok");
-        Problem p4 = new Problem("hand hurt", new Date(), userid2, "ok");
-        Problem p5 = new Problem("my hand hurt", new Date(), userid3, "ok");
-        try {
+        try{
+            Problem p = new Problem("Stomach sick", new Date(), userid, "ok");
+            Problem p2 = new Problem("how are you sick", new Date(), userid, "ok");
+            Problem p3 = new Problem("My stomach hurt", new Date(), userid2, "ok");
+            Problem p4 = new Problem("hand hurt", new Date(), userid2, "ok");
+            Problem p5 = new Problem("my hand hurt", new Date(), userid3, "ok");
             new ProblemController.CreateProblemTask().execute(p).get();
             new ProblemController.CreateProblemTask().execute(p2).get();
             new ProblemController.CreateProblemTask().execute(p3).get();

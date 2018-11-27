@@ -29,8 +29,8 @@ public class CareProviderRecord extends Record {
      * @param pId
      * @param title
      */
-    public CareProviderRecord(String pId, String title) throws LengthOutOfBoundException {
-        super(pId, title, false);
+    public CareProviderRecord(String pId, String patientId, String title) throws LengthOutOfBoundException {
+        super(pId, patientId,title, false);
     }
 
 }

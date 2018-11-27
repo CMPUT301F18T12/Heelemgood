@@ -44,6 +44,10 @@ public class Record {
     private String rId;
     // pId is the problem ID this record belongs to
     private String pId;
+    /**
+     * The id of the patient who this record is for
+     */
+    private String patientId;
     //title of the record
     private String title;
     //descriptions in this record
@@ -67,8 +71,9 @@ public class Record {
      * @param title   title of the record
      * @param isPatientRecord   indicate whether or not this is patient record or doctor record
      */
-    public Record(String pid,String title, boolean isPatientRecord) throws LengthOutOfBoundException {
+    public Record(String pid,String patientId,String title, boolean isPatientRecord) throws LengthOutOfBoundException {
         this.pId = pid;
+        this.patientId = patientId;
         if (title.length() > 30) {throw new LengthOutOfBoundException();}
         this.title = title;
         this.createdDate = new Date();
