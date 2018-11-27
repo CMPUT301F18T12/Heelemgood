@@ -20,6 +20,7 @@
     <string name="user">User</string>
     <string name="home">Home</string>
     <string name="quick_view">Quick View</string>
+    <string name="generatecode">Generate Code</string>
     <string name="create_record">Create Record</string>
     <string name="Continue">Continue</string>
     <string name="body_map_to_click">click body map</string>
@@ -51,6 +52,10 @@
     <string name="user_email">email@website.ca</string>
     <string name="my_patients">My Patients</string>
     <string name="problem_title_add_comment">Hand Problem</string>
+    <string name="recent_patients">Recent Patients</string>
+    <string name="add_patients">Add Patients</string>
+    <string name="add_a_patient">Add A Patient</string>
+    <string name="send_request">Send Request</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -63,10 +68,14 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="scanQRcodemain">Your QR code</string>
+    <string name="scanQRCodeLogin">Sign in Using a QR code</string>
+    <string name="scannewQRCode">Scan a QR code</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="qrCode">Focus the Camera on the QR code</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -80,6 +89,17 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_patient_all_problem">PatientAllProblemActivity</string>
     <string name="edit_location">Edit Location</string>
+    <string name="title_activity_patient_scan_qrcode">PatientScanQRCode</string>
     <string name="map_mode">Map Mode</string>
     <string name="view_location">View Location</string>
+    <string name="add">Add</string>
+    <string name="body">Body</string>
+
+    <string-array name="search_array">
+        <item>Record</item>
+        <item>Problem</item>
+
+    </string-array>
+
+
 </resources>

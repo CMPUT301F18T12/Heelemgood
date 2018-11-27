@@ -16,18 +16,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="162dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.235"
+        app:layout_constraintStart_toEndOf="@+id/title"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
-        android:id="@+id/search"
+        android:id="@+id/searchText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/your_problem"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        android:autofillHints="" tools:targetApi="o" />
+        tools:targetApi="o" />
 
     <Button
         android:id="@+id/searchButton"
@@ -36,11 +49,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
         android:text="@string/search"
-        app:layout_constraintBottom_toBottomOf="@+id/search"
+        app:layout_constraintBottom_toBottomOf="@+id/searchText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toEndOf="@+id/search"
-        app:layout_constraintTop_toTopOf="@+id/search" />
+        app:layout_constraintStart_toEndOf="@+id/searchText"
+        app:layout_constraintTop_toTopOf="@+id/searchText" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -49,17 +62,17 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="32dp"
-        android:checkedButton="@+id/defaultRadioButton"
+        android:checkedButton="@+id/titleRadioButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search">
+        app:layout_constraintTop_toBottomOf="@+id/searchText">
 
         <RadioButton
-            android:id="@+id/defaultRadioButton"
+            android:id="@+id/titleRadioButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/Default"
+            android:text="@string/title"
             android:textSize="12sp" />
 
         <RadioButton

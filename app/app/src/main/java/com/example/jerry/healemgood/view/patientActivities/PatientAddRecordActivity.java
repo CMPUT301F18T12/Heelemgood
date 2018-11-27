@@ -10,9 +10,13 @@
 
 package com.example.jerry.healemgood.view.patientActivities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,10 +31,12 @@ import android.widget.Toast;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
+import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.PatientRecord;
 import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
+import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.ImageAdapter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -103,6 +109,11 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         photoButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                if (photoBitmapCollection.size() > AppConfig.PHOTO_LIMIT-1){
+                    Toast.makeText(PatientAddRecordActivity.this, "You can take up to "+AppConfig.PHOTO_LIMIT+" photos",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 dispatchTakePictureIntent();
             }
         });
@@ -112,7 +123,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 save();
-                finish();
+
             }
         });
 
@@ -141,6 +152,10 @@ public class PatientAddRecordActivity extends AppCompatActivity {
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
+        }
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
@@ -212,8 +227,10 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         // make a new patient record
         PatientRecord patientRecord;
         try {
-            patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID), recordTitle);
+            patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID), SharedPreferenceUtil.get(this,AppConfig.USERID),recordTitle);
         } catch (LengthOutOfBoundException e) {
+            Toast.makeText(this,"Your title is too long!",
+                    Toast.LENGTH_SHORT).show();
             return;
         }
         // set body location
@@ -226,6 +243,8 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         try {
             patientRecord.setDescription(descriptionString);
         } catch (LengthOutOfBoundException e) {
+            Toast.makeText(this,"Your description is too long!",
+                    Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -246,27 +265,37 @@ public class PatientAddRecordActivity extends AppCompatActivity {
             patientRecord.setGeoLocation(place.getLatLng().latitude,place.getLatLng().longitude);
         }
 
-
-        // load the problem by Pid
-        Problem problem;
+        // save the record
         try{
-            problem = new ProblemController.GetProblemByIdTask().execute(getIntent().getStringExtra(AppConfig.PID)).get();
+
+            new RecordController.CreateRecordTask().setContext(this).execute(patientRecord).get();
+
         }
         catch (Exception e){
-            problem = null;
-            Log.d("Error","Fail to get the problem by id");
+            Log.d("ERROR","Fail to create the record");
         }
 
-        problem.addRecord(patientRecord);
 
-
-        // update the problem
-        try{
-            new ProblemController.UpdateProblemTask().execute(problem).get();
-        }
-        catch (Exception e){
-            Log.d("Error","Fail to update problem");
-        }
+//        // load the problem by Pid
+//        Problem problem;
+//        try{
+//            problem = new ProblemController.GetProblemByIdsTask().execute(getIntent().getStringExtra(AppConfig.PID)).get().get(0);
+//        }
+//        catch (Exception e){
+//            problem = null;
+//            Log.d("Error","Fail to get the problem by id");
+//        }
+//
+////        problem.addRecord(patientRecord);
+//
+//
+//        // update the problem
+//        try{
+//            new ProblemController.UpdateProblemTask().execute(problem).get();
+//        }
+//        catch (Exception e){
+//            Log.d("Error","Fail to update problem");
+//        }
 
     }
 }

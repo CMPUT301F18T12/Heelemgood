@@ -36,8 +36,8 @@ public class Problem {
     //Id of the patient who created this problem
     private String userId;
 
-    //records
-    private ArrayList<Record> records;
+//    //records
+//    private ArrayList<Record> records;
 
     /**
      * This initializes a Problem
@@ -53,7 +53,7 @@ public class Problem {
         this.title = title;
         this.createdDate = date; // The createdDate of a problem should be the date of the first record
         this.userId =userId;
-        this.records = new ArrayList<Record>();
+//        this.records = new ArrayList<Record>();
         this.description = description;
     }
 
@@ -63,44 +63,44 @@ public class Problem {
      * @param record
      *
      */
-    public void addRecord(Record record){
-        records.add(record);
-    }
-
-    /**
-     * This return a single
-     *
-     * @param index
-     * @return Record
-     *
-     */
-    public Record getRecordByIndex(int index){
-        return records.get(index);
-    }
-
-    /**
-     * Return all records
-     *
-     *
-     * @return Records
-     *
-     */
-    public ArrayList<Record> getAllRecords(){
-        return records;
-    }
-
-
-    /**
-     * remove a record
-     *
-     *
-     * @param index
-     *
-     */
-    public void removeRecordByIndex(int index){
-        records.remove(index);
-    }
-
+//    public void addRecord(Record record){
+//        records.add(record);
+//    }
+//
+//    /**
+//     * This return a single
+//     *
+//     * @param index
+//     * @return Record
+//     *
+//     */
+//    public Record getRecordByIndex(int index){
+//        return records.get(index);
+//    }
+//
+//    /**
+//     * Return all records
+//     *
+//     *
+//     * @return Records
+//     *
+//     */
+//    public ArrayList<Record> getAllRecords(){
+//        return records;
+//    }
+//
+//
+//    /**
+//     * remove a record
+//     *
+//     *
+//     * @param index
+//     *
+//     */
+//    public void removeRecordByIndex(int index){
+//        records.remove(index);
+//    }
+//
     /**
      * Get and returns the description of the problem
      *
@@ -114,24 +114,27 @@ public class Problem {
      * set description
      *
      */
-    public void setDescription(String description){
+    public void setDescription(String description) throws LengthOutOfBoundException {
+        if (description.length() > 300) {
+            throw new LengthOutOfBoundException();
+        }
         this.description = description;
     }
 
 
 
-    /**
-     * Update the record by index
-     *
-     *
-     * @param index
-     *
-     */
-    public void updateRecordByIndex(int index,Record record){
-        records.set(index,record);
-    }
-
-
+//    /**
+//     * Update the record by index
+//     *
+//     *
+//     * @param index
+//     *
+//     */
+//    public void updateRecordByIndex(int index,Record record){
+//        records.set(index,record);
+//    }
+//
+//
 
 
 
@@ -162,7 +165,10 @@ public class Problem {
      *
      * @param title
      */
-    public void setTitle(String title) {
+    public void setTitle(String title) throws LengthOutOfBoundException {
+        if (title.length() > 30) {
+            throw new LengthOutOfBoundException();
+        }
         this.title = title;
     }
 
@@ -201,4 +207,6 @@ public class Problem {
     public String getUserId() {
         return userId;
     }
+    
+
 }

@@ -10,9 +10,13 @@
 
 package com.example.jerry.healemgood.controller;
 
+
 import android.app.Activity;
+
 import android.content.Context;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -62,15 +66,31 @@ public class ProblemController {
      * This function is for debug/testing purposes, return a problem given a problem id
      *
      */
-    public static class GetProblemByIdTask extends AsyncTask<String,Void,Problem>{
-        protected Problem doInBackground(String... ids) {
+
+    public static class GetProblemByIdsTask extends AsyncTask<String,Void,ArrayList<Problem>>{
+        protected ArrayList<Problem> doInBackground(String... ids) {
             setClient();
             String id = ids[0];
-            Get get = new Get.Builder(indexName, id).type("problem").build();
+            String query ="{ \n"+
+            "   \"query\": { \n"+
+            "     \"ids\" : { \n"+
+            "        \"values\" : [";
+            for (int i =0;i<ids.length;i++){
+                query += "\""+ids[i]+"\"";
+                if(i!=ids.length-1){
+                    query+=",";
+                }
+            }
+            query+="]}}}";
+            Search search = new Search.Builder(query).addIndex(indexName).addType("problem").build();
             try{
-                DocumentResult result = client.execute(get);
-                Problem p  = result.getSourceAsObject(Problem.class);
-                return p;
+                SearchResult result = client.execute(search);
+                if(result.isSucceeded()) {
+                    ArrayList<Problem> p = new ArrayList<>();
+                    List<Problem> resultList = result.getSourceAsObjectList(Problem.class);
+                    p.addAll(resultList);
+                    return p;
+                }
             }catch(IOException e){
                 Log.d("Joey Error"," IOexception when executing client");
             }
@@ -81,15 +101,15 @@ public class ProblemController {
      * Create a problem in the database and assigned a JestID/pId to it
      */
     public static class CreateProblemTask extends AsyncTask<Problem,Void,Void> {
+        private  AppCompatActivity context=null;
 
-        private AppCompatActivity a;
-
-        public CreateProblemTask(){
-
-        }
-
-        public CreateProblemTask(AppCompatActivity a){
-            this.a = a;
+        /**
+         * This constructor will take in a context. Note: this is needed if you want to have things
+         * @param c Application contest (not base context)
+        */
+        public CreateProblemTask setContext(AppCompatActivity c){
+            this.context =c;
+            return this;
         }
 
         protected Void doInBackground(Problem... problems) {
@@ -97,12 +117,23 @@ public class ProblemController {
             Problem problem = problems[0];
             Index index = new Index.Builder(problem).index(indexName).type("problem").build();
             try{
+                //wait until connection is avaliable
+                if(context!=null) {
+                    ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo activeNetworkInfo = connectivityManager
+                            .getActiveNetworkInfo();
+                    while (activeNetworkInfo == null || !activeNetworkInfo.isConnected()) {
+                        Thread.sleep(2000);
+                    }
+                }
                 DocumentResult result = client.execute(index);
                 if(result.isSucceeded()){
                     problem.setpId(result.getId());
                 }
             }catch(IOException e){
-                Log.d("Name-Jeff","IOexception when executing client");
+                Log.d("Name-Jeff"," IOexception when executing client");
+            }catch(Exception e){
+                Log.d("Name-Jeff","Not waiting for internet connection"+e.getMessage());
             }
             return null;
         }
@@ -110,7 +141,7 @@ public class ProblemController {
         @Override
         protected void onPostExecute(Void v){
             super.onPostExecute(v);
-            if (a!= null){
+            if (context != null){
                 try{
                     Thread.sleep(1000);
                 }
@@ -118,7 +149,7 @@ public class ProblemController {
 
                 }
 
-                a.finish();
+                context.finish();
             }
 
         }
@@ -141,16 +172,16 @@ public class ProblemController {
                     "         }\n"+
                     "}";
             Log.d("Name-Jeff",query);
-//            DeleteByQuery deleteRecord = new DeleteByQuery.Builder(query).addIndex(indexName).addType("record").build();
+            DeleteByQuery deleteRecord = new DeleteByQuery.Builder(query).addIndex(indexName).addType("record").build();
             try{
                 DocumentResult result = client.execute(delete);
-//                JestResult result2 = client.execute(deleteRecord);
+                JestResult result2 = client.execute(deleteRecord);
                 if(result.isSucceeded()){
                     Log.d("Name-Jeff","Problem removed");
                 }
-//                if(result2.isSucceeded()){
-//                    Log.d("Name-Jeff","Records removed");
-//                }
+                if(result2.isSucceeded()){
+                    Log.d("Name-Jeff","Records removed");
+                }
             }catch(IOException e){
                 Log.d("Joey Error"," IOexception when executing client");
             }
@@ -193,7 +224,7 @@ public class ProblemController {
 
     /**
      *
-     * Modify the search query so it will search for problems by keyword in title
+     * Modify the search query so it will search for problems by keyword in title and description
      * @param keyword
      */
     public static void searchByKeyword(String keyword){
@@ -203,7 +234,7 @@ public class ProblemController {
             }
             searchQuery += "   {\"multi_match\" : {\n" +
                     "   \"query\": \""+keyword+"\", \n"+
-                    "   \"fields\": [\"title\"] \n"+
+                    "   \"fields\": [\"title\",\"description\"] \n"+
                     "   }\n"+
                     " }\n";
         }
@@ -250,6 +281,7 @@ public class ProblemController {
             return null;
         }
     }
+
     /**
      * Create client
      */
@@ -261,5 +293,4 @@ public class ProblemController {
             client=(JestDroidClient)factory.getObject();
         }
     }
-
 }

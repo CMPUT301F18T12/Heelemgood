@@ -123,10 +123,9 @@ public class UserController {
 
     /**
      * Class used to find the user from the password and username
-     * Assume the positioning is username, then password
-     * Returns the user object if username and passwords match
+     * Assume the positioning is username
      */
-    public static class SearchUserTask extends AsyncTask<String, Void, User> {
+    public static class SearchPatientTask extends AsyncTask<String, Void, User> {
         @Override
         protected User doInBackground(String... userNames) {
             setClient();
@@ -147,14 +146,43 @@ public class UserController {
             try {
                 SearchResult searchResult = client.execute(search);
                 if(searchResult.isSucceeded() && searchResult.getSourceAsStringList().size()>0){
-
-                    JsonParser parser = new JsonParser();
-                    JsonObject jsonObject = parser.parse(searchResult.getSourceAsStringList().get(0)).getAsJsonObject();
-
-                    if(jsonObject.getClass().toString().equals("CareProvider")){
-                        return searchResult.getSourceAsObjectList(CareProvider.class).get(0);
-                    }
                     return searchResult.getSourceAsObjectList(Patient.class).get(0);
+                }
+                Log.d("Succeed", "Empty");
+            } catch (IOException e) {
+                Log.d("Succeed", "Failed!");
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+
+    /**
+     * Class used to find the user from the password and username
+     * Assume the positioning is username
+     */
+    public static class SearchCareProviderTask extends AsyncTask<String, Void, User> {
+        @Override
+        protected User doInBackground(String... userNames) {
+            setClient();
+            String userName = userNames[0];
+
+            // Build the search query
+            String query = "{\n" +
+                    "    \"query\": {\n" +
+                    "        \"query_string\" : {\n" +
+                    "            \"query\" : \"(userId:" + userName + ")\" \n" +
+                    "        }\n" +
+                    "    }\n" +
+                    "}";
+
+            Search search = new Search.Builder(query).addIndex(indexName).addType("careprovider").build();
+            // If searched, then return object, otherwise return null
+            try {
+                SearchResult searchResult = client.execute(search);
+                if(searchResult.isSucceeded() && searchResult.getSourceAsStringList().size()>0){
+                    return searchResult.getSourceAsObjectList(CareProvider.class).get(0);
                 }
                 Log.d("Succeed", "Empty");
             } catch (IOException e) {

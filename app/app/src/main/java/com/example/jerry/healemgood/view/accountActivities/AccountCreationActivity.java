@@ -141,8 +141,6 @@ public class AccountCreationActivity extends AppCompatActivity {
         lastName = findViewById(R.id.lastNameEditText);
         emailAddress = findViewById(R.id.emailEditText);
         phoneNumber = findViewById(R.id.phoneEditText);
-        password = findViewById(R.id.passwordEditText);
-        confirmationPassword = findViewById(R.id.confirmPasswordEditText);
         createButton = findViewById(R.id.createAccountButton);
         patientRadioButton = findViewById(R.id.patientRadioButton);
         careProviderRadioButton = findViewById(R.id.careProviderRadioButton);

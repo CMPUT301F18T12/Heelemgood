@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.UserController;
+import com.example.jerry.healemgood.model.user.Patient;
 import com.example.jerry.healemgood.model.user.User;
 
 /**
@@ -44,7 +45,8 @@ import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActi
  * @since 1.0
  */
 public class MainActivity extends AppCompatActivity {
-    private Button signInButton;
+    public Button signInButton;
+    public Button scanQRcodeButton;
     private EditText userNameEditText;
 
     /**
@@ -65,20 +67,37 @@ public class MainActivity extends AppCompatActivity {
 
                 userNameEditText = findViewById(R.id.userIdEditText);
                 try{
-                    User user = new UserController.SearchUserTask().execute(userNameEditText.getText().toString()).get();
-                    if (user.getUserId().equals(userNameEditText.getText().toString())){
+                    User patient = new UserController.SearchPatientTask().execute(userNameEditText.getText().toString()).get();
+                    try{
+                        if (!patient.equals(null)){
 
-                        //Store userid into shared preference
-                        SharedPreferenceUtil.store(MainActivity.this,AppConfig.USERID,user.getUserId());
-                        SharedPreferenceUtil.store(MainActivity.this,AppConfig.EMAIL,user.getEmail());
-                        SharedPreferenceUtil.store(MainActivity.this,AppConfig.BIRTHDAY,user.getBirthday().toString());
-                        SharedPreferenceUtil.store(MainActivity.this,AppConfig.NAME,user.getFullName());
-                        SharedPreferenceUtil.store(MainActivity.this,AppConfig.PHONE,user.getPhoneNum());
+                            //Store userid into shared preference
+                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.USERID,patient.getUserId());
+                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.EMAIL,patient.getEmail());
+                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.BIRTHDAY,patient.getBirthday().toString());
+                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.NAME,patient.getFullName());
+                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.PHONE,patient.getPhoneNum());
 
-                        Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
-                        startActivity(intent);
+                            // Go to the home page of the patient
+                            Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
+                            startActivity(intent);
+                        }
+                    }catch (Exception e){
+                        User careprovider = new UserController.SearchCareProviderTask().execute(userNameEditText.getText().toString()).get();
+                        if (careprovider.getUserId().equals(userNameEditText.getText().toString())) {
+                            //Store userid into shared preference
+                            SharedPreferenceUtil.store(MainActivity.this, AppConfig.USERID, careprovider.getUserId());
+                            SharedPreferenceUtil.store(MainActivity.this, AppConfig.EMAIL, careprovider.getEmail());
+                            SharedPreferenceUtil.store(MainActivity.this, AppConfig.BIRTHDAY, careprovider.getBirthday().toString());
+                            SharedPreferenceUtil.store(MainActivity.this, AppConfig.NAME, careprovider.getFullName());
+                            SharedPreferenceUtil.store(MainActivity.this, AppConfig.PHONE, careprovider.getPhoneNum());
+
+                            // Go to the home page of the care provider
+                            Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
+                            startActivity(intent);
+                        }
                     }
-                }catch (Exception e){ }
+                }catch (Exception e){}
             }
         });
     }
