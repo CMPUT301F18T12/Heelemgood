@@ -48,6 +48,11 @@ public class ImageAdapter extends BaseAdapter {
         photoBitmapCollections.add(imageBitmap);
     }
 
+
+    public void removePhotoByIndex(int i){
+        photoBitmapCollections.remove(i);
+    }
+
     /**
      * Gets size of image collection
      *

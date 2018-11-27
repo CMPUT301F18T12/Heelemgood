@@ -11,6 +11,7 @@ package com.example.jerry.healemgood.view.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
+import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
 
@@ -93,10 +95,20 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
             SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
             date.setText(sm.format(p.getCreatedDate()));
 
+            String pId = p.getpId();
             ArrayList<Record> records;
+            RecordController.searchByProblemIds(pId);
+            try{
+                records = new RecordController.SearchRecordTask().execute().get();
+            }
+            catch (Exception e){
+                Log.d("Error","Fail to load records");
+                records = new ArrayList<Record>();
+            }
 
 
-            recordCount.setText(p.getAllRecords().size()+"");
+
+            recordCount.setText(records.size()+"");
         }
 
 

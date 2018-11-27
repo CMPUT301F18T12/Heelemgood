@@ -111,7 +111,7 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
 
     private void loadProblem(){
         try{
-            problem = new ProblemController.GetProblemByIdTask().execute(pId).get();
+            problem = new ProblemController.GetProblemByIdsTask().execute(pId).get().get(0);
 
         }
         catch (Exception e){

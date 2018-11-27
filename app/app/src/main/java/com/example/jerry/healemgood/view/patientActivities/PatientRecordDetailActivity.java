@@ -9,31 +9,45 @@
  */
 package com.example.jerry.healemgood.view.patientActivities;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
+import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
+import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 import com.example.jerry.healemgood.view.adapter.ImageAdapter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
+
+import static com.example.jerry.healemgood.permisson.PermissionRequest.verifyPermission;
+import static java.security.AccessController.getContext;
 
 /**
  * Represents a PatientRecordDetailActivity
@@ -50,8 +64,9 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int PLACE_PICKER_REQUEST = 2;
     static final int GET_BODY_LOCATION_REQUEST = 3;
+    static final int VIEW_PHOTO_REQUEST = 4;
 
-    Problem problem;
+
     Record record;
 
     private Place place;
@@ -82,13 +97,13 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Toast.makeText(PatientRecordDetailActivity.this, "" + position,
-                        Toast.LENGTH_SHORT).show();
+               showLargePicture(position);
             }
         });
 
         Button saveButton = findViewById(R.id.saveButton);
         Button backButton = findViewById(R.id.backButton);
+        final Button bodyButton = findViewById(R.id.bodyButton);
         Button viewLocationButton = findViewById(R.id.viewLocationButton);
 
         ImageButton photoButton = findViewById(R.id.photoButton);
@@ -107,6 +122,17 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
                 }
 
 
+            }
+        });
+
+        bodyButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),BodyMapViewActivity.class);
+                float[] pos = record.getBodyLocationPercent();
+                BodyLocation bodyLocation = new BodyLocation(pos[0], pos[1]);
+                intent.putExtra(AppConfig.BODYLOCATION,bodyLocation);
+                startActivity(intent);
             }
         });
 
@@ -135,6 +161,11 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
         photoButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                if (photoBitmapCollection.size() > AppConfig.PHOTO_LIMIT-1){
+                    Toast.makeText(PatientRecordDetailActivity.this, "You can take up to "+AppConfig.PHOTO_LIMIT+" photos",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 dispatchTakePictureIntent();
             }
         });
@@ -159,6 +190,20 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
     }
 
     /**
+     * This function pop up a dialog showing a bigger picture
+     *
+     * @see  //https://developer.android.com/training/camera/photobasics
+     *
+     */
+    private void showLargePicture(int position){
+        Intent intent = new Intent(getApplicationContext(),PatientViewPhotoActivity.class);
+        intent.putExtra(AppConfig.RID,record.getrId());
+        intent.putExtra("position",position);
+        startActivityForResult(intent,VIEW_PHOTO_REQUEST);
+
+    }
+
+    /**
      * This function allows users to take a picture with their devices camera.
      *
      * @see  //https://developer.android.com/training/camera/photobasics
@@ -167,6 +212,10 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
+        }
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
@@ -201,6 +250,13 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
             String toastMsg = String.format("Place: %s", place.getName());
             Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
         }
+        else if (requestCode == VIEW_PHOTO_REQUEST && resultCode == AppConfig.DELETE){
+            int position = data.getIntExtra("position",0);
+            removePhotoById(position);
+            imageAdapter.removePhotoByIndex(position);
+            imageAdapter.notifyDataSetChanged();
+
+        }
     }
 
     /**
@@ -211,6 +267,10 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
     private void addPhoto(Bitmap imageBitmap){
         photoBitmapCollection.add(imageBitmap);
 
+    }
+
+    private void removePhotoById(int i){
+        photoBitmapCollection.remove(i);
     }
 
     /**
@@ -236,17 +296,15 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
      */
 
     private void loadRecord(){
-        String pId = getIntent().getStringExtra(AppConfig.PID);
-        int index = getIntent().getIntExtra(AppConfig.INDEX,0);
+        String rId = getIntent().getStringExtra(AppConfig.RID);
+
         try{
-            problem = new ProblemController.GetProblemByIdTask().execute(pId).get();
+            record = new RecordController.GetRecordByIdTask().execute(rId).get();
         }
         catch (Exception e){
             Log.d("ERROR","Fail to load the problem");
-            problem = null;
+            record = null;
         }
-
-        record = problem.getAllRecords().get(index);
 
 
     }
@@ -280,9 +338,9 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        problem.updateRecordByIndex(getIntent().getIntExtra(AppConfig.INDEX,0),record);
+
         try{
-            new ProblemController.UpdateProblemTask().execute(problem).get();
+            new RecordController.UpdateRecordTask().execute(record).get();
         }
         catch (Exception e){
             Log.d("Error","Fail to update the record");

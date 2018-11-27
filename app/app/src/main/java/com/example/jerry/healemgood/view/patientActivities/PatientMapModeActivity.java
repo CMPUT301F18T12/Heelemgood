@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
+import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
@@ -55,34 +56,25 @@ public class PatientMapModeActivity extends AppCompatActivity
             }
         }
 
-//        // get the geo location from the intent
-//        double[] geoLocation = getIntent().getDoubleArrayExtra("geoLocation");
-//        //get the title from the intent
-//        String title = getIntent().getStringExtra("title");
-//        LatLng sydney = new LatLng(geoLocation[1],geoLocation[0]);
-//        googleMap.addMarker(new MarkerOptions().position(sydney)
-//                .title(title));
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
     }
 
 
     // load all records from the elastic search
     private void loadAllRecords(){
 
-        ProblemController.searchByPatientIds(SharedPreferenceUtil.get(this,AppConfig.USERID));
+        RecordController.searchByPatientIds(SharedPreferenceUtil.get(this,AppConfig.USERID));
         try{
-            problems = new ProblemController.SearchProblemTask().execute().get();
+            records = new RecordController.SearchRecordTask().execute().get();
+            Log.d("=+++++++++++++",records.size()+"");
 
         }
         catch (Exception e){
 
             Log.d("Error","Fail to get the problems");
-            problems = new ArrayList<Problem>();
+            records = new ArrayList<Record>();
         }
 
-        for (Problem p:problems){
 
-            records.addAll(p.getAllRecords());
-        }
     }
 }
