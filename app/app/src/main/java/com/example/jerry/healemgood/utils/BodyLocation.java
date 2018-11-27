@@ -35,6 +35,10 @@ public class BodyLocation implements Serializable {
         this.x = x;
         this.y = y;
     }
+    public BodyLocation(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
 
     /**
      * Gets and returns the body part

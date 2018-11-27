@@ -93,6 +93,7 @@
     <string name="map_mode">Map Mode</string>
     <string name="view_location">View Location</string>
     <string name="add">Add</string>
+    <string name="body">Body</string>
 
     <string-array name="search_array">
         <item>Record</item>

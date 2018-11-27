@@ -38,6 +38,7 @@ import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
+import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 import com.example.jerry.healemgood.view.adapter.ImageAdapter;
 import com.google.android.gms.location.places.Place;
@@ -101,6 +102,7 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
         Button saveButton = findViewById(R.id.saveButton);
         Button backButton = findViewById(R.id.backButton);
+        final Button bodyButton = findViewById(R.id.bodyButton);
         Button viewLocationButton = findViewById(R.id.viewLocationButton);
 
         ImageButton photoButton = findViewById(R.id.photoButton);
@@ -119,6 +121,17 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
                 }
 
 
+            }
+        });
+
+        bodyButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),BodyMapViewActivity.class);
+                float[] pos = record.getBodyLocationPercent();
+                BodyLocation bodyLocation = new BodyLocation(pos[0], pos[1]);
+                intent.putExtra(AppConfig.BODYLOCATION,bodyLocation);
+                startActivity(intent);
             }
         });
 
