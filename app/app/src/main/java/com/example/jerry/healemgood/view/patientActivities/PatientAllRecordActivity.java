@@ -139,7 +139,7 @@ public class PatientAllRecordActivity extends AppCompatActivity {
             Log.d("Error","Fail to get the problem by id");
         }
 
-        records = problem.getAllRecords();
+        records = new ArrayList<Record>();
 
     }
 }
