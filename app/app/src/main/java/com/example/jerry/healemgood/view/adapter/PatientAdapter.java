@@ -55,9 +55,9 @@ public class PatientAdapter extends ArrayAdapter<Patient> {
     /**
      * Refreshes the adapter
      *
-     * @param records
+     * @param patients
      */
-    public void refreshAdapter(List<Record> records){
+    public void refreshAdapter(List<Patient> patients){
         this.patients.clear();
         this.patients.addAll(patients);
         notifyDataSetChanged();
