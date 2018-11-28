@@ -10,54 +10,46 @@ import android.widget.ListView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
+import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.controller.RecordController;
+import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
-import com.example.jerry.healemgood.view.adapter.RecordAdapter;
+import com.example.jerry.healemgood.view.adapter.ProblemAdapter;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
-public class PatientSearchRecordResultActivity extends AppCompatActivity {
+public class PatientSearchProblemResultActivity extends AppCompatActivity {
 
-    private ArrayList<Record> records;
-    private RecordAdapter recordAdapter;
+    private ArrayList<Problem> problems = new ArrayList<Problem>();
+    private ArrayList<Record> records = new ArrayList<Record>();
+    private ProblemAdapter problemAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        setTitle("Search Record");
+        setTitle("Search Problem");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_search_record_result);
-        loadRecords();
+        setContentView(R.layout.activity_patient_search_problem_result);
+        loadProblems();
 
         ListView listView = findViewById(R.id.listView);
-        recordAdapter = new RecordAdapter(this,R.layout.records_list_view_custom_layout,records);
-        listView.setAdapter(recordAdapter);
+        problemAdapter = new ProblemAdapter(this,R.layout.problems_list_view_custom_layout,problems);
+        listView.setAdapter(problemAdapter);
 
         // set the list view click listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showDetailRecord(position);
+                showDetainProblem(position);
             }
         });
     }
 
-    /**
-     * show Detail Record
-     *
-     * @param position int
-     */
 
-    private void showDetailRecord(int position){
-        Intent intent = new Intent(PatientSearchRecordResultActivity.this, PatientRecordDetailActivity.class);
-        intent.putExtra(AppConfig.RID,records.get(position).getrId());
-        startActivity(intent);
-    }
-
-
-
-    private void loadRecords(){
+    private void loadProblems(){
         Intent intent = getIntent();
         String query = intent.getStringExtra(AppConfig.QUERY);
         double[] geoLocation = intent.getDoubleArrayExtra(AppConfig.GEOLOCATION);
@@ -72,20 +64,15 @@ public class PatientSearchRecordResultActivity extends AppCompatActivity {
         else if (bodyLocation != null){
             searchByBodyLocation(bodyLocation);
         }
-
     }
 
-
     private void searchByKeyword(String query){
+        ProblemController.searchByKeyword(query);
         try{
-            RecordController.searchByPatientIds(SharedPreferenceUtil.get(this,AppConfig.USERID));
-            RecordController.searchByKeyword(query);
-            records = new RecordController.SearchRecordTask().execute().get();
-            System.out.println(records.size());
+            problems = new ProblemController.SearchProblemTask().execute().get();
         }
         catch (Exception e){
-            Log.d("Error","Fail to search by keyword");
-            records = new ArrayList<Record>();
+            Log.d("Error","Fail to search problems by keyword");
         }
     }
 
@@ -100,6 +87,8 @@ public class PatientSearchRecordResultActivity extends AppCompatActivity {
             Log.d("Error","Fail to search by geo location");
             records = new ArrayList<Record>();
         }
+        getPorblemsByPids();
+
     }
 
     private void searchByBodyLocation(String query){
@@ -112,5 +101,30 @@ public class PatientSearchRecordResultActivity extends AppCompatActivity {
             Log.d("Error","Fail to search by body location");
             records = new ArrayList<Record>();
         }
+
+        getPorblemsByPids();
+
+    }
+
+    private void getPorblemsByPids(){
+        Set<String> pIds = new HashSet<String>();
+        for (Record r: records){
+            pIds.add(r.getpId());
+        }
+
+        try{
+            problems = new ProblemController.GetProblemByIdsTask().execute(pIds.toArray(new String[pIds.size()])).get();
+        }
+        catch (Exception e){
+            Log.d("Error","Fail to get problems by pids");
+        }
+    }
+
+
+    private void showDetainProblem(int position){
+        Intent intent = new Intent(getApplicationContext(),PatientAllRecordActivity.class);
+        intent.putExtra(AppConfig.PID,problems.get(position).getpId());
+        startActivity(intent);
+
     }
 }

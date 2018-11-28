@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +41,12 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 public class PatientSearchActivity extends AppCompatActivity {
 
     static final int PLACE_PICKER_REQUEST = 2;
+    static final int SEARCH_BY_KEYWORD = 100;
+    static final int SEARCH_BY_GEOLOCATION = 200;
+    static final int SEARCH_BY_BODYLOCATION = 300;
+    private int SEARCH_OPTION = SEARCH_BY_KEYWORD;
+    Class NextActivity = PatientSearchRecordResultActivity.class;
+
 
     /**
      * Reloads an earlier version of the activity if possible
@@ -69,24 +76,53 @@ public class PatientSearchActivity extends AppCompatActivity {
                 switch(checkedId){
                     case R.id.keywordRadioButton:
                         // do operations specific to this selection
-
+                        SEARCH_OPTION = SEARCH_BY_KEYWORD;
                         break;
                     case R.id.geoRadioButton:
                         // do operations specific to this selection
+                        SEARCH_OPTION = SEARCH_BY_GEOLOCATION;
                         pickLocation();
                         break;
                     case R.id.bodyRadioButton:
                         // do operations specific to this selection
+                        SEARCH_OPTION = SEARCH_BY_BODYLOCATION;
                         break;
                 }
             }
         });
 
+        final String[] selections = getResources().getStringArray(R.array.search_array);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                int index = arg0.getSelectedItemPosition();
+                Toast.makeText(getBaseContext(),
+                        "You have selected: " + selections[index],
+                        Toast.LENGTH_SHORT).show();
+
+                if (selections[index].equals("Problem")){
+
+                    NextActivity = PatientSearchProblemResultActivity.class;
+                }
+                else{
+                    NextActivity = PatientSearchRecordResultActivity.class;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+
+        });
+
+
         Button searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PatientSearchRecordResultActivity.class);
+                Intent intent = new Intent(getApplicationContext(), NextActivity);
                 EditText searchText = findViewById(R.id.searchText);
                 String query = searchText.getText().toString();
 
@@ -97,7 +133,14 @@ public class PatientSearchActivity extends AppCompatActivity {
 
                     return;
                 }
-                intent.putExtra(AppConfig.QUERY,query);
+
+                if (SEARCH_OPTION == SEARCH_BY_KEYWORD){
+                    intent.putExtra(AppConfig.QUERY,query);
+                }
+                else if (SEARCH_OPTION == SEARCH_BY_BODYLOCATION){
+                    intent.putExtra(AppConfig.BODYLOCATION,query.toUpperCase());
+                }
+
                 startActivity(intent);
             }
         });
@@ -137,7 +180,7 @@ public class PatientSearchActivity extends AppCompatActivity {
             String toastMsg = String.format("Place: %s", place.getName());
             Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
 
-            Intent intent = new Intent(getApplicationContext(),PatientSearchRecordResultActivity.class);
+            Intent intent = new Intent(getApplicationContext(),NextActivity);
             double[] geoLocation = new double[2];
             geoLocation[0] = place.getLatLng().longitude;
             geoLocation[1] = place.getLatLng().latitude;
