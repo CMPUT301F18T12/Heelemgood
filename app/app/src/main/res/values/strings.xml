@@ -54,8 +54,9 @@
     <string name="problem_title_add_comment">Hand Problem</string>
     <string name="recent_patients">Recent Patients</string>
     <string name="add_patients">Add Patients</string>
-    <string name="add_a_patient">Add A Patient</string>
-    <string name="send_request">Send Request</string>
+    <string name="addPatient">Add Patients</string>
+    <string name="hint_message">write something here...</string>
+    <string name="sendRequest">Send Request</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -100,14 +101,6 @@
         <item>Problem</item>
 
     </string-array>
-    <string name="title_activity_care_provider_all_patient">CareProviderAllPatientActivity</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-
-    <string name="action_example">Example action</string>
-    <string name="qr_code">QR Code</string>
-    <string name="add_patient">Add Patient</string>
 
 
 </resources>
