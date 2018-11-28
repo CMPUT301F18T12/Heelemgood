@@ -10,7 +10,6 @@
 package com.example.jerry.healemgood.view.patientActivities;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,20 +22,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
-import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.controller.RecordController;
-import com.example.jerry.healemgood.model.problem.Problem;
+import com.example.jerry.healemgood.model.photo.Photo;
 import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
@@ -45,9 +41,6 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
-
-import static com.example.jerry.healemgood.permisson.PermissionRequest.verifyPermission;
-import static java.security.AccessController.getContext;
 
 /**
  * Represents a PatientRecordDetailActivity
@@ -71,7 +64,8 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
     private Place place;
     private ImageAdapter imageAdapter;
-    private ArrayList<Bitmap> photoBitmapCollection = new ArrayList<Bitmap>();
+    private ArrayList<Photo> photoCollection = new ArrayList<Photo>();
+
 
     /**
      * This function will load a previously used instance of the activity
@@ -161,7 +155,7 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
         photoButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                if (photoBitmapCollection.size() > AppConfig.PHOTO_LIMIT-1){
+                if (photoCollection.size() > AppConfig.PHOTO_LIMIT-1){
                     Toast.makeText(PatientRecordDetailActivity.this, "You can take up to "+AppConfig.PHOTO_LIMIT+" photos",
                             Toast.LENGTH_SHORT).show();
                     return;
@@ -190,15 +184,15 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
     }
 
     /**
-     * This function pop up a dialog showing a bigger picture
+     * This functio shows a bigger picture
      *
      * @see  //https://developer.android.com/training/camera/photobasics
      *
      */
     private void showLargePicture(int position){
         Intent intent = new Intent(getApplicationContext(),PatientViewPhotoActivity.class);
-        intent.putExtra(AppConfig.RID,record.getrId());
-        intent.putExtra("position",position);
+        intent.putExtra(AppConfig.BITMAP, photoCollection.get(position).getPhoto());
+        intent.putExtra(AppConfig.LABEL,photoCollection.get(position).getLabel());
         startActivityForResult(intent,VIEW_PHOTO_REQUEST);
 
     }
@@ -237,7 +231,7 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            addPhoto(imageBitmap);
+            getLabelInputAndAddPhoto(imageBitmap);
             imageAdapter.addPhoto(imageBitmap);
             imageAdapter.notifyDataSetChanged();
 
@@ -259,18 +253,51 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
         }
     }
 
+    private void getLabelInputAndAddPhoto(final Bitmap b){
+        //get the label
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter Label");
+        final EditText input = new EditText(this);
+
+        builder.setView(input);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String label = input.getText().toString();
+                addPhoto(b,label);
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+
+    }
+
     /**
      * Adds a photo bitmap to the gallery
      *
      * @param imageBitmap
      */
-    private void addPhoto(Bitmap imageBitmap){
-        photoBitmapCollection.add(imageBitmap);
+    private void addPhoto(Bitmap imageBitmap,String label){
+        int bytes = imageBitmap.getRowBytes();
+        if (bytes > 65536) {
+            Toast.makeText(this,"Your photo is too large (> 65536 bytes)",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        photoCollection.add(new Photo(imageBitmap,label));
 
     }
 
     private void removePhotoById(int i){
-        photoBitmapCollection.remove(i);
+        photoCollection.remove(i);
     }
 
     /**
@@ -284,9 +311,9 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
         titleInput.setText(record.getTitle());
         descriptionInput.setText(record.getDescription());
 
-        photoBitmapCollection = record.getPhotos();
-        for (Bitmap b:photoBitmapCollection){
-            imageAdapter.addPhoto(b);
+        photoCollection = record.getPhotos();
+        for (Photo p: photoCollection){
+            imageAdapter.addPhoto(p.getPhoto());
         }
         imageAdapter.notifyDataSetChanged();
     }
@@ -331,13 +358,9 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
 
         }
 
-        try {
-            record.setPhotos(photoBitmapCollection);
-        } catch (LengthOutOfBoundException e) {
-            Toast.makeText(this,"Your photo is too large (> 65536 bytes)",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
+
+        record.setPhotos(photoCollection);
+
 
         try{
             new RecordController.UpdateRecordTask().execute(record).get();

@@ -30,9 +30,13 @@ public class AppConfig {
     public static final String NAME = "name";
     public static final String BIRTHDAY = "birthday";
     public static final String PHONE = "phone";
-    public static final String BODYLOCATION = "bodyLocation";
     public static final String RID = "RID";
     public static final int DELETE = 100;
+    public static final String QUERY = "QUERY";
+    public static final String GEOLOCATION = "GEOLOCATION";
+    public static final String BODYLOCATION = "BODYLOCATION";
     public static final int PHOTO_LIMIT = 10;
+    public static final String BITMAP = "BITMAP";
+    public static final String LABEL = "LABEL";
 
 }

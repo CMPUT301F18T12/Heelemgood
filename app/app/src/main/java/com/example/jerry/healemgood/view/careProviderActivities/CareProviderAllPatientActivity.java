@@ -31,7 +31,9 @@ import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.controller.SwipeDetector;
+import com.example.jerry.healemgood.controller.UserController;
 import com.example.jerry.healemgood.model.problem.Problem;
+import com.example.jerry.healemgood.model.user.CareProvider;
 import com.example.jerry.healemgood.model.user.Patient;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.PatientAdapter;
@@ -43,6 +45,7 @@ import com.example.jerry.healemgood.view.patientActivities.PatientSearchActivity
 import com.example.jerry.healemgood.view.patientActivities.PatientUserActivity;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Represents a PatientAllProblemActivity
@@ -58,7 +61,6 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ArrayList<Patient> patients;
-    private ProblemAdapter problemAdapter;
     private PatientAdapter patientAdapter;
 
     /**
@@ -93,15 +95,16 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
 
 
         ListView mListView;
+        Button button = findViewById(R.id.addPatientButton);
 
         mListView = findViewById(R.id.careProviderPatientList);
 
         loadPatients();
 
 
-        problemAdapter = new ProblemAdapter(this,R.layout.problems_list_view_custom_layout,problems);
+        patientAdapter = new PatientAdapter(this,R.layout.patients_list_view_custom_layout,patients);
 
-        mListView.setAdapter(problemAdapter);
+        mListView.setAdapter(patientAdapter);
         final SwipeDetector swipeDetector = new SwipeDetector();
         mListView.setOnTouchListener(swipeDetector);
 
@@ -111,16 +114,23 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(swipeDetector.swipeDetected()) {
                     if(swipeDetector.getAction() == SwipeDetector.Action.LR){
-                        deleteProblem(position);
+                        deletePatient(position);
                     }
                 }
                 else{
-                    String pId = problems.get(position).getpId();
-                    Intent intent = new Intent(CareProviderAllPatientActivity.this,PatientAllRecordActivity.class);
-                    intent.putExtra(AppConfig.PID,pId);
-                    startActivity(intent);
+                    String uid = patients.get(position).getUserId();
+                    //Intent intent = new Intent(CareProviderAllPatientActivity.this,CareProviderAllPatientActivity.class);
+                    //intent.putExtra(AppConfig.USERID,uid);
+                    //startActivity(intent);
                 }
 
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addPatient("xiacijie");
             }
         });
 
@@ -135,8 +145,8 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
     protected void onResume(){
 
         super.onResume();
-        loadProblems();
-        problemAdapter.refreshAdapter(problems);
+        loadPatients();
+        patientAdapter.refreshAdapter(patients);
 
     }
 
@@ -146,19 +156,34 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
      */
 
     private void loadPatients(){
-        ProblemController.searchByPatientIds(SharedPreferenceUtil.get(this,AppConfig.USERID));
+        patients = new ArrayList<>();
         try{
-            problems = new ProblemController.SearchProblemTask().execute().get();
-
-
+            CareProvider careProvider = (CareProvider) new UserController.SearchCareProviderTask().execute(SharedPreferenceUtil.get(this,AppConfig.USERID)).get();
+            for (String p : careProvider.getPatientsUserIds()) {
+                Patient patient = (Patient) new UserController.SearchPatientTask().execute(p).get();
+                patients.add(patient);
+            }
+            Log.d("patients",patients.get(0).getUserId());
         }
         catch (Exception e){
-            Log.d("Error","Fail to get the problems");
-            problems = new ArrayList<Problem>();
+            Log.d("Error","Fail to get the patients");
+            e.printStackTrace();
+            patients = new ArrayList<Patient>();
         }
+    }
 
+    private void addPatient(String uid) {
+        try {
+            CareProvider careProvider = (CareProvider) new UserController.SearchCareProviderTask().execute(SharedPreferenceUtil.get(this,AppConfig.USERID)).get();
+            careProvider.addPatientUserId(uid);
+            Log.d("careprovider",careProvider.getUserId()+careProvider.getPatientsUserIds().toString());
+            new UserController.UpdateUserTask().execute(careProvider);
+            loadPatients();
+            patientAdapter.refreshAdapter(patients);
 
-
+        } catch (Exception e) {
+            Log.d("error","FAIL to get care provider");
+        }
     }
 
     /**
@@ -166,16 +191,18 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
      *
      */
 
-    private void deleteProblem(int i){
+    private void deletePatient(int i){
 
         try {
-            new ProblemController.DeleteProblemTask().execute(problems.get(i)).get();
-            problems.remove(i);
+            CareProvider careProvider = (CareProvider) new UserController.SearchCareProviderTask().execute(SharedPreferenceUtil.get(this,AppConfig.USERID)).get();
+            careProvider.removePatientUserId(patients.get(i).getUserId());
+            new UserController.UpdateUserTask().execute(careProvider);
+            patients.remove(i);
             // notify changes
-            problemAdapter.refreshAdapter(problems);
+            patientAdapter.refreshAdapter(patients);
         }
         catch (Exception e){
-            Log.d("ERROR","FAIL to delete problem");
+            Log.d("ERROR","FAIL to delete patient");
         }
 
     }

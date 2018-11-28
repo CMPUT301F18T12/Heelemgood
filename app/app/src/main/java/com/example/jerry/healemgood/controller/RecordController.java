@@ -214,7 +214,7 @@ public class RecordController {
             searchQuery+=",";
         }
         searchQuery += "   {\"term\" : {\n" +
-                "   \"bodyLocation\": \""+location+"\" \n"+
+                "   \"bodyLocation\": \""+location.toLowerCase()+"\" \n"+
                 "       }\n"+
                 "   }\n";
         building=true;

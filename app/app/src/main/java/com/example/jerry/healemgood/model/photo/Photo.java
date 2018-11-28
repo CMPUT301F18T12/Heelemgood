@@ -10,6 +10,14 @@
 
 package com.example.jerry.healemgood.model.photo;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
+import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
+
+import java.io.ByteArrayOutputStream;
+
 /**
  * Represents a photo
  *
@@ -20,83 +28,42 @@ package com.example.jerry.healemgood.model.photo;
 
 public class Photo {
 
-    private String path;
-    private int width;
-    private int height;
+    private String image;
+    private String label;
 
     /**
-     * This creates an instance of a Photo
+     * Add photo, then converting it into base64 format and add it to the photo
      *
-     * @param path
-     * @param width
-     * @param height
+     * See : https://stackoverflow.com/questions/4830711/how-to-convert-a-image-into-base64-string
+     *
      */
-
-    public Photo(String path, int width, int height){
-
-        this.path = path;
-        this.width = width;
-        this.height = height;
+    public Photo(Bitmap src,String label) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        src.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte [] b = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+        this.image = encodedImage;
+        this.label = label;
     }
 
     /**
-     * This gets the path of the photo (the photo's location)
+     *  Get photo collection
      *
-     * @return path
+     *  @See https://stackoverflow.com/questions/4837110/how-to-convert-a-base64-string-into-a-bitmap-image-to-show-it-in-a-imageview
+     *
+     * @return decodeByte
      */
-    public String getPath(){
-
-        return path;
+    public Bitmap getPhoto(){
+        byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        return decodedByte;
     }
 
     /**
-     * This sets the path of the photo
+     * get label
      *
-     * @param path
      */
-    public void setPath(String path){
-
-        this.path = path;
+    public String getLabel(){
+        return label;
     }
-
-    /**
-     * This finds the width of the photo
-     *
-     * @return width
-     */
-    public int getWidth(){
-
-        return width;
-    }
-
-    /**
-     * This sets the width of the photo
-     *
-     * @param width
-     */
-    public void setWidth(int width){
-
-        this.width = width;
-    }
-
-    /**
-     * This returns the height of the photo
-     *
-     * @return height
-     */
-    public int getHeight(){
-
-        return height;
-    }
-
-    /**
-     * This sets the height of the photo
-     *
-     * @param height
-     */
-    public void setHeight(int height){
-
-        this.height = height;
-    }
-
 }
