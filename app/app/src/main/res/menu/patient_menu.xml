@@ -8,6 +8,10 @@
         android:icon="@android:drawable/ic_menu_today"
         android:title="@string/home" />
     <item
+        android:id="@+id/navigation_qrcode"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="@string/qr_code" />
+    <item
         android:id="@+id/navigation_map"
         android:icon="@android:drawable/ic_menu_mapmode"
         android:title="@string/map_mode" />

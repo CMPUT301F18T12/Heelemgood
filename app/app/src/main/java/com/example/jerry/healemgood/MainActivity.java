@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.UserController;
-import com.example.jerry.healemgood.model.user.Patient;
 import com.example.jerry.healemgood.model.user.User;
 
 /**

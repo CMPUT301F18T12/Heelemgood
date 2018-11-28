@@ -100,6 +100,14 @@
         <item>Problem</item>
 
     </string-array>
+    <string name="title_activity_care_provider_all_patient">CareProviderAllPatientActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="action_example">Example action</string>
+    <string name="qr_code">QR Code</string>
+    <string name="add_patient">Add Patient</string>
 
 
 </resources>
