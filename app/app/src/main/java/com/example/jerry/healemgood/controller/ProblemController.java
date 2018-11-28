@@ -70,6 +70,7 @@ public class ProblemController {
     public static class GetProblemByIdsTask extends AsyncTask<String,Void,ArrayList<Problem>>{
         protected ArrayList<Problem> doInBackground(String... ids) {
             setClient();
+
             String query ="{ \n"+
             "   \"query\": { \n"+
             "     \"ids\" : { \n"+
