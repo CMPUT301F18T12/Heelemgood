@@ -58,6 +58,8 @@ public class PatientAddRecordActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int PLACE_PICKER_REQUEST = 2;
     static final int GET_BODY_LOCATION_REQUEST = 3;
+    static final int VIEW_PHOTO_REQUEST = 4;
+
     // for display the collection of photos
     private ImageAdapter imageAdapter;
     private ArrayList<Bitmap> photoBitmapCollection = new ArrayList<Bitmap>();
@@ -135,11 +137,23 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Toast.makeText(PatientAddRecordActivity.this, "" + position,
-                        Toast.LENGTH_SHORT).show();
+                showLargePicture(position);
             }
         });
 
+
+    }
+
+    /**
+     * This functio shows a bigger picture
+     *
+     * @see  //https://developer.android.com/training/camera/photobasics
+     *
+     */
+    private void showLargePicture(int position){
+        Intent intent = new Intent(getApplicationContext(),PatientViewPhotoActivity.class);
+        intent.putExtra(AppConfig.BITMAP,photoBitmapCollection.get(position));
+        startActivityForResult(intent,VIEW_PHOTO_REQUEST);
 
     }
 
@@ -193,6 +207,18 @@ public class PatientAddRecordActivity extends AppCompatActivity {
             String toastMsg = String.format("Place: %s", place.getName());
             Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
         }
+        else if (requestCode == VIEW_PHOTO_REQUEST && resultCode == AppConfig.DELETE){
+            int position = data.getIntExtra("position",0);
+            removePhotoById(position);
+            imageAdapter.removePhotoByIndex(position);
+            imageAdapter.notifyDataSetChanged();
+
+        }
+
+
+    }
+    private void removePhotoById(int i){
+        photoBitmapCollection.remove(i);
     }
 
     /**

@@ -190,15 +190,14 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
     }
 
     /**
-     * This function pop up a dialog showing a bigger picture
+     * This functio shows a bigger picture
      *
      * @see  //https://developer.android.com/training/camera/photobasics
      *
      */
     private void showLargePicture(int position){
         Intent intent = new Intent(getApplicationContext(),PatientViewPhotoActivity.class);
-        intent.putExtra(AppConfig.RID,record.getrId());
-        intent.putExtra("position",position);
+        intent.putExtra(AppConfig.BITMAP,photoBitmapCollection.get(position));
         startActivityForResult(intent,VIEW_PHOTO_REQUEST);
 
     }

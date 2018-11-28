@@ -36,5 +36,6 @@ public class AppConfig {
     public static final String GEOLOCATION = "GEOLOCATION";
     public static final String BODYLOCATION = "BODYLOCATION";
     public static final int PHOTO_LIMIT = 10;
+    public static final String BITMAP = "BITMAP";
 
 }
