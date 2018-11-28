@@ -38,5 +38,9 @@ public class AppConfig {
     public static final int PHOTO_LIMIT = 10;
     public static final String BITMAP = "BITMAP";
     public static final String LABEL = "LABEL";
+    public static final String ISPATIENT = "ISPATIENT";
+    public static final String DATE = "DATE";
+    public static final String TRUE = "TRUE";
+    public static final String FALSE = "FALSE";
 
 }

@@ -193,6 +193,7 @@ public class PatientRecordDetailActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(),PatientViewPhotoActivity.class);
         intent.putExtra(AppConfig.BITMAP, photoCollection.get(position).getPhoto());
         intent.putExtra(AppConfig.LABEL,photoCollection.get(position).getLabel());
+        intent.putExtra(AppConfig.DATE,photoCollection.get(position).getDate().toString());
         startActivityForResult(intent,VIEW_PHOTO_REQUEST);
 
     }

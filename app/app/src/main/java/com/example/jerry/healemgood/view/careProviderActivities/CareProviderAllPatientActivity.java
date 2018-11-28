@@ -11,14 +11,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.patientActivities.PatientMapModeActivity;
-import com.example.jerry.healemgood.view.patientActivities.PatientSearchActivity;
-import com.example.jerry.healemgood.view.patientActivities.PatientUserActivity;
+import com.example.jerry.healemgood.view.commonActivities.PatientSearchActivity;
+import com.example.jerry.healemgood.view.commonActivities.UserActivity;
 
 public class CareProviderAllPatientActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,7 +46,13 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
         TextView nav_email = (TextView)hView.findViewById(R.id.drawerEmail);
         nav_user.setText(SharedPreferenceUtil.get(this,AppConfig.USERID));
         nav_email.setText(SharedPreferenceUtil.get(this,AppConfig.EMAIL));
+
+
+
+
     }
+
+
 
 
     /**
@@ -109,11 +116,11 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
-        if (id == R.id.navigation_search) {
-            startActivity(new Intent(getApplicationContext(),PatientSearchActivity.class));
+        if (id == R.id.navigation_patients) {
+            startActivity(new Intent(getApplicationContext(),CareProviderAddPatientActivity.class));
 
         } else if (id == R.id.navigation_user) {
-            startActivity(new Intent(getApplicationContext(),PatientUserActivity.class));
+            startActivity(new Intent(getApplicationContext(),UserActivity.class));
         }
         else if (id == R.id.navigation_map){
             startActivity(new Intent(getApplicationContext(),PatientMapModeActivity.class));

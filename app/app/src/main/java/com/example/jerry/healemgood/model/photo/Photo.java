@@ -17,6 +17,7 @@ import android.util.Base64;
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Date;
 
 /**
  * Represents a photo
@@ -30,6 +31,7 @@ public class Photo {
 
     private String image;
     private String label;
+    private Date date;
 
     /**
      * Add photo, then converting it into base64 format and add it to the photo
@@ -44,6 +46,7 @@ public class Photo {
         String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
         this.image = encodedImage;
         this.label = label;
+        this.date = new Date();
     }
 
     /**
@@ -65,5 +68,9 @@ public class Photo {
      */
     public String getLabel(){
         return label;
+    }
+
+    public Date getDate(){
+        return date;
     }
 }

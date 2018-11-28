@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                             SharedPreferenceUtil.store(MainActivity.this,AppConfig.BIRTHDAY,patient.getBirthday().toString());
                             SharedPreferenceUtil.store(MainActivity.this,AppConfig.NAME,patient.getFullName());
                             SharedPreferenceUtil.store(MainActivity.this,AppConfig.PHONE,patient.getPhoneNum());
+                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.ISPATIENT,AppConfig.TRUE);
 
                             // Go to the home page of the patient
                             Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                             SharedPreferenceUtil.store(MainActivity.this, AppConfig.BIRTHDAY, careprovider.getBirthday().toString());
                             SharedPreferenceUtil.store(MainActivity.this, AppConfig.NAME, careprovider.getFullName());
                             SharedPreferenceUtil.store(MainActivity.this, AppConfig.PHONE, careprovider.getPhoneNum());
+                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.ISPATIENT,AppConfig.FALSE);
 
                             // Go to the home page of the care provider
                             Intent intent = new Intent(getApplicationContext(), CareProviderAllPatientActivity.class);
