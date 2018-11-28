@@ -34,6 +34,7 @@ import com.example.jerry.healemgood.model.user.User;
  * @since 1.0
  */
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
+import com.example.jerry.healemgood.view.careProviderActivities.CareProviderAllPatientActivity;
 import com.example.jerry.healemgood.view.patientActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
 
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                             SharedPreferenceUtil.store(MainActivity.this, AppConfig.PHONE, careprovider.getPhoneNum());
 
                             // Go to the home page of the care provider
-                            Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), CareProviderAllPatientActivity.class);
                             startActivity(intent);
                         }
                     }

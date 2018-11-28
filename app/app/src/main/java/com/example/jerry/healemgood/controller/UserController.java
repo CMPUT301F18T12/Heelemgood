@@ -179,7 +179,7 @@ public class UserController {
                 SearchResult searchResult = client.execute(search);
                 ArrayList<Patient> returns = new ArrayList<Patient>();
                 if(searchResult.isSucceeded()){
-                    Log.d("Succeed", "Not Empty");
+                    Log.d("Succeed", "Not Empty ?"+!returns.isEmpty());
                     returns.addAll(searchResult.getSourceAsObjectList(Patient.class));
                     return returns;
                 }
