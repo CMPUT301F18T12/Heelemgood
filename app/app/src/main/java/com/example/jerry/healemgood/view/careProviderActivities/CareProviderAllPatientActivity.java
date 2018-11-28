@@ -77,7 +77,6 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Patients");
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -99,10 +98,15 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
 
         mListView = findViewById(R.id.careProviderPatientList);
 
+        patients = new ArrayList<>();
+
+        patientAdapter = new PatientAdapter(this,R.layout.patients_list_view_custom_layout,patients);
+
+
         loadPatients();
 
 
-        patientAdapter = new PatientAdapter(this,R.layout.patients_list_view_custom_layout,patients);
+
 
         mListView.setAdapter(patientAdapter);
         final SwipeDetector swipeDetector = new SwipeDetector();
@@ -151,7 +155,7 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
     }
 
     /**
-     * load problems
+     * load patients
      *
      */
 
@@ -163,13 +167,13 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
                 Patient patient = (Patient) new UserController.SearchPatientTask().execute(p).get();
                 patients.add(patient);
             }
-            Log.d("patients",patients.get(0).getUserId());
         }
         catch (Exception e){
             Log.d("Error","Fail to get the patients");
             e.printStackTrace();
             patients = new ArrayList<Patient>();
         }
+        patientAdapter.refreshAdapter(patients);
     }
 
     private void addPatient(String uid) {
@@ -179,7 +183,6 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
             Log.d("careprovider",careProvider.getUserId()+careProvider.getPatientsUserIds().toString());
             new UserController.UpdateUserTask().execute(careProvider);
             loadPatients();
-            patientAdapter.refreshAdapter(patients);
 
         } catch (Exception e) {
             Log.d("error","FAIL to get care provider");
