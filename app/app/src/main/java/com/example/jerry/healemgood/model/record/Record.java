@@ -53,7 +53,7 @@ public class Record {
     //descriptions in this record
     private String description;
     /*photos attached to the record, store as String Base64*/
-    private ArrayList<String> photos;
+    private ArrayList<Photo> photos;
     /*The date when this record is created*/
     private Date createdDate;
     /* This is a boolean var to determine whether this record is a patient record or care provider record*/
@@ -126,21 +126,15 @@ public class Record {
     }
 
     /**
-     * Add photos to the list, then converting it into base64 format and add it to the photo list
+     * Add photos to the list
      *
-     * See : https://stackoverflow.com/questions/4830711/how-to-convert-a-image-into-base64-string
-     * @param src enter the Bitmap
+     *
+     * @param photo enter the Photo
      */
 
-    public void addPhoto(Bitmap src) throws LengthOutOfBoundException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        src.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte [] b = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-        if (b.length > 65536) {
-            throw new LengthOutOfBoundException();
-        }
-        photos.add(encodedImage);
+    public void addPhoto(Photo photo) {
+        photos.add(photo);
+
     }
 
     /**
@@ -150,28 +144,22 @@ public class Record {
      *
      */
 
-    public void setPhotos(ArrayList<Bitmap> photos) throws LengthOutOfBoundException {
-        this.photos = new ArrayList<String>();
-        for (Bitmap b : photos){
-            addPhoto(b);
+    public void setPhotos(ArrayList<Photo> photos) {
+        this.photos = new ArrayList<Photo>();
+        for (Photo p : photos){
+            addPhoto(p);
         }
     }
 
     /**
      *  Get photo collection
      *
-     *  @See https://stackoverflow.com/questions/4837110/how-to-convert-a-base64-string-into-a-bitmap-image-to-show-it-in-a-imageview
      *
      * @return photos
      */
 
-    public ArrayList<Bitmap> getPhotos() {
-        ArrayList<Bitmap> photos = new ArrayList<Bitmap>();
-        for (String imgString: this.photos){
-            byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            photos.add(decodedByte);
-        }
+    public ArrayList<Photo> getPhotos() {
+
         return photos;
     }
 
@@ -182,11 +170,8 @@ public class Record {
      * @return Bitmap of the photo
      */
 
-    public Bitmap getPhotoById(int index){
-        String imgString = this.photos.get(index);
-        byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        return decodedByte;
+    public Photo getPhotoById(int index){
+        return photos.get(index);
     }
 
 
