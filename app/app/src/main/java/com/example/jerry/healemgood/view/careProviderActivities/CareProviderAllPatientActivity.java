@@ -8,21 +8,34 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
+import com.example.jerry.healemgood.controller.UserController;
+import com.example.jerry.healemgood.model.user.CareProvider;
+import com.example.jerry.healemgood.model.user.Patient;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
+import com.example.jerry.healemgood.view.adapter.PatientAdapter;
 import com.example.jerry.healemgood.view.patientActivities.PatientMapModeActivity;
 import com.example.jerry.healemgood.view.commonActivities.PatientSearchActivity;
 import com.example.jerry.healemgood.view.commonActivities.UserActivity;
 
+import java.util.ArrayList;
+
 public class CareProviderAllPatientActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ArrayList<Patient> patients = new ArrayList<Patient>();
+    CareProvider careProvider = null;
+    private PatientAdapter patientAdapter =  null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +60,68 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
         nav_user.setText(SharedPreferenceUtil.get(this,AppConfig.USERID));
         nav_email.setText(SharedPreferenceUtil.get(this,AppConfig.EMAIL));
 
+        loadCareProvider();
+        loadPatients();
+
+        ListView listView = findViewById(R.id.patientListView);
+        patientAdapter = new PatientAdapter(getApplicationContext(),R.layout.patients_list_view_custom_layout,patients);
+        listView.setAdapter(patientAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showProblems(position);
+            }
+        });
 
 
+
+
+
+
+
+    }
+
+
+    private void showProblems(int position){
+        String userId = patients.get(position).getUserId();
+        Intent intent = new Intent(getApplicationContext(),CareProviderViewProblems.class);
+        intent.putExtra(AppConfig.USERID,userId);
+        startActivity(intent);
+    }
+
+    private void loadCareProvider(){
+
+        String userId = SharedPreferenceUtil.get(getApplicationContext(),AppConfig.USERID);
+        try{
+            careProvider = (CareProvider)new UserController.SearchCareProviderTask().execute(userId).get();
+        }
+        catch (Exception e){
+            Log.d("Error","Fail to get the care provider");
+        }
+    }
+
+    private void loadPatients(){
+        ArrayList<String> patientIdList = careProvider.getPatientsUserIds();
+        try{
+            patients = new UserController.GetPatientsByIdsTask().execute(patientIdList.toArray(new String[patientIdList.size()])).get();
+
+        }catch (Exception e){
+            Log.d("Error","Fail to load patient list");
+        }
+    }
+
+    /**
+     * refresh
+     *
+     */
+
+    @Override
+    protected void onResume(){
+
+        super.onResume();
+        loadPatients();
+        patientAdapter.refreshAdapter(patients);
 
     }
 

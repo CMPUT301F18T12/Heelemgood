@@ -16,7 +16,6 @@ import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.ProblemAdapter;
-import com.example.jerry.healemgood.view.patientActivities.PatientAllRecordActivity;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
@@ -123,7 +122,7 @@ public class PatientSearchProblemResultActivity extends AppCompatActivity {
 
 
     private void showDetainProblem(int position){
-        Intent intent = new Intent(getApplicationContext(),PatientAllRecordActivity.class);
+        Intent intent = new Intent(getApplicationContext(),AllRecordActivity.class);
         intent.putExtra(AppConfig.PID,problems.get(position).getpId());
         startActivity(intent);
 

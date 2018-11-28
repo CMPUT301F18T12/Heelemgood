@@ -1,4 +1,4 @@
-package com.example.jerry.healemgood.view.patientActivities;
+package com.example.jerry.healemgood.view.commonActivities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;

@@ -1,4 +1,4 @@
-package com.example.jerry.healemgood.view.patientActivities;
+package com.example.jerry.healemgood.view.commonActivities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

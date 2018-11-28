@@ -33,6 +33,7 @@ import com.example.jerry.healemgood.controller.SwipeDetector;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.ProblemAdapter;
+import com.example.jerry.healemgood.view.commonActivities.AllRecordActivity;
 import com.example.jerry.healemgood.view.commonActivities.PatientSearchActivity;
 import com.example.jerry.healemgood.view.commonActivities.UserActivity;
 
@@ -86,7 +87,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
         ListView mListView;
         Button createProblemButton;
 
-        mListView = findViewById(R.id.patientProblemListView);
+        mListView = findViewById(R.id.patientListView);
         createProblemButton = findViewById(R.id.createProblemButton);
 
         loadProblems();
@@ -118,7 +119,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
                 }
                 else{
                     String pId = problems.get(position).getpId();
-                    Intent intent = new Intent(PatientAllProblemActivity.this,PatientAllRecordActivity.class);
+                    Intent intent = new Intent(PatientAllProblemActivity.this,AllRecordActivity.class);
                     intent.putExtra(AppConfig.PID,pId);
                     startActivity(intent);
                 }
