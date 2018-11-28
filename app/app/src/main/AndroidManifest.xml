@@ -41,8 +41,6 @@
         <activity android:name=".view.patientActivities.PatientSearchActivity" />
         <activity android:name=".view.accountActivities.AccountCreationActivity" />
         <activity android:name=".view.patientActivities.AccountCreationActivity" />
-        <activity android:name=".view.patientActivities.PatientViewRequestActivity" />
-        <activity android:name=".view.adapter.RequestsAdapter" />
         <activity android:name=".view.patientActivities.PatientAddProblemActivity" />
         <activity android:name=".view.patientActivities.PatientAllRecordActivity" />
         <activity android:name=".view.patientActivities.PatientRecordDetailActivity" />
