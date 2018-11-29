@@ -36,6 +36,7 @@ import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.UserViews.UserGenerateQRCode;
 import com.example.jerry.healemgood.view.adapter.ProblemAdapter;
 import com.example.jerry.healemgood.view.commonActivities.AllRecordActivity;
+import com.example.jerry.healemgood.view.commonActivities.BodyMapModeActivity;
 import com.example.jerry.healemgood.view.commonActivities.SearchActivity;
 import com.example.jerry.healemgood.view.commonActivities.UserActivity;
 
@@ -262,20 +263,23 @@ public class PatientAllProblemActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
-        if (id == R.id.navigation_search) {
-            startActivity(new Intent(getApplicationContext(),SearchActivity.class));
-
-        } else if (id == R.id.navigation_user) {
-            startActivity(new Intent(getApplicationContext(),UserActivity.class));
+        switch (id) {
+            case R.id.navigation_search:
+                startActivity(new Intent(getApplicationContext(),SearchActivity.class));
+                break;
+            case R.id.navigation_user:
+                startActivity(new Intent(getApplicationContext(),UserActivity.class));
+                break;
+            case R.id.navigation_map:
+                startActivity(new Intent(getApplicationContext(),PatientMapModeActivity.class));
+                break;
+            case R.id.navigation_body:
+                startActivity(new Intent(getApplicationContext(),BodyMapModeActivity.class));
+                break;
+            case R.id.navigation_qrcode:  // Generate a QR code
+                startActivity(new Intent(getApplicationContext(),UserGenerateQRCode.class));
+                break;
         }
-        else if (id == R.id.navigation_map){
-            startActivity(new Intent(getApplicationContext(),PatientMapModeActivity.class));
-        }
-        // Generate a QR code
-        else if (id == R.id.navigation_qrcode){
-            startActivity(new Intent(getApplicationContext(),UserGenerateQRCode.class));
-        }
-
 
         return true;
     }

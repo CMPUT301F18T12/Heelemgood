@@ -51,11 +51,13 @@ import java.util.ArrayList;
 
 
 public class BodyMapModeActivity extends AppCompatActivity{
-    private float lastTouchX;  // position x
-    private float lastTouchY;  // position y
+    private float lastTouchX;
+    private float lastTouchY;
+    private ArrayList<Float> posX = new ArrayList<>();  // position x
+    private ArrayList<Float> posY = new ArrayList<>();  // position y
     private BodyColor bodyColor = new BodyColor();  // color under the hood
     //private String bodyString;
-    private BodyLocation body;
+    //private BodyLocation body;
     private ArrayList<Record> records;
 
     /**
@@ -89,15 +91,10 @@ public class BodyMapModeActivity extends AppCompatActivity{
     private void displayDots() {
         for (Record record : records) {
             float[] pos = record.getBodyLocationPercent();
-            lastTouchX = pos[0];
-            lastTouchY = pos[1];
-            drawDot();
+            posX.add(pos[0]);
+            posY.add(pos[1]);
         }
-        if (body != null) {
-            lastTouchX = body.getX();
-            lastTouchY = body.getY();
-            drawDot();
-        }
+        drawDots();
     }
 
     // This is a listener that deals with clicking on the body part map
@@ -128,7 +125,7 @@ public class BodyMapModeActivity extends AppCompatActivity{
                 lastTouchX = (e.getX()) / rect.width();
                 lastTouchY = (e.getY()) / rect.height();
 
-                body = new BodyLocation(bodyColor.getBodyPart(colorId), lastTouchX, lastTouchY);
+                // body = new BodyLocation(bodyColor.getBodyPart(colorId), lastTouchX, lastTouchY);
 
                 Log.d("x:", ""+lastTouchX);
                 Log.d("y:", ""+lastTouchY);
@@ -138,7 +135,6 @@ public class BodyMapModeActivity extends AppCompatActivity{
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
 
-                //drawDot();
 
                 return true;
             }
@@ -189,7 +185,7 @@ public class BodyMapModeActivity extends AppCompatActivity{
      * This draw the dot at the target position
      */
 
-    public void drawDot() {
+    public void drawDots() {
         ImageView imageView = findViewById (R.id.bodyMap);
         // Convert drawable to bitmap
         Drawable drawable = getResources().getDrawable(R.drawable.body_map);
@@ -203,7 +199,9 @@ public class BodyMapModeActivity extends AppCompatActivity{
         canvas.drawBitmap(bitmap,0,0,null);
 
         // Draw dots
-        canvas.drawCircle(lastTouchX * bitmap.getWidth(), lastTouchY * bitmap.getHeight(), 20, paint);
+        for (int i=0; i<posX.size(); i++) {
+            canvas.drawCircle(posX.get(i) * bitmap.getWidth(), posY.get(i) * bitmap.getHeight(), 15, paint);
+        }
         // Draw canvas to imageView
 
         imageView.setImageDrawable(new BitmapDrawable(getResources(), newbitmap));

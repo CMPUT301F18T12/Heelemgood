@@ -109,5 +109,6 @@
     <string name="qr_code">QR Code</string>
     <string name="add_patient">Add Patient</string>
     <string name="detail">Detail</string>
+    <string name="body_map">Body Map</string>
 
 </resources>
