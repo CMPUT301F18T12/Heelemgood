@@ -26,7 +26,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
@@ -37,7 +36,7 @@ import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.UserViews.UserGenerateQRCode;
 import com.example.jerry.healemgood.view.adapter.ProblemAdapter;
 import com.example.jerry.healemgood.view.commonActivities.AllRecordActivity;
-import com.example.jerry.healemgood.view.commonActivities.PatientSearchActivity;
+import com.example.jerry.healemgood.view.commonActivities.SearchActivity;
 import com.example.jerry.healemgood.view.commonActivities.UserActivity;
 
 import java.util.ArrayList;
@@ -264,7 +263,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
 
         if (id == R.id.navigation_search) {
-            startActivity(new Intent(getApplicationContext(),PatientSearchActivity.class));
+            startActivity(new Intent(getApplicationContext(),SearchActivity.class));
 
         } else if (id == R.id.navigation_user) {
             startActivity(new Intent(getApplicationContext(),UserActivity.class));

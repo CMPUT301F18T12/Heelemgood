@@ -15,19 +15,23 @@ import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.utils.BodyLocation;
+import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 
 import org.w3c.dom.Text;
 
-public class PatientViewPhotoActivity extends AppCompatActivity {
+public class ViewPhotoActivity extends AppCompatActivity {
 
 //    private Record record;
+
+    private Button deleteButton;
+    private Button backButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_view_photo);
 
-        Button deleteButton = findViewById(R.id.deleteButton);
-        Button backButton = findViewById(R.id.backButton);
+        deleteButton = findViewById(R.id.deleteButton);
+        backButton = findViewById(R.id.backButton);
 
         deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -63,8 +67,20 @@ public class PatientViewPhotoActivity extends AppCompatActivity {
         TextView dateText = findViewById(R.id.dateTextView);
         dateText.setText(getIntent().getStringExtra(AppConfig.DATE));
 
+        differentiateUserType();
 
 
+
+    }
+
+    /**
+     * hide the layout based on user type
+     */
+    private void differentiateUserType(){
+        if (SharedPreferenceUtil.get(this,AppConfig.ISPATIENT).equals(AppConfig.FALSE)){
+            deleteButton.setVisibility(View.GONE);
+            backButton.setVisibility(View.GONE);
+        }
     }
 
 

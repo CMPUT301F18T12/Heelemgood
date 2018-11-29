@@ -34,7 +34,7 @@ import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.utils.BodyColor;
 import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.BodyPart;
-import com.example.jerry.healemgood.view.commonActivities.PatientAddRecordActivity;
+import com.example.jerry.healemgood.view.commonActivities.AddRecordActivity;
 
 /**
  * Represents a BodyMapSelectionActivity
@@ -79,7 +79,7 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
             public void onClick(View v){
                 // Make sure that user has selected a body location
                 if (body != null && IsCreate){
-                    Intent intent = new Intent(BodyMapSelectionActivity.this,PatientAddRecordActivity.class);
+                    Intent intent = new Intent(BodyMapSelectionActivity.this,AddRecordActivity.class);
                     intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
                     intent.putExtra(AppConfig.BODYLOCATION, body);
                     startActivity(intent);

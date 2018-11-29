@@ -37,14 +37,14 @@ import com.google.android.gms.location.places.ui.PlacePicker;
  * @since 1.0
  */
 
-public class PatientSearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     static final int PLACE_PICKER_REQUEST = 2;
     static final int SEARCH_BY_KEYWORD = 100;
     static final int SEARCH_BY_GEOLOCATION = 200;
     static final int SEARCH_BY_BODYLOCATION = 300;
     private int SEARCH_OPTION = SEARCH_BY_KEYWORD;
-    Class NextActivity = PatientSearchRecordResultActivity.class;
+    Class NextActivity = SearchRecordResultActivity.class;
 
 
     /**
@@ -103,10 +103,10 @@ public class PatientSearchActivity extends AppCompatActivity {
 
                 if (selections[index].equals("Problem")){
 
-                    NextActivity = PatientSearchProblemResultActivity.class;
+                    NextActivity = SearchProblemResultActivity.class;
                 }
                 else{
-                    NextActivity = PatientSearchRecordResultActivity.class;
+                    NextActivity = SearchRecordResultActivity.class;
                 }
             }
 
@@ -137,6 +137,10 @@ public class PatientSearchActivity extends AppCompatActivity {
                     intent.putExtra(AppConfig.QUERY,query);
                 }
                 else if (SEARCH_OPTION == SEARCH_BY_BODYLOCATION){
+                    String[] parts = query.split(" ");
+                    if (parts.length > 1){
+                        query = parts[0] + "_" + parts[1];
+                    }
                     intent.putExtra(AppConfig.BODYLOCATION,query.toUpperCase());
                 }
 
@@ -152,7 +156,7 @@ public class PatientSearchActivity extends AppCompatActivity {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
         try{
-            startActivityForResult(builder.build(PatientSearchActivity.this), PLACE_PICKER_REQUEST);
+            startActivityForResult(builder.build(SearchActivity.this), PLACE_PICKER_REQUEST);
         }
         catch (Exception e){
             Log.d("Error","Place Picker Error");

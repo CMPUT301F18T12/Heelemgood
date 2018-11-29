@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PatientSearchProblemResultActivity extends AppCompatActivity {
+public class SearchProblemResultActivity extends AppCompatActivity {
 
     private ArrayList<Problem> problems = new ArrayList<Problem>();
     private ArrayList<Record> records = new ArrayList<Record>();

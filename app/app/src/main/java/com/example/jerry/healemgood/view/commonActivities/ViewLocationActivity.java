@@ -11,7 +11,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class PatientViewLocationActivity extends AppCompatActivity
+public class ViewLocationActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 
 

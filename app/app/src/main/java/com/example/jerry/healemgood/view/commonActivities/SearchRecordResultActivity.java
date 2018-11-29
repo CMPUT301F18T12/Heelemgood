@@ -18,7 +18,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
-public class PatientSearchRecordResultActivity extends AppCompatActivity {
+public class SearchRecordResultActivity extends AppCompatActivity {
 
     private ArrayList<Record> records;
     private RecordAdapter recordAdapter;
@@ -50,7 +50,7 @@ public class PatientSearchRecordResultActivity extends AppCompatActivity {
      */
 
     private void showDetailRecord(int position){
-        Intent intent = new Intent(PatientSearchRecordResultActivity.this, PatientRecordDetailActivity.class);
+        Intent intent = new Intent(SearchRecordResultActivity.this, RecordDetailActivity.class);
         intent.putExtra(AppConfig.RID,records.get(position).getrId());
         startActivity(intent);
     }

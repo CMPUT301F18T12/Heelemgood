@@ -23,6 +23,7 @@ import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.utils.NetworkUtil;
+import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.RecordAdapter;
 import com.example.jerry.healemgood.view.patientActivities.BodyMapSelectionActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientProblemDetailActivity;
@@ -43,6 +44,9 @@ public class AllRecordActivity extends AppCompatActivity {
 
     private RecordAdapter recordAdapter;
     private ArrayList<Record> records;
+    private Button createRecordButton;
+    private Button detailButton;
+    private Button slideShowButton;
 
     /**
      * Handles loading an older version of the activity
@@ -56,18 +60,25 @@ public class AllRecordActivity extends AppCompatActivity {
         setContentView(R.layout.patient_all_record);
         setTitle("Record");
 
-        Button createRecordButton = findViewById(R.id.createRecordButton);
+        createRecordButton = findViewById(R.id.createRecordButton);
 
         createRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), BodyMapSelectionActivity.class);
+                Intent intent;
+                if (SharedPreferenceUtil.get(getApplicationContext(),AppConfig.ISPATIENT).equals(AppConfig.TRUE)){
+                     intent = new Intent(getApplicationContext(), BodyMapSelectionActivity.class);
+                }
+                else{
+                     intent = new Intent(getApplicationContext(),AddRecordActivity.class);
+                }
+
                 intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
                 startActivity(intent);
             }
         });
 
-        Button detailButton = findViewById(R.id.detailButton);
+        detailButton = findViewById(R.id.detailButton);
         detailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +88,7 @@ public class AllRecordActivity extends AppCompatActivity {
             }
         });
 
-        Button slideShowButton = findViewById(R.id.slideShowButton);
+        slideShowButton = findViewById(R.id.slideShowButton);
         slideShowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +114,19 @@ public class AllRecordActivity extends AppCompatActivity {
                 showDetailRecord(position);
             }
         });
+
+        differentiateUserType();
+    }
+
+    /**
+     * hide the layout based on user type
+     */
+    private void differentiateUserType(){
+        if (SharedPreferenceUtil.get(this,AppConfig.ISPATIENT).equals(AppConfig.FALSE)){
+            detailButton.setVisibility(View.GONE);
+            slideShowButton.setVisibility(View.GONE);
+            createRecordButton.setText("Add Comment");
+        }
     }
 
     /**
@@ -129,7 +153,7 @@ public class AllRecordActivity extends AppCompatActivity {
      */
 
     private void showDetailRecord(int position){
-        Intent intent = new Intent(AllRecordActivity.this, PatientRecordDetailActivity.class);
+        Intent intent = new Intent(AllRecordActivity.this, RecordDetailActivity.class);
         intent.putExtra(AppConfig.RID,records.get(position).getrId());
         startActivity(intent);
     }

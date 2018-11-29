@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.commonActivities.PatientSearchRecordResultActivity">
+    tools:context=".view.commonActivities.SearchRecordResultActivity">
 
     <ListView
         android:id="@+id/listView"
