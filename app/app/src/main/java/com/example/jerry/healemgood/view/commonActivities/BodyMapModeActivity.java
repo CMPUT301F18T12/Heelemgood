@@ -8,10 +8,9 @@
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
 
-package com.example.jerry.healemgood.view.patientActivities;
+package com.example.jerry.healemgood.view.commonActivities;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -36,8 +35,8 @@ import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.BodyPart;
 
 /**
- * Represents a BodyMapViewActivity
- * This activity handles everything relating to selecting a body part on the map for use in records/problems
+ * Represents a BodyMapModeActivity
+ * This activity shows all the body parts of a patient on a body map
  *
  * @author TianqiCS
  * @version 1.0
@@ -46,14 +45,12 @@ import com.example.jerry.healemgood.utils.BodyPart;
  */
 
 
-public class BodyMapViewActivity extends AppCompatActivity{
+public class BodyMapModeActivity extends AppCompatActivity{
     private float lastTouchX;  // position x
     private float lastTouchY;  // position y
     private BodyColor bodyColor = new BodyColor();  // color under the hood
     //private String bodyString;
     private BodyLocation body;
-
-    static boolean IsCreate = false;
 
     /**
      * This function will load a previously used instance of the activity
@@ -85,9 +82,6 @@ public class BodyMapViewActivity extends AppCompatActivity{
             lastTouchX = body.getX();
             lastTouchY = body.getY();
             drawDot();
-        }
-        else {
-            IsCreate = true;
         }
     }
 
@@ -192,8 +186,6 @@ public class BodyMapViewActivity extends AppCompatActivity{
         paint.setColor(Color.RED);
         //Draw the bitmap into canvas
         canvas.drawBitmap(bitmap,0,0,null);
-
-        // position is valid save it into variables
 
         // Draw dots
         canvas.drawCircle(lastTouchX * bitmap.getWidth(), lastTouchY * bitmap.getHeight(), 20, paint);

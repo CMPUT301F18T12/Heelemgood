@@ -31,7 +31,7 @@
         </activity>
         <activity android:name=".view.commonActivities.UserActivity" />
         <activity android:name=".view.patientActivities.BodyMapSelectionActivity" />
-        <activity android:name=".view.patientActivities.BodyMapViewActivity" />
+        <activity android:name=".view.commonActivities.BodyMapViewActivity" />
         <activity android:name=".view.commonActivities.PatientAddRecordActivity" />
 
         <meta-data

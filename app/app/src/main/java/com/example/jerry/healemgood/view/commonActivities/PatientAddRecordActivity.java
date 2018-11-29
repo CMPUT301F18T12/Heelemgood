@@ -39,8 +39,6 @@ import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.ImageAdapter;
-import com.example.jerry.healemgood.view.patientActivities.BodyMapSelectionActivity;
-import com.example.jerry.healemgood.view.patientActivities.BodyMapViewActivity;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
