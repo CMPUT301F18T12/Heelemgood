@@ -8,31 +8,49 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
-// Image Slider - Android Studio Tutorial from https://www.youtube.com/watch?v=Q2FPDI99-as by Coding in Flow on Nov 28 2018
+
+/**
+ * This is the adapter for displaying slide show
+ * Image Slider - Android Studio Tutorial referred from https://www.youtube.com/watch?v=Q2FPDI99-as by Coding in Flow on Nov 28 2018
+ * @version 1.0
+ * @since 1.0
+ * @author Tianqi
+ * @see PagerAdapter
+ */
 public class SlideShowAdapter extends PagerAdapter {
     private Context mContext;
-    private ArrayList<Bitmap> photoBitmapCollections = new ArrayList<Bitmap>();
+    private ArrayList<Bitmap> photoBitmapCollections = new ArrayList<Bitmap>();  // the data set we are dealing with
 
+    /**
+     * setup the context
+     * @param mContext
+     */
     public SlideShowAdapter(Context mContext) {
         this.mContext = mContext;
     }
-
-
 
     @Override
     public int getCount() {
         return photoBitmapCollections.size();
     }
 
-    public void addPhoto(Bitmap imageBitmap){
-        photoBitmapCollections.add(imageBitmap);
-    }
-
+    /**
+     * To tell if the view is belong to this adapter
+     * @param view
+     * @param object
+     * @return
+     */
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
     }
 
+    /**
+     * Used to generate the image view
+     * @param container
+     * @param position
+     * @return
+     */
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imageView = new ImageView(mContext);
@@ -43,8 +61,22 @@ public class SlideShowAdapter extends PagerAdapter {
 
     }
 
+    /**
+     * Used to remove the item in the view
+     * @param container
+     * @param position
+     * @param object
+     */
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((ImageView) object);
+    }
+
+    /**
+     * Add a bitmap photo to the data set
+     * @param imageBitmap
+     */
+    public void addPhoto(Bitmap imageBitmap){
+        photoBitmapCollections.add(imageBitmap);
     }
 }

@@ -4,7 +4,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ViewParent;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
@@ -17,45 +16,43 @@ import java.util.ArrayList;
 
 public class SlideShowActivity extends AppCompatActivity {
 
-    private ArrayList<Record> records;
-    private SlideShowAdapter adapter;
+    private SlideShowAdapter adapter;  // the adapter using for the slide show
 
+    /**
+     * On create nothing special
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slide_show);
 
-
-
-        ViewPager viewPager = findViewById(R.id.viewPager);
+        ViewPager viewPager = findViewById(R.id.viewPager);  // the ViewPager for displaying slide show
         adapter = new SlideShowAdapter(this);
         viewPager.setAdapter(adapter);
 
-        loadImages();
+        loadImages();  // load the images and put in the slide show
     }
 
     /**
-     * load the images by Pid
-     *
+     * load the bitmaps (images) by Pid (Problem id)
      */
-
     private void loadImages(){
-
         RecordController.searchByProblemIds(getIntent().getStringExtra(AppConfig.PID));
+        ArrayList<Record> records;
         try{
             records = new RecordController.SearchRecordTask().execute().get();
         }
         catch (Exception e){
-            records = new ArrayList<Record>();
+            records = new ArrayList<>();
             Log.d("Error","Fail to get the problem by id");
         }
 
-        for (Record record : records) {
-            for (Photo photo : record.getPhotos()) {
-                  adapter.addPhoto(photo.getPhoto());
+        for (Record record : records) {  // get a single record from records
+            for (Photo photo : record.getPhotos()) {  // get a photo from all the photo objects
+                  adapter.addPhoto(photo.getPhoto());  // get the bitmap and add it to the data set
             }
         }
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();  // refresh the page
 
     }
 }
