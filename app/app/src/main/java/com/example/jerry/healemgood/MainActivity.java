@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.config.AppConfig;
+import com.example.jerry.healemgood.controller.OfflineTools;
 import com.example.jerry.healemgood.controller.UserController;
 import com.example.jerry.healemgood.model.user.User;
 
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.onCreateAccount();
+        //set the activity context for offlineTools that will be used by all controllers
+        OfflineTools.setContext(getApplicationContext());
 
         signInButton = findViewById(R.id.signInButton);
         signInButton.setOnClickListener(new View.OnClickListener() {

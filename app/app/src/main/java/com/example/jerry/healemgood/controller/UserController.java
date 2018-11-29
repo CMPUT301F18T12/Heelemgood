@@ -70,6 +70,8 @@ public class UserController {
                     .build();*/
             Index index = new Index.Builder(users[0]).index(indexName).type(type.toLowerCase()).id(users[0].getUserId()).build();
             try {
+                //wait until connection is avaliable
+                OfflineTools.waitForConnection();
                 DocumentResult result = client.execute(index);
                 if (result.isSucceeded()) {
                     users[0].setUserId(result.getId());
@@ -112,6 +114,8 @@ public class UserController {
 
             // If searched, then return object, otherwise return null
             try {
+                //wait until connection is avaliable
+                OfflineTools.waitForConnection();
                 client.execute(deleteByQuery);
             } catch (IOException e) {
                 Log.d("Succeed", "Failed!");
@@ -242,6 +246,8 @@ public class UserController {
             String className = users[0].getClass().getSimpleName();
             Index index = new Index.Builder(user).index(indexName).type(className.toLowerCase()).id(user.getUserId()).build();
             try{
+                //wait until connection is avaliable
+                OfflineTools.waitForConnection();
                 DocumentResult result = client.execute(index);
             }catch(IOException e){
                 Log.d("Name-Jeff"," IOexception when updating the problem");

@@ -108,8 +108,7 @@ public class PatientAddProblemActivity extends AppCompatActivity {
 
         try {
 
-
-            new ProblemController.CreateProblemTask().setContext(this).execute(problem).get();
+            new ProblemController.CreateProblemTask().execute(problem).get();
 
         } catch (Exception e) {
             Log.d("Error", "Fail to create problem");
