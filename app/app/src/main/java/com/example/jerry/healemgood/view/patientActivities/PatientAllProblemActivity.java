@@ -32,6 +32,7 @@ import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.controller.SwipeDetector;
 import com.example.jerry.healemgood.model.problem.Problem;
+import com.example.jerry.healemgood.utils.NetworkUtil;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.UserViews.UserGenerateQRCode;
 import com.example.jerry.healemgood.view.adapter.ProblemAdapter;
@@ -147,8 +148,11 @@ public class PatientAllProblemActivity extends AppCompatActivity
     protected void onResume(){
 
         super.onResume();
-        loadProblems();
-        problemAdapter.refreshAdapter(problems);
+        if (NetworkUtil.isNetworkAvailable(this)){
+            loadProblems();
+            problemAdapter.refreshAdapter(problems);
+        }
+
 
     }
 

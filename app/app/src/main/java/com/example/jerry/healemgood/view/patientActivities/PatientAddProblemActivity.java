@@ -63,6 +63,12 @@ public class PatientAddProblemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveProblem();
+                try{
+                    Thread.sleep(1000);
+                }
+                catch (Exception e){}
+
+                finish();
 
 
             }
@@ -108,7 +114,7 @@ public class PatientAddProblemActivity extends AppCompatActivity {
 
         try {
 
-            new ProblemController.CreateProblemTask().execute(problem).get();
+            new ProblemController.CreateProblemTask().execute(problem);
 
         } catch (Exception e) {
             Log.d("Error", "Fail to create problem");

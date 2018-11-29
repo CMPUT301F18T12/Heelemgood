@@ -39,6 +39,8 @@ import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.ImageAdapter;
+import com.example.jerry.healemgood.view.patientActivities.BodyMapSelectionActivity;
+//import com.example.jerry.healemgood.view.patientActivities.BodyMapViewActivity;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
@@ -127,6 +129,13 @@ public class PatientAddRecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 save();
+                try{
+                    Thread.sleep(1000);
+                }
+                catch (Exception e){
+
+                }
+                finish();
 
             }
         });
@@ -316,7 +325,8 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         // save the record
         try{
 
-            new RecordController.CreateRecordTask().execute(patientRecord).get();
+            new RecordController.CreateRecordTask().execute(patientRecord);
+
 
         }
         catch (Exception e){

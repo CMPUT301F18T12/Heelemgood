@@ -22,6 +22,7 @@ import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.record.Record;
+import com.example.jerry.healemgood.utils.NetworkUtil;
 import com.example.jerry.healemgood.view.adapter.RecordAdapter;
 import com.example.jerry.healemgood.view.patientActivities.BodyMapSelectionActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientProblemDetailActivity;
@@ -113,8 +114,11 @@ public class AllRecordActivity extends AppCompatActivity {
     protected void onResume(){
 
         super.onResume();
-        loadRecords();
-        recordAdapter.refreshAdapter(records);
+        if (NetworkUtil.isNetworkAvailable(this)){
+            loadRecords();
+            recordAdapter.refreshAdapter(records);
+        }
+
 
     }
 
