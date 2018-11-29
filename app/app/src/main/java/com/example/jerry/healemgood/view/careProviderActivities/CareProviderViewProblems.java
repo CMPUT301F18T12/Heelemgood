@@ -6,14 +6,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.model.problem.Problem;
+import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.ProblemAdapter;
 import com.example.jerry.healemgood.view.commonActivities.AllRecordActivity;
+import com.example.jerry.healemgood.view.commonActivities.BodyMapModeActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
 
 import java.util.ArrayList;
@@ -35,6 +38,8 @@ public class CareProviderViewProblems extends AppCompatActivity {
         loadProblems();
 
         ListView listView = findViewById(R.id.listView);
+        Button button = findViewById(R.id.bodyMapButton);
+
         problemAdapter = new ProblemAdapter(this,R.layout.problems_list_view_custom_layout,problems);
 
         listView.setAdapter(problemAdapter);
@@ -49,6 +54,17 @@ public class CareProviderViewProblems extends AppCompatActivity {
 
             }
         });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),BodyMapModeActivity.class);
+                intent.putExtra("uid", userId);
+                startActivity(intent);
+            }
+        });
+
+
 
     }
 
