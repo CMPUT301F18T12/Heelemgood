@@ -8,7 +8,7 @@
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
 
-package com.example.jerry.healemgood.view.patientActivities;
+package com.example.jerry.healemgood.view.commonActivities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -36,7 +36,7 @@ import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
  * @since 1.0
  */
 
-public class PatientUserActivity extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity {
 
     /**
      * Reloads an earlier version of the activity if possible
@@ -72,7 +72,7 @@ public class PatientUserActivity extends AppCompatActivity {
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(PatientUserActivity.this,MainActivity.class));
+                startActivity(new Intent(UserActivity.this,MainActivity.class));
             }
         });
 
@@ -100,10 +100,30 @@ public class PatientUserActivity extends AppCompatActivity {
      */
 
     private void save(){
-        User user;
+        User user = null;
+        // if it is a patient
+        if (SharedPreferenceUtil.get(getApplicationContext(),AppConfig.ISPATIENT).equals(AppConfig.TRUE)){
+            try{
+                user = new UserController.SearchPatientTask().execute(userIdText.getText().toString()).get();
+            }
+            catch (Exception e){
+                Log.d("ERROR","Fail to get the patient");
+            }
+
+        }
+        else{
+            try{
+                user = new UserController.SearchCareProviderTask().execute(userIdText.getText().toString()).get();
+            }
+            catch (Exception e){
+                Log.d("ERROR","Fail to get the patient");
+            }
+        }
+
+        // update the info
         try{
             // Access the user object, and change the object's parameters to what was inputted
-            user = new UserController.SearchPatientTask().execute(userIdText.getText().toString()).get();
+
             user.setEmail(emailInput.getText().toString());
             user.setPhoneNum(phoneInput.getText().toString());
             new UserController.UpdateUserTask().execute(user);

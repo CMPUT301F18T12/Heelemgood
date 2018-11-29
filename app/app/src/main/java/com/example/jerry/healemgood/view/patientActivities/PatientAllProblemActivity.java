@@ -11,8 +11,6 @@ package com.example.jerry.healemgood.view.patientActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -35,6 +33,9 @@ import com.example.jerry.healemgood.controller.SwipeDetector;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.ProblemAdapter;
+import com.example.jerry.healemgood.view.commonActivities.AllRecordActivity;
+import com.example.jerry.healemgood.view.commonActivities.PatientSearchActivity;
+import com.example.jerry.healemgood.view.commonActivities.UserActivity;
 
 import java.util.ArrayList;
 
@@ -86,7 +87,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
         ListView mListView;
         Button createProblemButton;
 
-        mListView = findViewById(R.id.patientProblemListView);
+        mListView = findViewById(R.id.patientListView);
         createProblemButton = findViewById(R.id.createProblemButton);
 
         loadProblems();
@@ -118,7 +119,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
                 }
                 else{
                     String pId = problems.get(position).getpId();
-                    Intent intent = new Intent(PatientAllProblemActivity.this,PatientAllRecordActivity.class);
+                    Intent intent = new Intent(PatientAllProblemActivity.this,AllRecordActivity.class);
                     intent.putExtra(AppConfig.PID,pId);
                     startActivity(intent);
                 }
@@ -248,7 +249,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
             startActivity(new Intent(getApplicationContext(),PatientSearchActivity.class));
 
         } else if (id == R.id.navigation_user) {
-            startActivity(new Intent(getApplicationContext(),PatientUserActivity.class));
+            startActivity(new Intent(getApplicationContext(),UserActivity.class));
         }
         else if (id == R.id.navigation_map){
             startActivity(new Intent(getApplicationContext(),PatientMapModeActivity.class));

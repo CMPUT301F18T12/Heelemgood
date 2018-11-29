@@ -1,4 +1,4 @@
-package com.example.jerry.healemgood.view.patientActivities;
+package com.example.jerry.healemgood.view.commonActivities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -59,6 +59,9 @@ public class PatientViewPhotoActivity extends AppCompatActivity {
 
         TextView labelText = findViewById(R.id.labelTextView);
         labelText.setText(getIntent().getStringExtra(AppConfig.LABEL));
+
+        TextView dateText = findViewById(R.id.dateTextView);
+        dateText.setText(getIntent().getStringExtra(AppConfig.DATE));
 
 
 

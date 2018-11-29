@@ -1,4 +1,4 @@
-package com.example.jerry.healemgood.view.patientActivities;
+package com.example.jerry.healemgood.view.commonActivities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -122,7 +122,7 @@ public class PatientSearchProblemResultActivity extends AppCompatActivity {
 
 
     private void showDetainProblem(int position){
-        Intent intent = new Intent(getApplicationContext(),PatientAllRecordActivity.class);
+        Intent intent = new Intent(getApplicationContext(),AllRecordActivity.class);
         intent.putExtra(AppConfig.PID,problems.get(position).getpId());
         startActivity(intent);
 

@@ -9,7 +9,7 @@ import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.view.patientActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
-import com.example.jerry.healemgood.view.patientActivities.PatientUserActivity;
+import com.example.jerry.healemgood.view.commonActivities.UserActivity;
 import com.robotium.solo.Solo;
 
 /**
@@ -20,7 +20,7 @@ import com.robotium.solo.Solo;
  * @see ActivityInstrumentationTestCase2
  * @see AccountCreationActivity
  * @see MainActivity
- * @see PatientUserActivity
+ * @see UserActivity
  * @since 1.0
  */
 

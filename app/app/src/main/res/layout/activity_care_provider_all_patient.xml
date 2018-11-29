@@ -13,28 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/createProblemButton"
-            android:layout_width="158dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="84dp"
-            android:text="@string/create_problem"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.396"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/patientListView"
-            app:layout_constraintVertical_bias="0.0" />
-
         <ListView
             android:id="@+id/patientListView"
             android:layout_width="395dp"
-            android:layout_height="367dp"
+            android:layout_height="460dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="88dp"
+            android:layout_marginTop="76dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.481"
@@ -57,6 +41,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_patient_all_problem"
-        app:menu="@menu/patient_menu" />
-
+        app:menu="@menu/care_provider_menu" />
+ca
 </android.support.v4.widget.DrawerLayout>

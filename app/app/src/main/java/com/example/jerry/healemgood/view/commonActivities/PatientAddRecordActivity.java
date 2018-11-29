@@ -8,7 +8,7 @@
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
 
-package com.example.jerry.healemgood.view.patientActivities;
+package com.example.jerry.healemgood.view.commonActivities;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -21,7 +21,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,6 +39,7 @@ import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.ImageAdapter;
+import com.example.jerry.healemgood.view.patientActivities.BodyMapSelectionActivity;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
@@ -157,6 +157,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(),PatientViewPhotoActivity.class);
         intent.putExtra(AppConfig.BITMAP, photoCollection.get(position).getPhoto());
         intent.putExtra(AppConfig.LABEL,photoCollection.get(position).getLabel());
+        intent.putExtra(AppConfig.DATE,photoCollection.get(position).getDate().toString());
         startActivityForResult(intent,VIEW_PHOTO_REQUEST);
 
     }
