@@ -14,7 +14,7 @@ import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.view.patientActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAddProblemActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
-import com.example.jerry.healemgood.view.patientActivities.PatientAllRecordActivity;
+import com.example.jerry.healemgood.view.commonActivities.AllRecordActivity;
 import com.robotium.solo.Solo;
 // Source: https://www.youtube.com/watch?v=T_8euppCz3k Accessed 2018-11-18
 
@@ -26,7 +26,7 @@ import com.robotium.solo.Solo;
  * @version 1.0
  * @see ActivityInstrumentationTestCase2
  * @see PatientAddProblemActivity
- * @see PatientAllRecordActivity
+ * @see AllRecordActivity
  * @see PatientAllProblemActivity
  * @since 1.0
  */
@@ -135,10 +135,10 @@ public class Problem_Record_ActivityTest extends ActivityInstrumentationTestCase
         solo.assertCurrentActivity("Check on login", PatientAllProblemActivity.class);
 
         // Click on a problem, assuming there exists one
-        ListView ListView=(ListView)solo.getView(R.id.patientProblemListView);
+        ListView ListView=(ListView)solo.getView(R.id.patientListView);
         View problemOne = ListView.getChildAt(0);
         solo.clickOnView(problemOne);
-        solo.assertCurrentActivity("Check on Record", PatientAllRecordActivity.class);
+        solo.assertCurrentActivity("Check on Record", AllRecordActivity.class);
 
         // Create a new record
         Button createRecord = (Button) solo.getView(R.id.createRecordButton);

@@ -34,6 +34,7 @@ import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.utils.BodyColor;
 import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.BodyPart;
+import com.example.jerry.healemgood.view.commonActivities.PatientAddRecordActivity;
 
 /**
  * Represents a BodyMapSelectionActivity
@@ -53,7 +54,7 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
     //private String bodyString;
     private BodyLocation body;
 
-    static boolean IsCreate = false;
+    private boolean IsCreate = false;
 
     /**
      * This function will load a previously used instance of the activity

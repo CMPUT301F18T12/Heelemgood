@@ -81,18 +81,14 @@ public class RecordController {
      */
     public static class CreateRecordTask extends AsyncTask<Record,Void,Void> {
 
-        private  AppCompatActivity context=null;
-
-        public RecordController.CreateRecordTask setContext(AppCompatActivity c){
-            this.context =c;
-            return this;
-        }
 
         protected Void doInBackground(Record... records) {
             setClient();
             Record record = records[0];
             Index index = new Index.Builder(record).index(indexName).type("record").build();
             try{
+                //wait until connection is avaliable
+                OfflineTools.waitForConnection();
                 DocumentResult result = client.execute(index);
                 if(result.isSucceeded()){
                     record.setrId(result.getId());
@@ -103,21 +99,6 @@ public class RecordController {
             return null;
         }
 
-        @Override
-        protected void onPostExecute(Void v){
-            super.onPostExecute(v);
-            if (context != null){
-                try{
-                    Thread.sleep(1000);
-                }
-                catch (Exception e){
-
-                }
-
-                context.finish();
-            }
-
-        }
     }
 
     /**
@@ -130,6 +111,8 @@ public class RecordController {
             String rid = records[0].getrId();
             Delete delete = new Delete.Builder(rid).index(indexName).type("record").build();
             try{
+                //wait until connection is avaliable
+                OfflineTools.waitForConnection();
                 DocumentResult result = client.execute(delete);
                 if(result.isSucceeded()){
                     Log.d("Name-Jeff","Record removed");
@@ -146,6 +129,8 @@ public class RecordController {
             setClient();
             Index index = new Index.Builder(records[0]).index(indexName).type("record").id(records[0].getrId()).build();
             try{
+                //wait until connection is avaliable
+                OfflineTools.waitForConnection();
                 DocumentResult result = client.execute(index);
                 Log.d("Name-Jeff","Record updated");
             }catch(IOException e){

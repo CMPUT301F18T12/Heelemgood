@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
@@ -34,6 +35,7 @@ import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.UserViews.UserGenerateQRCode;
 import com.example.jerry.healemgood.view.adapter.ProblemAdapter;
+import com.example.jerry.healemgood.view.commonActivities.AllRecordActivity;
 import com.example.jerry.healemgood.view.commonActivities.PatientSearchActivity;
 import com.example.jerry.healemgood.view.commonActivities.UserActivity;
 
@@ -54,6 +56,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
 
     private ArrayList<Problem> problems;
     private ProblemAdapter problemAdapter;
+    private boolean isPatient;
 
     /**
      * Handles loading an older version of the activity
@@ -87,8 +90,23 @@ public class PatientAllProblemActivity extends AppCompatActivity
         ListView mListView;
         Button createProblemButton;
 
-        mListView = findViewById(R.id.patientProblemListView);
+        mListView = findViewById(R.id.patientListView);
         createProblemButton = findViewById(R.id.createProblemButton);
+
+        if (SharedPreferenceUtil.get(this,"ISPATIENT").equals("false")) {
+            isPatient = false;
+            createProblemButton.setVisibility(View.INVISIBLE);
+        }
+        else {
+            isPatient = true;
+            createProblemButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), PatientAddProblemActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
 
         loadProblems();
 
@@ -98,15 +116,6 @@ public class PatientAllProblemActivity extends AppCompatActivity
         mListView.setAdapter(problemAdapter);
         final SwipeDetector swipeDetector = new SwipeDetector();
         mListView.setOnTouchListener(swipeDetector);
-
-
-        createProblemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PatientAddProblemActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -119,7 +128,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
                 }
                 else{
                     String pId = problems.get(position).getpId();
-                    Intent intent = new Intent(PatientAllProblemActivity.this,PatientAllRecordActivity.class);
+                    Intent intent = new Intent(PatientAllProblemActivity.this,AllRecordActivity.class);
                     intent.putExtra(AppConfig.PID,pId);
                     startActivity(intent);
                 }
@@ -149,7 +158,12 @@ public class PatientAllProblemActivity extends AppCompatActivity
      */
 
     private void loadProblems(){
-        ProblemController.searchByPatientIds(SharedPreferenceUtil.get(this,AppConfig.USERID));
+        if (isPatient) {
+            ProblemController.searchByPatientIds(SharedPreferenceUtil.get(this, AppConfig.USERID));
+        }
+        else {
+            ProblemController.searchByPatientIds(getIntent().getStringArrayExtra("uid"));
+        }
         try{
             problems = new ProblemController.SearchProblemTask().execute().get();
 

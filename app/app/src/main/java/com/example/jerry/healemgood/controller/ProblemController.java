@@ -101,16 +101,6 @@ public class ProblemController {
      * Create a problem in the database and assigned a JestID/pId to it
      */
     public static class CreateProblemTask extends AsyncTask<Problem,Void,Void> {
-        private  AppCompatActivity context=null;
-
-        /**
-         * This constructor will take in a context. Note: this is needed if you want to have things
-         * @param c Application contest (not base context)
-        */
-        public CreateProblemTask setContext(AppCompatActivity c){
-            this.context =c;
-            return this;
-        }
 
         protected Void doInBackground(Problem... problems) {
             setClient();
@@ -118,14 +108,7 @@ public class ProblemController {
             Index index = new Index.Builder(problem).index(indexName).type("problem").build();
             try{
                 //wait until connection is avaliable
-                if(context!=null) {
-                    ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                    NetworkInfo activeNetworkInfo = connectivityManager
-                            .getActiveNetworkInfo();
-                    while (activeNetworkInfo == null || !activeNetworkInfo.isConnected()) {
-                        Thread.sleep(2000);
-                    }
-                }
+                OfflineTools.waitForConnection();
                 DocumentResult result = client.execute(index);
                 if(result.isSucceeded()){
                     problem.setpId(result.getId());
@@ -137,7 +120,7 @@ public class ProblemController {
             }
             return null;
         }
-
+        /*
         @Override
         protected void onPostExecute(Void v){
             super.onPostExecute(v);
@@ -148,11 +131,9 @@ public class ProblemController {
                 catch (Exception e){
 
                 }
-
-                context.finish();
             }
 
-        }
+        }*/
     }
 
     /**
@@ -174,6 +155,8 @@ public class ProblemController {
             Log.d("Name-Jeff",query);
             DeleteByQuery deleteRecord = new DeleteByQuery.Builder(query).addIndex(indexName).addType("record").build();
             try{
+                //wait until connection is avaliable
+                OfflineTools.waitForConnection();
                 DocumentResult result = client.execute(delete);
                 JestResult result2 = client.execute(deleteRecord);
                 if(result.isSucceeded()){
@@ -274,6 +257,8 @@ public class ProblemController {
             Problem problem = problems[0];
             Index index = new Index.Builder(problem).index(indexName).type("problem").id(problem.getpId()).build();
             try{
+                //wait until connection is avaliable
+                OfflineTools.waitForConnection();
                 DocumentResult result = client.execute(index);
             }catch(IOException e){
                 Log.d("Name-Jeff"," IOexception when updating the problem");

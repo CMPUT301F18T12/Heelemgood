@@ -13,7 +13,7 @@ import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.view.patientActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAddProblemActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
-import com.example.jerry.healemgood.view.patientActivities.PatientAllRecordActivity;
+import com.example.jerry.healemgood.view.commonActivities.AllRecordActivity;
 import com.robotium.solo.Solo;
 
 /**
@@ -24,7 +24,7 @@ import com.robotium.solo.Solo;
  * @version 1.0
  * @see ActivityInstrumentationTestCase2
  * @see PatientAddProblemActivity
- * @see PatientAllRecordActivity
+ * @see AllRecordActivity
  * @see PatientAllProblemActivity
  * @since 1.0
  */
@@ -125,10 +125,10 @@ public class EditProblem_ActivityTest extends ActivityInstrumentationTestCase2<c
         solo.sleep(1000);
 
         // Click on the first problem in the list view
-        ListView ListView=(ListView)solo.getView(R.id.patientProblemListView);
+        ListView ListView=(ListView)solo.getView(R.id.patientListView);
         View problemOne = ListView.getChildAt(0);
         solo.clickOnView(problemOne);
-        solo.assertCurrentActivity("Check on Record", PatientAllRecordActivity.class);
+        solo.assertCurrentActivity("Check on Record", AllRecordActivity.class);
 
         // Get and click on the detail button
         Button detailsButton = (Button)solo.getView(R.id.detailButton);
@@ -159,13 +159,13 @@ public class EditProblem_ActivityTest extends ActivityInstrumentationTestCase2<c
         // Save the changes, and assert the new activity is correct
         Button saveButton2 = (Button)solo.getView(R.id.saveButton);
         solo.clickOnView(saveButton2);
-        solo.assertCurrentActivity("Check on Record", PatientAllRecordActivity.class);
+        solo.assertCurrentActivity("Check on Record", AllRecordActivity.class);
 
         // Click on the first problem in the list view
-        ListView ListView2 =(ListView)solo.getView(R.id.patientProblemListView);
+        ListView ListView2 =(ListView)solo.getView(R.id.patientListView);
         View problemOne2 = ListView2.getChildAt(0);
         solo.clickOnView(problemOne2);
-        solo.assertCurrentActivity("Check on Record", PatientAllRecordActivity.class);
+        solo.assertCurrentActivity("Check on Record", AllRecordActivity.class);
 
         // Get and click on the detail button
         Button detailsButton2 = (Button)solo.getView(R.id.detailButton);
