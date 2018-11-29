@@ -108,11 +108,13 @@ public class PatientAddProblemActivity extends AppCompatActivity {
 
         try {
 
-            new ProblemController.CreateProblemTask().execute(problem).get();
-
-        } catch (Exception e) {
+            new ProblemController.CreateProblemTask().execute(problem);
+            Thread.sleep(1000);
+            finish();
+        } catch(InterruptedException e) {
+            Log.d("Error", "Fail to sleep");
+        } catch(Exception e) {
             Log.d("Error", "Fail to create problem");
-
         }
 
     }
