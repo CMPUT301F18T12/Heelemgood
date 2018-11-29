@@ -318,7 +318,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         // save the record
         try{
 
-            new RecordController.CreateRecordTask().setContext(this).execute(patientRecord).get();
+            new RecordController.CreateRecordTask().execute(patientRecord).get();
 
         }
         catch (Exception e){

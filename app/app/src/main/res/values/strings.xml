@@ -108,5 +108,6 @@
     <string name="action_example">Example action</string>
     <string name="qr_code">QR Code</string>
     <string name="add_patient">Add Patient</string>
+    <string name="detail">Detail</string>
 
 </resources>

@@ -76,6 +76,16 @@ public class AllRecordActivity extends AppCompatActivity {
             }
         });
 
+        Button slideShowButton = findViewById(R.id.slideShowButton);
+        slideShowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),SlideShowActivity.class);
+                intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
+                startActivity(intent);
+            }
+        });
+
 
         ListView listView = findViewById(R.id.listView);
 
@@ -136,8 +146,6 @@ public class AllRecordActivity extends AppCompatActivity {
             records = new ArrayList<Record>();
             Log.d("Error","Fail to get the problem by id");
         }
-
-
 
     }
 }

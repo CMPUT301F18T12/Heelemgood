@@ -64,9 +64,10 @@
         <activity
             android:name=".view.careProviderActivities.CareProviderAllPatientActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.careProviderActivities.CareProviderAddPatientActivity"></activity>
-        <activity android:name=".view.UserViews.UserScanQRCodeLogin"></activity>
-        <activity android:name=".view.careProviderActivities.CareProviderViewProblems"></activity>
+        <activity android:name=".view.careProviderActivities.CareProviderAddPatientActivity" />
+        <activity android:name=".view.UserViews.UserScanQRCodeLogin" />
+        <activity android:name=".view.careProviderActivities.CareProviderViewProblems" />
+        <activity android:name=".view.commonActivities.SlideShowActivity"></activity>
     </application>
 
 </manifest>
