@@ -121,6 +121,7 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
     protected void onResume(){
 
         super.onResume();
+        loadCareProvider();
         loadPatients();
         patientAdapter.refreshAdapter(patients);
 

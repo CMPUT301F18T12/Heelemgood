@@ -47,6 +47,12 @@ public class CareProviderAddPatientActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 save();
+                try{
+                    Thread.sleep(1000);
+                }
+                catch (Exception e){
+
+                }
                 finish();
             }
         });

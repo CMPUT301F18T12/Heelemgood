@@ -164,7 +164,7 @@ public class UserController {
         @Override
         protected ArrayList<Patient> doInBackground(String... userNames) {
             setClient();
-            String userName = userNames[0];
+
             String query ="{ \n"+
                     "   \"query\": { \n"+
                     "     \"ids\" : { \n"+
