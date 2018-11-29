@@ -140,7 +140,7 @@ public class CareProviderAddPatientQRCode extends AppCompatActivity {
                                         // Get the patient and care provider objects
                                         // Get the username of the care provider stored in shared prefs
                                         User patient = new UserController.SearchPatientTask().execute(qrcodes.valueAt(0).displayValue).get();
-                                        String careProviderUsername = SharedPreferenceUtil.get(CareProviderAddPatientQRCode.this, AppConfig.NAME);
+                                        String careProviderUsername = SharedPreferenceUtil.get(CareProviderAddPatientQRCode.this, AppConfig.USERID);
                                         CareProvider careprovider = new UserController.SearchCareProviderTask().execute(careProviderUsername).get();
                                         try{
                                             // Add the id of the patient to the patients list of the care provider
