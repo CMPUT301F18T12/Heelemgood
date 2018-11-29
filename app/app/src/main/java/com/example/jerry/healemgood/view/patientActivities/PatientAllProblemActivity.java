@@ -32,6 +32,7 @@ import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.controller.SwipeDetector;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
+import com.example.jerry.healemgood.view.UserViews.UserGenerateQRCode;
 import com.example.jerry.healemgood.view.adapter.ProblemAdapter;
 import com.example.jerry.healemgood.view.commonActivities.PatientSearchActivity;
 import com.example.jerry.healemgood.view.commonActivities.UserActivity;
@@ -252,6 +253,10 @@ public class PatientAllProblemActivity extends AppCompatActivity
         }
         else if (id == R.id.navigation_map){
             startActivity(new Intent(getApplicationContext(),PatientMapModeActivity.class));
+        }
+        // Generate a QR code
+        else if (id == R.id.navigation_qrcode){
+            startActivity(new Intent(getApplicationContext(),UserGenerateQRCode.class));
         }
 
 

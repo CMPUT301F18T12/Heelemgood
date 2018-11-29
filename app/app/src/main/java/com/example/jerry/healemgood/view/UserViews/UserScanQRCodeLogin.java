@@ -2,13 +2,11 @@ package com.example.jerry.healemgood.view.UserViews;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,20 +15,24 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
 
+import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.R;
-import com.example.jerry.healemgood.model.request.Request;
+import com.example.jerry.healemgood.config.AppConfig;
+import com.example.jerry.healemgood.controller.UserController;
+import com.example.jerry.healemgood.model.user.Patient;
+import com.example.jerry.healemgood.model.user.User;
+import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
+import com.example.jerry.healemgood.view.careProviderActivities.CareProviderAllPatientActivity;
+import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-
 //https://www.youtube.com/watch?v=o69UqAKi47I&t=22s Accessed 2018-11-24
 
-public class PatientScanQRCodeActivity extends AppCompatActivity {
+public class UserScanQRCodeLogin extends AppCompatActivity {
 
     SurfaceView cameraPreview;
     TextView textResult;
@@ -81,7 +83,7 @@ public class PatientScanQRCodeActivity extends AppCompatActivity {
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(),
                         Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     // Request permission from the user
-                    ActivityCompat.requestPermissions(PatientScanQRCodeActivity.this,
+                    ActivityCompat.requestPermissions(UserScanQRCodeLogin.this,
                             new String[]{Manifest.permission.CAMERA}, requestCameraPermissionID);
                     return;
                 }
@@ -127,36 +129,50 @@ public class PatientScanQRCodeActivity extends AppCompatActivity {
                             cameraSource.stop();
 
                             // Build a new dialog box
-                            AlertDialog.Builder builder = new AlertDialog.Builder(PatientScanQRCodeActivity.this);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(UserScanQRCodeLogin.this);
                             builder.setTitle("User Profile Scanned Successfully!");
 
                             // View the profile of the individual after selecting them
+                            // Will retrieve the username from the QR code
                             builder.setNeutralButton("Login to a New Device", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    // Set the new intent here
-                                    // ADD the scan function to the main page
+                                    // Search for the user account
+                                    try{
+                                        Patient patient = new UserController.SearchPatientTask().execute(qrcodes.valueAt(0).displayValue).get();
+                                        try{
+                                            if (patient.getUserId().equals(qrcodes.valueAt(0).displayValue)){
+                                                //Store userid other important info into shared preference
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this,AppConfig.USERID,patient.getUserId());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this,AppConfig.EMAIL,patient.getEmail());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this,AppConfig.BIRTHDAY,patient.getBirthday().toString());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this,AppConfig.NAME,patient.getFullName());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this,AppConfig.PHONE,patient.getPhoneNum());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this,AppConfig.ISPATIENT,AppConfig.TRUE);
+
+                                                // Go to the home page of the patient
+                                                Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
+                                                startActivity(intent);
+                                            }
+                                        }catch (Exception e){
+                                            User careprovider = new UserController.SearchCareProviderTask().execute(qrcodes.valueAt(0).displayValue.toString()).get();
+                                            if (careprovider.getUserId().equals(qrcodes.valueAt(0).displayValue)) {
+                                                //Store userid and other important info into shared preference
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.USERID, careprovider.getUserId());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.EMAIL, careprovider.getEmail());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.BIRTHDAY, careprovider.getBirthday().toString());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.NAME, careprovider.getFullName());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.PHONE, careprovider.getPhoneNum());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this,AppConfig.ISPATIENT,AppConfig.FALSE);
+
+                                                // Go to the home page of the care provider
+                                                Intent intent = new Intent(getApplicationContext(), CareProviderAllPatientActivity.class);
+                                                startActivity(intent);
+                                            }
+                                        }
+                                    }catch (Exception e){}
                                 }
                             });
-
-                            // Set a request to the user
-                            builder.setPositiveButton("Add Patient", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    // Add the user tp the patient's array of the current user
-
-                                    // Check that the current user is a care provider
-
-
-                                    // Get the object
-                                    // Store it
-
-                                    // If the user is not a care provider
-
-                                    // Set the new intent here
-                                }
-                            });
-
 
                             // Set the message on the dialog box to be username of the individual
                             builder.setMessage("User ID: " + qrcodes.valueAt(0).displayValue);

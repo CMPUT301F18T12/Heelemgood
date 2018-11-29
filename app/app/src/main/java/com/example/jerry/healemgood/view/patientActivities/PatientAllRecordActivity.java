@@ -92,8 +92,6 @@ public class PatientAllRecordActivity extends AppCompatActivity {
                 showDetailRecord(position);
             }
         });
-
-
     }
 
     /**

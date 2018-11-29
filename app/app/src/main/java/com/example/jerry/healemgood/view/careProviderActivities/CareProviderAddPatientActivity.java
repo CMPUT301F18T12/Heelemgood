@@ -1,5 +1,6 @@
 package com.example.jerry.healemgood.view.careProviderActivities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import com.example.jerry.healemgood.controller.UserController;
 import com.example.jerry.healemgood.model.user.CareProvider;
 import com.example.jerry.healemgood.model.user.Patient;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
+import com.example.jerry.healemgood.view.UserViews.CareProviderAddPatientQRCode;
 
 import java.util.ArrayList;
 
@@ -30,6 +32,7 @@ public class CareProviderAddPatientActivity extends AppCompatActivity {
 
         Button addButton = findViewById(R.id.addButton);
         Button saveButton = findViewById(R.id.saveButton);
+        Button scanQrCodeButton = findViewById(R.id.scanQRCodeButton);
 
         loadCareProvider();
 
@@ -45,6 +48,15 @@ public class CareProviderAddPatientActivity extends AppCompatActivity {
             public void onClick(View view) {
                 save();
                 finish();
+            }
+        });
+
+        scanQrCodeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Go to the home page of the care provider
+                Intent intent = new Intent(getApplicationContext(), CareProviderAddPatientQRCode.class);
+                startActivity(intent);
             }
         });
 
@@ -91,7 +103,7 @@ public class CareProviderAddPatientActivity extends AppCompatActivity {
         try {
             careProvider = (CareProvider) new UserController.SearchCareProviderTask().execute(userId).get();
         } catch (Exception e) {
-            Log.d("Error", "fail to load the care provier");
+            Log.d("Error", "fail to load the care provider");
         }
     }
 }

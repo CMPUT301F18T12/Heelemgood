@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
@@ -18,7 +17,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-public class PatientGenerateQRCode extends AppCompatActivity {
+public class UserGenerateQRCode extends AppCompatActivity {
 
     private Button createQRCodeButton;
     private Button scanQRCode;
@@ -47,7 +46,7 @@ public class PatientGenerateQRCode extends AppCompatActivity {
                     MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
                     try {
                         BitMatrix bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE,
-                                500, 500);
+                                600, 600);
                         BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                         Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
                         qrCodeImageView.setImageBitmap(bitmap);
@@ -61,7 +60,7 @@ public class PatientGenerateQRCode extends AppCompatActivity {
         scanQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PatientGenerateQRCode.this, PatientScanQRCodeActivity.class);
+                Intent intent = new Intent(UserGenerateQRCode.this, CareProviderAddPatientQRCode.class);
                 startActivity(intent);
             }
         });

@@ -125,9 +125,9 @@ public class UserController {
      * Class used to find the user from the password and username
      * Assume the positioning is username
      */
-    public static class SearchPatientTask extends AsyncTask<String, Void, User> {
+    public static class SearchPatientTask extends AsyncTask<String, Void, Patient> {
         @Override
-        protected User doInBackground(String... userNames) {
+        protected Patient doInBackground(String... userNames) {
             setClient();
             String userName = userNames[0];
 
@@ -196,9 +196,9 @@ public class UserController {
      * Class used to find the user from the password and username
      * Assume the positioning is username
      */
-    public static class SearchCareProviderTask extends AsyncTask<String, Void, User> {
+    public static class SearchCareProviderTask extends AsyncTask<String, Void, CareProvider> {
         @Override
-        protected User doInBackground(String... userNames) {
+        protected CareProvider doInBackground(String... userNames) {
             setClient();
             String userName = userNames[0];
 

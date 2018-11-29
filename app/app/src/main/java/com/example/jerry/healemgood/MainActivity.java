@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.UserController;
+import com.example.jerry.healemgood.model.user.CareProvider;
+import com.example.jerry.healemgood.model.user.Patient;
 import com.example.jerry.healemgood.model.user.User;
 
 /**
@@ -33,6 +35,8 @@ import com.example.jerry.healemgood.model.user.User;
  * @since 1.0
  */
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
+import com.example.jerry.healemgood.view.UserViews.CareProviderAddPatientQRCode;
+import com.example.jerry.healemgood.view.UserViews.UserScanQRCodeLogin;
 import com.example.jerry.healemgood.view.careProviderActivities.CareProviderAllPatientActivity;
 import com.example.jerry.healemgood.view.patientActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
@@ -46,7 +50,7 @@ import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActi
  */
 public class MainActivity extends AppCompatActivity {
     public Button signInButton;
-    public Button scanQRcodeButton;
+    public Button signInQRButton;
     private EditText userNameEditText;
 
     /**
@@ -61,32 +65,33 @@ public class MainActivity extends AppCompatActivity {
         this.onCreateAccount();
 
         signInButton = findViewById(R.id.signInButton);
+        signInQRButton = findViewById(R.id.signInQRButton);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                // Get the username from the field
                 userNameEditText = findViewById(R.id.userIdEditText);
                 try{
-                    User patient = new UserController.SearchPatientTask().execute(userNameEditText.getText().toString()).get();
+                    Patient patient = new UserController.SearchPatientTask().execute(userNameEditText.getText().toString()).get();
                     try{
                         if (!patient.equals(null)){
-
-                            //Store userid into shared preference
-                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.USERID,patient.getUserId());
-                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.EMAIL,patient.getEmail());
-                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.BIRTHDAY,patient.getBirthday().toString());
-                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.NAME,patient.getFullName());
-                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.PHONE,patient.getPhoneNum());
-                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.ISPATIENT,AppConfig.TRUE);
+                            //Store userid other important info into shared preference
+                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.USERID, patient.getUserId());
+                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.EMAIL, patient.getEmail());
+                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.BIRTHDAY, patient.getBirthday().toString());
+                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.NAME, patient.getFullName());
+                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.PHONE, patient.getPhoneNum());
+                            SharedPreferenceUtil.store(MainActivity.this,AppConfig.ISPATIENT, AppConfig.TRUE);
 
                             // Go to the home page of the patient
                             Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
                             startActivity(intent);
                         }
                     }catch (Exception e){
-                        User careprovider = new UserController.SearchCareProviderTask().execute(userNameEditText.getText().toString()).get();
+                        CareProvider careprovider = new UserController.SearchCareProviderTask().execute(userNameEditText.getText().toString()).get();
                         if (careprovider.getUserId().equals(userNameEditText.getText().toString())) {
-                            //Store userid into shared preference
+                            //Store userid and other important info into shared preference
                             SharedPreferenceUtil.store(MainActivity.this, AppConfig.USERID, careprovider.getUserId());
                             SharedPreferenceUtil.store(MainActivity.this, AppConfig.EMAIL, careprovider.getEmail());
                             SharedPreferenceUtil.store(MainActivity.this, AppConfig.BIRTHDAY, careprovider.getBirthday().toString());
@@ -100,6 +105,16 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }catch (Exception e){}
+            }
+        });
+
+        // Set a listener for when the user decides to login with as QR code
+        // Will send the user to the UserScanQRCodeLogin activity
+        signInQRButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), UserScanQRCodeLogin.class);
+                startActivity(intent);
             }
         });
     }

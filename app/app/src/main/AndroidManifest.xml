@@ -49,8 +49,8 @@
             android:name=".view.patientActivities.PatientAllProblemActivity"
             android:label="@string/title_activity_patient_all_problem"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.UserViews.PatientGenerateQRCode" />
-        <activity android:name=".view.UserViews.PatientScanQRCodeActivity" />
+        <activity android:name=".view.UserViews.UserGenerateQRCode" />
+        <activity android:name=".view.UserViews.CareProviderAddPatientQRCode" />
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
@@ -65,6 +65,7 @@
             android:name=".view.careProviderActivities.CareProviderAllPatientActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.careProviderActivities.CareProviderAddPatientActivity"></activity>
+        <activity android:name=".view.UserViews.UserScanQRCodeLogin"></activity>
     </application>
 
 </manifest>

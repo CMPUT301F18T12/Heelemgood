@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
+import com.example.jerry.healemgood.view.UserViews.UserGenerateQRCode;
 import com.example.jerry.healemgood.view.patientActivities.PatientMapModeActivity;
 import com.example.jerry.healemgood.view.commonActivities.PatientSearchActivity;
 import com.example.jerry.healemgood.view.commonActivities.UserActivity;
@@ -124,6 +125,9 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
         }
         else if (id == R.id.navigation_map){
             startActivity(new Intent(getApplicationContext(),PatientMapModeActivity.class));
+        }
+        else if (id == R.id.navigation_qrcode){
+            startActivity(new Intent(getApplicationContext(),UserGenerateQRCode.class));
         }
 
 
