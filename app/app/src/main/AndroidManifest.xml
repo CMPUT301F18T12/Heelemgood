@@ -68,6 +68,7 @@
         <activity android:name=".view.UserViews.UserScanQRCodeLogin" />
         <activity android:name=".view.careProviderActivities.CareProviderViewProblems" />
         <activity android:name=".view.commonActivities.SlideShowActivity"></activity>
+        <activity android:name=".view.commonActivities.BodyMapModeActivity" />
     </application>
 
 </manifest>

@@ -30,9 +30,14 @@ import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
+import com.example.jerry.healemgood.controller.RecordController;
+import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.utils.BodyColor;
 import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.BodyPart;
+import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
+
+import java.util.ArrayList;
 
 /**
  * Represents a BodyMapModeActivity
@@ -51,6 +56,7 @@ public class BodyMapModeActivity extends AppCompatActivity{
     private BodyColor bodyColor = new BodyColor();  // color under the hood
     //private String bodyString;
     private BodyLocation body;
+    private ArrayList<Record> records;
 
     /**
      * This function will load a previously used instance of the activity
@@ -70,14 +76,23 @@ public class BodyMapModeActivity extends AppCompatActivity{
         imageView.setOnClickListener(clickListener);
 
         Button continueButton = findViewById(R.id.continueButton);
-        continueButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                finish();
-            }
-        });
+        continueButton.setVisibility(View.INVISIBLE);
 
-        body = (BodyLocation) getIntent().getSerializableExtra(AppConfig.BODYLOCATION);
+        loadAllRecords();
+        displayDots();
+
+    }
+
+    /**
+     * draw all the recorded body parts from records
+     */
+    private void displayDots() {
+        for (Record record : records) {
+            float[] pos = record.getBodyLocationPercent();
+            lastTouchX = pos[0];
+            lastTouchY = pos[1];
+            drawDot();
+        }
         if (body != null) {
             lastTouchX = body.getX();
             lastTouchY = body.getY();
@@ -85,7 +100,7 @@ public class BodyMapModeActivity extends AppCompatActivity{
         }
     }
 
-    // This is a listener that deals with the body part map
+    // This is a listener that deals with clicking on the body part map
     View.OnTouchListener touchListener = new View.OnTouchListener() {
         @SuppressLint("ClickableViewAccessibility")
         @Override
@@ -192,5 +207,22 @@ public class BodyMapModeActivity extends AppCompatActivity{
         // Draw canvas to imageView
 
         imageView.setImageDrawable(new BitmapDrawable(getResources(), newbitmap));
+    }
+
+
+    /**
+     * load all records from the elastic search
+     */
+    private void loadAllRecords(){
+
+        RecordController.searchByPatientIds(SharedPreferenceUtil.get(this,AppConfig.USERID));
+        try{
+            records = new RecordController.SearchRecordTask().execute().get();
+        }
+        catch (Exception e){
+
+            Log.d("Error","Fail to get the records");
+            records = new ArrayList<Record>();
+        }
     }
 }
