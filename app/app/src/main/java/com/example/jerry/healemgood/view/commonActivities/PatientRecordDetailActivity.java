@@ -1,14 +1,13 @@
 /*
- *  Class Name: PatientAddRecordActivity
+ *  Class Name: PatientRecordDetailActivity
  *
  *  Version: Version 1.0
  *
- *  Date: November 14, 2018
+ *  Date: November 17, 2018
  *
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
-
-package com.example.jerry.healemgood.view.patientActivities;
+package com.example.jerry.healemgood.view.commonActivities;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -21,7 +20,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,19 +33,19 @@ import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.photo.Photo;
-import com.example.jerry.healemgood.model.record.PatientRecord;
+import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
-import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.ImageAdapter;
+import com.example.jerry.healemgood.view.patientActivities.BodyMapViewActivity;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
 
 /**
- * Represents a PatientAddRecordActivity
- * Handles all functions relating to allowing a patient to post a record for a problem
+ * Represents a PatientRecordDetailActivity
+ * displays Records details handles Records details changes
  *
  * @author xiacijie
  * @version 1.0
@@ -55,34 +53,56 @@ import java.util.ArrayList;
  * @since 1.0
  */
 
-public class PatientAddRecordActivity extends AppCompatActivity {
+public class PatientRecordDetailActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int PLACE_PICKER_REQUEST = 2;
     static final int GET_BODY_LOCATION_REQUEST = 3;
     static final int VIEW_PHOTO_REQUEST = 4;
 
-    // for display the collection of photos
+
+    Record record;
+
+    private Place place;
     private ImageAdapter imageAdapter;
     private ArrayList<Photo> photoCollection = new ArrayList<Photo>();
-    private Place place;
-    private ImageButton photoButton;
 
 
     /**
-     * Handles loading an older version of the activity
+     * This function will load a previously used instance of the activity
      *
      * @param savedInstanceState
      */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.patient_add_record);
+        setContentView(R.layout.patient_record_detail);
 
-        Button addLocationButton =  findViewById(R.id.addLocationButton);
+        loadRecord();
+
+        GridView gridview = (GridView) findViewById(R.id.gridView);
+        imageAdapter = new ImageAdapter(this);
+        gridview.setAdapter(imageAdapter);
+
+
+
+        fillOutDetail();
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+               showLargePicture(position);
+            }
+        });
+
         Button saveButton = findViewById(R.id.saveButton);
-        Button bodyButton = findViewById(R.id.bodyButton);
-        photoButton = findViewById(R.id.photoButton);
+        Button backButton = findViewById(R.id.backButton);
+        final Button bodyButton = findViewById(R.id.bodyButton);
+        Button viewLocationButton = findViewById(R.id.viewLocationButton);
+
+        ImageButton photoButton = findViewById(R.id.photoButton);
+        Button addLocationButton = findViewById(R.id.editLocationButton);
 
         addLocationButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -90,7 +110,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
                 try{
-                    startActivityForResult(builder.build(PatientAddRecordActivity.this), PLACE_PICKER_REQUEST);
+                    startActivityForResult(builder.build(PatientRecordDetailActivity.this), PLACE_PICKER_REQUEST);
                 }
                 catch (Exception e){
                     Log.d("Error","Place Picker Error");
@@ -103,46 +123,63 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         bodyButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), BodyMapSelectionActivity.class);
-                intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
-                intent.putExtra(AppConfig.BODYLOCATION, getIntent().getSerializableExtra(AppConfig.BODYLOCATION));
-                startActivityForResult(intent, GET_BODY_LOCATION_REQUEST);
+                Intent intent = new Intent(getApplicationContext(),BodyMapViewActivity.class);
+                float[] pos = record.getBodyLocationPercent();
+                BodyLocation bodyLocation = new BodyLocation(pos[0], pos[1]);
+                intent.putExtra(AppConfig.BODYLOCATION,bodyLocation);
+                startActivity(intent);
             }
+        });
 
+
+        viewLocationButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(),PatientViewLocationActivity.class);
+                double[] geoLocation = record.getGeoLocation();
+                if (geoLocation != null){
+                    intent.putExtra("geoLocation",geoLocation);
+                    intent.putExtra("title",record.getTitle());
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),
+                            "No Geo location recorded!"
+                            ,Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            }
         });
 
         photoButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 if (photoCollection.size() > AppConfig.PHOTO_LIMIT-1){
-                    Toast.makeText(PatientAddRecordActivity.this, "You can take up to "+AppConfig.PHOTO_LIMIT+" photos",
+                    Toast.makeText(PatientRecordDetailActivity.this, "You can take up to "+AppConfig.PHOTO_LIMIT+" photos",
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
                 dispatchTakePictureIntent();
             }
         });
-
-
-        saveButton.setOnClickListener(new View.OnClickListener(){
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                save();
+            public void onClick(View view) {
+                saveRecord();
+                finish();
+            }
+        });
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
 
-        GridView gridview = (GridView) findViewById(R.id.gridView);
-        imageAdapter = new ImageAdapter(this);
-        gridview.setAdapter(imageAdapter);
-
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                showLargePicture(position);
-            }
-        });
 
 
     }
@@ -180,6 +217,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         }
     }
 
+
     /**
      * Reloads the activity after doing various intents (ex. taking a picture).
      *
@@ -191,7 +229,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
     // receive the intent result when the next activity finishes
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        /* Adds the photo just taken to the gallery */
+        // Adds the photo just taken to the gallery
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -202,7 +240,7 @@ public class PatientAddRecordActivity extends AppCompatActivity {
         }
 
 
-        /* Gets the geolocation for the record */
+        // Gets the geolocation for the record
         else if (requestCode == PLACE_PICKER_REQUEST && resultCode == RESULT_OK){
             place = PlacePicker.getPlace(data, this);
             String toastMsg = String.format("Place: %s", place.getName());
@@ -215,11 +253,6 @@ public class PatientAddRecordActivity extends AppCompatActivity {
             imageAdapter.notifyDataSetChanged();
 
         }
-
-
-    }
-    private void removePhotoById(int i){
-        photoCollection.remove(i);
     }
 
     private void getLabelInputAndAddPhoto(final Bitmap b){
@@ -255,7 +288,6 @@ public class PatientAddRecordActivity extends AppCompatActivity {
      * @param imageBitmap
      */
     private void addPhoto(Bitmap imageBitmap,String label){
-
         int bytes = imageBitmap.getRowBytes();
         if (bytes > 65536) {
             Toast.makeText(this,"Your photo is too large (> 65536 bytes)",
@@ -263,68 +295,86 @@ public class PatientAddRecordActivity extends AppCompatActivity {
             return;
         }
         photoCollection.add(new Photo(imageBitmap,label));
+
+    }
+
+    private void removePhotoById(int i){
+        photoCollection.remove(i);
     }
 
     /**
-     * Saves everything recorded in the record to the problem in the form of a new record.
+     * fill record detail
      *
      */
-    private void save(){
-        EditText recordTitleInput = findViewById(R.id.titleInput);
-        String recordTitle = recordTitleInput.getText().toString();
 
-
-
+    private void fillOutDetail(){
+        EditText titleInput = findViewById(R.id.titleInput);
         EditText descriptionInput = findViewById(R.id.descriptionInput);
-        String descriptionString = descriptionInput.getText().toString();
+        titleInput.setText(record.getTitle());
+        descriptionInput.setText(record.getDescription());
 
-
-        // make a new patient record
-        PatientRecord patientRecord;
-        try {
-            patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID), SharedPreferenceUtil.get(this,AppConfig.USERID),recordTitle);
-        } catch (LengthOutOfBoundException e) {
-            Toast.makeText(this,"Your title is too long!",
-                    Toast.LENGTH_SHORT).show();
-            return;
+        photoCollection = record.getPhotos();
+        for (Photo p: photoCollection){
+            imageAdapter.addPhoto(p.getPhoto());
         }
-        // set body location
-        BodyLocation bodyLocation = (BodyLocation) getIntent().getSerializableExtra(AppConfig.BODYLOCATION);
+        imageAdapter.notifyDataSetChanged();
+    }
 
-        patientRecord.setBodyLocation(bodyLocation.getPart().toString());
-        patientRecord.setBodyLocationPercent(bodyLocation.getX(),bodyLocation.getY());
+    /**
+     * load record
+     */
 
-        // set the description of the record
-        try {
-            patientRecord.setDescription(descriptionString);
-        } catch (LengthOutOfBoundException e) {
-            Toast.makeText(this,"Your description is too long!",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
+    private void loadRecord(){
+        String rId = getIntent().getStringExtra(AppConfig.RID);
 
-        // set the photos of the record
-        for (Photo photo: photoCollection){
-            patientRecord.addPhoto(photo);
-        }
-
-        // set the geolocation
-
-        if (place != null){
-            patientRecord.setGeoLocation(place.getLatLng().latitude,place.getLatLng().longitude);
-        }
-
-        // save the record
         try{
-
-            new RecordController.CreateRecordTask().setContext(this).execute(patientRecord).get();
-
+            record = new RecordController.GetRecordByIdTask().execute(rId).get();
         }
         catch (Exception e){
-            Log.d("ERROR","Fail to create the record");
+            Log.d("ERROR","Fail to load the problem");
+            record = null;
         }
-
 
 
     }
+
+    /**
+     * save record
+     */
+    private void saveRecord(){
+        EditText titleInput = findViewById(R.id.titleInput);
+        EditText description = findViewById(R.id.descriptionInput);
+        try {
+            record.setDescription(description.getText().toString());
+        } catch (LengthOutOfBoundException e) {
+            return;
+        }
+        try {
+            record.setTitle(titleInput.getText().toString());
+        } catch (LengthOutOfBoundException e) {
+            return;
+        }
+
+        if (place != null){
+            record.setGeoLocation(place.getLatLng().latitude,place.getLatLng().longitude);
+
+        }
+
+
+        record.setPhotos(photoCollection);
+
+
+        try{
+            new RecordController.UpdateRecordTask().execute(record).get();
+        }
+        catch (Exception e){
+            Log.d("Error","Fail to update the record");
+        }
+    }
+
+
+
+
+
+
 }

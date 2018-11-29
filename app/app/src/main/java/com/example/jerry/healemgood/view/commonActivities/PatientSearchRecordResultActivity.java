@@ -14,7 +14,6 @@ import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.RecordAdapter;
-import com.example.jerry.healemgood.view.patientActivities.PatientRecordDetailActivity;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;

@@ -34,6 +34,7 @@ import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.utils.BodyColor;
 import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.BodyPart;
+import com.example.jerry.healemgood.view.commonActivities.PatientAddRecordActivity;
 
 /**
  * Represents a BodyMapSelectionActivity

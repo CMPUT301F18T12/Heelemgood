@@ -32,7 +32,7 @@
         <activity android:name=".view.commonActivities.UserActivity" />
         <activity android:name=".view.patientActivities.BodyMapSelectionActivity" />
         <activity android:name=".view.patientActivities.BodyMapViewActivity" />
-        <activity android:name=".view.patientActivities.PatientAddRecordActivity" />
+        <activity android:name=".view.commonActivities.PatientAddRecordActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -42,8 +42,8 @@
         <activity android:name=".view.accountActivities.AccountCreationActivity" />
         <activity android:name=".view.patientActivities.AccountCreationActivity" />
         <activity android:name=".view.patientActivities.PatientAddProblemActivity" />
-        <activity android:name=".view.patientActivities.PatientAllRecordActivity" />
-        <activity android:name=".view.patientActivities.PatientRecordDetailActivity" />
+        <activity android:name=".view.commonActivities.AllRecordActivity" />
+        <activity android:name=".view.commonActivities.PatientRecordDetailActivity" />
         <activity android:name=".view.patientActivities.PatientProblemDetailActivity" />
         <activity
             android:name=".view.patientActivities.PatientAllProblemActivity"
@@ -56,15 +56,16 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".view.patientActivities.PatientViewLocationActivity" />
+        <activity android:name=".view.commonActivities.PatientViewLocationActivity" />
         <activity android:name=".view.patientActivities.PatientMapModeActivity" />
         <activity android:name=".view.commonActivities.PatientSearchRecordResultActivity" />
-        <activity android:name=".view.patientActivities.PatientViewPhotoActivity" />
+        <activity android:name=".view.commonActivities.PatientViewPhotoActivity" />
         <activity android:name=".view.commonActivities.PatientSearchProblemResultActivity" />
         <activity
             android:name=".view.careProviderActivities.CareProviderAllPatientActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.careProviderActivities.CareProviderAddPatientActivity"></activity>
+        <activity android:name=".view.careProviderActivities.CareProviderAddPatientActivity" />
+        <activity android:name=".view.careProviderActivities.CareProviderViewProblems"></activity>
     </application>
 
 </manifest>
