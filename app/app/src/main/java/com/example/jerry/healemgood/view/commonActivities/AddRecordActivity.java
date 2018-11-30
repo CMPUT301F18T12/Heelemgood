@@ -16,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -303,9 +304,18 @@ public class AddRecordActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        MediaStore.Images.Media.insertImage(getContentResolver(), imageBitmap, label ,
+        imageBitmap = RotateBitmap(imageBitmap, 90);
+        MediaStore.Images.Media.insertImage(getContentResolver(), imageBitmap,
+                label + new Date().toString(),
                 "Taken on: " + new Date().toString());
         photoCollection.add(new Photo(imageBitmap,label));
+    }
+
+    public static Bitmap RotateBitmap(Bitmap source, float angle)
+    {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
 

@@ -10,6 +10,7 @@
 package com.example.jerry.healemgood.view.commonActivities;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,6 +48,7 @@ public class AllRecordActivity extends AppCompatActivity {
     private Button createRecordButton;
     private Button detailButton;
     private Button slideShowButton;
+    private FloatingActionButton refreshRecordsFloatingActionButton;
 
     /**
      * Handles loading an older version of the activity
@@ -61,7 +63,9 @@ public class AllRecordActivity extends AppCompatActivity {
         setTitle("Record");
 
         createRecordButton = findViewById(R.id.createRecordButton);
+        refreshRecordsFloatingActionButton = findViewById(R.id.refreshRecordsFloatingActionButton);
 
+        // For when the user wants to create a record
         createRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +79,14 @@ public class AllRecordActivity extends AppCompatActivity {
 
                 intent.putExtra(AppConfig.PID,getIntent().getStringExtra(AppConfig.PID));
                 startActivity(intent);
+            }
+        });
+
+        // For when the user clicks on the button to refresh
+        refreshRecordsFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recreate();
             }
         });
 
@@ -119,6 +131,15 @@ public class AllRecordActivity extends AppCompatActivity {
     }
 
     /**
+     * Refresh the activity
+     */
+    protected void restart() {
+        Intent i = new Intent(AllRecordActivity.this, AllRecordActivity.class);
+        startActivity(i);
+        finish();
+    }
+
+    /**
      * hide the layout based on user type
      */
     private void differentiateUserType(){
@@ -142,8 +163,6 @@ public class AllRecordActivity extends AppCompatActivity {
             loadRecords();
             recordAdapter.refreshAdapter(records);
         }
-
-
     }
 
     /**
@@ -163,7 +182,7 @@ public class AllRecordActivity extends AppCompatActivity {
      *
      */
 
-    // TODO: THE records are not loaded as expected ( nothing is loaded)
+    // TODO: THE records are not loaded as expected (nothing is loaded)
     private void loadRecords(){
 
         RecordController.searchByProblemIds(getIntent().getStringExtra(AppConfig.PID));
