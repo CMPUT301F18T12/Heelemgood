@@ -38,7 +38,7 @@ public class CareProviderViewProblems extends AppCompatActivity {
         loadProblems();
 
         ListView listView = findViewById(R.id.listView);
-        Button button = findViewById(R.id.bodyMapButton);
+
 
         problemAdapter = new ProblemAdapter(this,R.layout.problems_list_view_custom_layout,problems);
 
@@ -55,14 +55,6 @@ public class CareProviderViewProblems extends AppCompatActivity {
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),BodyMapModeActivity.class);
-                intent.putExtra("uid", userId);
-                startActivity(intent);
-            }
-        });
 
 
 
