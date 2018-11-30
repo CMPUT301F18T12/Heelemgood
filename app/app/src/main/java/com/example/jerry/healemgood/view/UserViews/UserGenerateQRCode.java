@@ -17,6 +17,13 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+/**
+ * An class used by the User to generate a Qr code for login and adding patients
+ *
+ * @author WeakMill98
+ * @version 1.0
+ * @since 2.0
+ */
 public class UserGenerateQRCode extends AppCompatActivity {
 
     private Button createQRCodeButton;
@@ -25,6 +32,11 @@ public class UserGenerateQRCode extends AppCompatActivity {
     private String text;
 
     // https://www.youtube.com/watch?v=6HfUk5AJIn8 Accessed 2018-11-23
+    /**
+     * Called when the QR code is generated
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +69,7 @@ public class UserGenerateQRCode extends AppCompatActivity {
             }
         });
 
+        // Set a listener for when the user wants to scan a QR code
         scanQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

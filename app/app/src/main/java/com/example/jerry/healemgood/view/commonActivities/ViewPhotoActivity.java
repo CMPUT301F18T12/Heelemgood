@@ -50,10 +50,6 @@ public class ViewPhotoActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
         Intent intent = getIntent();
         Bitmap bitmap = (Bitmap) intent.getParcelableExtra(AppConfig.BITMAP);
 

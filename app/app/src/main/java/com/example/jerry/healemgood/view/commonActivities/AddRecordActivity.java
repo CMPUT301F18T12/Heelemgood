@@ -16,6 +16,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -44,7 +47,11 @@ import com.example.jerry.healemgood.view.adapter.ImageAdapter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Represents a PatientAddRecordActivity
@@ -84,6 +91,9 @@ public class AddRecordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_add_record);
+
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
 
         addLocationButton =  findViewById(R.id.addLocationButton);
         saveButton = findViewById(R.id.saveButton);
@@ -175,7 +185,6 @@ public class AddRecordActivity extends AppCompatActivity {
         if (SharedPreferenceUtil.get(this,AppConfig.ISPATIENT).equals(AppConfig.FALSE)){
             photoButton.setVisibility(View.GONE);
             bodyButton.setVisibility(View.GONE);
-
             addLocationButton.setVisibility(View.GONE);
         }
     }
@@ -231,7 +240,6 @@ public class AddRecordActivity extends AppCompatActivity {
             getLabelInputAndAddPhoto(imageBitmap);
             imageAdapter.addPhoto(imageBitmap);
             imageAdapter.notifyDataSetChanged();
-
         }
 
 
@@ -251,6 +259,7 @@ public class AddRecordActivity extends AppCompatActivity {
 
 
     }
+
     private void removePhotoById(int i){
         photoCollection.remove(i);
     }
@@ -295,8 +304,69 @@ public class AddRecordActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
+        imageBitmap = RotateBitmap(imageBitmap, 90);
+        MediaStore.Images.Media.insertImage(getContentResolver(), imageBitmap,
+                label + new Date().toString(),
+                "Taken on: " + new Date().toString());
         photoCollection.add(new Photo(imageBitmap,label));
     }
+
+    public static Bitmap RotateBitmap(Bitmap source, float angle)
+    {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+    }
+
+
+    /*private void saveImage(Bitmap finalBitmap, String image_name) {
+
+        //String root = Environment.getExternalStorageDirectory().toString();
+        //File myDir = new File(getGalleryPath());
+        String appDirectoryName = "XYZ";
+        File myDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), appDirectoryName);
+        myDir.mkdirs();
+        String fname = "Image-" + image_name+ ".jpg";
+        File file = new File(myDir, fname);
+        if (file.exists()) file.delete();
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createDirectoryAndSaveFile(Bitmap imageToSave, String fileName) {
+
+        File direct = new File(Environment.getExternalStorageDirectory() + "/Heal");
+
+        if (!direct.exists()) {
+            File wallpaperDirectory = new File("/sdcard/Heal/");
+            wallpaperDirectory.mkdirs();
+        }
+
+        File file = new File(new File("/sdcard/Heal/"), fileName);
+        if (file.exists()) {
+            file.delete();
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            imageToSave.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    String getGalleryPath() {
+        String photoDir = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/" + "HealEmGood/";
+        return photoDir;
+    }*/
 
     /**
      * Saves everything recorded in the record to the problem in the form of a new record.
@@ -307,10 +377,8 @@ public class AddRecordActivity extends AppCompatActivity {
         String recordTitle = recordTitleInput.getText().toString();
 
 
-
         EditText descriptionInput = findViewById(R.id.descriptionInput);
         String descriptionString = descriptionInput.getText().toString();
-
 
         // make a new patient record
         PatientRecord patientRecord;
@@ -352,7 +420,6 @@ public class AddRecordActivity extends AppCompatActivity {
 
             new RecordController.CreateRecordTask().execute(patientRecord);
 
-
         }
         catch (Exception e){
             Log.d("ERROR","Fail to create the record");
@@ -386,10 +453,7 @@ public class AddRecordActivity extends AppCompatActivity {
         }
         // save the record
         try{
-
             new RecordController.CreateRecordTask().execute(careProviderRecord);
-
-
         }
         catch (Exception e){
             Log.d("ERROR","Fail to create the record");
