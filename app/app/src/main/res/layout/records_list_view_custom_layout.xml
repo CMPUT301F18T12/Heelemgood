@@ -30,7 +30,7 @@
         android:fontFamily="@font/muli"
         android:text="@string/title"
         android:textColor="@android:color/black"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"

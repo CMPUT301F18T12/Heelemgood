@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.model.record.Record;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +92,11 @@ public class RecordAdapter extends ArrayAdapter<Record> {
             ImageView imageView = v.findViewById(R.id.imageView);
             imageView.setImageResource(R.drawable.record_icon);
             recordName.setText(r.getTitle());
-            date.setText(r.getCreatedDate().toString());
+
+            String pattern = "yyyy-MM-dd HH:mm:ss";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            String dateString = simpleDateFormat.format(r.getCreatedDate());
+            date.setText(dateString);
             description.setText(r.getDescription());
         }
 

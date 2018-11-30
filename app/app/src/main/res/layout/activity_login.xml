@@ -58,7 +58,7 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/big_round_corner"
+        android:background="@drawable/orange_rounded_corner"
         android:fontFamily="@font/muli"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"

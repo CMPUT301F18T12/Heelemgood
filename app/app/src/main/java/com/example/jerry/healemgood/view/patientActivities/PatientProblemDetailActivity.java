@@ -44,12 +44,12 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
 
 
     Button saveButton;
-    Button backButton;
+
     EditText titleInput;
     EditText descriptionInput;
     Problem problem;
     String pId;
-    Button changeDateButton;
+    Button pickDateButton;
 
     static private Date date;
 
@@ -63,12 +63,11 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.patient_problem_detail);
+        setContentView(R.layout.activity_patient_add_or_edit_problem);
         setTitle("Problem Detail");
 
         saveButton = findViewById(R.id.saveButton);
-        backButton = findViewById(R.id.backButton);
-        changeDateButton = findViewById(R.id.changeDateButton);
+        pickDateButton = findViewById(R.id.pickDateButton);
         titleInput = findViewById(R.id.titleInput);
         descriptionInput = findViewById(R.id.descriptionInput);
         pId = getIntent().getStringExtra(AppConfig.PID);
@@ -88,14 +87,9 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
         });
 
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
-        changeDateButton.setOnClickListener(new View.OnClickListener() {
+
+        pickDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment newFragment = new DatePickerFragment();

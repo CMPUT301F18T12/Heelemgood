@@ -8,7 +8,7 @@
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="368dp"
+        android:layout_width="386dp"
         android:layout_height="416dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
@@ -61,7 +61,7 @@
         android:layout_height="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/rounded_corner"
+        android:background="@drawable/orange_rounded_corner"
         android:fontFamily="@font/muli"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
@@ -79,7 +79,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
-        app:backgroundTint="@color/colorPrimaryDark"
+        app:backgroundTint="@color/colorPrimaryOrange"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/quantum_ic_refresh_white_24" />

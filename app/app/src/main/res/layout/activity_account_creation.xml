@@ -10,20 +10,26 @@
         android:id="@+id/userIdEditText"
         android:layout_width="321dp"
         android:layout_height="42dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
+        android:fontFamily="@font/muli"
         android:hint="@string/userid_text"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/firstNameEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/firstNameEditText"
         android:layout_width="153dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="44dp"
         android:layout_marginTop="12dp"
         android:ems="10"
+        android:fontFamily="@font/muli"
         android:hint="@string/firstname_text"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,45 +37,47 @@
 
     <EditText
         android:id="@+id/lastNameEditText"
-        android:layout_width="153dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
+        android:fontFamily="@font/muli"
         android:hint="@string/lastname_text"
         android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.229"
         app:layout_constraintStart_toEndOf="@+id/firstNameEditText"
         app:layout_constraintTop_toTopOf="@+id/firstNameEditText" />
 
     <EditText
-        android:id="@+id/editText4"
-        android:layout_width="214dp"
+        android:id="@+id/emailEditText"
+        android:layout_width="321dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
+        android:fontFamily="@font/muli"
+        android:hint="@string/email_text"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/firstNameEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstNameEditText" />
 
     <EditText
-        android:id="@+id/emailEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/email_text"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editText4"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
-
-    <EditText
         android:id="@+id/phoneEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="319dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
+        android:fontFamily="@font/muli"
         android:hint="@string/phonenumber_text"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/emailEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 
     <RadioGroup
@@ -77,48 +85,48 @@
         android:layout_width="227dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.226"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneEditText">
-
-        <RadioButton
-            android:id="@+id/careProviderRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Care Provider"
-            app:layout_constraintStart_toEndOf="@+id/patientRadioButton"
-            app:layout_constraintTop_toTopOf="@+id/patientRadioButton" />
 
         <RadioButton
             android:id="@+id/patientRadioButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/muli"
             android:text="Patient"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="400dp" />
+
+        <RadioButton
+            android:id="@+id/careProviderRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/muli"
+            android:text="Care Provider"
+            app:layout_constraintStart_toEndOf="@+id/patientRadioButton"
+            app:layout_constraintTop_toTopOf="@+id/patientRadioButton" />
 
     </RadioGroup>
 
     <Button
         android:id="@+id/createAccountButton"
-        android:layout_width="wrap_content"
+        android:layout_width="328dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="76dp"
+        android:background="@drawable/big_round_corner"
+        android:fontFamily="@font/muli"
         android:text="Create"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
-
-    <Spinner
-        android:id="@+id/genderSpinner"
-        android:layout_width="86dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/editText4"
-        app:layout_constraintTop_toTopOf="@+id/editText4" />
 
 </android.support.constraint.ConstraintLayout>
