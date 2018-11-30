@@ -3,70 +3,80 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/AlertDialog.AppCompat.Light">
 
     <TextView
         android:id="@+id/dateTextView"
         android:layout_width="0dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/muli"
         android:text="Most recent Date"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView6" />
+        android:textColor="@color/cast_expanded_controller_background_color"
+        app:layout_constraintEnd_toStartOf="@+id/imageView6"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
 
     <TextView
         android:id="@+id/problemNameTextView"
         android:layout_width="0dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Problem Name"
-        android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView4" />
-
-    <TextView
-        android:id="@+id/descriptionTextView"
-        android:layout_width="369dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="8dp"
-        android:text="Number of records"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView5" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="38dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="TItle"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="30dp"
+        android:autoText="false"
+        android:fontFamily="@font/muli"
+        android:text="Problem Name"
+        android:textColor="@color/cast_expanded_controller_background_color"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/imageView6"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/descriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Count"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="38dp"
-        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_cornor"
+        android:fontFamily="@font/muli"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Number of records"
+        android:textAllCaps="false"
+        android:textColor="@color/cast_expanded_controller_progress_text_color"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toStartOf="@+id/imageView6"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/problemNameTextView" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="89dp"
+        android:layout_height="92dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/problem_icon" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="46dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/delete_icon" />
 
 </android.support.constraint.ConstraintLayout>

@@ -9,23 +9,34 @@
 
     <EditText
         android:id="@+id/userIdEditText"
+        style="@android:style/Widget.AutoCompleteTextView"
         android:layout_width="284dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="192dp"
         android:ems="10"
-        android:hint="@string/userid_text"
         android:inputType="textPersonName"
+        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@android:color/holo_blue_light"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/signInButton"
-        android:layout_width="wrap_content"
+        android:layout_width="281dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/big_round_corner"
+        android:fontFamily="@font/muli"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:text="Sign In"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userIdEditText" />
@@ -33,21 +44,31 @@
     <TextView
         android:id="@+id/createAccountTextView"
         android:layout_width="wrap_content"
-        android:layout_height="22dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
+        android:fontFamily="@font/muli"
         android:text="Create an Account"
+        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInQRButton" />
 
     <Button
         android:id="@+id/signInQRButton"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/big_round_corner"
+        android:fontFamily="@font/muli"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:text="@string/scanQRCodeLogin"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInButton" />
 </android.support.constraint.ConstraintLayout>
