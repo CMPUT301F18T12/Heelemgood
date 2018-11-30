@@ -12,8 +12,10 @@ import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.ProblemController;
 import com.example.jerry.healemgood.controller.RecordController;
+import com.example.jerry.healemgood.controller.UserController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
+import com.example.jerry.healemgood.model.user.CareProvider;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.ProblemAdapter;
 import com.google.android.gms.maps.model.LatLng;
@@ -27,12 +29,18 @@ public class SearchProblemResultActivity extends AppCompatActivity {
     private ArrayList<Problem> problems = new ArrayList<Problem>();
     private ArrayList<Record> records = new ArrayList<Record>();
     private ProblemAdapter problemAdapter;
+    private CareProvider careProvider; // if the user is a care provider
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Search Problem");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_search_problem_result);
+
+        if (!isPatient()){
+            loadCareProvider();
+        }
+
         loadProblems();
 
         ListView listView = findViewById(R.id.listView);
@@ -48,12 +56,41 @@ public class SearchProblemResultActivity extends AppCompatActivity {
         });
     }
 
+    private void loadCareProvider(){
+        try{
+            careProvider = (CareProvider)new UserController.SearchCareProviderTask().execute(SharedPreferenceUtil.get(this,AppConfig.USERID)).get();
+        }
+        catch (Exception e){
+            Log.d("Error","Fail to load the care provider");
+        }
+    }
+
+    private void differentiateUserType(){
+
+        if (isPatient()){
+            ProblemController.searchByPatientIds(SharedPreferenceUtil.get(this,AppConfig.USERID));
+            RecordController.searchByPatientIds(SharedPreferenceUtil.get(this,AppConfig.USERID));
+        }
+        else{
+            ArrayList<String> patientIdsList = careProvider.getPatientsUserIds();
+            ProblemController.searchByPatientIds(patientIdsList.toArray(new String[patientIdsList.size()]));
+            RecordController.searchByPatientIds(patientIdsList.toArray(new String[patientIdsList.size()]));
+        }
+    }
+
+    // check is the user is a patient
+    private boolean isPatient(){
+        return SharedPreferenceUtil.get(this,AppConfig.ISPATIENT).equals(AppConfig.TRUE);
+    }
+
 
     private void loadProblems(){
         Intent intent = getIntent();
         String query = intent.getStringExtra(AppConfig.QUERY);
         double[] geoLocation = intent.getDoubleArrayExtra(AppConfig.GEOLOCATION);
         String bodyLocation = intent.getStringExtra(AppConfig.BODYLOCATION);
+
+        differentiateUserType();
 
         if (query != null){ // search by keyword
             searchByKeyword(query);
@@ -67,6 +104,7 @@ public class SearchProblemResultActivity extends AppCompatActivity {
     }
 
     private void searchByKeyword(String query){
+
         ProblemController.searchByKeyword(query);
         try{
             problems = new ProblemController.SearchProblemTask().execute().get();
@@ -78,7 +116,6 @@ public class SearchProblemResultActivity extends AppCompatActivity {
 
     private void searchByGeoLocation(double[] geoLocation){
         try{
-            RecordController.searchByPatientIds(SharedPreferenceUtil.get(this,AppConfig.USERID));
             RecordController.searchByGeoLocation(new LatLng(geoLocation[1],geoLocation[0]),2);
             records = new RecordController.SearchRecordTask().execute().get();
 
@@ -87,13 +124,12 @@ public class SearchProblemResultActivity extends AppCompatActivity {
             Log.d("Error","Fail to search by geo location");
             records = new ArrayList<Record>();
         }
-        getPorblemsByPids();
+        getProblemsByPids();
 
     }
 
     private void searchByBodyLocation(String query){
         try{
-            RecordController.searchByPatientIds(SharedPreferenceUtil.get(this,AppConfig.USERID));
             RecordController.searchByBodyLocation(query);
             records = new RecordController.SearchRecordTask().execute().get();
         }
@@ -102,11 +138,11 @@ public class SearchProblemResultActivity extends AppCompatActivity {
             records = new ArrayList<Record>();
         }
 
-        getPorblemsByPids();
+        getProblemsByPids();
 
     }
 
-    private void getPorblemsByPids(){
+    private void getProblemsByPids(){
         Set<String> pIds = new HashSet<String>();
         for (Record r: records){
             pIds.add(r.getpId());

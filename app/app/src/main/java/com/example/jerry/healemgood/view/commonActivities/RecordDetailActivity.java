@@ -206,6 +206,10 @@ public class RecordDetailActivity extends AppCompatActivity {
         }
 
         if (!record.isPatientRecord()){
+            photoButton.setVisibility(View.GONE);
+            editLocationButton.setVisibility(View.GONE);
+            saveButton.setVisibility(View.GONE);
+            backButton.setVisibility(View.GONE);
             bodyButton.setVisibility(View.GONE);
             viewLocationButton.setVisibility(View.GONE);
         }
