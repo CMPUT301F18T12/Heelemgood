@@ -39,7 +39,7 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_care_provider_all_patient);
+        setContentView(R.layout.activity_care_provider_added_patients);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

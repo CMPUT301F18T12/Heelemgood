@@ -31,6 +31,13 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 //https://www.youtube.com/watch?v=o69UqAKi47I&t=22s Accessed 2018-11-24
+/**
+ * An class used by the User to scan a Qr code for login
+ *
+ * @author WeakMill98
+ * @version 1.0
+ * @since 2.0
+ */
 
 public class UserScanQRCodeLogin extends AppCompatActivity {
 
@@ -40,11 +47,19 @@ public class UserScanQRCodeLogin extends AppCompatActivity {
     CameraSource cameraSource;
     final int requestCameraPermissionID = 1001;
 
+    /**
+     * Called when the Activity starts, requests for permissions from the user
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case requestCameraPermissionID: {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // If permission has been granted
                     try {
                         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                             return;
@@ -58,6 +73,11 @@ public class UserScanQRCodeLogin extends AppCompatActivity {
         }
     }
 
+    /**
+     * Called when the QR code is generated
+     *
+     * @param saveInstanceState
+     */
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
@@ -106,6 +126,7 @@ public class UserScanQRCodeLogin extends AppCompatActivity {
             }
         });
 
+        // Set Processor
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {

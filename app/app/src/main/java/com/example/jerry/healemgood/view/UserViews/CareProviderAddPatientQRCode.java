@@ -13,6 +13,7 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
@@ -28,9 +29,17 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 //https://www.youtube.com/watch?v=o69UqAKi47I&t=22s Accessed 2018-11-24
+/**
+ * An class used by the care provider to scan and add the QR code of a patient
+ *
+ * @author WeakMill98
+ * @version 1.0
+ * @since 2.0
+ */
 
 public class CareProviderAddPatientQRCode extends AppCompatActivity {
 
@@ -40,10 +49,18 @@ public class CareProviderAddPatientQRCode extends AppCompatActivity {
     CameraSource cameraSource;
     final int requestCameraPermissionID = 1001;
 
+    /**
+     * Called when the app asks for permissions
+     *
+     * @param requestCode
+     * @param grantResults
+     * @param permissions
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case requestCameraPermissionID: {
+                // If permission has been granted
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     try {
                         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -63,9 +80,11 @@ public class CareProviderAddPatientQRCode extends AppCompatActivity {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_patient_scan_qrcode);
 
+        // Get the paths to the XML elements
         cameraPreview = (SurfaceView) findViewById(R.id.cameraPreview);
         textResult = (TextView) findViewById(R.id.resultTextView);
 
+        // Build the detector as well as a camera source
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE)
                 .build();
@@ -106,6 +125,7 @@ public class CareProviderAddPatientQRCode extends AppCompatActivity {
             }
         });
 
+        // Set the processor of the barcode detector
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
@@ -119,10 +139,6 @@ public class CareProviderAddPatientQRCode extends AppCompatActivity {
                     textResult.post(new Runnable() {
                         @Override
                         public void run() {
-                            // Create a vibrate for the phone
-                            //Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-                            //vibrator.vibrate(500);
-
                             // Set the text result to the text scanned from the code
                             textResult.setText(qrcodes.valueAt(0).displayValue);
                             // Stop the camera after the source has been found
@@ -145,12 +161,37 @@ public class CareProviderAddPatientQRCode extends AppCompatActivity {
                                         try{
                                             // Add the id of the patient to the patients list of the care provider
                                             // Update the user account and move to the homepage of the doctor
-                                            careprovider.addPatientUserId(patient.getUserId());
-                                            new UserController.UpdateUserTask().execute(careprovider);
+                                            // Check if the user is already a patient
+                                            ArrayList<String> patientsUserIds = careprovider.getPatientsUserIds();
+                                            if (patientsUserIds.contains(qrcodes.valueAt(0).displayValue)){
+                                                // Make a toast and exit
+                                                Toast.makeText(CareProviderAddPatientQRCode.this,
+                                                        "Patient has already been added",
+                                                        Toast.LENGTH_LONG).show();
+                                            }
+                                            else {
+                                                // Add the patient
+                                                careprovider.addPatientUserId(patient.getUserId());
+                                                new UserController.UpdateUserTask().execute(careprovider);
+                                                Toast.makeText(CareProviderAddPatientQRCode.this,
+                                                        "Patient Added",
+                                                        Toast.LENGTH_LONG).show();
+                                            }
+                                            // Go back to the home page of the care provider
                                             Intent intent = new Intent(getApplicationContext(), CareProviderAllPatientActivity.class);
                                             startActivity(intent);
                                         }catch (Exception e){}
                                     }catch (Exception e){}
+                                }
+                            });
+
+                            // If the care provider does not want to add the patient
+                            builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    // Go back to the home page of the care provider
+                                    Intent intent = new Intent(getApplicationContext(), CareProviderAllPatientActivity.class);
+                                    startActivity(intent);
                                 }
                             });
 

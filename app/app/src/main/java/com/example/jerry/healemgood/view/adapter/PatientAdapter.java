@@ -84,10 +84,11 @@ public class PatientAdapter extends ArrayAdapter<Patient> {
         Patient p = getItem(position);
 
         if (p != null){
-
+            // Get the patient name and patient ID
             TextView patientName = v.findViewById(R.id.patientName);
             TextView patientUid = v.findViewById(R.id.patientUid);
 
+            // Set the xml elements
             patientName.setText(p.getFullName());
             patientUid.setText(p.getUserId());
         }
