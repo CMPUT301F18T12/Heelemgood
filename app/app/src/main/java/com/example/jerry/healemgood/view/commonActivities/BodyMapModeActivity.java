@@ -213,7 +213,7 @@ public class BodyMapModeActivity extends AppCompatActivity{
      */
     private void loadAllRecords(){
 
-        RecordController.searchByPatientIds(getIntent().getStringExtra("uid"));
+        RecordController.searchByPatientIds(getIntent().getStringExtra(AppConfig.USERID));
         try{
             records = new RecordController.SearchRecordTask().execute().get();
         }
