@@ -10,16 +10,21 @@
 package com.example.jerry.healemgood.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
+import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.model.user.Patient;
+import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
+import com.example.jerry.healemgood.view.commonActivities.ViewContactActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,12 +86,22 @@ public class PatientAdapter extends ArrayAdapter<Patient> {
             v = vi.inflate(layout, null);
         }
 
-        Patient p = getItem(position);
+        final Patient p = getItem(position);
 
         if (p != null){
 
             TextView patientName = v.findViewById(R.id.patientName);
             TextView patientUid = v.findViewById(R.id.patientUid);
+            ImageView imageView = v.findViewById(R.id.imageView);
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext,ViewContactActivity.class);
+                    intent.putExtra(AppConfig.USERID,p.getUserId());
+                    mContext.startActivity(intent);
+                }
+            });
 
             patientName.setText(p.getFullName());
             patientUid.setText(p.getUserId());

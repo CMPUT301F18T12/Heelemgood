@@ -275,7 +275,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
                 break;
             case R.id.navigation_body:
                 Intent intent = new Intent(getApplicationContext(),BodyMapModeActivity.class);
-                intent.putExtra("uid", SharedPreferenceUtil.get(this,AppConfig.USERID));
+                intent.putExtra(AppConfig.USERID, SharedPreferenceUtil.get(this,AppConfig.USERID));
                 startActivity(intent);
                 break;
             case R.id.navigation_qrcode:  // Generate a QR code

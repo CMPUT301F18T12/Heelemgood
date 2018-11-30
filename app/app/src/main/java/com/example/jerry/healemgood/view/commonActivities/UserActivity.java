@@ -61,11 +61,11 @@ public class UserActivity extends AppCompatActivity {
 
         final Button saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-              save();
-              finish();
-          }
+            @Override
+            public void onClick(View view) {
+                save();
+                finish();
+            }
         });
 
         Button logOutButton = findViewById(R.id.logoutButton);
