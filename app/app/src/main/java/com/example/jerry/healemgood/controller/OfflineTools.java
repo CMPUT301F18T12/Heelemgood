@@ -21,6 +21,7 @@ public class OfflineTools {
 
     /**
      * Wait for network connection
+     * See https://stackoverflow.com/questions/18375962/how-to-check-that-android-phone-is-not-connected-to-internet
      */
     public static void waitForConnection(){
         if(context!=null) {
@@ -36,5 +37,16 @@ public class OfflineTools {
                         .getActiveNetworkInfo();
             }
         }
+    }
+    public static boolean checkForConenction(){
+        if(context!=null) {
+            ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetworkInfo = connectivityManager
+                    .getActiveNetworkInfo();
+            if (activeNetworkInfo == null || !activeNetworkInfo.isConnected()) {
+                return false;
+            }
+        }
+        return true;
     }
 }
