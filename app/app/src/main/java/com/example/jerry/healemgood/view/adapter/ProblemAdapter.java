@@ -10,18 +10,23 @@
 package com.example.jerry.healemgood.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
+import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.RecordController;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
+import com.example.jerry.healemgood.view.commonActivities.ViewContactActivity;
+import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -75,7 +80,7 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
      */
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
+    public View getView(final int position, View convertView, ViewGroup viewGroup) {
         View v = convertView;
         if (v == null) {
             LayoutInflater vi;
@@ -89,7 +94,7 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
 
             TextView problemName = v.findViewById(R.id.problemNameTextView);
             TextView date = v.findViewById(R.id.dateTextView);
-            TextView recordCount = v.findViewById(R.id.descriptionTextView);
+            TextView recordCount = v.findViewById(R.id.countTextView);
             problemName.setText(p.getTitle());
 
             SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
@@ -105,6 +110,21 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
                 Log.d("Error","Fail to load records");
                 records = new ArrayList<Record>();
             }
+
+            ImageView deleteImageView = v.findViewById(R.id.deleteImageView);
+
+            if (mContext instanceof PatientAllProblemActivity){
+                deleteImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ((PatientAllProblemActivity)mContext).deleteProblem(position);
+                    }
+                });
+            }
+            else{
+                deleteImageView.setVisibility(View.GONE);
+            }
+
 
 
 

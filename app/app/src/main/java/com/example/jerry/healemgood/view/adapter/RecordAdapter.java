@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
@@ -86,7 +87,9 @@ public class RecordAdapter extends ArrayAdapter<Record> {
 
             TextView recordName = v.findViewById(R.id.recordNameTextView);
             TextView date = v.findViewById(R.id.dateTextView);
-            TextView description = v.findViewById(R.id.descriptionTextView);
+            TextView description = v.findViewById(R.id.countTextView);
+            ImageView imageView = v.findViewById(R.id.imageView);
+            imageView.setImageResource(R.drawable.record_icon);
             recordName.setText(r.getTitle());
             date.setText(r.getCreatedDate().toString());
             description.setText(r.getDescription());
