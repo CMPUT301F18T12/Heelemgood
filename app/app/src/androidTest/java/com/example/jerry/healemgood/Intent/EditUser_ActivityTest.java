@@ -1,3 +1,13 @@
+/*
+ *  Class Name: EditUser_ActivityTest
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 19, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
 package com.example.jerry.healemgood.Intent;
 
 import android.test.ActivityInstrumentationTestCase2;
@@ -33,11 +43,17 @@ public class EditUser_ActivityTest extends ActivityInstrumentationTestCase2<Main
                 MainActivity.class);
     }
 
+    /**
+    * Handles errors
+    */
     public void setUp() throws Exception {
         super.setUp();
         solo = new Solo(getInstrumentation(), getActivity());
     }
 
+    /**
+    * Shuts down if ther's an error
+    */
     @Override
     public void tearDown() throws Exception {
         solo.finishOpenedActivities();

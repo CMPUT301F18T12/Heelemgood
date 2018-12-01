@@ -10,16 +10,19 @@
 package com.example.jerry.healemgood.view.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.model.record.Record;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,9 +89,26 @@ public class RecordAdapter extends ArrayAdapter<Record> {
 
             TextView recordName = v.findViewById(R.id.recordNameTextView);
             TextView date = v.findViewById(R.id.dateTextView);
-            TextView description = v.findViewById(R.id.descriptionTextView);
+            TextView description = v.findViewById(R.id.countTextView);
+            ImageView imageView = v.findViewById(R.id.imageView);
+
+            if (r.isPatientRecord()) {
+                imageView.setImageResource(R.drawable.record_icon);
+                v.setBackgroundResource(R.drawable.rounded_corner);
+            }
+            else{
+                imageView.setImageResource(R.drawable.doctor_record_icon);
+
+                v.setBackgroundResource(R.drawable.orange_small_corner);
+
+            }
+
             recordName.setText(r.getTitle());
-            date.setText(r.getCreatedDate().toString());
+
+            String pattern = "yyyy-MM-dd HH:mm:ss";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            String dateString = simpleDateFormat.format(r.getCreatedDate());
+            date.setText(dateString);
             description.setText(r.getDescription());
         }
 

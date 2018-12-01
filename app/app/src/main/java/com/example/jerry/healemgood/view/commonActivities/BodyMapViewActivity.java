@@ -64,6 +64,7 @@ public class BodyMapViewActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_body_selection);
+        setTitle("View Body Location");
 
         ImageView imageView = findViewById (R.id.bodyMap);
 

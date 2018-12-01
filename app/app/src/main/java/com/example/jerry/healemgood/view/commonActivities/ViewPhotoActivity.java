@@ -24,14 +24,16 @@ public class ViewPhotoActivity extends AppCompatActivity {
 //    private Record record;
 
     private Button deleteButton;
-    private Button backButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_view_photo);
 
+        setTitle("View Photo");
+
         deleteButton = findViewById(R.id.deleteButton);
-        backButton = findViewById(R.id.backButton);
+
 
         deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -43,12 +45,7 @@ public class ViewPhotoActivity extends AppCompatActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
 
         Intent intent = getIntent();
         Bitmap bitmap = (Bitmap) intent.getParcelableExtra(AppConfig.BITMAP);
@@ -75,17 +72,9 @@ public class ViewPhotoActivity extends AppCompatActivity {
     private void differentiateUserType(){
         if (SharedPreferenceUtil.get(this,AppConfig.ISPATIENT).equals(AppConfig.FALSE)){
             deleteButton.setVisibility(View.GONE);
-            backButton.setVisibility(View.GONE);
+
         }
     }
 
 
-//    private void loadRecord(){
-//        try{
-//            record = new RecordController.GetRecordByIdTask().execute(getIntent().getStringExtra(AppConfig.RID)).get();
-//        }
-//        catch (Exception e){
-//            Log.d("ERROR","Fail to load the record");
-//        }
-//    }
 }

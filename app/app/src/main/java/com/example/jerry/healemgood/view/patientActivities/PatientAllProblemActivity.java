@@ -97,20 +97,15 @@ public class PatientAllProblemActivity extends AppCompatActivity
         mListView = findViewById(R.id.patientListView);
         createProblemButton = findViewById(R.id.createProblemButton);
 
-        if (SharedPreferenceUtil.get(this,"ISPATIENT").equals("false")) {
-            isPatient = false;
-            createProblemButton.setVisibility(View.INVISIBLE);
-        }
-        else {
-            isPatient = true;
-            createProblemButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), PatientAddProblemActivity.class);
-                    startActivity(intent);
-                }
-            });
-        }
+
+        createProblemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PatientAddProblemActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         loadProblems();
 
@@ -173,10 +168,9 @@ public class PatientAllProblemActivity extends AppCompatActivity
         else {
             ProblemController.searchByPatientIds(getIntent().getStringArrayExtra("uid"));
         }
+        ProblemController.searchByPatientIds(SharedPreferenceUtil.get(this, AppConfig.USERID));
         try{
             problems = new ProblemController.SearchProblemTask().execute().get();
-
-
         }
         catch (Exception e){
             Log.d("Error","Fail to get the problems");
@@ -191,7 +185,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
      *
      */
 
-    private void deleteProblem(int i){
+    public void deleteProblem(int i){
 
         try {
             new ProblemController.DeleteProblemTask().execute(problems.get(i)).get();

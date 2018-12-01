@@ -22,7 +22,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/rounded_cornor"
+            android:background="@drawable/rounded_corner"
             android:fontFamily="@font/muli"
             android:text="@string/create_problem"
             android:textAllCaps="false"
@@ -30,15 +30,15 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.407"
+            app:layout_constraintHorizontal_bias="0.411"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/patientListView"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.479" />
 
         <ListView
             android:id="@+id/patientListView"
             android:layout_width="395dp"
-            android:layout_height="480dp"
+            android:layout_height="439dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="56dp"
             android:layout_marginEnd="8dp"
@@ -52,15 +52,16 @@
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/refreshProblemsFloatingActionButton"
             android:layout_width="45dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="28dp"
-            android:layout_marginBottom="28dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
             android:clickable="true"
-            app:backgroundTint="@color/viewfinder_border"
+            app:backgroundTint="@color/colorPrimaryOrange"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/createProblemButton"
             app:srcCompat="@drawable/quantum_ic_refresh_white_24" />
 
         <ProgressBar
@@ -83,6 +84,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:theme="@style/NavigationDrawerStyle"
         app:headerLayout="@layout/nav_header_patient_all_problem"
         app:menu="@menu/patient_menu" />
 

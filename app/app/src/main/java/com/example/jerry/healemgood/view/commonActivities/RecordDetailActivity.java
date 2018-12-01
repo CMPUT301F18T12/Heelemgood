@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
@@ -70,11 +71,13 @@ public class RecordDetailActivity extends AppCompatActivity {
     private ArrayList<Photo> photoCollection = new ArrayList<Photo>();
 
     private Button saveButton;
-    private Button backButton;
+
     private Button viewLocationButton;
     private ImageButton photoButton;
     private Button bodyButton;
     private Button editLocationButton;
+
+    private ProgressBar progressBar;
 
 
     /**
@@ -87,8 +90,11 @@ public class RecordDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_record_detail);
+        setTitle("Record Detail");
 
         loadRecord();
+
+        progressBar = findViewById(R.id.progressBar);
 
         GridView gridview = (GridView) findViewById(R.id.gridView);
         imageAdapter = new ImageAdapter(this);
@@ -106,7 +112,7 @@ public class RecordDetailActivity extends AppCompatActivity {
         });
 
          saveButton = findViewById(R.id.saveButton);
-         backButton = findViewById(R.id.backButton);
+
          bodyButton = findViewById(R.id.bodyButton);
          viewLocationButton = findViewById(R.id.viewLocationButton);
 
@@ -176,17 +182,17 @@ public class RecordDetailActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                progressBar.setVisibility(View.VISIBLE);
                 saveRecord();
+                try{
+                    Thread.sleep(1500);
+                }
+                catch (Exception e){}
                 finish();
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         differentiateUserType();
 
@@ -203,14 +209,13 @@ public class RecordDetailActivity extends AppCompatActivity {
             photoButton.setVisibility(View.GONE);
             editLocationButton.setVisibility(View.GONE);
             saveButton.setVisibility(View.GONE);
-            backButton.setVisibility(View.GONE);
+
         }
 
         if (!record.isPatientRecord()){
             photoButton.setVisibility(View.GONE);
             editLocationButton.setVisibility(View.GONE);
             saveButton.setVisibility(View.GONE);
-            backButton.setVisibility(View.GONE);
             bodyButton.setVisibility(View.GONE);
             viewLocationButton.setVisibility(View.GONE);
         }

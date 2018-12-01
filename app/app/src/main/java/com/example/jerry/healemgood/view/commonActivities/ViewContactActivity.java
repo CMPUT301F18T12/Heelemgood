@@ -20,6 +20,7 @@ public class ViewContactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_contact);
+        setTitle("Contact Info");
 
         nameText = findViewById(R.id.userFullNameTextView);
         userIdText = findViewById(R.id.userIdTextView);

@@ -59,6 +59,8 @@ public class AccountCreationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_creation);
 
+        setTitle("Create Account");
+
 
         // Find references to the XML path
         // This includes all user attributes, such as username, password, etc.

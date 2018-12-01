@@ -52,6 +52,7 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_user);
+        setTitle("User Info");
 
          nameText = findViewById(R.id.userFullName);
          userIdText = findViewById(R.id.userId);

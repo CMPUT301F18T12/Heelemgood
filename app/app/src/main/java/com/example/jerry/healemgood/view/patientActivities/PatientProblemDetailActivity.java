@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
@@ -44,14 +45,16 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
 
 
     Button saveButton;
-    Button backButton;
+
     EditText titleInput;
     EditText descriptionInput;
     Problem problem;
     String pId;
-    Button changeDateButton;
+    Button pickDateButton;
 
     static private Date date;
+
+    private ProgressBar progressBar;
 
 
     /**
@@ -63,12 +66,12 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.patient_problem_detail);
+        setContentView(R.layout.activity_patient_add_or_edit_problem);
         setTitle("Problem Detail");
 
+        progressBar = findViewById(R.id.progressBar);
         saveButton = findViewById(R.id.saveButton);
-        backButton = findViewById(R.id.backButton);
-        changeDateButton = findViewById(R.id.changeDateButton);
+        pickDateButton = findViewById(R.id.pickDateButton);
         titleInput = findViewById(R.id.titleInput);
         descriptionInput = findViewById(R.id.descriptionInput);
         pId = getIntent().getStringExtra(AppConfig.PID);
@@ -83,19 +86,20 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveProblem();
+                progressBar.setVisibility(View.VISIBLE);
+                try{
+                    Thread.sleep(1500);
+                }catch (Exception e){
+
+                }
                 finish();
             }
         });
 
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
-        changeDateButton.setOnClickListener(new View.OnClickListener() {
+
+        pickDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment newFragment = new DatePickerFragment();

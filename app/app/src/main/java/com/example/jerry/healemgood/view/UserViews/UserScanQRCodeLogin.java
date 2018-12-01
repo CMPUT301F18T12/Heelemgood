@@ -82,6 +82,7 @@ public class UserScanQRCodeLogin extends AppCompatActivity {
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_patient_scan_qrcode);
+        setTitle("QR Code");
 
         cameraPreview = (SurfaceView) findViewById(R.id.cameraPreview);
         textResult = (TextView) findViewById(R.id.resultTextView);

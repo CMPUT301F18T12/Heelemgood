@@ -1,3 +1,13 @@
+/*
+ *  Class Name: OfflineTools
+ *
+ *  Version: Version 1.0
+ *
+ *  Date: November 28, 2018
+ *
+ *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
+ */
+
 package com.example.jerry.healemgood.controller;
 
 import android.content.Context;
@@ -6,6 +16,13 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 import java.util.Date;
+
+/**
+ * Handles Offline mechanics
+ * @author joeyUalberta
+ * @version 1.0
+ * @since 1.0
+ */
 
 public class OfflineTools {
     private static Context context=null;
