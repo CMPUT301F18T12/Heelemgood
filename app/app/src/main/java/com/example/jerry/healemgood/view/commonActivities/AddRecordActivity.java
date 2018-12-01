@@ -101,8 +101,7 @@ public class AddRecordActivity extends AppCompatActivity {
 
 
         ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},1);
         addLocationButton =  findViewById(R.id.addLocationButton);
         saveButton = findViewById(R.id.saveButton);
         bodyButton = findViewById(R.id.bodyButton);
@@ -230,7 +229,7 @@ public class AddRecordActivity extends AppCompatActivity {
                 == PackageManager.PERMISSION_DENIED){
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
         }
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+        else if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
