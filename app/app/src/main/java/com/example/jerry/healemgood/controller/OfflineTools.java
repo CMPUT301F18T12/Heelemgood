@@ -55,6 +55,11 @@ public class OfflineTools {
             }
         }
     }
+
+    /**
+     * return true if the device dont have internet connection
+     * @return
+     */
     public static boolean checkForConenction(){
         if(context!=null) {
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
