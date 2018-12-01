@@ -91,7 +91,7 @@ public class RecordDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_record_detail);
         setTitle("Record Detail");
-
+        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
         loadRecord();
 
         progressBar = findViewById(R.id.progressBar);
@@ -99,7 +99,6 @@ public class RecordDetailActivity extends AppCompatActivity {
         GridView gridview = (GridView) findViewById(R.id.gridView);
         imageAdapter = new ImageAdapter(this);
         gridview.setAdapter(imageAdapter);
-
 
 
         fillOutDetail();
@@ -249,7 +248,7 @@ public class RecordDetailActivity extends AppCompatActivity {
                 == PackageManager.PERMISSION_DENIED){
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
         }
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+        else if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
