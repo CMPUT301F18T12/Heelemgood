@@ -92,6 +92,7 @@ public class CareProviderAddPatientActivity extends AppCompatActivity {
         }
 
         careProvider.addPatientUserId(patientIdSearch);
+        Toast.makeText(this, " Patient successfully added!", Toast.LENGTH_LONG).show();
     }
 
     private void save() {

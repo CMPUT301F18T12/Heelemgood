@@ -25,6 +25,7 @@ public class SlideShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slide_show);
+        setTitle("Slide Show Mode");
 
         ViewPager viewPager = findViewById(R.id.viewPager);  // the ViewPager for displaying slide show
         adapter = new SlideShowAdapter(this);

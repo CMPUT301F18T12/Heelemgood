@@ -147,6 +147,7 @@ public class AllRecordActivity extends AppCompatActivity {
             detailButton.setVisibility(View.GONE);
             slideShowButton.setVisibility(View.GONE);
             createRecordButton.setText("Add Comment");
+            refreshRecordsFloatingActionButton.setVisibility(View.GONE);
         }
     }
 

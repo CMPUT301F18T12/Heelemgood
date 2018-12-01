@@ -57,6 +57,7 @@ public class PatientAddProblemActivity extends AppCompatActivity {
 
         date = null;
         setContentView(R.layout.activity_patient_add_or_edit_problem);
+        setTitle("Create Problem");
 
         Button saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
