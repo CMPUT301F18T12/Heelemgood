@@ -55,6 +55,18 @@ public class CareProviderViewProblems extends AppCompatActivity {
             }
         });
 
+        Button bodyMapButton = findViewById(R.id.bodyMapButton);
+
+        bodyMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),BodyMapModeActivity.class);
+                intent.putExtra(AppConfig.USERID, userId);
+                startActivity(intent);
+            }
+        });
+
+
 
 
 

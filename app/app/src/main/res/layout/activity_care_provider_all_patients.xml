@@ -55,6 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        app:theme="@style/NavigationDrawerStyle"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_patient_all_problem"
         app:menu="@menu/care_provider_menu" />

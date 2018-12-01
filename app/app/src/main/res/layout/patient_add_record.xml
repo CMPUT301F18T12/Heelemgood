@@ -158,7 +158,7 @@
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toStartOf="@+id/addLocationButton"
-        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintHorizontal_bias="0.42"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridView"
         app:layout_constraintVertical_bias="0.333" />
