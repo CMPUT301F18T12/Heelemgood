@@ -31,6 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
@@ -41,6 +42,7 @@ import com.example.jerry.healemgood.model.record.CareProviderRecord;
 import com.example.jerry.healemgood.model.record.PatientRecord;
 import com.example.jerry.healemgood.utils.BodyLocation;
 import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
+import com.example.jerry.healemgood.utils.NetworkUtil;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.ImageAdapter;
 //import com.example.jerry.healemgood.view.patientActivities.BodyMapViewActivity;
@@ -81,6 +83,8 @@ public class AddRecordActivity extends AppCompatActivity {
     private Button bodyButton;
     private Button saveButton;
 
+    private ProgressBar progressBar;
+
 
     /**
      * Handles loading an older version of the activity
@@ -92,6 +96,9 @@ public class AddRecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_add_record);
         setTitle("Create Record");
+
+        progressBar = findViewById(R.id.progressBar);
+
 
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
@@ -144,6 +151,7 @@ public class AddRecordActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                progressBar.setVisibility(View.VISIBLE);
                 if (SharedPreferenceUtil.get(getApplicationContext(),AppConfig.ISPATIENT).equals(AppConfig.TRUE)){
                     savePatientRecord();
                 }
@@ -152,7 +160,7 @@ public class AddRecordActivity extends AppCompatActivity {
                 }
 
                 try{
-                    Thread.sleep(1000);
+                    Thread.sleep(1500);
                 }
                 catch (Exception e){
 
@@ -161,6 +169,7 @@ public class AddRecordActivity extends AppCompatActivity {
 
             }
         });
+
 
 
         GridView gridview = (GridView) findViewById(R.id.gridView);
@@ -178,6 +187,9 @@ public class AddRecordActivity extends AppCompatActivity {
 
 
     }
+
+
+
 
     /**
      * hide the layout based on user type
