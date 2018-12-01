@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
@@ -76,6 +77,8 @@ public class RecordDetailActivity extends AppCompatActivity {
     private Button bodyButton;
     private Button editLocationButton;
 
+    private ProgressBar progressBar;
+
 
     /**
      * This function will load a previously used instance of the activity
@@ -90,6 +93,8 @@ public class RecordDetailActivity extends AppCompatActivity {
         setTitle("Record Detail");
 
         loadRecord();
+
+        progressBar = findViewById(R.id.progressBar);
 
         GridView gridview = (GridView) findViewById(R.id.gridView);
         imageAdapter = new ImageAdapter(this);
@@ -177,7 +182,13 @@ public class RecordDetailActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                progressBar.setVisibility(View.VISIBLE);
                 saveRecord();
+                try{
+                    Thread.sleep(1500);
+                }
+                catch (Exception e){}
                 finish();
             }
         });

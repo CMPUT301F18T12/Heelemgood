@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
@@ -53,6 +54,8 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
 
     static private Date date;
 
+    private ProgressBar progressBar;
+
 
     /**
      * This function will load a previously used instance of the activity
@@ -66,6 +69,7 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_add_or_edit_problem);
         setTitle("Problem Detail");
 
+        progressBar = findViewById(R.id.progressBar);
         saveButton = findViewById(R.id.saveButton);
         pickDateButton = findViewById(R.id.pickDateButton);
         titleInput = findViewById(R.id.titleInput);
@@ -82,6 +86,12 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveProblem();
+                progressBar.setVisibility(View.VISIBLE);
+                try{
+                    Thread.sleep(1500);
+                }catch (Exception e){
+
+                }
                 finish();
             }
         });
