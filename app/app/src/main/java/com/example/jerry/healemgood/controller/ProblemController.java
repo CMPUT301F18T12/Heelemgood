@@ -13,6 +13,7 @@ package com.example.jerry.healemgood.controller;
 
 import android.app.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.location.Location;
 import android.net.ConnectivityManager;
@@ -68,6 +69,7 @@ public class ProblemController {
      */
 
     public static class GetProblemByIdsTask extends AsyncTask<String,Void,ArrayList<Problem>>{
+
         protected ArrayList<Problem> doInBackground(String... ids) {
             setClient();
 

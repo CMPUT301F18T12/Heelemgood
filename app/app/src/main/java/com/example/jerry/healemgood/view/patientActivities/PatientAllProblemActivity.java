@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
@@ -57,6 +58,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
 
     private ArrayList<Problem> problems;
     private ProblemAdapter problemAdapter;
+    private ProgressBar progressBar;
     private boolean isPatient;
 
     /**
@@ -70,6 +72,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_all_problem);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        progressBar = findViewById(R.id.progressBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Problem");
 
@@ -162,6 +165,8 @@ public class PatientAllProblemActivity extends AppCompatActivity
      */
 
     private void loadProblems(){
+        // Show the progress bar
+        progressBar.setVisibility(View.VISIBLE);
         if (isPatient) {
             ProblemController.searchByPatientIds(SharedPreferenceUtil.get(this, AppConfig.USERID));
         }
@@ -177,9 +182,8 @@ public class PatientAllProblemActivity extends AppCompatActivity
             Log.d("Error","Fail to get the problems");
             problems = new ArrayList<Problem>();
         }
-
-
-
+        // Make the progress bar invisible
+        progressBar.setVisibility(View.GONE);
     }
 
     /**
