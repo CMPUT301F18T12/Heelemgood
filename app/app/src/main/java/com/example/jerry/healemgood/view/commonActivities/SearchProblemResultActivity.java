@@ -24,12 +24,27 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents a ProblemSearchActivity
+ * handles all Problem search
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class SearchProblemResultActivity extends AppCompatActivity {
 
     private ArrayList<Problem> problems = new ArrayList<Problem>();
     private ArrayList<Record> records = new ArrayList<Record>();
     private ProblemAdapter problemAdapter;
     private CareProvider careProvider; // if the user is a care provider
+
+    /**
+     * Reloads an earlier version of the activity if possible
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +71,10 @@ public class SearchProblemResultActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * load all info of the CareProvider
+     */
+
     private void loadCareProvider(){
         try{
             careProvider = (CareProvider)new UserController.SearchCareProviderTask().execute(SharedPreferenceUtil.get(this,AppConfig.USERID)).get();
@@ -64,6 +83,10 @@ public class SearchProblemResultActivity extends AppCompatActivity {
             Log.d("Error","Fail to load the care provider");
         }
     }
+
+    /**
+     * handle different user type to get the patient problem list
+     */
 
     private void differentiateUserType(){
 
@@ -78,11 +101,17 @@ public class SearchProblemResultActivity extends AppCompatActivity {
         }
     }
 
-    // check is the user is a patient
+    /**
+     * check is the user is a patient
+     */
+
     private boolean isPatient(){
         return SharedPreferenceUtil.get(this,AppConfig.ISPATIENT).equals(AppConfig.TRUE);
     }
 
+    /**
+     * load patient problem list
+     */
 
     private void loadProblems(){
         Intent intent = getIntent();
@@ -103,6 +132,10 @@ public class SearchProblemResultActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * search problem by keyword
+     */
+
     private void searchByKeyword(String query){
 
         ProblemController.searchByKeyword(query);
@@ -113,6 +146,10 @@ public class SearchProblemResultActivity extends AppCompatActivity {
             Log.d("Error","Fail to search problems by keyword");
         }
     }
+
+    /**
+     * search record by GeoLocation
+     */
 
     private void searchByGeoLocation(double[] geoLocation){
         try{
@@ -128,6 +165,10 @@ public class SearchProblemResultActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * search record by BodyLocation
+     */
+
     private void searchByBodyLocation(String query){
         try{
             RecordController.searchByBodyLocation(query);
@@ -141,6 +182,10 @@ public class SearchProblemResultActivity extends AppCompatActivity {
         getProblemsByPids();
 
     }
+
+    /**
+     * get Problem by the record
+     */
 
     private void getProblemsByPids(){
         Set<String> pIds = new HashSet<String>();
@@ -156,6 +201,9 @@ public class SearchProblemResultActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * show detain problem
+     */
 
     private void showDetainProblem(int position){
         Intent intent = new Intent(getApplicationContext(),AllRecordActivity.class);

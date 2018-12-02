@@ -154,6 +154,10 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * start the activity to pick a location
+     */
+
     private void pickLocation(){
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
@@ -172,6 +176,7 @@ public class SearchActivity extends AppCompatActivity {
      * @param resultCode
      * @param data
      */
+
     @Override
     // receive the intent result when the next activity finishes
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
