@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
@@ -42,6 +43,8 @@ import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.adapter.ImageAdapter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -359,8 +362,10 @@ public class RecordDetailActivity extends AppCompatActivity {
     private void fillOutDetail(){
         EditText titleInput = findViewById(R.id.titleInput);
         EditText descriptionInput = findViewById(R.id.descriptionInput);
+        TextView dateEditText = findViewById(R.id.dateTextView);
         titleInput.setText(record.getTitle());
         descriptionInput.setText(record.getDescription());
+        dateEditText.setText(record.getCreatedDate().toString());
 
         photoCollection = record.getPhotos();
         for (Photo p: photoCollection){

@@ -11,9 +11,13 @@
 
 package com.example.jerry.healemgood.controller;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
+import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.model.user.CareProvider;
@@ -130,6 +134,24 @@ public class UserController {
      * Assume the positioning is username
      */
     public static class SearchPatientTask extends AsyncTask<String, Void, Patient> {
+        private ProgressBar progressBar;
+
+        public void setProgressBar(ProgressBar progressBar) {
+            this.progressBar = progressBar;
+        }
+
+        @Override
+        protected void onPostExecute(Patient patient) {
+            progressBar.setVisibility(View.INVISIBLE);
+            super.onPostExecute(patient);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected Patient doInBackground(String... userNames) {
             setClient();
@@ -160,6 +182,7 @@ public class UserController {
             return null;
         }
     }
+
     public static class GetPatientsByIdsTask extends AsyncTask<String, Void, ArrayList<Patient>> {
         @Override
         protected ArrayList<Patient> doInBackground(String... userNames) {
@@ -201,6 +224,24 @@ public class UserController {
      * Assume the positioning is username
      */
     public static class SearchCareProviderTask extends AsyncTask<String, Void, CareProvider> {
+        private ProgressBar progressBar;
+
+        public void setProgressBar(ProgressBar progressBar) {
+            this.progressBar = progressBar;
+        }
+
+        @Override
+        protected void onPostExecute(CareProvider careProvider) {
+            progressBar.setVisibility(View.INVISIBLE);
+            super.onPostExecute(careProvider);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected CareProvider doInBackground(String... userNames) {
             setClient();

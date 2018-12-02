@@ -11,6 +11,7 @@ package com.example.jerry.healemgood.view.patientActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -59,6 +60,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
     private ArrayList<Problem> problems;
     private ProblemAdapter problemAdapter;
     private ProgressBar progressBar;
+    private FloatingActionButton refreshfloatingButton;
     private boolean isPatient;
 
     /**
@@ -73,6 +75,9 @@ public class PatientAllProblemActivity extends AppCompatActivity
         setContentView(R.layout.patient_all_problem);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+        refreshfloatingButton = findViewById(R.id.refreshProblemsFloatingActionButton);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Problem");
 
@@ -103,6 +108,13 @@ public class PatientAllProblemActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PatientAddProblemActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        refreshfloatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recreate();
             }
         });
 
@@ -144,14 +156,11 @@ public class PatientAllProblemActivity extends AppCompatActivity
 
     @Override
     protected void onResume(){
-
         super.onResume();
         if (NetworkUtil.isNetworkAvailable(this)){
             loadProblems();
             problemAdapter.refreshAdapter(problems);
         }
-
-
     }
 
     /**
@@ -160,14 +169,6 @@ public class PatientAllProblemActivity extends AppCompatActivity
      */
 
     private void loadProblems(){
-        // Show the progress bar
-        progressBar.setVisibility(View.VISIBLE);
-        if (isPatient) {
-            ProblemController.searchByPatientIds(SharedPreferenceUtil.get(this, AppConfig.USERID));
-        }
-        else {
-            ProblemController.searchByPatientIds(getIntent().getStringArrayExtra("uid"));
-        }
         ProblemController.searchByPatientIds(SharedPreferenceUtil.get(this, AppConfig.USERID));
         try{
             problems = new ProblemController.SearchProblemTask().execute().get();
@@ -176,8 +177,6 @@ public class PatientAllProblemActivity extends AppCompatActivity
             Log.d("Error","Fail to get the problems");
             problems = new ArrayList<Problem>();
         }
-        // Make the progress bar invisible
-        progressBar.setVisibility(View.GONE);
     }
 
     /**

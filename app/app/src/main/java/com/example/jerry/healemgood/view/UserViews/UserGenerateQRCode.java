@@ -27,7 +27,6 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 public class UserGenerateQRCode extends AppCompatActivity {
 
     private Button createQRCodeButton;
-    private Button scanQRCode;
     private ImageView qrCodeImageView;
     private String text;
 
@@ -46,7 +45,6 @@ public class UserGenerateQRCode extends AppCompatActivity {
         createQRCodeButton = findViewById(R.id.generateCodeButton);
         qrCodeImageView = findViewById(R.id.qrCodeImageView);
         text = SharedPreferenceUtil.get(this,AppConfig.USERID);
-        scanQRCode = findViewById(R.id.scanQRCodeButton);
 
         createQRCodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,15 +64,6 @@ public class UserGenerateQRCode extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-            }
-        });
-
-        // Set a listener for when the user wants to scan a QR code
-        scanQRCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(UserGenerateQRCode.this, CareProviderAddPatientQRCode.class);
-                startActivity(intent);
             }
         });
     }

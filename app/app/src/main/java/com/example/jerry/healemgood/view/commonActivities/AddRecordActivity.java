@@ -32,6 +32,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
@@ -331,56 +332,6 @@ public class AddRecordActivity extends AppCompatActivity {
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
-
-    /*private void saveImage(Bitmap finalBitmap, String image_name) {
-
-        //String root = Environment.getExternalStorageDirectory().toString();
-        //File myDir = new File(getGalleryPath());
-        String appDirectoryName = "XYZ";
-        File myDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), appDirectoryName);
-        myDir.mkdirs();
-        String fname = "Image-" + image_name+ ".jpg";
-        File file = new File(myDir, fname);
-        if (file.exists()) file.delete();
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void createDirectoryAndSaveFile(Bitmap imageToSave, String fileName) {
-
-        File direct = new File(Environment.getExternalStorageDirectory() + "/Heal");
-
-        if (!direct.exists()) {
-            File wallpaperDirectory = new File("/sdcard/Heal/");
-            wallpaperDirectory.mkdirs();
-        }
-
-        File file = new File(new File("/sdcard/Heal/"), fileName);
-        if (file.exists()) {
-            file.delete();
-        }
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            imageToSave.compress(Bitmap.CompressFormat.JPEG, 100, out);
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    String getGalleryPath() {
-        String photoDir = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/" + "HealEmGood/";
-        return photoDir;
-    }*/
-
     /**
      * Saves everything recorded in the record to the problem in the form of a new record.
      *
@@ -389,14 +340,13 @@ public class AddRecordActivity extends AppCompatActivity {
         EditText recordTitleInput = findViewById(R.id.titleInput);
         String recordTitle = recordTitleInput.getText().toString();
 
-
         EditText descriptionInput = findViewById(R.id.descriptionInput);
         String descriptionString = descriptionInput.getText().toString();
 
         // make a new patient record
         PatientRecord patientRecord;
         try {
-            patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID), SharedPreferenceUtil.get(this,AppConfig.USERID),recordTitle);
+            patientRecord = new PatientRecord(getIntent().getStringExtra(AppConfig.PID), SharedPreferenceUtil.get(this,AppConfig.USERID), recordTitle);
         } catch (LengthOutOfBoundException e) {
             Toast.makeText(this,"Your title is too long!",
                     Toast.LENGTH_SHORT).show();
