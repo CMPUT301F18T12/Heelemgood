@@ -21,11 +21,26 @@ import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActi
 
 import java.util.ArrayList;
 
+/**
+ * Represents a CareProviderAllPatientActivity
+ * handles all patient activities in care provider account
+ *
+ * @author TianqiCS
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class CareProviderViewProblems extends AppCompatActivity {
 
     private String userId;
     private ArrayList<Problem> problems = new ArrayList<Problem>();
     private ProblemAdapter problemAdapter;
+
+    /**
+     * Reloads an earlier version of the activity if possible
+     * @param savedInstanceState Bundle
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -12,9 +12,24 @@ import com.example.jerry.healemgood.model.user.User;
 
 import org.w3c.dom.Text;
 
+/**
+ * Represents a ViewContactActivity
+ * display user contact info
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class ViewContactActivity extends AppCompatActivity {
 
     private TextView nameText,userIdText,emailText,phoneText;
+
+    /**
+     * Reloads an earlier version of the activity if possible
+     * @param savedInstanceState Bundle
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +46,9 @@ public class ViewContactActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * fill out user info
+     */
 
     private void fillOutInfo(){
         User user = null;

@@ -19,11 +19,26 @@ import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 
 import org.w3c.dom.Text;
 
+/**
+ * Represents a ViewPhotoActivity
+ * display all photo for the record
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class ViewPhotoActivity extends AppCompatActivity {
 
 //    private Record record;
 
     private Button deleteButton;
+
+    /**
+     * Reloads an earlier version of the activity if possible
+     * @param savedInstanceState Bundle
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +84,7 @@ public class ViewPhotoActivity extends AppCompatActivity {
     /**
      * hide the layout based on user type
      */
+
     private void differentiateUserType(){
         if (SharedPreferenceUtil.get(this,AppConfig.ISPATIENT).equals(AppConfig.FALSE)){
             deleteButton.setVisibility(View.GONE);

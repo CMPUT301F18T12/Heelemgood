@@ -19,9 +19,24 @@ import com.example.jerry.healemgood.view.UserViews.CareProviderAddPatientQRCode;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a CareProviderAddPatientActivity
+ * handles care provider add patient activity
+ *
+ * @author WeakMill98
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class CareProviderAddPatientActivity extends AppCompatActivity {
     private EditText patientInput;
     private CareProvider careProvider = null;
+
+    /**
+     * Reloads an earlier version of the activity if possible
+     * @param savedInstanceState Bundle
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +84,10 @@ public class CareProviderAddPatientActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * handle add patient by care provider
+     */
+
     private void addPatient() {
         String patientIdSearch = patientInput.getText().toString();
         Patient patient = null;
@@ -95,6 +114,10 @@ public class CareProviderAddPatientActivity extends AppCompatActivity {
         Toast.makeText(this, " Patient successfully added!", Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * save the added patients
+     */
+
     private void save() {
         try{
             new UserController.UpdateUserTask().execute(careProvider).get();
@@ -104,6 +127,9 @@ public class CareProviderAddPatientActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * load a care provider
+     */
 
     private void loadCareProvider() {
         String userId = SharedPreferenceUtil.get(getApplicationContext(), AppConfig.USERID);

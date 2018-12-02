@@ -30,12 +30,27 @@ import com.example.jerry.healemgood.view.commonActivities.UserActivity;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a CareProviderAllPatientActivity
+ * handles all patient activities in care provider account
+ *
+ * @author WeakMill98
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class CareProviderAllPatientActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ArrayList<Patient> patients = new ArrayList<Patient>();
     CareProvider careProvider = null;
     private PatientAdapter patientAdapter =  null;
+
+    /**
+     * Reloads an earlier version of the activity if possible
+     * @param savedInstanceState Bundle
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,15 +97,12 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-
-
-
-
-
-
-
     }
 
+    /**
+     * display problem list
+     * @param  position int
+     */
 
     private void showProblems(int position){
         String userId = patients.get(position).getUserId();
@@ -98,6 +110,10 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
         intent.putExtra(AppConfig.USERID,userId);
         startActivity(intent);
     }
+
+    /**
+     * load a care provider
+     */
 
     private void loadCareProvider(){
 
@@ -109,6 +125,10 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
             Log.d("Error","Fail to get the care provider");
         }
     }
+
+    /**
+     * load patient list of the care provider
+     */
 
     private void loadPatients(){
         ArrayList<String> patientIdList = careProvider.getPatientsUserIds();
@@ -122,7 +142,6 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
 
     /**
      * refresh
-     *
      */
 
     @Override
@@ -140,7 +159,6 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
 
     /**
      *  close drawer
-     *
      */
 
     @Override
@@ -155,9 +173,9 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
 
     /**
      * adds items to the action bar
-     *
      * @param menu Menu
      */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -166,7 +184,6 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
     }
     /**
      * Handle action bar item clicks.
-     *
      * @param item MenuItem
      */
 
@@ -186,7 +203,6 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
 
     /**
      * Handle navigation view item clicks.
-     *
      * @param item MenuItem
      */
 

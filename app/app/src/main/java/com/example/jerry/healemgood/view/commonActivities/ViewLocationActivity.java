@@ -11,9 +11,23 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * Represents a ViewLocationActivity
+ * display all Geolocation info
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class ViewLocationActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 
+    /**
+     * Reloads an earlier version of the activity if possible
+     * @param savedInstanceState Bundle
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +42,12 @@ public class ViewLocationActivity extends AppCompatActivity
         mapFragment.getMapAsync(this);
     }
 
-    // Include the OnCreate() method here too, as described above.
+    /**
+     * draw google map & add marker on google map
+     * @param googleMap GoogleMap
+     */
+
+    //Include the OnCreate() method here too, as described above.
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
