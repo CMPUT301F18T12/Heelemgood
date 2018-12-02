@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
@@ -46,6 +47,7 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
     ArrayList<Patient> patients = new ArrayList<Patient>();
     CareProvider careProvider = null;
     private PatientAdapter patientAdapter =  null;
+    private ProgressBar progressBar;
 
     /**
      * Reloads an earlier version of the activity if possible
@@ -58,6 +60,7 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
         setContentView(R.layout.activity_care_provider_all_patients);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        progressBar = findViewById(R.id.allPatientProgressBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("All Patient");
 
@@ -117,9 +120,12 @@ public class CareProviderAllPatientActivity extends AppCompatActivity
 
     private void loadCareProvider(){
 
-        String userId = SharedPreferenceUtil.get(getApplicationContext(),AppConfig.USERID);
+        String userId = SharedPreferenceUtil.get(getApplicationContext(), AppConfig.USERID);
         try{
-            careProvider = (CareProvider)new UserController.SearchCareProviderTask().execute(userId).get();
+            UserController.SearchCareProviderTask task1 = new UserController.SearchCareProviderTask();
+            task1.setProgressBar(progressBar);
+            careProvider = task1.execute(userId).get();
+            //careProvider = (CareProvider)new UserController.SearchCareProviderTask().execute(userId).get();
         }
         catch (Exception e){
             Log.d("Error","Fail to get the care provider");

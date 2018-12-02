@@ -7,6 +7,33 @@
 
 
     <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="281dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/muli"
+        android:text="@string/date"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/descriptionText2"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionInput" />
+
+    <TextView
+        android:id="@+id/descriptionText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/muli"
+        android:text="@string/date"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/descriptionText"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionInput" />
+
+    <TextView
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,7 +84,7 @@
         android:layout_width="356dp"
         android:layout_height="119dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:autofillHints=""
         android:ems="10"
@@ -109,7 +136,7 @@
         android:layout_width="362dp"
         android:layout_height="146dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:columnWidth="110dp"
         android:gravity="center"
@@ -120,7 +147,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionInput" />
+        app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
 
     <Button
         android:id="@+id/editLocationButton"

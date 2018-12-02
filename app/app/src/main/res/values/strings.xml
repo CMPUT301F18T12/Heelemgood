@@ -12,6 +12,7 @@
     <string name="user_avatar">user\'s avatar</string>
     <string name="user_birthday">March 3, 1998</string>
     <string name="hint_phone">Phone: 1234567890</string>
+    <string name="date">Date</string>
     <string name="hint_email">Email: abc@mail.ca</string>
     <string name="log_out">Log out</string>
     <string name="save">Save</string>

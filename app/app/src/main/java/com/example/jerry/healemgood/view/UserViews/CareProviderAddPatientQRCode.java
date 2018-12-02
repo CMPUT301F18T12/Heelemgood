@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +49,7 @@ public class CareProviderAddPatientQRCode extends AppCompatActivity {
     TextView textResult;
     BarcodeDetector barcodeDetector;
     CameraSource cameraSource;
+    ProgressBar progressBar;
     final int requestCameraPermissionID = 1001;
 
     /**
@@ -84,8 +87,10 @@ public class CareProviderAddPatientQRCode extends AppCompatActivity {
         setContentView(R.layout.activity_patient_scan_qrcode);
 
         // Get the paths to the XML elements
-        cameraPreview = (SurfaceView) findViewById(R.id.cameraPreview);
-        textResult = (TextView) findViewById(R.id.resultTextView);
+        cameraPreview = findViewById(R.id.cameraPreview);
+        textResult = findViewById(R.id.resultTextView);
+        progressBar = findViewById(R.id.qrProgressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         // Build the detector as well as a camera source
         barcodeDetector = new BarcodeDetector.Builder(this)
@@ -158,9 +163,19 @@ public class CareProviderAddPatientQRCode extends AppCompatActivity {
                                     try{
                                         // Get the patient and care provider objects
                                         // Get the username of the care provider stored in shared prefs
-                                        User patient = new UserController.SearchPatientTask().execute(qrcodes.valueAt(0).displayValue).get();
+                                        //User patient = new UserController.SearchPatientTask().execute(qrcodes.valueAt(0).displayValue).get();
+
+                                        UserController.SearchPatientTask task = new UserController.SearchPatientTask();
+                                        task.setProgressBar(progressBar);
+                                        Patient patient = task.execute(qrcodes.valueAt(0).displayValue).get();
+
                                         String careProviderUsername = SharedPreferenceUtil.get(CareProviderAddPatientQRCode.this, AppConfig.USERID);
-                                        CareProvider careprovider = new UserController.SearchCareProviderTask().execute(careProviderUsername).get();
+
+                                        UserController.SearchCareProviderTask task1 = new UserController.SearchCareProviderTask();
+                                        task1.setProgressBar(progressBar);
+                                        CareProvider careprovider = task1.execute(careProviderUsername).get();
+
+                                        //CareProvider careprovider = new UserController.SearchCareProviderTask().execute(careProviderUsername).get();
                                         try{
                                             // Add the id of the patient to the patients list of the care provider
                                             // Update the user account and move to the homepage of the doctor

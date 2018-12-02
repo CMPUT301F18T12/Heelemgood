@@ -11,6 +11,7 @@ package com.example.jerry.healemgood.view.patientActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -24,6 +25,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
@@ -57,7 +59,9 @@ public class PatientAllProblemActivity extends AppCompatActivity
 
     private ArrayList<Problem> problems;
     private ProblemAdapter problemAdapter;
-
+    private ProgressBar progressBar;
+    private FloatingActionButton refreshfloatingButton;
+    private boolean isPatient;
 
     /**
      * Handles loading an older version of the activity
@@ -70,6 +74,10 @@ public class PatientAllProblemActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_all_problem);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+        refreshfloatingButton = findViewById(R.id.refreshProblemsFloatingActionButton);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Problem");
 
@@ -100,6 +108,13 @@ public class PatientAllProblemActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PatientAddProblemActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        refreshfloatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recreate();
             }
         });
 
@@ -141,14 +156,11 @@ public class PatientAllProblemActivity extends AppCompatActivity
 
     @Override
     protected void onResume(){
-
         super.onResume();
         if (NetworkUtil.isNetworkAvailable(this)){
             loadProblems();
             problemAdapter.refreshAdapter(problems);
         }
-
-
     }
 
     /**
@@ -157,20 +169,14 @@ public class PatientAllProblemActivity extends AppCompatActivity
      */
 
     private void loadProblems(){
-
         ProblemController.searchByPatientIds(SharedPreferenceUtil.get(this, AppConfig.USERID));
         try{
             problems = new ProblemController.SearchProblemTask().execute().get();
-
-
         }
         catch (Exception e){
             Log.d("Error","Fail to get the problems");
             problems = new ArrayList<Problem>();
         }
-
-
-
     }
 
     /**

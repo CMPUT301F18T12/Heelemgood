@@ -7,32 +7,16 @@
     tools:context=".view.UserViews.UserGenerateQRCode">
 
     <Button
-        android:id="@+id/scanQRCodeButton"
-        android:layout_width="148dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="92dp"
-        android:background="@drawable/rounded_corner"
-        android:text="@string/scannewQRCode"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/generateCodeButton"
-        app:layout_constraintTop_toBottomOf="@+id/qrCodeImageView" />
-
-    <Button
         android:id="@+id/generateCodeButton"
-        android:layout_width="149dp"
+        android:layout_width="203dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
         android:layout_marginTop="92dp"
         android:background="@drawable/rounded_corner"
         android:text="@string/generatecode"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/qrCodeImageView" />
 

@@ -11,11 +11,13 @@
 package com.example.jerry.healemgood;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.config.AppConfig;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public Button signInButton;
     public Button signInQRButton;
     private EditText userNameEditText;
+    private ProgressBar progressBar;
 
     /**
      * Reloads an earlier version of the activity if possible
@@ -67,16 +70,21 @@ public class MainActivity extends AppCompatActivity {
         //set the activity context for offlineTools that will be used by all controllers
         OfflineTools.setContext(getApplicationContext());
 
+        progressBar = findViewById(R.id.loginProgressBar);
         signInButton = findViewById(R.id.signInButton);
         signInQRButton = findViewById(R.id.signInQRButton);
+        //progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.INVISIBLE);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // Show the progress bar
                 // Get the username from the field
                 userNameEditText = findViewById(R.id.userIdEditText);
                 try{
-                    Patient patient = new UserController.SearchPatientTask().execute(userNameEditText.getText().toString()).get();
+                    UserController.SearchPatientTask task = new UserController.SearchPatientTask();
+                    task.setProgressBar(progressBar);
+                    Patient patient = task.execute(userNameEditText.getText().toString()).get();
                     try{
                         if (!patient.equals(null)){
                             //Store userid other important info into shared preference
@@ -86,13 +94,15 @@ public class MainActivity extends AppCompatActivity {
                             SharedPreferenceUtil.store(MainActivity.this,AppConfig.NAME, patient.getFullName());
                             SharedPreferenceUtil.store(MainActivity.this,AppConfig.PHONE, patient.getPhoneNum());
                             SharedPreferenceUtil.store(MainActivity.this,AppConfig.ISPATIENT, AppConfig.TRUE);
-
                             // Go to the home page of the patient
                             Intent intent = new Intent(getApplicationContext(), PatientAllProblemActivity.class);
                             startActivity(intent);
                         }
                     }catch (Exception e){
-                        CareProvider careprovider = new UserController.SearchCareProviderTask().execute(userNameEditText.getText().toString()).get();
+                        //CareProvider careprovider = new UserController.SearchCareProviderTask().execute(userNameEditText.getText().toString()).get();
+                        UserController.SearchCareProviderTask task1 = new UserController.SearchCareProviderTask();
+                        task1.setProgressBar(progressBar);
+                        CareProvider careprovider = task1.execute(userNameEditText.getText().toString()).get();
                         if (careprovider.getUserId().equals(userNameEditText.getText().toString())) {
                             //Store userid and other important info into shared preference
                             SharedPreferenceUtil.store(MainActivity.this, AppConfig.USERID, careprovider.getUserId());
@@ -101,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
                             SharedPreferenceUtil.store(MainActivity.this, AppConfig.NAME, careprovider.getFullName());
                             SharedPreferenceUtil.store(MainActivity.this, AppConfig.PHONE, careprovider.getPhoneNum());
                             SharedPreferenceUtil.store(MainActivity.this,AppConfig.ISPATIENT,AppConfig.FALSE);
-
                             // Go to the home page of the care provider
                             Intent intent = new Intent(getApplicationContext(), CareProviderAllPatientActivity.class);
                             startActivity(intent);
