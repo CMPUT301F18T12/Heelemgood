@@ -20,12 +20,27 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a RecordSearchActivity
+ * handles all Record search
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class SearchRecordResultActivity extends AppCompatActivity {
 
     private ArrayList<Record> records;
     private RecordAdapter recordAdapter;
-
     private CareProvider careProvider; // if the user is a care provider
+
+    /**
+     * Reloads an earlier version of the activity if possible
+     * @param savedInstanceState Bundle
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -55,6 +70,9 @@ public class SearchRecordResultActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * load a CareProvider
+     */
 
     private void loadCareProvider(){
         try{
@@ -64,6 +82,10 @@ public class SearchRecordResultActivity extends AppCompatActivity {
             Log.d("Error","Fail to load the care provider");
         }
     }
+
+    /**
+     * handle different user type to get the patient problem list
+     */
 
     private void differentiateUserType(){
 
@@ -76,7 +98,10 @@ public class SearchRecordResultActivity extends AppCompatActivity {
         }
     }
 
-    // check is the user is a patient
+    /**
+     * check is the user is a patient
+     */
+
     private boolean isPatient(){
         return SharedPreferenceUtil.get(this,AppConfig.ISPATIENT).equals(AppConfig.TRUE);
     }
@@ -93,7 +118,9 @@ public class SearchRecordResultActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    /**
+     * load patient record list
+     */
 
     private void loadRecords(){
         Intent intent = getIntent();
@@ -115,6 +142,10 @@ public class SearchRecordResultActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * search problem by keyword
+     * @param  query String
+     */
 
     private void searchByKeyword(String query){
         try{
@@ -129,6 +160,11 @@ public class SearchRecordResultActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * search record by GeoLocation
+     * @param geoLocation double[]
+     */
+
     private void searchByGeoLocation(double[] geoLocation){
         try{
 
@@ -141,6 +177,11 @@ public class SearchRecordResultActivity extends AppCompatActivity {
             records = new ArrayList<Record>();
         }
     }
+
+    /**
+     * search record by BodyLocation
+     * @param query String
+     */
 
     private void searchByBodyLocation(String query){
         try{

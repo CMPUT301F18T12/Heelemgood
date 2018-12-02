@@ -19,8 +19,10 @@ public class SlideShowActivity extends AppCompatActivity {
     private SlideShowAdapter adapter;  // the adapter using for the slide show
 
     /**
-     * On create nothing special
+     * Reloads an earlier version of the activity if possible
+     * @param savedInstanceState Bundle
      */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,7 @@ public class SlideShowActivity extends AppCompatActivity {
     /**
      * load the bitmaps (images) by Pid (Problem id)
      */
+
     private void loadImages(){
         RecordController.searchByProblemIds(getIntent().getStringExtra(AppConfig.PID));
         ArrayList<Record> records;

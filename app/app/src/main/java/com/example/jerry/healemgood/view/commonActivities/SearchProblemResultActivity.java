@@ -43,7 +43,7 @@ public class SearchProblemResultActivity extends AppCompatActivity {
 
     /**
      * Reloads an earlier version of the activity if possible
-     * @param savedInstanceState
+     * @param savedInstanceState Bundle
      */
 
     @Override
@@ -134,6 +134,7 @@ public class SearchProblemResultActivity extends AppCompatActivity {
 
     /**
      * search problem by keyword
+     * @param  query String
      */
 
     private void searchByKeyword(String query){
@@ -149,6 +150,7 @@ public class SearchProblemResultActivity extends AppCompatActivity {
 
     /**
      * search record by GeoLocation
+     * @param geoLocation double[]
      */
 
     private void searchByGeoLocation(double[] geoLocation){
@@ -167,6 +169,7 @@ public class SearchProblemResultActivity extends AppCompatActivity {
 
     /**
      * search record by BodyLocation
+     * @param query String
      */
 
     private void searchByBodyLocation(String query){
@@ -203,6 +206,7 @@ public class SearchProblemResultActivity extends AppCompatActivity {
 
     /**
      * show detain problem
+     * @param position int
      */
 
     private void showDetainProblem(int position){
