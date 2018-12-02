@@ -46,6 +46,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -364,7 +365,10 @@ public class RecordDetailActivity extends AppCompatActivity {
         TextView dateEditText = findViewById(R.id.dateTextView);
         titleInput.setText(record.getTitle());
         descriptionInput.setText(record.getDescription());
-        dateEditText.setText(record.getCreatedDate().toString());
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String dateString = simpleDateFormat.format(record.getCreatedDate());
+        dateEditText.setText(dateString);
 
         photoCollection = record.getPhotos();
         for (Photo p: photoCollection){
