@@ -52,9 +52,9 @@ public class CareProviderAddPatientQRCode extends AppCompatActivity {
     /**
      * Called when the app asks for permissions
      *
-     * @param requestCode
-     * @param grantResults
-     * @param permissions
+     * @param requestCode int
+     * @param grantResults int
+     * @param permissions String
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -74,7 +74,10 @@ public class CareProviderAddPatientQRCode extends AppCompatActivity {
             }
         }
     }
-
+    /**
+     * Called when the QR code is generated
+     * @param saveInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);

@@ -80,17 +80,10 @@ public class CareProviderViewProblems extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
     }
-
 
     /**
      * load problems
-     *
      */
 
     private void loadProblems(){
@@ -104,8 +97,5 @@ public class CareProviderViewProblems extends AppCompatActivity {
             Log.d("Error","Fail to get the problems");
             problems = new ArrayList<Problem>();
         }
-
-
-
     }
 }

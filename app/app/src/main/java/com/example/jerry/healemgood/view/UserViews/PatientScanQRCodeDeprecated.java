@@ -19,10 +19,22 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import static android.Manifest.permission_group.CAMERA;
 
+/**
+ * handles patient scanning QR code
+ * @author WeakMill98
+ * @version 1.0
+ * @since 2.0
+ */
+
 public class PatientScanQRCodeDeprecated extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
+
+    /**
+     * Called when the QR code is generated
+     * @param savedInstanceState Bundle
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +55,29 @@ public class PatientScanQRCodeDeprecated extends AppCompatActivity implements ZX
         }
     }
 
+    /**
+     * Method to check for permission
+     */
 
-    // Method to check for permission
     private boolean checkPermission(){
         return (ContextCompat.checkSelfPermission(PatientScanQRCodeDeprecated.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED);
     }
 
+    /**
+     * Request permission from the user
+     */
 
-    // Request permission from the user
     private void requestPermission(){
         ActivityCompat.requestPermissions(this, new String[]{CAMERA}, REQUEST_CAMERA);
     }
 
+    /**
+     * Upon getting permission, create some additional checks
+     * @param requestCode int
+     * @param permission String
+     * @param grantResults int
+     */
 
-    // Upon getting permission, create some additional checks
     public void onRequestPermissionsResult(int requestCode, String permission[], int grantResults[]){
         switch (requestCode){
             case REQUEST_CAMERA:
@@ -87,8 +108,10 @@ public class PatientScanQRCodeDeprecated extends AppCompatActivity implements ZX
         }
     }
 
+    /**
+     * Override the on resume of the parent, to show the scanner view
+     */
 
-    // Override the on resume of the parent, to show the scanner view
     @Override
     public void onResume(){
         super.onResume();
@@ -109,13 +132,21 @@ public class PatientScanQRCodeDeprecated extends AppCompatActivity implements ZX
     }
 
 
-    // Stop camera use once the activity is destroyed
+    /**
+     * Stop camera use once the activity is destroyed
+     */
+
     @Override
     public void onDestroy(){
         super.onDestroy();;
         scannerView.stopCamera();
     }
 
+    /**
+     * notify alert message
+     * @param message String
+     * @param listener OnClickListener
+     */
 
     public void displayAlertMessage(String message, DialogInterface.OnClickListener listener){
         new AlertDialog.Builder(getApplicationContext())
@@ -126,8 +157,11 @@ public class PatientScanQRCodeDeprecated extends AppCompatActivity implements ZX
                 .show();
     }
 
+    /**
+     * Handles the result of the scan
+     * @param result Result
+     */
 
-    // Handles the result of the scan
     // This is the method getting called when the QR code is being scanned
     @Override
     public void handleResult(final Result result){

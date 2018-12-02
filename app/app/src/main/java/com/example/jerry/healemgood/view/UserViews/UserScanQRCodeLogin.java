@@ -50,9 +50,9 @@ public class UserScanQRCodeLogin extends AppCompatActivity {
     /**
      * Called when the Activity starts, requests for permissions from the user
      *
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
+     * @param requestCode int
+     * @param permissions String
+     * @param grantResults int
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -75,9 +75,9 @@ public class UserScanQRCodeLogin extends AppCompatActivity {
 
     /**
      * Called when the QR code is generated
-     *
-     * @param saveInstanceState
+     * @param saveInstanceState Bundle
      */
+
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
@@ -207,5 +207,4 @@ public class UserScanQRCodeLogin extends AppCompatActivity {
             }
         });
     }
-
 }
