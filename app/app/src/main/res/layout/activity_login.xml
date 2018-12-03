@@ -11,9 +11,11 @@
     <EditText
         android:id="@+id/userIdEditText"
         style="@android:style/Widget.AutoCompleteTextView"
-        android:layout_width="284dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="28dp"
+        android:layout_marginEnd="32dp"
         android:backgroundTint="@android:color/holo_blue_light"
         android:ems="10"
         android:inputType="textPersonName"
@@ -26,9 +28,11 @@
 
     <Button
         android:id="@+id/signInButton"
-        android:layout_width="281dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/big_round_corner"
         android:fontFamily="@font/muli"
         android:paddingLeft="8dp"
@@ -38,6 +42,7 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/signInQRButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userIdEditText" />
@@ -47,18 +52,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/muli"
         android:text="Create an Account"
         android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInQRButton" />
 
     <Button
         android:id="@+id/signInQRButton"
-        android:layout_width="280dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/orange_rounded_corner"
         android:fontFamily="@font/muli"
         android:paddingLeft="8dp"
@@ -68,6 +78,7 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/createAccountTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,12 +86,14 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="339dp"
-        android:layout_height="194dp"
+        android:layout_width="0dp"
+        android:layout_height="268dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
         android:src="@drawable/icon"
+        app:layout_constraintBottom_toTopOf="@+id/userIdEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -90,9 +103,11 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/signInButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createAccountTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 </android.support.constraint.ConstraintLayout>
