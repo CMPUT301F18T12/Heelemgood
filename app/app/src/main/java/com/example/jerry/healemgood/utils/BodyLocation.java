@@ -26,9 +26,9 @@ public class BodyLocation implements Serializable {
     /**
      * Sets up a BodyLocation
      *
-     * @param part
-     * @param x
-     * @param y
+     * @param part body part
+     * @param x x in percentage
+     * @param y y in percentage
      */
     public BodyLocation(BodyPart part, float x, float y) {
         this.part = part;
@@ -52,7 +52,7 @@ public class BodyLocation implements Serializable {
     /**
      * Sets the body part
      *
-     * @param part
+     * @param part part
      */
     public void setPart(BodyPart part) {
         this.part = part;
@@ -70,7 +70,7 @@ public class BodyLocation implements Serializable {
     /**
      * Sets the x coordinate of the body part
      *
-     * @param x
+     * @param x x in percentage
      */
     public void setX(float x) {
         this.x = x;
@@ -88,7 +88,7 @@ public class BodyLocation implements Serializable {
     /**
      * Sets the y coordinate of the body part
      *
-     * @param y
+     * @param y y in percentage
      */
     public void setY(float y) {
         this.y = y;

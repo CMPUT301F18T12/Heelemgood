@@ -43,8 +43,7 @@ public class Photo {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         src.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte [] b = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-        this.image = encodedImage;
+        this.image = Base64.encodeToString(b, Base64.DEFAULT);
         this.label = label;
         this.date = new Date();
     }
@@ -52,14 +51,13 @@ public class Photo {
     /**
      *  Get photo collection
      *
-     *  @See https://stackoverflow.com/questions/4837110/how-to-convert-a-base64-string-into-a-bitmap-image-to-show-it-in-a-imageview
+     *  See https://stackoverflow.com/questions/4837110/how-to-convert-a-base64-string-into-a-bitmap-image-to-show-it-in-a-imageview
      *
      * @return decodeByte
      */
     public Bitmap getPhoto(){
         byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        return decodedByte;
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     }
 
     /**

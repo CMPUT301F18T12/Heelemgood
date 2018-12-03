@@ -91,10 +91,8 @@ public class ProblemController {
             try{
                 SearchResult result = client.execute(search);
                 if(result.isSucceeded()) {
-                    ArrayList<Problem> p = new ArrayList<>();
                     List<Problem> resultList = result.getSourceAsObjectList(Problem.class);
-                    p.addAll(resultList);
-                    return p;
+                    return new ArrayList<>(resultList);
                 }
             }catch(IOException e){
                 Log.d("Joey Error"," IOexception when executing client");
@@ -166,8 +164,8 @@ public class ProblemController {
     /***
      * Seach for a list of problems by the title name
      *
-     * @params Search query:String
-     * @return list of problems that fit the search query: ArrayList<Problem>
+     * Search query:String
+     * return list of problems that fit the search query: ArrayList<Problem>
      */
     public static class SearchProblemTask extends AsyncTask<Void,Void,ArrayList<Problem>> {
         protected ArrayList<Problem> doInBackground(Void... voids) {
@@ -251,11 +249,11 @@ public class ProblemController {
     /**
      *
      * Modify the search query so it will search for problems by keyword in title and description
-     * @param keyword
+     * @param keyword the keyword we are searching
      */
     public static void searchByKeyword(String keyword){
-        if(keyword!="") {
-            if(building==true){
+        if(!keyword.equals("")) {
+            if(building){
                 searchQuery+=",";
             }
             searchQuery += "   {\"multi_match\" : {\n" +
@@ -270,10 +268,10 @@ public class ProblemController {
     /**
      *
      * Modify the search query so it will search for problems by patient ids
-     * @param pIds
+     * @param pIds the patient ids we are searching
      */
     public static void searchByPatientIds(String... pIds){
-        if(building==true){
+        if(building){
             searchQuery+=",";
         }
         searchQuery +="        {\"terms\" :{ \"userId\" : [";
@@ -290,7 +288,6 @@ public class ProblemController {
 
     /**
      * Update the problem in the DB, assuming the problem passed exist in the current DB
-     * @params the modified problem
      * (Note: Do not modify the Problem Id, otherwise it will create a new problem instead)
      */
     public static class UpdateProblemTask extends AsyncTask<Problem,Void,Void>{
@@ -300,7 +297,7 @@ public class ProblemController {
             Problem problem = problems[0];
             Index index = new Index.Builder(problem).index(indexName).type("problem").id(problem.getpId()).build();
             try{
-                //wait until connection is avaliable
+                //wait until connection is available
                 OfflineTools.waitForConnection();
                 DocumentResult result = client.execute(index);
             }catch(IOException e){

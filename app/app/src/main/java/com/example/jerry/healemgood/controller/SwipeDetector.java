@@ -49,9 +49,9 @@ public class SwipeDetector implements View.OnTouchListener {
     /**
      * Handles swiping
      *
-     * @param v
-     * @param event
-     * @return
+     * @param v the view we are caring
+     * @param event the using input event
+     * @return boolean
      */
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
