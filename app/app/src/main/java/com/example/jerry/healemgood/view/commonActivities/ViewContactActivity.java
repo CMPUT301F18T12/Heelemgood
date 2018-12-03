@@ -53,18 +53,18 @@ public class ViewContactActivity extends AppCompatActivity {
     private void fillOutInfo(){
         User user = null;
         try{
-            user = new UserController.SearchPatientTask().execute(getIntent().getStringExtra(AppConfig.USERID)).get();
+
+            if (getIntent().getBooleanExtra(AppConfig.ISPATIENT,true)){
+                user = new UserController.SearchPatientTask().execute(getIntent().getStringExtra(AppConfig.USERID)).get();
+            }
+            else{
+                user = new UserController.SearchCareProviderTask().execute(getIntent().getStringExtra(AppConfig.USERID)).get();
+            }
+
 
         }
         catch (Exception e){
-            try{
-                user = new UserController.SearchCareProviderTask().execute(getIntent().getStringExtra(AppConfig.USERID)).get();
-
-            }
-            catch (Exception e1){
-                Log.d("Error","Fail to load the care provider "+ getIntent().getStringExtra(AppConfig.USERID));
-                finish();
-            }
+            Log.d("Error","Fail to load the user");
         }
 
         nameText.setText(user.getFullName());
