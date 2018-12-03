@@ -186,12 +186,17 @@ public class PatientAllProblemActivity extends AppCompatActivity
      */
 
     public void deleteProblem(int i){
+        Problem p = problems.get(i);
+        problems.remove(i);
+        problemAdapter.refreshAdapter(problems);
 
         try {
-            new ProblemController.DeleteProblemTask().execute(problems.get(i)).get();
-            problems.remove(i);
+
             // notify changes
-            problemAdapter.refreshAdapter(problems);
+            new ProblemController.DeleteProblemTask().execute(p).get();
+
+
+
         }
         catch (Exception e){
             Log.d("ERROR","FAIL to delete problem");
