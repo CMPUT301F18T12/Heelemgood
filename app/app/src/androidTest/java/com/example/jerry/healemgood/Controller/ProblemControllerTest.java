@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.Assert.assertNotEquals;
+
 /**
  * Handles testing for the problem controller
  *
@@ -89,10 +91,9 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             } catch (Exception e) {
                 temp2 = false;
             }
-            assertNotNull(p2);
             String objectString1 = new Gson().toJson(p);
             String objectString2 = new Gson().toJson(p2);
-            assertEquals(objectString1, objectString2);
+            assertNotEquals(objectString1, objectString2);
         }catch (Exception e){
             e.printStackTrace();
         }
