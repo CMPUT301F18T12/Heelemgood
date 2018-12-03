@@ -88,7 +88,7 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
                 saveProblem();
                 progressBar.setVisibility(View.VISIBLE);
                 try{
-                    Thread.sleep(1500);
+                    Thread.sleep(1000);
                 }catch (Exception e){
 
                 }

@@ -75,7 +75,7 @@ public class PatientAddProblemActivity extends AppCompatActivity {
 
 
                 try{
-                    Thread.sleep(1500);
+                    Thread.sleep(1000);
                 }
                 catch (Exception e){}
 
