@@ -53,7 +53,7 @@ public class AllRecordActivity extends AppCompatActivity {
     /**
      * Handles loading an older version of the activity
      *
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
 
     @Override
@@ -182,8 +182,6 @@ public class AllRecordActivity extends AppCompatActivity {
      * load the problem by Pid
      *
      */
-
-    // TODO: THE records are not loaded as expected (nothing is loaded)
     private void loadRecords(){
 
         RecordController.searchByProblemIds(getIntent().getStringExtra(AppConfig.PID));

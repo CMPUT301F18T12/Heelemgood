@@ -23,7 +23,7 @@ public class SlideShowAdapter extends PagerAdapter {
 
     /**
      * setup the context
-     * @param mContext
+     * @param mContext context
      */
     public SlideShowAdapter(Context mContext) {
         this.mContext = mContext;
@@ -36,9 +36,9 @@ public class SlideShowAdapter extends PagerAdapter {
 
     /**
      * To tell if the view is belong to this adapter
-     * @param view
-     * @param object
-     * @return
+     * @param view view
+     * @param object object
+     * @return count
      */
     @Override
     public boolean isViewFromObject(View view, Object object) {
@@ -47,9 +47,9 @@ public class SlideShowAdapter extends PagerAdapter {
 
     /**
      * Used to generate the image view
-     * @param container
-     * @param position
-     * @return
+     * @param container container
+     * @param position position
+     * @return the view
      */
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
@@ -63,9 +63,9 @@ public class SlideShowAdapter extends PagerAdapter {
 
     /**
      * Used to remove the item in the view
-     * @param container
-     * @param position
-     * @param object
+     * @param container container of view
+     * @param position postion
+     * @param object image view object
      */
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
@@ -74,7 +74,7 @@ public class SlideShowAdapter extends PagerAdapter {
 
     /**
      * Add a bitmap photo to the data set
-     * @param imageBitmap
+     * @param imageBitmap bitmap of image
      */
     public void addPhoto(Bitmap imageBitmap){
         photoBitmapCollections.add(imageBitmap);

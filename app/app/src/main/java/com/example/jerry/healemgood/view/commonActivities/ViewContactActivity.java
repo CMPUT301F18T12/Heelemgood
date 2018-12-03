@@ -89,6 +89,8 @@ public class ViewContactActivity extends AppCompatActivity {
 
                 }
             }
-        }catch (Exception e){}
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

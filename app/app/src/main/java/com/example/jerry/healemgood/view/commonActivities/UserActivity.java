@@ -38,18 +38,17 @@ import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
  */
 
 public class UserActivity extends AppCompatActivity {
-
-    /**
-     * Reloads an earlier version of the activity if possible
-     *
-     * @param savedInstanceState
-     */
     TextView nameText;
     TextView userIdText;
 
     EditText emailInput;
     EditText phoneInput;
     ProgressBar progressBar;
+    /**
+     * Reloads an earlier version of the activity if possible
+     *
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

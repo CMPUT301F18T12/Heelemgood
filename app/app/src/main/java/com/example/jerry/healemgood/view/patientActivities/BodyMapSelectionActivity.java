@@ -59,7 +59,7 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
     /**
      * This function will load a previously used instance of the activity
      *
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
 
     @SuppressLint("ClickableViewAccessibility")
@@ -167,10 +167,10 @@ public class BodyMapSelectionActivity extends AppCompatActivity{
     /**
      * This gets the color of the pixel clicked on
      *
-     * @param hotspotId
-     * @param x
-     * @param y
-     * @return x,y
+     * @param hotspotId hotspotId
+     * @param x x
+     * @param y y
+     * @return color
      */
 
     public int getHotspotColor (int hotspotId, int x, int y) {

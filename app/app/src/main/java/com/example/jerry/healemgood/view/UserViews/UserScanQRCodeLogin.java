@@ -36,7 +36,7 @@ import java.io.IOException;
 //https://www.youtube.com/watch?v=o69UqAKi47I&t=22s Accessed 2018-11-24
 /**
  * An class used by the User to scan a Qr code for login
- *
+ * see https://www.youtube.com/watch?v=o69UqAKi47I&t=22s
  * @author WeakMill98
  * @version 1.0
  * @since 2.0
@@ -205,7 +205,9 @@ public class UserScanQRCodeLogin extends AppCompatActivity {
                                                 startActivity(intent);
                                             }
                                         }
-                                    }catch (Exception e){}
+                                    }catch (Exception e){
+                                        e.printStackTrace();
+                                    }
                                 }
                             });
 

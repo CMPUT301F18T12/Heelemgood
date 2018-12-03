@@ -66,7 +66,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
     /**
      * Handles loading an older version of the activity
      *
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
 
     @Override
@@ -219,6 +219,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
      * adds items to the action bar
      *
      * @param menu Menu
+     * @return true
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

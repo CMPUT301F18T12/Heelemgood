@@ -44,16 +44,14 @@ import java.util.Date;
  */
 
 public class PatientAddProblemActivity extends AppCompatActivity {
+    private static Date date;
+    private ProgressBar progressBar;
 
     /**
      * This function will load a previously used instance of the activity
      *
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
-
-    private static Date date;
-    private ProgressBar progressBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +75,9 @@ public class PatientAddProblemActivity extends AppCompatActivity {
                 try{
                     Thread.sleep(1000);
                 }
-                catch (Exception e){}
+                catch (Exception e){
+                    e.printStackTrace();
+                }
 
                 finish();
 
@@ -136,6 +136,10 @@ public class PatientAddProblemActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * date picker
+     * to pick a date for the problem
+     */
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 

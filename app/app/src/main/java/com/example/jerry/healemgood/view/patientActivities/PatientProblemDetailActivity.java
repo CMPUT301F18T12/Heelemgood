@@ -60,7 +60,7 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
     /**
      * This function will load a previously used instance of the activity
      *
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
 
     @Override
@@ -90,7 +90,7 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
                 try{
                     Thread.sleep(1000);
                 }catch (Exception e){
-
+                    e.printStackTrace();
                 }
                 finish();
             }
@@ -167,7 +167,10 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
             Log.d("ERROR","FAIL to update problem");
         }
     }
-
+    /**
+     * date picker
+     * pick a date for problem
+     */
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
