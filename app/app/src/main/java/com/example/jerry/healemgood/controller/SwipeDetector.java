@@ -1,5 +1,5 @@
 /*
- * Controller Name: ProblemController
+ * Controller Name: SwipeDetector
  *
  *  Version: Version 1.0
  *
