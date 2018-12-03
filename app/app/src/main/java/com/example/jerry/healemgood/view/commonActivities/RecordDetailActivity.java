@@ -189,7 +189,7 @@ public class RecordDetailActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 saveRecord();
                 try{
-                    Thread.sleep(1000);
+                    Thread.sleep(1500);
                 }
                 catch (Exception e){}
                 finish();

@@ -160,7 +160,13 @@ public class AddRecordActivity extends AppCompatActivity {
                 }
 
                 try{
-                    Thread.sleep(1000);
+                    if (photoCollection.size() > 5){
+                        Thread.sleep(2000);
+                    }
+                    else{
+                        Thread.sleep(1500);
+                    }
+
                 }
                 catch (Exception e){
 
@@ -296,6 +302,8 @@ public class AddRecordActivity extends AppCompatActivity {
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                String label = "";
+                addPhoto(b,label);
                 dialog.cancel();
             }
         });
