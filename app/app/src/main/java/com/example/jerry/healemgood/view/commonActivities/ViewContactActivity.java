@@ -82,15 +82,16 @@ public class ViewContactActivity extends AppCompatActivity {
                         Log.d("Error", "Fail to load the user");
                     }
 
-                    nameText.setText(user.getFullName());
-                    userIdText.setText(user.getUserId());
-                    emailText.setText(user.getEmail());
-                    phoneText.setText(user.getPhoneNum());
+
 
                 }
             }
         }catch (Exception e){
             e.printStackTrace();
         }
+        nameText.setText(user.getFullName());
+        userIdText.setText(user.getUserId());
+        emailText.setText(user.getEmail());
+        phoneText.setText(user.getPhoneNum());
     }
 }
