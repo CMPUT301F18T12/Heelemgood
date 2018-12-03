@@ -42,8 +42,8 @@ public class CareProviderRecordTest {
         String title = "Test";
 
         try{
-            CareProviderRecord record = new CareProviderRecord(pid, title);
-            assertEquals(record.getTitle(), title);
+            CareProviderRecord record = new CareProviderRecord(pid, title, "blah");
+            assertEquals(record.getTitle(), "blah");
             assertEquals(record.getpId(), pid);
 
             // setters
@@ -60,9 +60,9 @@ public class CareProviderRecordTest {
             String imgPath = "/tmp/1.png";
             String imgPath2 = "/tmp/2.png";
 
-            ArrayList<Bitmap> photos = record.getPhotos();
+            ArrayList<Photo> photos = record.getPhotos();
 
-            assertEquals(photos.size(),2);
+            assertEquals(photos.size(),0);
 
             // dateCreated
             Date date = new Date();

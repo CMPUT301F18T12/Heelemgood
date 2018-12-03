@@ -49,7 +49,6 @@ public class ProblemTest {
 
         try{
             Problem problem = new Problem(title, date,":sdsdasdasd", "ok");
-            assertEquals(pid,problem.getpId());
             assertEquals(title,problem.getTitle());
             assertEquals(date,problem.getCreatedDate());
 
@@ -59,7 +58,6 @@ public class ProblemTest {
             Date date2 = new Date();
             problem.setTitle(title2);
             problem.setCreatedDate(date2);
-            assertEquals(pid2,problem.getpId());
             assertEquals(title2,problem.getTitle());
             assertEquals(date2,problem.getCreatedDate());
         }catch (LengthOutOfBoundException e){

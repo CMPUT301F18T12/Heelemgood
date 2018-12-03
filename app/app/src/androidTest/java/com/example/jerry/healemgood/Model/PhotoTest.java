@@ -10,14 +10,21 @@
 
 package com.example.jerry.healemgood.Model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.content.ContextCompat;
 
+import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.model.photo.Photo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Photo Test
@@ -34,22 +41,18 @@ public class PhotoTest {
     @Test
     public void photoConstructorTest() {
         // constructor and getters
-        String path = "/local/example.png";
+        //String path = "/local/icon.png";
         int width = 120;
         int height = 240;
 
-        Photo photo = new Photo(path, width, height);
-        assertEquals(path,photo.getPath());
-        assertEquals(width, photo.getWidth());
-        assertEquals(height, photo.getHeight());
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint();
+        paint.setColor(R.color.colorPrimaryOrange);
+        canvas.drawRect(0F, 0F, width, height, paint);
 
-        // setters and getters
-        photo.setPath("/new/example2.png");
-        photo.setHeight(64);
-        photo.setWidth(128);
-
-        assertEquals("/new/example2.png",photo.getPath());
-        assertEquals(64, photo.getHeight());
-        assertEquals(128, photo.getWidth());
+        Photo photo = new Photo(bitmap, "Hello");
+        assertEquals("Hello",photo.getLabel());
+        assertNotNull(photo.getDate());
     }
 }
