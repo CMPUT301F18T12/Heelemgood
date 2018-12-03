@@ -140,18 +140,21 @@
     <Button
         android:id="@+id/saveButton"
         android:layout_width="0dp"
-        android:layout_height="44dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_corner"
         android:fontFamily="@font/muli"
         android:text="@string/save"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="579dp" />
+        app:layout_constraintTop_toBottomOf="@+id/viewLocationButton" />
 
     <ImageButton
         android:id="@+id/photoButton"
@@ -207,6 +210,7 @@
         android:id="@+id/viewLocationButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/orange_small_corner"
@@ -218,6 +222,7 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editLocationButton"
         app:layout_constraintTop_toBottomOf="@+id/gridView" />
 
     <Button
@@ -225,6 +230,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/orange_small_corner"
         android:fontFamily="@font/muli"
         android:paddingLeft="4dp"
@@ -234,6 +240,7 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/viewLocationButton"
+        app:layout_constraintEnd_toStartOf="@+id/editLocationButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewLocationButton"
         app:layout_constraintVertical_bias="0.0" />

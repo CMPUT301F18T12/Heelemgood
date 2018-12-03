@@ -52,7 +52,7 @@
 
     <EditText
         android:id="@+id/descriptionInput"
-        android:layout_width="367dp"
+        android:layout_width="0dp"
         android:layout_height="82dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
@@ -76,11 +76,12 @@
 
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="271dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_corner"
         android:fontFamily="@font/muli"
         android:text="@string/save"
@@ -88,10 +89,11 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.532"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addLocationButton" />
+        app:layout_constraintTop_toBottomOf="@+id/gridView" />
 
     <ImageButton
         android:id="@+id/photoButton"
@@ -108,8 +110,7 @@
         android:id="@+id/addLocationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="192dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="32dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/orange_small_corner"
         android:fontFamily="@font/muli"
@@ -118,19 +119,19 @@
         android:text="@string/add_location_button"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/bodyButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridView" />
+        app:layout_constraintStart_toEndOf="@+id/bodyButton"
+        app:layout_constraintTop_toTopOf="@+id/bodyButton" />
 
     <GridView
 
         android:id="@+id/gridView"
-        android:layout_width="368dp"
+        android:layout_width="0dp"
         android:layout_height="213dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="36dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:columnWidth="110dp"
         android:gravity="center"
         android:horizontalSpacing="0dp"
@@ -147,8 +148,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/orange_small_corner"
         android:fontFamily="@font/muli"
         android:paddingLeft="4dp"
@@ -156,12 +157,10 @@
         android:text="@string/body"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toStartOf="@+id/addLocationButton"
         app:layout_constraintHorizontal_bias="0.42"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridView"
-        app:layout_constraintVertical_bias="0.333" />
+        app:layout_constraintTop_toBottomOf="@+id/gridView" />
 
     <ProgressBar
         android:id="@+id/progressBar"
