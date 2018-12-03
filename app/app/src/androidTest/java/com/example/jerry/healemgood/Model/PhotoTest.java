@@ -12,8 +12,12 @@ package com.example.jerry.healemgood.Model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.content.ContextCompat;
 
+import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.model.photo.Photo;
 
 import org.junit.Test;
@@ -38,13 +42,14 @@ public class PhotoTest {
     public void photoConstructorTest() {
         // constructor and getters
         //String path = "/local/icon.png";
-        String path = getClass().getClassLoader().getResource("icon.png").getPath();
         int width = 120;
         int height = 240;
 
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        Bitmap bitmap = BitmapFactory.decodeFile(path, bmOptions);
-        bitmap = Bitmap.createScaledBitmap(bitmap,width,height,true);
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint();
+        paint.setColor(R.color.colorPrimaryOrange);
+        canvas.drawRect(0F, 0F, width, height, paint);
 
         Photo photo = new Photo(bitmap, "Hello");
         assertEquals("Hello",photo.getLabel());
