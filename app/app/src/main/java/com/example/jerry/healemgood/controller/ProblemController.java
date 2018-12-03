@@ -21,8 +21,11 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.jerry.healemgood.model.problem.Problem;
+import com.example.jerry.healemgood.model.user.CareProvider;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
@@ -167,6 +170,58 @@ public class ProblemController {
      * @return list of problems that fit the search query: ArrayList<Problem>
      */
     public static class SearchProblemTask extends AsyncTask<Void,Void,ArrayList<Problem>> {
+        protected ArrayList<Problem> doInBackground(Void... voids) {
+            searchQuery += "]\n"+
+                    "           }\n"+
+                    "           }\n"+
+                    "}";
+            setClient();
+            Log.d("Name-Jeff",searchQuery);
+            ArrayList<Problem> problems = new ArrayList<Problem>();
+            Search search = new Search.Builder(searchQuery).addIndex(indexName).addType("problem").build();
+            //Reset the search Query
+            searchQuery = introQuery;
+            building = false;
+            try{
+                SearchResult result = client.execute(search);
+                if(result.isSucceeded()){
+                    Log.d("Name-Jeff","Problem searched");
+                    List<Problem> resultList = result.getSourceAsObjectList(Problem.class);
+                    problems.addAll(resultList);
+                }
+            }catch(IOException e){
+                Log.d("Joey Error"," IOexception when executing client");
+            }
+            return problems;
+        }
+    }
+
+    /***
+     * Seach for a list of problems by the title name
+     *
+     * @params Search query:String
+     * @return list of problems that fit the search query: ArrayList<Problem>
+     */
+    public static class SearchProblemTask2 extends AsyncTask<Void,Void,ArrayList<Problem>> {
+
+        private ProgressBar progressBar;
+
+        public void setProgressBar(ProgressBar progressBar) {
+            this.progressBar = progressBar;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Problem> p) {
+            progressBar.setVisibility(View.INVISIBLE);
+            super.onPostExecute(p);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
         protected ArrayList<Problem> doInBackground(Void... voids) {
             searchQuery += "]\n"+
                     "           }\n"+

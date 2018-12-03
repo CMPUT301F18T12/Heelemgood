@@ -75,7 +75,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
         setContentView(R.layout.patient_all_problem);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.INVISIBLE);
+        //progressBar.setVisibility(View.INVISIBLE);
         refreshfloatingButton = findViewById(R.id.refreshProblemsFloatingActionButton);
 
         setSupportActionBar(toolbar);
@@ -118,9 +118,7 @@ public class PatientAllProblemActivity extends AppCompatActivity
             }
         });
 
-
         loadProblems();
-
 
         problemAdapter = new ProblemAdapter(this,R.layout.problems_list_view_custom_layout,problems);
 
@@ -171,7 +169,10 @@ public class PatientAllProblemActivity extends AppCompatActivity
     private void loadProblems(){
         ProblemController.searchByPatientIds(SharedPreferenceUtil.get(this, AppConfig.USERID));
         try{
-            problems = new ProblemController.SearchProblemTask().execute().get();
+            //problems = new ProblemController.SearchProblemTask().execute().get();
+            ProblemController.SearchProblemTask2 task = new ProblemController.SearchProblemTask2();
+            task.setProgressBar(progressBar);
+            problems = task.execute().get();
         }
         catch (Exception e){
             Log.d("Error","Fail to get the problems");
