@@ -54,10 +54,7 @@ public class CareProviderAddCommentActivityTest extends ActivityInstrumentationT
      * test Create comment on a patient
      */
     public void testCreateComment(){
-
-
-
-        //create the test careprovider and patient first
+        //create the test careprovider and patient first, if this is not the first time the test is run, it will just overwrite the previous data with the same data.
         String c_id="testCasdasdas";
         String c_pass= "tesadfasfjadfas";
         String c_fullName= "asda sdfgh sdsdfsd";
@@ -121,4 +118,6 @@ public class CareProviderAddCommentActivityTest extends ActivityInstrumentationT
         }
         assertEquals(records.get(0).getTitle(),titleText);
     }
+
+
 }
