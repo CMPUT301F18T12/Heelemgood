@@ -23,11 +23,11 @@
 
     <Button
         android:id="@+id/addButton"
-        android:layout_width="223dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="88dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="100dp"
         android:background="@drawable/orange_small_corner"
         android:fontFamily="@font/muli"
         android:text="@string/add"
@@ -40,11 +40,11 @@
 
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="228dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="56dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="100dp"
         android:background="@drawable/rounded_corner"
         android:fontFamily="@font/muli"
         android:text="@string/save"
@@ -58,11 +58,11 @@
 
     <Button
         android:id="@+id/scanQRCodeButton"
-        android:layout_width="225dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="100dp"
         android:background="@drawable/orange_small_corner"
         android:fontFamily="@font/muli"
         android:text="@string/scannewQRCode"
