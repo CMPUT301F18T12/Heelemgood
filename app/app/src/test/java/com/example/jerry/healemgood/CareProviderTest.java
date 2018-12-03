@@ -51,7 +51,9 @@ public class CareProviderTest {
             gender='F';
             CareProvider female_p =new CareProvider(userid,password,name,phoneNum,email,birthday,gender);
             assertEquals(female_p.getGender(),'F');
-        }catch (Exception e){}
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void addPatientIdTest(){
@@ -68,7 +70,7 @@ public class CareProviderTest {
             assertEquals(male_p.getPatientUserIdByIndex(0),"p1");
             male_p.addPatientUserId("p2");
             assertEquals(male_p.getPatientUserIdByIndex(1),"p2");
-        }catch (Exception e){}
+        }catch (Exception e){ e.printStackTrace();}
     }
 
     public void deletePatientIdTest(){
@@ -88,6 +90,6 @@ public class CareProviderTest {
             assertEquals(male_p.getPatientUserIdByIndex(0),"p2");
             male_p.removePatientUserId("p2");
             assertEquals(male_p.getPatientsUserIds().size(),0);
-        }catch (Exception e){}
+        }catch (Exception e){e.printStackTrace();}
     }
 }

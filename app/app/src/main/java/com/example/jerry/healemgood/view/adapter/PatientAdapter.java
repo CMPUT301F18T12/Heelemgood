@@ -45,9 +45,9 @@ public class PatientAdapter extends ArrayAdapter<Patient> {
     /**
      * Creates a RecordAdapter
      *
-     * @param c
-     * @param layout
-     * @param patients
+     * @param c context
+     * @param layout layout number
+     * @param patients array list of patients
      */
     public PatientAdapter(Context c, int layout, ArrayList<Patient> patients){
         super(c,layout,patients);
@@ -60,7 +60,7 @@ public class PatientAdapter extends ArrayAdapter<Patient> {
     /**
      * Refreshes the adapter
      *
-     * @param patients
+     * @param patients array list of patients
      */
     public void refreshAdapter(List<Patient> patients){
         this.patients.clear();
@@ -71,9 +71,9 @@ public class PatientAdapter extends ArrayAdapter<Patient> {
     /**
      * Gets and returns the view
      *
-     * @param position
-     * @param convertView
-     * @param viewGroup
+     * @param position position
+     * @param convertView view convert
+     * @param viewGroup group of view
      * @return v
      */
     @NonNull

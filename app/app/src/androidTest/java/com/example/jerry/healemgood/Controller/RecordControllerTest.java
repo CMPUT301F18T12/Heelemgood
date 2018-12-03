@@ -82,24 +82,29 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
                 try {
                     new ProblemController.CreateProblemTask().execute(p).get();
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 //Create Patient Record, you can also declare it as PatientRecord
                 Record r = new Record(p.getpId(),p.getUserId(), p.getTitle(), true);
                 try {
                     new RecordController.CreateRecordTask().execute(r).get();
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 //check if record is created already
                 Record r2 = null;
                 try {
                     r2 = new RecordController.GetRecordByIdTask().execute(r.getrId()).get();
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 assertNotNull(r2);
                 String objectString1 = new Gson().toJson(r);
                 String objectString2 = new Gson().toJson(r2);
                 assertEquals(objectString1, objectString2);
-            }catch (Exception e){}
+            }catch (Exception e){
+                e.printStackTrace();
+            }
     }
 
     /**
@@ -116,12 +121,12 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
             Problem p = new Problem(text,new Date(),"tyhiswoneridsddf_sd@", "ok");
             try {
                 new ProblemController.CreateProblemTask().execute(p).get();
-            }catch(Exception e){        }
+            }catch(Exception e){ e.printStackTrace(); }
             //Create Patient Record, you can also declare it as PatientRecord
             Record r = new Record(p.getpId(),p.getUserId(),p.getTitle(),true);
             try{
                 new RecordController.CreateRecordTask().execute(r).get();
-            }catch (Exception e){}
+            }catch (Exception e){e.printStackTrace();}
             //update the record
             r.setDescription("hand is all red");
             Record r2=null;
@@ -129,14 +134,14 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
             try{
                 r2=new RecordController.GetRecordByIdTask().execute(r.getrId()).get();
             }catch(Exception e){
-                assertTrue( false);
+                fail();
             }
             //compare the string
             assertNotNull(r2);
             String objectString1 = new Gson().toJson(r);
             String objectString2 = new Gson().toJson(r2);
             assertEquals(objectString1,objectString2);
-        }catch (Exception e){}
+        }catch (Exception e){e.printStackTrace();}
     }
 
     /**
@@ -157,12 +162,13 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
             new RecordController.CreateRecordTask().execute(r).get();
             //Delete record
             new RecordController.DeleteRecordTask().execute(r).get();
-        }catch(Exception e){assertTrue(false);}
+        }catch(Exception e){
+            fail();}
         //check if record still exist
         Record r2=null;
         try{
             r2=new RecordController.GetRecordByIdTask().execute(r.getrId()).get();
-        }catch(Exception e){        }
+        }catch(Exception e){   e.printStackTrace();   }
         assertNull(r2);
     }
 
@@ -175,7 +181,7 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
         //reset the database
         try {
             new TestingTools.ResetRecordsTask().execute().get();
-        }catch(Exception e){assertTrue(false);}
+        }catch(Exception e){ fail();}
 
         String pid = Long.toHexString(Double.doubleToLongBits(Math.random()));
         String pid2= Long.toHexString(Double.doubleToLongBits(Math.random()));
@@ -204,46 +210,47 @@ public class RecordControllerTest  extends ActivityInstrumentationTestCase2<Main
             new RecordController.CreateRecordTask().execute(r3).get();
             new RecordController.CreateRecordTask().execute(r4).get();
             new RecordController.CreateRecordTask().execute(r5).get();
-        }catch (Exception e){}
+        }catch (Exception e){ e.printStackTrace();}
         //search By first,2nd pid
         ArrayList<Record> records=new ArrayList<Record>();
         //wait for the creation to complete in our server
         try {
             TimeUnit.SECONDS.sleep(1);
-        }catch(Exception e){assertTrue(false);}
+        }catch(Exception e){
+            fail();}
         try{
             RecordController.searchByProblemIds(pid,pid2);
             records= new RecordController.SearchRecordTask().execute().get();
-        }catch (Exception e){ }
+        }catch (Exception e){ e.printStackTrace(); }
         assertEquals(records.size(),4);
         //search by bodylocation
         try{
             RecordController.searchByBodyLocation("3");
             records=new RecordController.SearchRecordTask().execute().get();
-        }catch(Exception e){}
+        }catch(Exception e){ e.printStackTrace();}
         assertEquals(records.size(),2);
         //search by keyword
         try{
             RecordController.searchByKeyword("nervous");
             records=new RecordController.SearchRecordTask().execute().get();
-        }catch(Exception e){}
+        }catch(Exception e){ e.printStackTrace();}
         assertEquals(records.size(),3);
         try{
             RecordController.searchByKeyword("sweaty");
             records=new RecordController.SearchRecordTask().execute().get();
-        }catch(Exception e){}
+        }catch(Exception e){ e.printStackTrace();}
         assertEquals(records.size(),2);
         //test by geolocation
         try{
             RecordController.searchByGeoLocation(new LatLng(53.518141, -113.512112),1);
             records=new RecordController.SearchRecordTask().execute().get();
-        }catch(Exception e){        }
+        }catch(Exception e){ e.printStackTrace(); }
 
         assertEquals(records.size(),3);
         try{
             RecordController.searchByGeoLocation(new LatLng(53.518141, -113.512112),2);
             records=new RecordController.SearchRecordTask().execute().get();
-        }catch(Exception e){        }
+        }catch(Exception e){  e.printStackTrace(); }
         assertEquals(records.size(),5);
     }
 }

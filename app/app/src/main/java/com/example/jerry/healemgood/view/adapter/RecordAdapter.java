@@ -42,9 +42,9 @@ public class RecordAdapter extends ArrayAdapter<Record> {
     /**
      * Creates a RecordAdapter
      *
-     * @param c
-     * @param layout
-     * @param records
+     * @param c context
+     * @param layout layout
+     * @param records record array list
      */
     public RecordAdapter(Context c, int layout, ArrayList<Record> records){
         super(c,layout,records);
@@ -57,7 +57,7 @@ public class RecordAdapter extends ArrayAdapter<Record> {
     /**
      * Refreshes the adapter
      *
-     * @param records
+     * @param records record array list
      */
     public void refreshAdapter(List<Record> records){
         this.records.clear();
@@ -68,9 +68,9 @@ public class RecordAdapter extends ArrayAdapter<Record> {
     /**
      * Gets and returns the view
      *
-     * @param position
-     * @param convertView
-     * @param viewGroup
+     * @param position position
+     * @param convertView view convert
+     * @param viewGroup group of view
      * @return v
      */
     @NonNull

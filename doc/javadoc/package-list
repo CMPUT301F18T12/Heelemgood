@@ -9,7 +9,10 @@ com.example.jerry.healemgood.model.problem
 com.example.jerry.healemgood.model.record
 com.example.jerry.healemgood.model.request
 com.example.jerry.healemgood.model.user
+com.example.jerry.healemgood.permisson
 com.example.jerry.healemgood.utils
-com.example.jerry.healemgood.view.UserActivities
 com.example.jerry.healemgood.view.UserViews
-com.example.jerry.healemgood.view.UserViews.adapter
+com.example.jerry.healemgood.view.adapter
+com.example.jerry.healemgood.view.careProviderActivities
+com.example.jerry.healemgood.view.commonActivities
+com.example.jerry.healemgood.view.patientActivities

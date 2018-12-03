@@ -84,7 +84,7 @@ public class Record {
     /**
      * This sets the title of the record.
      *
-     * @param title
+     * @param title title
      */
 
     public void setTitle(String title) throws LengthOutOfBoundException {
@@ -105,7 +105,7 @@ public class Record {
     /**
      * This sets the description of the Record
      *
-     * @param description
+     * @param description description
      */
 
     public void setDescription(String description) throws LengthOutOfBoundException {
@@ -118,7 +118,7 @@ public class Record {
     /**
      * This gets and returns the description of the record
      *
-     * @return
+     * @return description
      */
 
     public String getDescription(){
@@ -130,7 +130,7 @@ public class Record {
     /**
      * This gets and returns user id of the record;
      *
-     * @return
+     * @return patient id
      */
 
     public String getUserId(){
@@ -139,8 +139,6 @@ public class Record {
 
     /**
      * Add photos to the list
-     *
-     *
      * @param photo enter the Photo
      */
 
@@ -152,7 +150,7 @@ public class Record {
     /**
      * Set a collection of new photos
      *
-     * @param photos
+     * @param photos the photos
      *
      */
 
@@ -201,7 +199,7 @@ public class Record {
     /**
      * Sets the date of the record.
      *
-     * @param createdDate
+     * @param createdDate date created
      */
 
     public void setCreatedDate(Date createdDate) {
@@ -230,7 +228,7 @@ public class Record {
     /**
      * Sets the id of the record
      *
-     * @param rId
+     * @param rId rid
      */
 
     public void setrId(String rId) {
@@ -240,7 +238,7 @@ public class Record {
     /**
      * Set geo-location from place, then store it as LatLng See https://developers.google.com/places/android
      * @param lat the latitude
-     * @param lon the lontitude
+     * @param lon the longitude
      */
     public void setGeoLocation(double lat,double lon) {
         this.geoLocation= new double[2];
@@ -259,7 +257,7 @@ public class Record {
     }
 
     /**
-     * Get the pid of the correspoded problem
+     * Get the pid of the corresponded problem
      *
      * @return pid
      */
@@ -271,7 +269,7 @@ public class Record {
     /**
      * Set the pid (optional, most likely not needed in this application)
      *
-     * @param pId
+     * @param pId pid
      */
 
     public void setpId(String pId) {
@@ -290,7 +288,7 @@ public class Record {
     /**
      * Set the pid (optional, most likely not needed in this application)
      *
-     * @param bodyLocation
+     * @param bodyLocation body location
      */
     public void setBodyLocation(String bodyLocation) {
         this.bodyLocation = bodyLocation;
@@ -299,8 +297,8 @@ public class Record {
 
     /**
      * Set geo-location from place, then store it as LatLng See https://developers.google.com/places/android
-     * @param x
-     * @param y
+     * @param x x in percentage
+     * @param y y in percentage
      */
     public void setBodyLocationPercent(float x,float y) {
         this.bodyLocationPercent = new float[2];

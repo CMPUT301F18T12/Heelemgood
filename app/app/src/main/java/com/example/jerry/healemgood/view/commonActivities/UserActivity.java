@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.MainActivity;
@@ -37,17 +38,17 @@ import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
  */
 
 public class UserActivity extends AppCompatActivity {
-
-    /**
-     * Reloads an earlier version of the activity if possible
-     *
-     * @param savedInstanceState
-     */
     TextView nameText;
     TextView userIdText;
 
     EditText emailInput;
     EditText phoneInput;
+    ProgressBar progressBar;
+    /**
+     * Reloads an earlier version of the activity if possible
+     *
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +60,9 @@ public class UserActivity extends AppCompatActivity {
 
          emailInput = findViewById(R.id.userEmail);
          phoneInput = findViewById(R.id.userPhone);
+
+         progressBar = findViewById(R.id.progressBar);
+         progressBar.setVisibility(View.INVISIBLE);
 
         final Button saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +109,10 @@ public class UserActivity extends AppCompatActivity {
         // if it is a patient
         if (SharedPreferenceUtil.get(getApplicationContext(),AppConfig.ISPATIENT).equals(AppConfig.TRUE)){
             try{
-                user = new UserController.SearchPatientTask().execute(userIdText.getText().toString()).get();
+                UserController.SearchPatientTask task = new UserController.SearchPatientTask();
+                task.setProgressBar(progressBar);
+                user = task.execute(userIdText.getText().toString()).get();
+                //user = new UserController.SearchPatientTask().execute(userIdText.getText().toString()).get();
             }
             catch (Exception e){
                 Log.d("ERROR","Fail to get the patient");
@@ -114,7 +121,10 @@ public class UserActivity extends AppCompatActivity {
         }
         else{
             try{
-                user = new UserController.SearchCareProviderTask().execute(userIdText.getText().toString()).get();
+                UserController.SearchCareProviderTask task1 = new UserController.SearchCareProviderTask();
+                task1.setProgressBar(progressBar);
+                user = task1.execute(userIdText.getText().toString()).get();
+                //user = new UserController.SearchCareProviderTask().execute(userIdText.getText().toString()).get();
             }
             catch (Exception e){
                 Log.d("ERROR","Fail to get the patient");

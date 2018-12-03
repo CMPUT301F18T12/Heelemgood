@@ -48,9 +48,9 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
     /**
      * Creates the ProblemAdapter
      *
-     * @param c
-     * @param layout
-     * @param problems
+     * @param c context
+     * @param layout layout
+     * @param problems problems array list
      */
     public ProblemAdapter(Context c, int layout, List<Problem> problems){
         super(c,layout,problems);
@@ -62,7 +62,7 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
     /**
      * Refreshes the adapter
      *
-     * @param problems
+     * @param problems problems array list
      */
     public void refreshAdapter(List<Problem> problems){
         this.problems.clear();
@@ -73,9 +73,9 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
     /**
      * Gets and returns the view
      *
-     * @param position
-     * @param convertView
-     * @param viewGroup
+     * @param position position
+     * @param convertView view converted
+     * @param viewGroup group of view
      * @return v
      */
     @NonNull

@@ -87,7 +87,7 @@ public class RecordDetailActivity extends AppCompatActivity {
     /**
      * This function will load a previously used instance of the activity
      *
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
 
     @Override
@@ -191,7 +191,9 @@ public class RecordDetailActivity extends AppCompatActivity {
                 try{
                     Thread.sleep(1500);
                 }
-                catch (Exception e){}
+                catch (Exception e){
+                    e.printStackTrace();
+                }
                 finish();
             }
         });
@@ -225,9 +227,9 @@ public class RecordDetailActivity extends AppCompatActivity {
     }
 
     /**
-     * This functio shows a bigger picture
+     * This function shows a bigger picture
      *
-     * @see  //https://developer.android.com/training/camera/photobasics
+     * see  //https://developer.android.com/training/camera/photobasics
      *
      */
     private void showLargePicture(int position){
@@ -242,7 +244,7 @@ public class RecordDetailActivity extends AppCompatActivity {
     /**
      * This function allows users to take a picture with their devices camera.
      *
-     * @see  //https://developer.android.com/training/camera/photobasics
+     * see  //https://developer.android.com/training/camera/photobasics
      *
      */
 
@@ -261,9 +263,9 @@ public class RecordDetailActivity extends AppCompatActivity {
     /**
      * Reloads the activity after doing various intents (ex. taking a picture).
      *
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * @param requestCode requestCode
+     * @param resultCode resultCode
+     * @param data data
      */
     @Override
     // receive the intent result when the next activity finishes

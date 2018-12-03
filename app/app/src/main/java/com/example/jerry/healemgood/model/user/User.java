@@ -35,14 +35,14 @@ public abstract class User {
     /**
      * Creates a new user
      *
-     * @param userId
-     * @param password
-     * @param fullName
-     * @param phoneNum
-     * @param email
-     * @param birthday
-     * @param gender
-     * @throws LengthOutOfBoundException
+     * @param userId userId
+     * @param password password
+     * @param fullName full name
+     * @param phoneNum phone number
+     * @param email email
+     * @param birthday birthday
+     * @param gender gender
+     * @throws LengthOutOfBoundException string length out of bound
      */
     User(String userId, String password, String fullName, String phoneNum, String email, Date birthday, char gender) throws LengthOutOfBoundException {
         if (userId.length() < 8) {
@@ -69,7 +69,7 @@ public abstract class User {
     /**
      * Sets the id of the user
      *
-     * @param userId
+     * @param userId user id
      */
     public void setUserId(String userId) {
         this.userId = userId;
@@ -87,7 +87,7 @@ public abstract class User {
     /**
      * Sets the password for the user
      *
-     * @param password
+     * @param password password
      */
     public void setPassword(String password) {
         this.password = password;
@@ -105,7 +105,7 @@ public abstract class User {
     /**
      * Sets the full name of the user
      *
-     * @param fullName
+     * @param fullName full name
      */
     public void setFullName(String fullName) {
         this.fullName = fullName;
@@ -123,7 +123,7 @@ public abstract class User {
     /**
      * Sets the phone number for the user
      *
-     * @param phoneNum
+     * @param phoneNum phone number
      */
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
@@ -141,7 +141,7 @@ public abstract class User {
     /**
      * Sets the email of the user
      *
-     * @param email
+     * @param email email
      */
     public void setEmail(String email) {
         this.email = email;
@@ -159,7 +159,7 @@ public abstract class User {
     /**
      * Sets the birthday of the user
      *
-     * @param birthday
+     * @param birthday birthday
      */
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
@@ -177,7 +177,7 @@ public abstract class User {
     /**
      * Sets the gender for the user
      *
-     * @param gender
+     * @param gender gender
      */
     public void setGender(char gender) {
         this.gender = gender;

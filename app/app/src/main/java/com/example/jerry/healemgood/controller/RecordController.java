@@ -77,7 +77,6 @@ public class RecordController {
 
     /**
      * This will create a record in the database
-     * @params record
      */
     public static class CreateRecordTask extends AsyncTask<Record,Void,Void> {
 
@@ -140,9 +139,9 @@ public class RecordController {
         }
     }
     /***
-     * Seach for a list of records by the searchQuery created. At the end, it will reset the searchQuery.
+     * Search for a list of records by the searchQuery created. At the end, it will reset the searchQuery.
      * To build searchQuery, use initSearchQuery(), finalizeSearchQuery(), searchBy.....()
-     * @params It will use the searchQuery user created before
+     * It will use the searchQuery user created before
      */
     public static class SearchRecordTask extends AsyncTask<Void,Void,ArrayList<Record>> {
         protected ArrayList<Record> doInBackground(Void... empty) {
@@ -174,11 +173,11 @@ public class RecordController {
 
     /**
      * Modify the search query so it will search for records by keyword in descriptions and title
-     * @param keyword
+     * @param keyword the keyword we are searching
      */
     public static void searchByKeyword(String keyword){
-        if(keyword!="") {
-            if(building==true){
+        if(!keyword.equals("")) {
+            if(building){
                 searchQuery+=",";
             }
             searchQuery += "   {\"multi_match\" : {\n" +
@@ -192,10 +191,10 @@ public class RecordController {
 
     /**
      * Modify the search query so it will search for records by bodyLocation
-     * @param location
+     * @param location the location we are searching
      */
     public static void searchByBodyLocation(String location){
-        if(building==true){
+        if(building){
             searchQuery+=",";
         }
         searchQuery += "   {\"term\" : {\n" +
@@ -210,7 +209,7 @@ public class RecordController {
      * @param piDs
      */
     public static void searchByProblemIds(String ... piDs){
-        if(building==true){
+        if(building){
             searchQuery+=",";
         }
         searchQuery +="        {\"terms\" :{ \"pId\" : [";
@@ -227,10 +226,10 @@ public class RecordController {
 
     /**
      * Modify the search query so it will search for records by patient ids
-     * @param patientIds
+     * @param patientIds the patient ids we are searching
      */
     public static void searchByPatientIds(String ... patientIds){
-        if(building==true){
+        if(building){
             searchQuery+=",";
         }
         searchQuery +="        {\"terms\" :{ \"patientId\" : [";
@@ -254,7 +253,7 @@ public class RecordController {
     public static void searchByGeoLocation(LatLng latlng, int distance){
         double lat = latlng.latitude;
         double lon = latlng.longitude;
-        if(building==true){
+        if(building){
             searchQuery+=",";
         }
         searchQuery +=   "   {\"filtered\" : {\n"+

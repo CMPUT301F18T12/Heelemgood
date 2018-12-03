@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Reloads an earlier version of the activity if possible
      *
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +115,9 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                     }
-                }catch (Exception e){}
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 

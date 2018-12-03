@@ -21,6 +21,8 @@ import com.robotium.solo.Solo;
 
 import java.util.Date;
 
+import static org.junit.Assert.assertNotEquals;
+
 /**
  * Patient Test
  * 1. testCreateUser: Tests the add user functionality of the patient controller
@@ -82,13 +84,14 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
             // Search for a user that exists
             new UserController.AddUserTask().execute(patient);
             user = new UserController.SearchPatientTask().execute("heb12345678").get();
-            assertTrue(user.getUserId().equals("heb12345678"));
+            assertEquals("heb12345678", user.getUserId());
 
             // Search for a user that does not exist
             // The user object returned should not have a name
             user = new UserController.SearchPatientTask().execute("jeb12345678").get();
-            assertFalse(user.getUserId().equals("jeb12345678"));
+            assertNotEquals("jeb12345678", user.getUserId());
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -110,6 +113,7 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
             user = new UserController.SearchPatientTask().execute("Patient12345678").get();
             assertNull(user);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -127,13 +131,14 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
             user.setEmail("jnjn Email");
             new UserController.UpdateUserTask().execute(user);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * Tests various functions of patients
      *
-     * @return
+     * @return the patient created
      */
     private Patient patientConstructor() {
         String userId = "update12345678";
@@ -153,7 +158,7 @@ public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
     /**
      * Creates a test patient
      *
-     * @return
+     * @return the patient object
      */
     private Patient patientConstructorHeb() {
         String userId = "heb12345678";

@@ -11,16 +11,22 @@ package com.example.jerry.healemgood.Intent;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.controller.UserController;
+import com.example.jerry.healemgood.model.user.CareProvider;
+import com.example.jerry.healemgood.model.user.Patient;
 import com.example.jerry.healemgood.model.user.User;
 import com.example.jerry.healemgood.MainActivity;
+import com.example.jerry.healemgood.view.careProviderActivities.CareProviderAllPatientActivity;
 import com.example.jerry.healemgood.view.commonActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
 import com.robotium.solo.Solo;
+
+import java.util.Date;
 // Source: https://www.youtube.com/watch?v=T_8euppCz3k Accessed 2018-11-18
 
 /**
@@ -83,6 +89,14 @@ public class Main_AccountCreation_ActivityTest extends ActivityInstrumentationTe
      *
      */
     public void testLogin() {
+        // Delete the test user
+        User user;
+        try {
+            user = new Patient("TestGUY12345",".","sd",",","sd",new Date(),'M');
+            new UserController.DeleteUserTask().execute(user);
+        }catch (Exception e){}
+        solo.sleep(2000);
+
         solo.assertCurrentActivity("Check on login", MainActivity.class);
         // Just to check that the code is running
         // fail()
@@ -119,12 +133,57 @@ public class Main_AccountCreation_ActivityTest extends ActivityInstrumentationTe
         solo.enterText(loginCredentials, "TestGUY12345");
         solo.clickOnButton("Sign In");
         solo.assertCurrentActivity("Check on login", PatientAllProblemActivity.class);
+    }
 
+    /**
+     * Tests logging in
+     *
+     */
+    public void testCreateCareProvider() {
         // Delete the test user
         User user;
+        String providerId="TestProvider12345";
         try {
-            user = new UserController.SearchPatientTask().execute("TestGUY12345").get();
+            user = new CareProvider(providerId,".","sd",",","sd",new Date(),'M');
             new UserController.DeleteUserTask().execute(user);
         }catch (Exception e){}
+        solo.sleep(2000);
+
+        solo.assertCurrentActivity("Check on login", MainActivity.class);
+        // Just to check that the code is running
+        // fail()
+
+        // Click on create a new user
+        // Assert that you go to the right page
+        TextView createAccount = (TextView) solo.getView(R.id.createAccountTextView);
+        solo.clickOnView(createAccount);
+        solo.assertCurrentActivity("Check on login", AccountCreationActivity.class);
+
+        // Create a new account and try to login with it
+        // Get all the xml attributes
+        EditText userIdEditText = (EditText) solo.getView(R.id.userIdEditText);
+        EditText firstNameEditText = (EditText) solo.getView(R.id.firstNameEditText);
+        EditText lastNameEditText = (EditText) solo.getView(R.id.lastNameEditText);
+        EditText emailEditText = (EditText) solo.getView(R.id.emailEditText);
+        EditText phoneEditText = (EditText) solo.getView(R.id.phoneEditText);
+        RadioButton radioButton = (RadioButton) solo.getView(R.id.careProviderRadioButton);
+
+        // Skip passwords for now
+        // Enter in values for all other fields
+        solo.enterText(userIdEditText, providerId);
+        solo.enterText(firstNameEditText, "test");
+        solo.enterText(lastNameEditText, "GUY");
+        solo.enterText(emailEditText, "test@GUY.com");
+        solo.enterText(phoneEditText, "780");
+        solo.clickOnView(radioButton);
+
+        // Create the account
+        solo.clickOnButton("Create");
+
+        // Enter the credentials and enter the application
+        EditText loginCredentials = (EditText) solo.getView(R.id.userIdEditText);
+        solo.enterText(loginCredentials, providerId);
+        solo.clickOnButton("Sign In");
+        solo.assertCurrentActivity("Check on login", CareProviderAllPatientActivity.class);
     }
 }

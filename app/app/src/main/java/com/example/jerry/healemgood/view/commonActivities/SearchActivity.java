@@ -50,7 +50,7 @@ public class SearchActivity extends AppCompatActivity {
     /**
      * Reloads an earlier version of the activity if possible
      *
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,9 +172,9 @@ public class SearchActivity extends AppCompatActivity {
     /**
      * Reloads the activity after doing various intents (ex. taking a picture).
      *
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * @param requestCode requestCode
+     * @param resultCode resultCode
+     * @param data data
      */
 
     @Override

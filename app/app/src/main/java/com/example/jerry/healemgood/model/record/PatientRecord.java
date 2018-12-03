@@ -28,8 +28,8 @@ public class PatientRecord extends Record {
     /**
      * This creates a PatientRecord
      *
-     * @param pId
-     * @param title
+     * @param pId pid
+     * @param title title
      */
     public PatientRecord(String pId,String patientId,String title) throws LengthOutOfBoundException {
         super(pId,patientId,title,true);

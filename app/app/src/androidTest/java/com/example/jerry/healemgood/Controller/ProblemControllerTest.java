@@ -81,7 +81,7 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             try {
                 new ProblemController.CreateProblemTask().execute(p).get();
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
             Problem p2=null;
             try {
@@ -93,7 +93,9 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             String objectString1 = new Gson().toJson(p);
             String objectString2 = new Gson().toJson(p2);
             assertEquals(objectString1, objectString2);
-        }catch (Exception e){}
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -108,22 +110,25 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             try {
                 new ProblemController.CreateProblemTask().execute(p).get();
             }catch(Exception e){
-
+                e.printStackTrace();
             }
             String title = "New title";
             p.setTitle(title);
             try{
                 new ProblemController.UpdateProblemTask().execute(p).get();
             }catch(Exception e){
-
+                e.printStackTrace();
             }
             Problem p2=null;
             try {
                 p2 = new ProblemController.GetProblemByIdsTask().execute(p.getpId()).get().get(0);
             }catch(Exception e){
+                e.printStackTrace();
             }
             assertEquals(p2.getTitle(),title);
-        }catch (Exception e){}
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -138,6 +143,7 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             try {
                 new ProblemController.CreateProblemTask().execute(p).get();
             }catch(Exception e){
+                e.printStackTrace();
             }
             //create record
             Record r=null;
@@ -145,29 +151,33 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
                 r=  new PatientRecord(p.getpId(),p.getUserId(),"Record for deleteion  title");
                 new RecordController.CreateRecordTask().execute(r).get();
             }catch(Exception e){
+                e.printStackTrace();
             }
             //delete problem
             try{
                 new ProblemController.DeleteProblemTask().execute(p).get();
-            }catch (Exception e){}
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             //check if problem still in database
             Problem p2=null;
             try {
                 p2 = new ProblemController.GetProblemByIdsTask().execute(p.getpId()).get().get(0);
-            }catch(Exception e){ }
+            }catch(Exception e){ e.printStackTrace();}
             assertNull(p2);
             //Need to test if records is deleted here
             Record r2=null;
             try{
                 r2 = new RecordController.GetRecordByIdTask().execute(r.getrId()).get();
-            }catch(Exception e){ }
+            }catch(Exception e){ e.printStackTrace();}
 
             //wait for the above querys to complete in our server
             try {
                 TimeUnit.SECONDS.sleep(1);
-            }catch(Exception e){assertTrue(false);}
+            }catch(Exception e){
+                fail();}
             //assertNull(r2);
-        } catch (Exception e){}
+        } catch (Exception e){e.printStackTrace();}
     }
 
     /**
@@ -191,12 +201,12 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             new ProblemController.CreateProblemTask().execute(p4).get();
             new ProblemController.CreateProblemTask().execute(p5).get();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (Exception e) {
-            assertTrue(false);
+            fail();
         }
         //test search By title
         try {
@@ -210,7 +220,7 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             problems = new ProblemController.SearchProblemTask().execute().get();
             assertEquals(3, problems.size());
         } catch (Exception e) {
-            assertTrue(false);
+            fail();
         }
         //test search by Patient ids
         try {
@@ -227,7 +237,7 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             problems = new ProblemController.SearchProblemTask().execute().get();
             assertEquals(5, problems.size());
         } catch (Exception e) {
-            assertTrue(false);
+            fail();
         }
         //test multiple search
         try {
@@ -256,7 +266,7 @@ public class ProblemControllerTest extends ActivityInstrumentationTestCase2<Main
             problems = new ProblemController.SearchProblemTask().execute().get();
             assertEquals(3, problems.size());
         } catch (Exception e) {
-            assertTrue(false);
+            fail();
         }
     }
 

@@ -33,20 +33,20 @@ public class Patient extends User {
     /**
      * Sets up a patient user
      *
-     * @param userId
-     * @param password
-     * @param fullName
-     * @param phoneNum
-     * @param email
-     * @param birthday
-     * @param gender
-     * @throws LengthOutOfBoundException
+     * @param userId user id
+     * @param password password
+     * @param fullName full name
+     * @param phoneNum phone number
+     * @param email email
+     * @param birthday birthday
+     * @param gender gender
+     * @throws LengthOutOfBoundException Length of string not in bound
      */
     public Patient(String userId, String password, String fullName, String phoneNum, String email, Date birthday, char gender) throws LengthOutOfBoundException {
         super(userId, password, fullName, phoneNum, email, birthday, gender);
-        this.problemIds = new ArrayList<String>();
-        this.careProviderUserIds = new ArrayList<String>();
-        this.requests = new ArrayList<Request>();
+        this.problemIds = new ArrayList<>();
+        this.careProviderUserIds = new ArrayList<>();
+        this.requests = new ArrayList<>();
 
     }
 
@@ -62,7 +62,7 @@ public class Patient extends User {
     /**
      * Adds the id of a problem to the list of the patient's problems
      *
-     * @param problemId
+     * @param problemId problem pid
      */
     public void addProblemId(String problemId) {
         problemIds.add(problemId);
@@ -71,7 +71,7 @@ public class Patient extends User {
     /**
      * Gets and returns the index of a problem id in the list of problems
      *
-     * @param index
+     * @param index index
      * @return problemIds.get(index)
      */
     public String getProblemIdByIndex(int index) {
@@ -81,7 +81,7 @@ public class Patient extends User {
     /**
      * Removes the problem id of a wanted problem (deletes a problem from the list)
      *
-     * @param index
+     * @param index index
      */
     public void deleteProblemId(int index) {
         if (index < problemIds.size()) {
@@ -101,7 +101,7 @@ public class Patient extends User {
     /**
      * Adds a care provider's id to the list of care providers the patient is seeing
      *
-     * @param careProviderUserId
+     * @param careProviderUserId care provider uid
      */
     public void addCareProviderUserId(String careProviderUserId) {
         careProviderUserIds.add(careProviderUserId);
@@ -110,7 +110,7 @@ public class Patient extends User {
     /**
      * Gets and returns the location of a care provider id in the list of care providers for the patient
      *
-     * @param index
+     * @param index index
      * @return careProviderUserIds.get(index)
      */
     public String getCareProviderUserIdByIndex(int index) {
@@ -129,7 +129,7 @@ public class Patient extends User {
     /**
      * Gets and returns the location of a specific request from the list of care provider requests
      *
-     * @param index
+     * @param index index
      * @return requests.get(index)
      */
     public Request getRequestByIndex(int index) {
@@ -139,7 +139,7 @@ public class Patient extends User {
     /**
      * Adds a request to the list of care provider requests
      *
-     * @param request
+     * @param request request
      */
     public void addRequest(Request request) {
         requests.add(request);
@@ -148,7 +148,7 @@ public class Patient extends User {
     /**
      * Removes a specific request from the list of available requests
      *
-     * @param index
+     * @param index index
      */
     public void deleteRequest(int index) {
         if (index < requests.size()){

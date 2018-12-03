@@ -16,6 +16,8 @@ package com.example.jerry.healemgood.utils;
  * @author TianqiCS
  * @version 1.0
  * @since 1.0
+ * @see BodyLocation
+ * @see BodyColor
  */
 
 public enum BodyPart {

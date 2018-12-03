@@ -90,7 +90,7 @@ public class AddRecordActivity extends AppCompatActivity {
     /**
      * Handles loading an older version of the activity
      *
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,7 +169,7 @@ public class AddRecordActivity extends AppCompatActivity {
 
                 }
                 catch (Exception e){
-
+                    e.printStackTrace();
                 }
                 finish();
 
@@ -211,7 +211,7 @@ public class AddRecordActivity extends AppCompatActivity {
     /**
      * This functio shows a bigger picture
      *
-     * @see  //https://developer.android.com/training/camera/photobasics
+     * see  //https://developer.android.com/training/camera/photobasics
      *
      */
     private void showLargePicture(int position){
@@ -226,7 +226,7 @@ public class AddRecordActivity extends AppCompatActivity {
     /**
      * This function allows users to take a picture with their devices camera.
      *
-     * @see  //https://developer.android.com/training/camera/photobasics
+     * see  //https://developer.android.com/training/camera/photobasics
      *
      */
 
@@ -244,9 +244,9 @@ public class AddRecordActivity extends AppCompatActivity {
     /**
      * Reloads the activity after doing various intents (ex. taking a picture).
      *
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * @param requestCode requestCode
+     * @param resultCode resultCode
+     * @param data data
      */
     @Override
     // receive the intent result when the next activity finishes
@@ -315,7 +315,8 @@ public class AddRecordActivity extends AppCompatActivity {
     /**
      * Adds a photo bitmap to the gallery
      *
-     * @param imageBitmap
+     * @param  imageBitmap imageBitmap
+     * @param label string label
      */
     private void addPhoto(Bitmap imageBitmap,String label){
 
@@ -340,7 +341,7 @@ public class AddRecordActivity extends AppCompatActivity {
     }
 
     /**
-     * Saves everything recorded in the record to the problem in the form of a new record.
+     * Saves everything recorded in the record to the problem in the form of a new patient record.
      *
      */
     private void savePatientRecord(){
@@ -394,11 +395,12 @@ public class AddRecordActivity extends AppCompatActivity {
         catch (Exception e){
             Log.d("ERROR","Fail to create the record");
         }
-
-
-
     }
 
+    /**
+     * Saves everything recorded in the record to the problem in the form of a new care provider record.
+     *
+     */
     private void saveCareProviderRecord(){
         EditText recordTitleInput = findViewById(R.id.titleInput);
         String recordTitle = recordTitleInput.getText().toString();

@@ -14,6 +14,16 @@ import com.example.jerry.healemgood.view.adapter.SlideShowAdapter;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a SlideShowActivity
+ * display images in slide show mode
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class SlideShowActivity extends AppCompatActivity {
 
     private SlideShowAdapter adapter;  // the adapter using for the slide show

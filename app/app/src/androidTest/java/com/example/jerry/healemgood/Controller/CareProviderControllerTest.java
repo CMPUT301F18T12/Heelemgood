@@ -12,6 +12,16 @@ import com.robotium.solo.Solo;
 
 import java.util.Date;
 
+import static org.junit.Assert.assertNotEquals;
+
+/**
+ * Patient Test
+ * 1. testCreateUser: Tests the add user functionality of the patient controller
+ * 2. testSearchUser: Tests the search user functionality of the patient controller
+ * 3. testCreateCareProvider: Tests the creation of a care provider
+ * @author Weakmill98
+ * @version 1.0
+ */
 public class CareProviderControllerTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
 
@@ -61,13 +71,14 @@ public class CareProviderControllerTest extends ActivityInstrumentationTestCase2
             // Search for a user that exists
             new UserController.AddUserTask().execute(careProvider);
             user = new UserController.SearchCareProviderTask().execute("heb12345678").get();
-            assertTrue(user.getUserId().equals("heb12345678"));
+            assertEquals("heb12345678", user.getUserId());
 
             // Search for a user that does not exist
             // The user object returned should not have a name
             user = new UserController.SearchCareProviderTask().execute("jeb12345678").get();
-            assertFalse(user.getUserId().equals("jeb12345678"));
+            assertNotEquals("jeb12345678", user.getUserId());
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -75,7 +86,7 @@ public class CareProviderControllerTest extends ActivityInstrumentationTestCase2
     /**
      * Creates a test patient
      *
-     * @return
+     * @return care provider object
      */
     private CareProvider careProviderConstructor() {
         String userId = "heb12345678";

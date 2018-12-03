@@ -57,12 +57,6 @@ public class Problem {
         this.description = description;
     }
 
-    /**
-     * This add record to problem
-     *
-     * @param record
-     *
-     */
 //    public void addRecord(Record record){
 //        records.add(record);
 //    }
@@ -154,7 +148,7 @@ public class Problem {
     /**
      * This sets the Id of the problem
      *
-     * @param pId
+     * @param pId pid
      */
     public void setpId(String pId) {
         this.pId = pId;
@@ -163,7 +157,7 @@ public class Problem {
     /**
      * This sets the title of the problem
      *
-     * @param title
+     * @param title title
      */
     public void setTitle(String title) throws LengthOutOfBoundException {
         if (title.length() > 30) {
@@ -193,7 +187,7 @@ public class Problem {
     /**
      * This sets the date of the problem
      *
-     * @param createdDate
+     * @param createdDate date created
      */
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;

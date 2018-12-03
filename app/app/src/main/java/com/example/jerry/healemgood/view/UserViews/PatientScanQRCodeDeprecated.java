@@ -57,6 +57,7 @@ public class PatientScanQRCodeDeprecated extends AppCompatActivity implements ZX
 
     /**
      * Method to check for permission
+     * @return if permission is ok
      */
 
     private boolean checkPermission(){

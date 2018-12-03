@@ -19,9 +19,9 @@ public class SharedPreferenceUtil {
     /**
      * Store the value into shared preference
      *
-     * @param context
-     * @param key
-     * @param value
+     * @param context context
+     * @param key key
+     * @param value value
      */
     public static void store(Context context,String key, String value){
         SharedPreferences.Editor editor = context.getSharedPreferences(AppConfig.MY_PREFS_NAME, MODE_PRIVATE).edit();
@@ -32,8 +32,8 @@ public class SharedPreferenceUtil {
     /**
      * retrieve the value from shared preference
      *
-     * @param context
-     * @param key
+     * @param context context
+     * @param key key
      *
      */
     public static String get(Context context,String key){

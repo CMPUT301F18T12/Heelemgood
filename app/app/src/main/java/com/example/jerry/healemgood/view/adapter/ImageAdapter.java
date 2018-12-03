@@ -32,7 +32,7 @@ public class ImageAdapter extends BaseAdapter {
     /**
      * Gives context
      *
-     * @param c
+     * @param c context
      */
     public ImageAdapter(Context c) {
         mContext = c;
@@ -41,7 +41,7 @@ public class ImageAdapter extends BaseAdapter {
     /**
      * Adds a photo
      *
-     * @param imageBitmap
+     * @param imageBitmap image bitmap
      */
     public void addPhoto(Bitmap imageBitmap){
 
@@ -65,7 +65,7 @@ public class ImageAdapter extends BaseAdapter {
     /**
      * Gets and returns an item
      *
-     * @param position
+     * @param position position
      * @return null
      */
     public Object getItem(int position) {
@@ -75,7 +75,7 @@ public class ImageAdapter extends BaseAdapter {
     /**
      * Gets and returns an item id
      *
-     * @param position
+     * @param position position
      * @return 0
      */
     public long getItemId(int position) {
@@ -85,10 +85,10 @@ public class ImageAdapter extends BaseAdapter {
     /**
      * Creates a new ImageView for each item referenced by the adapter
      *
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
+     * @param position position
+     * @param convertView view convert
+     * @param parent parent view group
+     * @return the image view
      */
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;

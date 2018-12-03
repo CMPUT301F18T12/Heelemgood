@@ -45,7 +45,7 @@ public class CareProvider extends User {
     /**
      * Add a patient id to the list of patients
      *
-     * @param patientUserId
+     * @param patientUserId patient Id
      */
     public void addPatientUserId(String patientUserId) {
         patientUserIds.add(patientUserId);
@@ -54,7 +54,7 @@ public class CareProvider extends User {
     /**
      * Searches and returns the location in the list of patients of a required patient id
      *
-     * @param index
+     * @param index index
      * @return patientUserIds.get(index)
      */
     public String getPatientUserIdByIndex(int index) {
@@ -64,7 +64,7 @@ public class CareProvider extends User {
     /**
      * Removes a patient from the list of patients
      *
-     * @param patientUserId
+     * @param patientUserId patient uid
      */
     public void removePatientUserId(String patientUserId){patientUserIds.remove(patientUserId);}
 }

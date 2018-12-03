@@ -22,6 +22,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
  * @author WeakMill98
  * @version 1.0
  * @since 2.0
+ * see https://www.youtube.com/watch?v=6HfUk5AJIn8
  */
 
 public class UserGenerateQRCode extends AppCompatActivity {

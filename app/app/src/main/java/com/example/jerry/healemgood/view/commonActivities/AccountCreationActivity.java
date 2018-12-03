@@ -49,7 +49,7 @@ public class AccountCreationActivity extends AppCompatActivity {
     /**
      * Loads older instance if possible
      *
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +120,6 @@ public class AccountCreationActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),
                                         "User ID already exists"
                                         , Toast.LENGTH_SHORT).show();
-                                return;
                             }
                         } catch (Exception e) {
                             try {
