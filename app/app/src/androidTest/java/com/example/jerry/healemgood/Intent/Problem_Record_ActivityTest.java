@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.MainActivity;
-import com.example.jerry.healemgood.view.patientActivities.AccountCreationActivity;
+import com.example.jerry.healemgood.view.commonActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAddProblemActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
 import com.example.jerry.healemgood.view.commonActivities.AllRecordActivity;

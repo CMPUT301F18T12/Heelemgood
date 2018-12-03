@@ -31,7 +31,7 @@ import java.util.Date;
  * @version 1.0.3
  */
 
-// A class used to test the methods of the UserControllerDeprecated class
+// A class used to test the methods of the UserController class
 public class PatientControllerTest extends ActivityInstrumentationTestCase2 {
 
     private Solo solo;

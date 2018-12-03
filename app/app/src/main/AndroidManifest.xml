@@ -41,8 +41,7 @@
             android:value="AIzaSyDMQjpqMqtFS2ogPixlLUPvUu9muw_Sm6w" />
 
         <activity android:name=".view.commonActivities.SearchActivity" />
-        <activity android:name=".view.accountActivities.AccountCreationActivity" />
-        <activity android:name=".view.patientActivities.AccountCreationActivity" />
+        <activity android:name=".view.commonActivities.AccountCreationActivity" />
         <activity android:name=".view.patientActivities.PatientAddProblemActivity" />
         <activity android:name=".view.commonActivities.AllRecordActivity" />
         <activity android:name=".view.commonActivities.RecordDetailActivity" />

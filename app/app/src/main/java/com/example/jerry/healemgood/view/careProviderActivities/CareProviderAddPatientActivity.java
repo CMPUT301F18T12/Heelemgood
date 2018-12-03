@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.jerry.healemgood.R;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 public class CareProviderAddPatientActivity extends AppCompatActivity {
     private EditText patientInput;
     private CareProvider careProvider = null;
+    private ProgressBar progressBar;
 
     /**
      * Reloads an earlier version of the activity if possible
@@ -48,6 +50,7 @@ public class CareProviderAddPatientActivity extends AppCompatActivity {
         Button addButton = findViewById(R.id.addButton);
         Button saveButton = findViewById(R.id.saveButton);
         Button scanQrCodeButton = findViewById(R.id.scanQRCodeButton);
+        progressBar = findViewById(R.id.progressBar);
 
         loadCareProvider();
 
@@ -92,7 +95,10 @@ public class CareProviderAddPatientActivity extends AppCompatActivity {
         String patientIdSearch = patientInput.getText().toString();
         Patient patient = null;
         try{
-            patient = (Patient)new UserController.SearchPatientTask().execute(patientIdSearch).get();
+            UserController.SearchPatientTask task = new UserController.SearchPatientTask();
+            task.setProgressBar(progressBar);
+            patient = task.execute(patientIdSearch).get();
+            //patient = (Patient)new UserController.SearchPatientTask().execute(patientIdSearch).get();
         }
         catch (Exception e){
             Log.d("Error","Fail to get the patient");
@@ -120,7 +126,7 @@ public class CareProviderAddPatientActivity extends AppCompatActivity {
 
     private void save() {
         try{
-            new UserController.UpdateUserTask().execute(careProvider).get();
+            new UserController.UpdateUserTask().execute(careProvider);
         }
         catch (Exception e){
             Log.d("Error","Fail to save the care provider");
@@ -134,7 +140,10 @@ public class CareProviderAddPatientActivity extends AppCompatActivity {
     private void loadCareProvider() {
         String userId = SharedPreferenceUtil.get(getApplicationContext(), AppConfig.USERID);
         try {
-            careProvider = (CareProvider) new UserController.SearchCareProviderTask().execute(userId).get();
+            UserController.SearchCareProviderTask task1 = new UserController.SearchCareProviderTask();
+            task1.setProgressBar(progressBar);
+            careProvider = task1.execute(userId).get();
+            //careProvider = (CareProvider) new UserController.SearchCareProviderTask().execute(userId).get();
         } catch (Exception e) {
             Log.d("Error", "fail to load the care provider");
         }
