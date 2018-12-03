@@ -20,10 +20,13 @@ import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.controller.UserController;
 import com.example.jerry.healemgood.model.user.Patient;
+import com.example.jerry.healemgood.model.user.User;
 import com.example.jerry.healemgood.view.commonActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
 import com.example.jerry.healemgood.view.commonActivities.UserActivity;
 import com.robotium.solo.Solo;
+
+import java.util.Date;
 
 /**
  * Handles editing the user account
@@ -68,6 +71,13 @@ public class EditUser_ActivityTest extends ActivityInstrumentationTestCase2<Main
      *
      */
     public void testEditUser(){
+        User user;
+        try {
+            user = new Patient("TestGUY12345",".","sd",",","sd",new Date(),'M');
+            new UserController.DeleteUserTask().execute(user);
+        }catch (Exception e){}
+        solo.sleep(2000);
+
         // Click on create a new user
         // Assert that you go to the right page
         TextView createAccount = (TextView) solo.getView(R.id.createAccountTextView);

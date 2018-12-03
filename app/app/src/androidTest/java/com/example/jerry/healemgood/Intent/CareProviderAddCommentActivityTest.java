@@ -86,6 +86,7 @@ public class CareProviderAddCommentActivityTest extends ActivityInstrumentationT
         EditText loginCredentials = (EditText) solo.getView(R.id.userIdEditText);
         solo.enterText(loginCredentials, c_id);
         solo.clickOnButton("Sign In");
+        solo.sleep(2000);
         //click a patinet
         ListView listView = (ListView)solo.getView(R.id.patientListView);
         View child = listView.getChildAt(0);
