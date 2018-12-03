@@ -369,7 +369,7 @@ public class RecordDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(getApplicationContext(),ViewContactActivity.class);
-                intent.putExtra(AppConfig.USERID,record.getUserId());
+                intent.putExtra(AppConfig.USERID, record.getUserId());
                 startActivity(intent);
 
 
