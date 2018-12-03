@@ -71,7 +71,7 @@ public class CareProviderRecordTest {
             // isPatientRecord
             assertFalse(record.isPatientRecord());
 
-        }catch (LengthOutOfBoundException e){}
+        }catch (LengthOutOfBoundException e){ e.printStackTrace();}
     }
 
 }
