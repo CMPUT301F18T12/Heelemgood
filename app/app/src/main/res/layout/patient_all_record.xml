@@ -86,4 +86,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/quantum_ic_refresh_white_24" />
 
+    <ProgressBar
+        android:id="@+id/recordprogressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/detailButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

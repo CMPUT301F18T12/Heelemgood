@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
@@ -49,6 +50,7 @@ public class AllRecordActivity extends AppCompatActivity {
     private Button detailButton;
     private Button slideShowButton;
     private FloatingActionButton refreshRecordsFloatingActionButton;
+    private ProgressBar progressBar;
 
     /**
      * Handles loading an older version of the activity
@@ -64,6 +66,8 @@ public class AllRecordActivity extends AppCompatActivity {
 
         createRecordButton = findViewById(R.id.createRecordButton);
         refreshRecordsFloatingActionButton = findViewById(R.id.refreshRecordsFloatingActionButton);
+        progressBar = findViewById(R.id.recordprogressBar);
+        // progressBar.setVisibility(View.INVISIBLE);
 
         // For when the user wants to create a record
         createRecordButton.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +90,13 @@ public class AllRecordActivity extends AppCompatActivity {
         refreshRecordsFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recreate();
+                if (NetworkUtil.isNetworkAvailable(AllRecordActivity.this)){
+                    recreate();
+                    recreate();
+                }
+                else {
+                    recordAdapter.refreshAdapter(records);
+                }
             }
         });
 
@@ -188,7 +198,10 @@ public class AllRecordActivity extends AppCompatActivity {
 
         RecordController.searchByProblemIds(getIntent().getStringExtra(AppConfig.PID));
         try{
-            records = new RecordController.SearchRecordTask().execute().get();
+            //records = new RecordController.SearchRecordTask().execute().get();
+            RecordController.SearchRecordTaskRefresh task = new RecordController.SearchRecordTaskRefresh();
+            task.setProgressBar(progressBar);
+            records = task.execute().get();
         }
         catch (Exception e){
             records = new ArrayList<Record>();

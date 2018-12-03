@@ -114,7 +114,12 @@ public class PatientAllProblemActivity extends AppCompatActivity
         refreshfloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recreate();
+                if (NetworkUtil.isNetworkAvailable(PatientAllProblemActivity.this)) {
+                    recreate();
+                    recreate();
+                }else{
+                    problemAdapter.refreshAdapter(problems);
+                }
             }
         });
 
