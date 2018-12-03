@@ -110,7 +110,6 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
 
     /**
      * load problem
-     *
      */
 
     private void loadProblem(){
@@ -126,7 +125,6 @@ public class PatientProblemDetailActivity extends AppCompatActivity {
 
     /**
      * fill problem detail
-     *
      */
 
     private void fillOutDetail(){

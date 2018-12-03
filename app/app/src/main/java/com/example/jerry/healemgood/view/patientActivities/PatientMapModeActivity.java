@@ -21,6 +21,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a PatientMapModeActivity
+ * display all geolocations on the map and allows user to view the locations
+ *
+ * @author xiacijie
+ * @version 1.0
+ * @see AppCompatActivity
+ * @since 1.0
+ */
+
 public class PatientMapModeActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 
@@ -60,7 +70,10 @@ public class PatientMapModeActivity extends AppCompatActivity
     }
 
 
-    // load all records from the elastic search
+    /**
+     *     load all records from the elastic search
+     */
+
     private void loadAllRecords(){
 
         RecordController.searchByPatientIds(SharedPreferenceUtil.get(this,AppConfig.USERID));
