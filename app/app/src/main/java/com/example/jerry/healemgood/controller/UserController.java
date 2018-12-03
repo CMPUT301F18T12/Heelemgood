@@ -103,7 +103,7 @@ public class UserController {
             String type = className.toLowerCase();
 
             // Search query includes the id as well as the type
-            String query = "{\n" +
+            /*String query = "{\n" +
                     "    \"query\": {\n" +
                     "        \"query_string\" : {\n" +
                     "            \"query\" : \"(userId:" + userId + " AND _type:" + type + ")\" \n" +
@@ -114,13 +114,13 @@ public class UserController {
             DeleteByQuery deleteByQuery = new DeleteByQuery.Builder(query)
                     .addIndex(indexName)
                     .addType(type)
-                    .build();
-
+                    .build();*/
+            Delete delete = new Delete.Builder(userId).index(indexName).type(type).build();
             // If searched, then return object, otherwise return null
             try {
                 //wait until connection is avaliable
                 OfflineTools.waitForConnection();
-                client.execute(deleteByQuery);
+                client.execute(delete);
             } catch (IOException e) {
                 Log.d("Succeed", "Failed!");
                 e.printStackTrace();
