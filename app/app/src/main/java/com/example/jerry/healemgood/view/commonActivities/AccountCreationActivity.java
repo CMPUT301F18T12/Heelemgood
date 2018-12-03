@@ -1,5 +1,4 @@
-/*
- *  Class Name: AccountCreationActivity
+/*  AccountCreationActivity
  *
  *  Version: Version 1.0
  *
@@ -7,7 +6,7 @@
  *
  *  Copyright (c) Team 12, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at the University of Alberta
  */
-package com.example.jerry.healemgood.view.patientActivities;
+package com.example.jerry.healemgood.view.commonActivities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -28,11 +28,7 @@ import com.example.jerry.healemgood.utils.LengthOutOfBoundException;
 import java.util.Date;
 
 /**
-<<<<<<< HEAD:app/app/src/main/java/com/example/jerry/healemgood/view/UserActivities/AccountCreationActivity.java
  * A controller that handles creating a new account
-=======
- * This class handles account creation
->>>>>>> master:app/app/src/main/java/com/example/jerry/healemgood/view/patientActivities/AccountCreationActivity.java
  *
  * @author WeakMill98
  * @version 1.0
@@ -48,6 +44,7 @@ public class AccountCreationActivity extends AppCompatActivity {
     private Button createButton;
     private RadioButton patientRadioButton;
     private RadioButton careProviderRadioButton;
+    private ProgressBar progressBar;
 
     /**
      * Loads older instance if possible
@@ -60,7 +57,6 @@ public class AccountCreationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account_creation);
 
         setTitle("Create Account");
-
 
         // Find references to the XML path
         // This includes all user attributes, such as username, password, etc.
@@ -81,45 +77,70 @@ public class AccountCreationActivity extends AppCompatActivity {
                     if (patientRadioButton.isChecked()){
                         Patient patient;
                         try {
-                            patient = new Patient(
-                                    username, "Password", na, ph, ema,
-                                    new Date(),
-                                    'M'
-                            );
-                        } catch (LengthOutOfBoundException e) {
-                            Toast.makeText(getApplicationContext(),
-                                    "Your userId is too short (at least 8 characters)"
-                                    ,Toast.LENGTH_SHORT).show();
-                            return;
+                            // Search to see if the account already exists
+                            UserController.SearchPatientTask task = new UserController.SearchPatientTask();
+                            task.setProgressBar(progressBar);
+                            Patient patient1 = task.execute(username).get();
+
+                            if (patient1.getUserId().equals(username)){
+                                Toast.makeText(getApplicationContext(),
+                                        "User ID already exists"
+                                        ,Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }catch (Exception e) {
+                            try {
+                                patient = new Patient(
+                                        username, "Password", na, ph, ema,
+                                        new Date(),
+                                        'M'
+                                );
+                            } catch (LengthOutOfBoundException e1) {
+                                Toast.makeText(getApplicationContext(),
+                                        "Your userId is too short (at least 8 characters)"
+                                        , Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            patientRadioButton.setChecked(false);
+                            new UserController.AddUserTask().execute(patient);
+                            clearText();
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }
-                        patientRadioButton.setChecked(false);
-                        new UserController.AddUserTask().execute(patient);
-                        clearText();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     }
                     if (careProviderRadioButton.isChecked()) {
                         CareProvider careProvider;
+                        // Search to see if the account already exists
+
                         try {
-                            careProvider = new CareProvider(
-                                    username, "Password", na, ph, ema,
-                                    new Date(),
-                                    'M'
-                            );
-                        } catch (LengthOutOfBoundException e) {
-                            Toast.makeText(getApplicationContext(),
-                                    "Your userId is too short (at least 8 characters)"
-                                    , Toast.LENGTH_SHORT).show();
-                            return;
+                            UserController.SearchCareProviderTask task1 = new UserController.SearchCareProviderTask();
+                            task1.setProgressBar(progressBar);
+                            CareProvider careProvider1 = task1.execute(username).get();
+
+                            if (careProvider1.getUserId().equals(username)) {
+                                Toast.makeText(getApplicationContext(),
+                                        "User ID already exists"
+                                        , Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        } catch (Exception e) {
+                            try {
+                                careProvider = new CareProvider(
+                                        username, "Password", na, ph, ema,
+                                        new Date(),
+                                        'M'
+                                );
+                            } catch (LengthOutOfBoundException e2) {
+                                Toast.makeText(getApplicationContext(),
+                                        "Your userId is too short (at least 8 characters)"
+                                        , Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            careProviderRadioButton.setChecked(false);
+                            new UserController.AddUserTask().execute(careProvider);
+                            clearText();
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
                         }
-                        careProviderRadioButton.setChecked(false);
-                        new UserController.AddUserTask().execute(careProvider);
-                        clearText();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    }
-                    // If no account type is selected, raise a warning
-                    else {
-                        Toast.makeText(getApplicationContext(), "Please Select an Account Type",
-                                Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -139,6 +160,7 @@ public class AccountCreationActivity extends AppCompatActivity {
         createButton = findViewById(R.id.createAccountButton);
         patientRadioButton = findViewById(R.id.patientRadioButton);
         careProviderRadioButton = findViewById(R.id.careProviderRadioButton);
+        progressBar = findViewById(R.id.creationprogressBar);
     }
 
     // Clears all the text from the fields
@@ -152,5 +174,6 @@ public class AccountCreationActivity extends AppCompatActivity {
         lastName.getText().clear();
         emailAddress.getText().clear();
         phoneNumber.getText().clear();
+
     }
 }

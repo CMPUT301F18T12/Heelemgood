@@ -18,7 +18,7 @@ import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.controller.UserController;
 import com.example.jerry.healemgood.model.user.User;
 import com.example.jerry.healemgood.MainActivity;
-import com.example.jerry.healemgood.view.patientActivities.AccountCreationActivity;
+import com.example.jerry.healemgood.view.commonActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
 import com.robotium.solo.Solo;
 // Source: https://www.youtube.com/watch?v=T_8euppCz3k Accessed 2018-11-18

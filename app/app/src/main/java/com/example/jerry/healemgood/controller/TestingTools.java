@@ -102,17 +102,4 @@ public class TestingTools {
             client=(JestDroidClient)factory.getObject();
         }
     }
-    /*
-    Query for creating geolocation Index
-    PUT http://cmput301.softwareprocess.es:8080/cmput301f18t12/record/_mapping
-    {
-	"record":{
-      "properties": {
-        "geoLocation": {
-          "type": "geo_point"
-        }
-      }
-	}
-    }
-     */
 }

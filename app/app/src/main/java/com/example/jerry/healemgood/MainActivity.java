@@ -11,7 +11,6 @@
 package com.example.jerry.healemgood;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +24,6 @@ import com.example.jerry.healemgood.controller.OfflineTools;
 import com.example.jerry.healemgood.controller.UserController;
 import com.example.jerry.healemgood.model.user.CareProvider;
 import com.example.jerry.healemgood.model.user.Patient;
-import com.example.jerry.healemgood.model.user.User;
 
 /**
  * Represents a MainActivity
@@ -38,10 +36,9 @@ import com.example.jerry.healemgood.model.user.User;
  * @since 1.0
  */
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
-import com.example.jerry.healemgood.view.UserViews.CareProviderAddPatientQRCode;
 import com.example.jerry.healemgood.view.UserViews.UserScanQRCodeLogin;
 import com.example.jerry.healemgood.view.careProviderActivities.CareProviderAllPatientActivity;
-import com.example.jerry.healemgood.view.patientActivities.AccountCreationActivity;
+import com.example.jerry.healemgood.view.commonActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
 
 /**
@@ -56,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     public Button signInQRButton;
     private EditText userNameEditText;
     private ProgressBar progressBar;
+    private TextView createTextView;
 
     /**
      * Reloads an earlier version of the activity if possible
@@ -66,15 +64,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        this.onCreateAccount();
         //set the activity context for offlineTools that will be used by all controllers
         OfflineTools.setContext(getApplicationContext());
 
+        // Get the xml elements paths
         progressBar = findViewById(R.id.loginProgressBar);
         signInButton = findViewById(R.id.signInButton);
         signInQRButton = findViewById(R.id.signInQRButton);
-        //progressBar.setIndeterminate(true);
+        createTextView = findViewById(R.id.createAccountTextView);
         progressBar.setVisibility(View.INVISIBLE);
+
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,17 +124,11 @@ public class MainActivity extends AppCompatActivity {
         signInQRButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), UserScanQRCodeLogin.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(), UserScanQRCodeLogin.class));
             }
         });
-    }
 
-    /**
-     * Handles everything relating to switching to the account creation page.
-     */
-    public void onCreateAccount(){
-        TextView createTextView = findViewById(R.id.createAccountTextView);
+        // When the user decides to create a new account
         createTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

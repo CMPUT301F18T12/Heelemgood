@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
@@ -34,6 +35,7 @@ public class SearchRecordResultActivity extends AppCompatActivity {
 
     private ArrayList<Record> records;
     private RecordAdapter recordAdapter;
+    private ProgressBar progressBar;
     private CareProvider careProvider; // if the user is a care provider
 
     /**
@@ -47,6 +49,9 @@ public class SearchRecordResultActivity extends AppCompatActivity {
         setTitle("Search Record");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_search_record_result);
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         if (!isPatient()){
             loadCareProvider();
@@ -76,7 +81,10 @@ public class SearchRecordResultActivity extends AppCompatActivity {
 
     private void loadCareProvider(){
         try{
-            careProvider = (CareProvider)new UserController.SearchCareProviderTask().execute(SharedPreferenceUtil.get(this,AppConfig.USERID)).get();
+            UserController.SearchCareProviderTask task = new UserController.SearchCareProviderTask();
+            task.setProgressBar(progressBar);
+            careProvider = task.execute(SharedPreferenceUtil.get(this,AppConfig.USERID)).get();
+            //careProvider = (CareProvider)new UserController.SearchCareProviderTask().execute(SharedPreferenceUtil.get(this,AppConfig.USERID)).get();
         }
         catch (Exception e){
             Log.d("Error","Fail to load the care provider");

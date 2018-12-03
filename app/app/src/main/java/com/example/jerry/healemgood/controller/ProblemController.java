@@ -122,20 +122,6 @@ public class ProblemController {
             }
             return null;
         }
-        /*
-        @Override
-        protected void onPostExecute(Void v){
-            super.onPostExecute(v);
-            if (context != null){
-                try{
-                    Thread.sleep(1000);
-                }
-                catch (Exception e){
-
-                }
-            }
-
-        }*/
     }
 
     /**
