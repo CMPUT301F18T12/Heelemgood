@@ -20,11 +20,15 @@ import android.widget.TextView;
 
 import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.R;
+import com.example.jerry.healemgood.controller.ProblemController;
+import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.view.commonActivities.AccountCreationActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAddProblemActivity;
 import com.example.jerry.healemgood.view.patientActivities.PatientAllProblemActivity;
 import com.example.jerry.healemgood.view.commonActivities.AllRecordActivity;
 import com.robotium.solo.Solo;
+
+import java.util.ArrayList;
 
 /**
  * Handles Editing Problems
@@ -112,7 +116,17 @@ public class EditProblem_ActivityTest extends ActivityInstrumentationTestCase2<c
      */
     // Create a new problem and be able to edit it
     public void testProblemCreationAndEdit() {
-
+        //Delete problem under the user first
+        ProblemController.searchByPatientIds("TestGUY12345");
+        try {
+            ArrayList<Problem> ps = new ProblemController.SearchProblemTask().execute().get();
+            for (Problem p : ps) {
+                new ProblemController.DeleteProblemTask().execute(p).get();
+            }
+        }catch (Exception e){
+            fail();
+        }
+        solo.sleep(2000);
         solo.assertCurrentActivity("Check on login", MainActivity.class);
 
         // Enter the credentials and enter the application
@@ -137,7 +151,7 @@ public class EditProblem_ActivityTest extends ActivityInstrumentationTestCase2<c
         // Save the Entry and leave
         Button saveButton = (Button) solo.getView(R.id.saveButton);
         solo.clickOnView(saveButton);
-
+        solo.sleep(1000);
         // Assert the activity
         solo.assertCurrentActivity("Check on Problem", PatientAddProblemActivity.class);
 
