@@ -13,6 +13,8 @@ package com.example.jerry.healemgood.controller;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.jerry.healemgood.model.problem.Problem;
 import com.example.jerry.healemgood.model.record.Record;
@@ -144,6 +146,58 @@ public class RecordController {
      * It will use the searchQuery user created before
      */
     public static class SearchRecordTask extends AsyncTask<Void,Void,ArrayList<Record>> {
+        protected ArrayList<Record> doInBackground(Void... empty) {
+            setClient();
+            searchQuery += "]\n"+
+                    "           }\n"+
+                    "           }\n"+
+                    "}";
+            ArrayList<Record> records = new ArrayList<Record>();
+            Search search = new Search.Builder(searchQuery).addIndex(indexName).addType("record").build();
+            Log.d("Name-Jeff",searchQuery);
+            searchQuery = introQuery;
+            building = false;
+            try{
+                SearchResult result = client.execute(search);
+                if(result.isSucceeded()){
+                    Log.d("Name-Jeff","Record searched");
+                    List<Record> resultList = result.getSourceAsObjectList(Record.class);
+                    records.addAll(resultList);
+                }
+            }catch(IOException e){
+                Log.d("Joey Error"," IOexception when executing client");
+            }
+            searchQuery=introQuery;
+            return records;
+        }
+    }
+
+    /***
+     * Seach for a list of records by the searchQuery created. At the end, it will reset the searchQuery.
+     * To build searchQuery, use initSearchQuery(), finalizeSearchQuery(), searchBy.....()
+     * Meant for refreshing
+     * @params It will use the searchQuery user created before
+     */
+    public static class SearchRecordTaskRefresh extends AsyncTask<Void,Void,ArrayList<Record>> {
+
+        private ProgressBar progressBar;
+
+        public void setProgressBar(ProgressBar progressBar) {
+            this.progressBar = progressBar;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Record> p) {
+            progressBar.setVisibility(View.INVISIBLE);
+            super.onPostExecute(p);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
         protected ArrayList<Record> doInBackground(Void... empty) {
             setClient();
             searchQuery += "]\n"+
