@@ -45,7 +45,7 @@ public class UserActivity extends AppCompatActivity {
      */
     TextView nameText;
     TextView userIdText;
-    TextView birthdayText;
+
     EditText emailInput;
     EditText phoneInput;
     @Override
@@ -56,7 +56,7 @@ public class UserActivity extends AppCompatActivity {
 
          nameText = findViewById(R.id.userFullName);
          userIdText = findViewById(R.id.userId);
-         birthdayText = findViewById(R.id.userBirthday);
+
          emailInput = findViewById(R.id.userEmail);
          phoneInput = findViewById(R.id.userPhone);
 
@@ -89,7 +89,7 @@ public class UserActivity extends AppCompatActivity {
     private void fillOutInfo(){
         nameText.setText(SharedPreferenceUtil.get(this,AppConfig.NAME));
         userIdText.setText(SharedPreferenceUtil.get(this,AppConfig.USERID));
-        birthdayText.setText(SharedPreferenceUtil.get(this,AppConfig.BIRTHDAY));
+
         emailInput.setText(SharedPreferenceUtil.get(this,AppConfig.EMAIL));
         phoneInput.setText(SharedPreferenceUtil.get(this,AppConfig.PHONE));
 

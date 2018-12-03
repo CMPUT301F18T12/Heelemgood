@@ -49,25 +49,12 @@
         app:layout_constraintTop_toBottomOf="@+id/userFullName"
         app:layout_constraintVertical_bias="0.023" />
 
-    <TextView
-        android:id="@+id/userBirthday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/muli"
-        android:text="@string/user_birthday"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userId" />
-
     <EditText
         android:id="@+id/userEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="68dp"
         android:layout_marginEnd="8dp"
         android:autofillHints=""
         android:ems="10"
@@ -76,9 +63,9 @@
         android:inputType="textEmailAddress"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userBirthday"
+        app:layout_constraintTop_toBottomOf="@+id/userId"
         tools:targetApi="o" />
 
     <EditText
