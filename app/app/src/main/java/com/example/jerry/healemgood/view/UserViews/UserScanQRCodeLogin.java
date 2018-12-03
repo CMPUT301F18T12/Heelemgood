@@ -13,12 +13,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.jerry.healemgood.MainActivity;
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
 import com.example.jerry.healemgood.controller.UserController;
+import com.example.jerry.healemgood.model.user.CareProvider;
 import com.example.jerry.healemgood.model.user.Patient;
 import com.example.jerry.healemgood.model.user.User;
 import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
@@ -45,6 +48,7 @@ public class UserScanQRCodeLogin extends AppCompatActivity {
     TextView textResult;
     BarcodeDetector barcodeDetector;
     CameraSource cameraSource;
+    ProgressBar progressBar;
     final int requestCameraPermissionID = 1001;
 
     /**
@@ -86,6 +90,8 @@ public class UserScanQRCodeLogin extends AppCompatActivity {
 
         cameraPreview = (SurfaceView) findViewById(R.id.cameraPreview);
         textResult = (TextView) findViewById(R.id.resultTextView);
+        progressBar = findViewById(R.id.qrProgressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE)
@@ -161,7 +167,11 @@ public class UserScanQRCodeLogin extends AppCompatActivity {
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     // Search for the user account
                                     try{
-                                        Patient patient = new UserController.SearchPatientTask().execute(qrcodes.valueAt(0).displayValue).get();
+                                        //Patient patient = new UserController.SearchPatientTask().execute(qrcodes.valueAt(0).displayValue).get();
+                                        UserController.SearchPatientTask task = new UserController.SearchPatientTask();
+                                        task.setProgressBar(progressBar);
+                                        Patient patient = task.execute(qrcodes.valueAt(0).displayValue).get();
+
                                         try{
                                             if (patient.getUserId().equals(qrcodes.valueAt(0).displayValue)){
                                                 //Store userid other important info into shared preference
@@ -177,14 +187,17 @@ public class UserScanQRCodeLogin extends AppCompatActivity {
                                                 startActivity(intent);
                                             }
                                         }catch (Exception e){
-                                            User careprovider = new UserController.SearchCareProviderTask().execute(qrcodes.valueAt(0).displayValue.toString()).get();
-                                            if (careprovider.getUserId().equals(qrcodes.valueAt(0).displayValue)) {
+                                            //User careprovider = new UserController.SearchCareProviderTask().execute(qrcodes.valueAt(0).displayValue.toString()).get();
+                                            UserController.SearchCareProviderTask task1 = new UserController.SearchCareProviderTask();
+                                            task1.setProgressBar(progressBar);
+                                            CareProvider careProvider = task1.execute(qrcodes.valueAt(0).displayValue).get();
+                                            if (careProvider.getUserId().equals(qrcodes.valueAt(0).displayValue)) {
                                                 //Store userid and other important info into shared preference
-                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.USERID, careprovider.getUserId());
-                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.EMAIL, careprovider.getEmail());
-                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.BIRTHDAY, careprovider.getBirthday().toString());
-                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.NAME, careprovider.getFullName());
-                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.PHONE, careprovider.getPhoneNum());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.USERID, careProvider.getUserId());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.EMAIL, careProvider.getEmail());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.BIRTHDAY, careProvider.getBirthday().toString());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.NAME, careProvider.getFullName());
+                                                SharedPreferenceUtil.store(UserScanQRCodeLogin.this, AppConfig.PHONE, careProvider.getPhoneNum());
                                                 SharedPreferenceUtil.store(UserScanQRCodeLogin.this,AppConfig.ISPATIENT,AppConfig.FALSE);
 
                                                 // Go to the home page of the care provider
