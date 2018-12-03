@@ -10,6 +10,8 @@
 
 package com.example.jerry.healemgood.Model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.example.jerry.healemgood.model.photo.Photo;
@@ -18,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Photo Test
@@ -34,22 +37,17 @@ public class PhotoTest {
     @Test
     public void photoConstructorTest() {
         // constructor and getters
-        String path = "/local/example.png";
+        //String path = "/local/icon.png";
+        String path = getClass().getClassLoader().getResource("icon.png").getPath();
         int width = 120;
         int height = 240;
 
-        Photo photo = new Photo(path, width, height);
-        assertEquals(path,photo.getPath());
-        assertEquals(width, photo.getWidth());
-        assertEquals(height, photo.getHeight());
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(path, bmOptions);
+        bitmap = Bitmap.createScaledBitmap(bitmap,width,height,true);
 
-        // setters and getters
-        photo.setPath("/new/example2.png");
-        photo.setHeight(64);
-        photo.setWidth(128);
-
-        assertEquals("/new/example2.png",photo.getPath());
-        assertEquals(64, photo.getHeight());
-        assertEquals(128, photo.getWidth());
+        Photo photo = new Photo(bitmap, "Hello");
+        assertEquals("Hello",photo.getLabel());
+        assertNotNull(photo.getDate());
     }
 }

@@ -47,9 +47,9 @@ public class PatientRecordTest {
         String title = "Test";
 
         try{
-            PatientRecord record = new PatientRecord(pid, title);
+            PatientRecord record = new PatientRecord(pid, title, "blah");
 
-            assertEquals(record.getTitle(), title);
+            assertEquals(record.getTitle(), "blah");
             assertEquals(record.getpId(), pid);
 
             // setters and getters
@@ -58,7 +58,7 @@ public class PatientRecordTest {
             record.setrId(pid2);
             record.setTitle(title2);
             assertEquals(record.getTitle(), title2);
-            assertEquals(record.getpId(), pid2);
+            assertEquals(record.getpId(), pid);
 
             // description
             String description = "Test record";
