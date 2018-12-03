@@ -268,7 +268,7 @@ public class RecordController {
         }
         searchQuery +="        {\"terms\" :{ \"pId\" : [";
         for (int i =0;i<piDs.length;i++){
-            searchQuery += "\""+piDs[i].toLowerCase()+"\"";
+            searchQuery += "\""+piDs[i]+"\"";
             if(i!=piDs.length-1){
                 searchQuery+=",";
             }
