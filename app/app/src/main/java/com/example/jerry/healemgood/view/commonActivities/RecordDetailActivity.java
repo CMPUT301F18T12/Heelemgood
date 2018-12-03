@@ -362,13 +362,26 @@ public class RecordDetailActivity extends AppCompatActivity {
     private void fillOutDetail(){
         EditText titleInput = findViewById(R.id.titleInput);
         EditText descriptionInput = findViewById(R.id.descriptionInput);
-        TextView dateEditText = findViewById(R.id.dateTextView);
+        TextView dateTextView = findViewById(R.id.dateTextView);
+        TextView authorTextView = findViewById(R.id.authorTextView);
+        authorTextView.setText(record.getUserId());
+        authorTextView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(),ViewContactActivity.class);
+                intent.putExtra(AppConfig.USERID,record.getUserId());
+                startActivity(intent);
+
+
+            }
+        });
+
         titleInput.setText(record.getTitle());
         descriptionInput.setText(record.getDescription());
         String pattern = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String dateString = simpleDateFormat.format(record.getCreatedDate());
-        dateEditText.setText(dateString);
+        dateTextView.setText(dateString);
 
         photoCollection = record.getPhotos();
         for (Photo p: photoCollection){

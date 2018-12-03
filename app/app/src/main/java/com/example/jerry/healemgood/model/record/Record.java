@@ -125,6 +125,18 @@ public class Record {
         return description;
     }
 
+
+
+    /**
+     * This gets and returns user id of the record;
+     *
+     * @return
+     */
+
+    public String getUserId(){
+        return patientId;
+    }
+
     /**
      * Add photos to the list
      *
