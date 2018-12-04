@@ -195,6 +195,7 @@ public class AllRecordActivity extends AppCompatActivity {
     private void loadRecords(){
 
         RecordController.searchByProblemIds(getIntent().getStringExtra(AppConfig.PID));
+        System.out.println("---------"+getIntent().getStringExtra(AppConfig.PID));
         try{
             //records = new RecordController.SearchRecordTask().execute().get();
             RecordController.SearchRecordTaskRefresh task = new RecordController.SearchRecordTaskRefresh();
