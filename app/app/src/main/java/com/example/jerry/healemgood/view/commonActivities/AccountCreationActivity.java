@@ -11,6 +11,9 @@ package com.example.jerry.healemgood.view.commonActivities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +48,8 @@ public class AccountCreationActivity extends AppCompatActivity {
     private RadioButton patientRadioButton;
     private RadioButton careProviderRadioButton;
     private ProgressBar progressBar;
+    private Boolean check_email;
+    private Boolean check_phone;
 
     /**
      * Loads older instance if possible
@@ -61,6 +66,36 @@ public class AccountCreationActivity extends AppCompatActivity {
         // Find references to the XML path
         // This includes all user attributes, such as username, password, etc.
         getAllXML();
+        emailAddress.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (emailAddress.getText().toString().contains("@") && emailAddress.getText().toString().contains(".com")){
+                    check_email = true;
+                }
+                //else if(emailAddress.getText().toString().trim().length() == 0){
+                    //check_email = false;
+                //}
+                else{
+                    emailAddress.setError("Invalid Email Address");
+                    check_email = false;
+                }
+            }
+        });
+        phoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (phoneNumber.getText().toString().trim().length() < 10){
+                    phoneNumber.setError("Invalid Phone number");
+                    check_phone = false;
+                }
+                //else if(phoneNumber.getText().length() == 0){
+                    //check_phone = false;
+                //}
+                else{
+                    check_phone = true;
+                }
+            }
+        });
 
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,76 +106,95 @@ public class AccountCreationActivity extends AppCompatActivity {
                 String ph =  phoneNumber.getText().toString();
                 String ema = emailAddress.getText().toString();
 
-                // If one of the radio buttons is selected, we can create an account
-                if (patientRadioButton.isChecked() || careProviderRadioButton.isChecked()){
+                if (check_email && check_phone){
+                    // If one of the radio buttons is selected, we can create an account
+                    if (patientRadioButton.isChecked() || careProviderRadioButton.isChecked()){
 
-                    if (patientRadioButton.isChecked()){
-                        Patient patient;
-                        try {
+                        if (patientRadioButton.isChecked()){
+                            Patient patient;
+                            try {
+                                // Search to see if the account already exists
+                                UserController.SearchPatientTask task = new UserController.SearchPatientTask();
+                                task.setProgressBar(progressBar);
+                                Patient patient1 = task.execute(username).get();
+
+                                if (patient1.getUserId().equals(username)){
+                                    Toast.makeText(getApplicationContext(),
+                                            "User ID already exists"
+                                            ,Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }catch (Exception e) {
+                                try {
+                                    patient = new Patient(
+                                            username, "Password", na, ph, ema,
+                                            new Date(),
+                                            'M'
+                                    );
+                                } catch (LengthOutOfBoundException e1) {
+                                    Toast.makeText(getApplicationContext(),
+                                            "Your userId is too short (at least 8 characters)"
+                                            , Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                patientRadioButton.setChecked(false);
+                                new UserController.AddUserTask().execute(patient);
+                                clearText();
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            }
+                        }
+                        if (careProviderRadioButton.isChecked()) {
+                            CareProvider careProvider;
                             // Search to see if the account already exists
-                            UserController.SearchPatientTask task = new UserController.SearchPatientTask();
-                            task.setProgressBar(progressBar);
-                            Patient patient1 = task.execute(username).get();
 
-                            if (patient1.getUserId().equals(username)){
-                                Toast.makeText(getApplicationContext(),
-                                        "User ID already exists"
-                                        ,Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                        }catch (Exception e) {
                             try {
-                                patient = new Patient(
-                                        username, "Password", na, ph, ema,
-                                        new Date(),
-                                        'M'
-                                );
-                            } catch (LengthOutOfBoundException e1) {
-                                Toast.makeText(getApplicationContext(),
-                                        "Your userId is too short (at least 8 characters)"
-                                        , Toast.LENGTH_SHORT).show();
-                                return;
+                                UserController.SearchCareProviderTask task1 = new UserController.SearchCareProviderTask();
+                                task1.setProgressBar(progressBar);
+                                CareProvider careProvider1 = task1.execute(username).get();
+
+                                if (careProvider1.getUserId().equals(username)) {
+                                    Toast.makeText(getApplicationContext(),
+                                            "User ID already exists"
+                                            , Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (Exception e) {
+                                try {
+                                    careProvider = new CareProvider(
+                                            username, "Password", na, ph, ema,
+                                            new Date(),
+                                            'M'
+                                    );
+                                } catch (LengthOutOfBoundException e2) {
+                                    Toast.makeText(getApplicationContext(),
+                                            "Your userId is too short (at least 8 characters)"
+                                            , Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                careProviderRadioButton.setChecked(false);
+                                new UserController.AddUserTask().execute(careProvider);
+                                clearText();
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
                             }
-                            patientRadioButton.setChecked(false);
-                            new UserController.AddUserTask().execute(patient);
-                            clearText();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }
                     }
-                    if (careProviderRadioButton.isChecked()) {
-                        CareProvider careProvider;
-                        // Search to see if the account already exists
-
-                        try {
-                            UserController.SearchCareProviderTask task1 = new UserController.SearchCareProviderTask();
-                            task1.setProgressBar(progressBar);
-                            CareProvider careProvider1 = task1.execute(username).get();
-
-                            if (careProvider1.getUserId().equals(username)) {
-                                Toast.makeText(getApplicationContext(),
-                                        "User ID already exists"
-                                        , Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (Exception e) {
-                            try {
-                                careProvider = new CareProvider(
-                                        username, "Password", na, ph, ema,
-                                        new Date(),
-                                        'M'
-                                );
-                            } catch (LengthOutOfBoundException e2) {
-                                Toast.makeText(getApplicationContext(),
-                                        "Your userId is too short (at least 8 characters)"
-                                        , Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            careProviderRadioButton.setChecked(false);
-                            new UserController.AddUserTask().execute(careProvider);
-                            clearText();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
-                        }
-                    }
+                }
+                else if(!check_phone && !check_email){
+                    Toast.makeText(getApplicationContext(),
+                            "Invalid Email Address and Invalid Phone Number"
+                            , Toast.LENGTH_SHORT).show();
+                }
+                else if(!check_email) {
+                    emailAddress.getText().clear();
+                    Toast.makeText(getApplicationContext(),
+                            "Invalid Email Address"
+                            , Toast.LENGTH_SHORT).show();
+                }
+                else if(!check_phone) {
+                    //phoneNumber.getText().clear();
+                    Toast.makeText(getApplicationContext(),
+                            "Invalid Phone Number"
+                            , Toast.LENGTH_SHORT).show();
                 }
             }
         });
