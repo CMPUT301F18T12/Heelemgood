@@ -8,11 +8,12 @@
     >
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/photoImageView"
         android:layout_width="100dp"
         android:layout_height="80dp"
         android:layout_marginLeft="10dp"
         android:layout_weight="30"
+        android:contentDescription="@string/user_avatar"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_weight="35"
-        android:text="Name"
+        android:text="@string/user_fullname"
         android:textSize="25sp"
         android:textStyle="bold" />
 

@@ -10,7 +10,6 @@
 package com.example.jerry.healemgood.view.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,7 +89,7 @@ public class RecordAdapter extends ArrayAdapter<Record> {
             TextView recordName = v.findViewById(R.id.recordNameTextView);
             TextView date = v.findViewById(R.id.dateTextView);
             TextView description = v.findViewById(R.id.countTextView);
-            ImageView imageView = v.findViewById(R.id.imageView);
+            ImageView imageView = v.findViewById(R.id.photoImageView);
 
             if (r.isPatientRecord()) {
                 imageView.setImageResource(R.drawable.record_icon);

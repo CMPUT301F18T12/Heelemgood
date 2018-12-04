@@ -27,6 +27,7 @@
         android:autofillHints=""
         android:ems="10"
         android:fontFamily="@font/muli"
+        android:hint="@string/title"
         android:inputType="text"
         android:maxLength="30"
         android:textColor="@android:color/black"

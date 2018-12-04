@@ -23,6 +23,7 @@
         android:autofillHints=""
         android:ems="10"
         android:fontFamily="@font/muli"
+        android:hint="@string/keywords"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -64,7 +65,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:fontFamily="@font/muli"
-            android:text="Keyword"
+            android:text="@string/keywords"
             android:textSize="18sp" />
 
         <RadioButton

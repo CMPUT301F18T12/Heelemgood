@@ -21,9 +21,7 @@ import android.widget.TextView;
 
 import com.example.jerry.healemgood.R;
 import com.example.jerry.healemgood.config.AppConfig;
-import com.example.jerry.healemgood.model.record.Record;
 import com.example.jerry.healemgood.model.user.Patient;
-import com.example.jerry.healemgood.utils.SharedPreferenceUtil;
 import com.example.jerry.healemgood.view.commonActivities.ViewContactActivity;
 
 import java.util.ArrayList;
@@ -92,7 +90,7 @@ public class PatientAdapter extends ArrayAdapter<Patient> {
             // Get the patient name and patient ID
             TextView patientName = v.findViewById(R.id.patientName);
             TextView patientUid = v.findViewById(R.id.patientUid);
-            ImageView imageView = v.findViewById(R.id.imageView);
+            ImageView imageView = v.findViewById(R.id.photoImageView);
 
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
