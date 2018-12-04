@@ -16,9 +16,10 @@
         android:text="@string/date"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/descriptionText2"
+        app:layout_constraintBottom_toBottomOf="@+id/descriptionText2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/descriptionText2" />
+        app:layout_constraintStart_toEndOf="@+id/descriptionText2"
+        app:layout_constraintTop_toTopOf="@+id/descriptionText2" />
 
     <TextView
         android:id="@+id/authorTextView"
@@ -29,9 +30,10 @@
         android:fontFamily="@font/muli"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/descriptionText4"
+        app:layout_constraintBottom_toBottomOf="@+id/descriptionText4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/descriptionText4" />
+        app:layout_constraintStart_toEndOf="@+id/descriptionText4"
+        app:layout_constraintTop_toTopOf="@+id/descriptionText4" />
 
     <TextView
         android:id="@+id/descriptionText2"
@@ -61,6 +63,7 @@
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionText4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,6 +80,7 @@
         android:inputType="text"
         android:maxLength="30"
         android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/titleText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/titleText"
@@ -89,6 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/muli"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
@@ -96,6 +101,7 @@
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descriptionText4" />
 
@@ -106,6 +112,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
         android:autofillHints=""
         android:ems="10"
         android:fontFamily="@font/muli"
@@ -117,6 +124,7 @@
         android:textAlignment="viewStart"
         android:textColor="@android:color/black"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionText2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -136,6 +144,7 @@
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
@@ -144,7 +153,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_corner"
@@ -155,8 +163,7 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewLocationButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/photoButton"
@@ -177,7 +184,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:columnWidth="110dp"
         android:gravity="center"
         android:horizontalSpacing="0dp"
@@ -192,8 +199,8 @@
 
     <Button
         android:id="@+id/editLocationButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/orange_small_corner"
@@ -204,20 +211,20 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/bodyButton"
+        app:layout_constraintBottom_toBottomOf="@+id/viewLocationButton"
         app:layout_constraintEnd_toStartOf="@+id/viewLocationButton"
-        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toEndOf="@+id/bodyButton"
-        app:layout_constraintTop_toTopOf="@+id/bodyButton" />
+        app:layout_constraintTop_toTopOf="@+id/viewLocationButton"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/viewLocationButton"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/orange_small_corner"
         android:fontFamily="@font/muli"
         android:paddingLeft="4dp"
@@ -233,9 +240,9 @@
 
     <Button
         android:id="@+id/bodyButton"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/orange_small_corner"
         android:fontFamily="@font/muli"
@@ -245,11 +252,10 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/viewLocationButton"
+        app:layout_constraintBottom_toBottomOf="@+id/editLocationButton"
         app:layout_constraintEnd_toStartOf="@+id/editLocationButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewLocationButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/editLocationButton" />
 
     <ProgressBar
         android:id="@+id/progressBar"

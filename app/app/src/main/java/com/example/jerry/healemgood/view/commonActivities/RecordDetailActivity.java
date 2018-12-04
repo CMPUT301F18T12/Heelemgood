@@ -211,18 +211,18 @@ public class RecordDetailActivity extends AppCompatActivity {
      */
     private void differentiateUserType(){
         if (SharedPreferenceUtil.get(this,AppConfig.ISPATIENT).equals(AppConfig.FALSE)){
-            photoButton.setVisibility(View.GONE);
-            editLocationButton.setVisibility(View.GONE);
-            saveButton.setVisibility(View.GONE);
+            photoButton.setVisibility(View.INVISIBLE);
+            editLocationButton.setVisibility(View.INVISIBLE);
+            saveButton.setVisibility(View.INVISIBLE);
 
         }
 
         if (!record.isPatientRecord()){
-            photoButton.setVisibility(View.GONE);
-            editLocationButton.setVisibility(View.GONE);
-            saveButton.setVisibility(View.GONE);
-            bodyButton.setVisibility(View.GONE);
-            viewLocationButton.setVisibility(View.GONE);
+            photoButton.setVisibility(View.INVISIBLE);
+            editLocationButton.setVisibility(View.INVISIBLE);
+            saveButton.setVisibility(View.INVISIBLE);
+            bodyButton.setVisibility(View.INVISIBLE);
+            viewLocationButton.setVisibility(View.INVISIBLE);
         }
     }
 
