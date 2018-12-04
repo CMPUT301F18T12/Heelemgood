@@ -50,6 +50,7 @@ public class AccountCreationActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Boolean check_email;
     private Boolean check_phone;
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     /**
      * Loads older instance if possible
@@ -69,7 +70,7 @@ public class AccountCreationActivity extends AppCompatActivity {
         emailAddress.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (emailAddress.getText().toString().contains("@") && emailAddress.getText().toString().contains(".com")){
+                if (emailAddress.getText().toString().trim().matches(emailPattern) && emailAddress.getText().toString().trim().length() > 0){
                     check_email = true;
                 }
                 else{
@@ -81,7 +82,7 @@ public class AccountCreationActivity extends AppCompatActivity {
         phoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (phoneNumber.getText().toString().trim().length() < 10){
+                if (phoneNumber.getText().toString().trim().length() < 5){
                     phoneNumber.setError("Invalid Phone number");
                     check_phone = false;
                 }

@@ -76,7 +76,7 @@
         android:fontFamily="@font/muli"
         android:hint="@string/phonenumber_text"
         android:inputType="number"
-        android:maxLength="10"
+        android:maxLength="15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
