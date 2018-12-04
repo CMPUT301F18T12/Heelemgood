@@ -44,7 +44,7 @@
         <activity android:name=".view.commonActivities.AccountCreationActivity" />
         <activity android:name=".view.patientActivities.PatientAddProblemActivity" />
         <activity android:name=".view.commonActivities.AllRecordActivity" />
-        <activity android:name=".view.commonActivities.RecordDetailActivity" />
+        <activity android:name=".view.commonActivities.RecordDetailActivity"  android:windowSoftInputMode="adjustPan" ></activity>
         <activity android:name=".view.patientActivities.PatientProblemDetailActivity" />
         <activity
             android:name=".view.patientActivities.PatientAllProblemActivity"
