@@ -72,9 +72,6 @@ public class AccountCreationActivity extends AppCompatActivity {
                 if (emailAddress.getText().toString().contains("@") && emailAddress.getText().toString().contains(".com")){
                     check_email = true;
                 }
-                //else if(emailAddress.getText().toString().trim().length() == 0){
-                    //check_email = false;
-                //}
                 else{
                     emailAddress.setError("Invalid Email Address");
                     check_email = false;
@@ -88,9 +85,6 @@ public class AccountCreationActivity extends AppCompatActivity {
                     phoneNumber.setError("Invalid Phone number");
                     check_phone = false;
                 }
-                //else if(phoneNumber.getText().length() == 0){
-                    //check_phone = false;
-                //}
                 else{
                     check_phone = true;
                 }
