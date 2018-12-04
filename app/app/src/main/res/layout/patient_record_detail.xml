@@ -171,16 +171,18 @@
 
         android:id="@+id/gridView"
         android:layout_width="0dp"
-        android:layout_height="145dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         android:columnWidth="110dp"
         android:gravity="center"
         android:horizontalSpacing="0dp"
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth"
         android:verticalSpacing="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/editLocationButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -189,9 +191,8 @@
     <Button
         android:id="@+id/editLocationButton"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/orange_small_corner"
         android:fontFamily="@font/muli"
@@ -201,10 +202,11 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bodyButton"
         app:layout_constraintEnd_toStartOf="@+id/viewLocationButton"
         app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toEndOf="@+id/bodyButton"
-        app:layout_constraintTop_toBottomOf="@+id/gridView" />
+        app:layout_constraintTop_toTopOf="@+id/bodyButton" />
 
     <Button
         android:id="@+id/viewLocationButton"
@@ -213,6 +215,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/orange_small_corner"
         android:fontFamily="@font/muli"
         android:paddingLeft="4dp"
@@ -221,6 +224,7 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editLocationButton"
         app:layout_constraintTop_toBottomOf="@+id/gridView" />
