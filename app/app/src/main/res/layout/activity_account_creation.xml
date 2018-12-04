@@ -20,7 +20,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" tools:targetApi="o" />
 
     <EditText
         android:id="@+id/firstNameEditText"
@@ -32,7 +33,8 @@
         android:hint="@string/firstname_text"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="@+id/userIdEditText"
-        app:layout_constraintTop_toBottomOf="@+id/userIdEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/userIdEditText"
+        android:autofillHints="" tools:targetApi="o" />
 
     <EditText
         android:id="@+id/lastNameEditText"
@@ -47,7 +49,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.229"
         app:layout_constraintStart_toEndOf="@+id/firstNameEditText"
-        app:layout_constraintTop_toTopOf="@+id/firstNameEditText" />
+        app:layout_constraintTop_toTopOf="@+id/firstNameEditText"
+        android:autofillHints="" tools:targetApi="o" />
 
     <EditText
         android:id="@+id/emailEditText"
@@ -56,14 +59,15 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
+        android:autofillHints=""
         android:ems="10"
         android:fontFamily="@font/muli"
         android:hint="@string/email_text"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/firstNameEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/firstNameEditText" tools:targetApi="o" />
 
     <EditText
         android:id="@+id/phoneEditText"
@@ -72,13 +76,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
+        android:autofillHints=""
         android:ems="10"
         android:fontFamily="@font/muli"
         android:hint="@string/phonenumber_text"
-        android:inputType="textPersonName"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/emailEditText" tools:targetApi="o" />
 
     <RadioGroup
         android:id="@+id/radioGroup2"
@@ -97,7 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/muli"
-            android:text="Patient"
+            android:text="@string/patient"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="400dp" />
 
@@ -106,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/muli"
-            android:text="Care Provider"
+            android:text="@string/care_provider"
             app:layout_constraintStart_toEndOf="@+id/patientRadioButton"
             app:layout_constraintTop_toTopOf="@+id/patientRadioButton" />
 
@@ -121,7 +126,7 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/big_round_corner"
         android:fontFamily="@font/muli"
-        android:text="Create"
+        android:text="@string/Create"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="24sp"

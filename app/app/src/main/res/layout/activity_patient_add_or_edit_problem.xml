@@ -14,6 +14,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:fontFamily="@font/muli"
+        android:hint="@string/title"
         android:inputType="textPersonName"
         android:maxLength="30"
         android:textColor="@android:color/black"
@@ -21,7 +22,8 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView2" />
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        android:autofillHints="" tools:targetApi="o" />
 
     <TextView
         android:id="@+id/textView2"
@@ -84,8 +86,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:autofillHints=""
         android:ems="10"
         android:fontFamily="@font/muli"
+        android:hint="@string/description"
         android:inputType="textMultiLine"
         android:maxLength="300"
         android:textColor="@android:color/black"
@@ -93,7 +97,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.296"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        tools:targetApi="o" />
 
     <TextView
         android:id="@+id/textView9"
@@ -104,7 +109,7 @@
         android:fontFamily="@font/muli"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:text="Date"
+        android:text="@string/date"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="italic"
@@ -122,7 +127,7 @@
         android:fontFamily="@font/muli"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:text="Pick Date"
+        android:text="@string/pick_date"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="18sp"

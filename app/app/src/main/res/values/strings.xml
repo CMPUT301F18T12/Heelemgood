@@ -111,5 +111,12 @@
     <string name="add_patient">Add Patient</string>
     <string name="detail">Detail</string>
     <string name="body_map">Body Map</string>
+    <string name="patient">Patient</string>
+    <string name="care_provider">Care Provider</string>
+    <string name="Create">create</string>
+    <string name="sign_in">Sign In</string>
+    <string name="create_an_account">Create an Account</string>
+    <string name="logo">logo</string>
+    <string name="pick_date">Pick Date</string>
 
 </resources>
