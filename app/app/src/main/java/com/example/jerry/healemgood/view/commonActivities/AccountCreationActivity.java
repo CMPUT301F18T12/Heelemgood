@@ -48,8 +48,8 @@ public class AccountCreationActivity extends AppCompatActivity {
     private RadioButton patientRadioButton;
     private RadioButton careProviderRadioButton;
     private ProgressBar progressBar;
-    private Boolean check_email;
-    private Boolean check_phone;
+    private Boolean check_email = false;
+    private Boolean check_phone = false;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     /**
@@ -82,13 +82,7 @@ public class AccountCreationActivity extends AppCompatActivity {
         phoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (phoneNumber.getText().toString().trim().length() < 5){
-                    phoneNumber.setError("Invalid Phone number");
-                    check_phone = false;
-                }
-                else{
-                    check_phone = true;
-                }
+                checkPhone();
             }
         });
 
@@ -100,6 +94,15 @@ public class AccountCreationActivity extends AppCompatActivity {
                 String na =  firstName.getText().toString();
                 String ph =  phoneNumber.getText().toString();
                 String ema = emailAddress.getText().toString();
+                checkPhone();
+
+                if (emailAddress.getText().toString().trim().matches(emailPattern) && emailAddress.getText().toString().trim().length() > 0){
+                    check_email = true;
+                }
+                else{
+                    emailAddress.setError("Invalid Email Address");
+                    check_email = false;
+                }
 
                 if (check_email && check_phone){
                     // If one of the radio buttons is selected, we can create an account
@@ -194,6 +197,17 @@ public class AccountCreationActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void checkPhone(){
+        if (phoneNumber.getText().toString().trim().length() < 5){
+            phoneNumber.setError("Invalid Phone number");
+            check_phone = false;
+        }
+        else{
+            check_phone = true;
+        }
+    }
+
     // Gets all the XML elements on the =screen
     /**
      * Gets all the xml elements
