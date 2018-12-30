@@ -36,9 +36,6 @@
         <activity android:name=".view.commonActivities.BodyMapViewActivity" />
         <activity android:name=".view.commonActivities.AddRecordActivity" />
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDMQjpqMqtFS2ogPixlLUPvUu9muw_Sm6w" />
 
         <activity android:name=".view.commonActivities.SearchActivity" />
         <activity android:name=".view.commonActivities.AccountCreationActivity" />
